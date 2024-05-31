@@ -702,6 +702,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 641693630}
+  - component: {fileID: 641693631}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -724,6 +725,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &641693631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641693629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e3bab06f2b51d4887954910850cc1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,9 +798,10 @@ GameObject:
   - component: {fileID: 907372260}
   - component: {fileID: 907372259}
   - component: {fileID: 907372258}
+  - component: {fileID: 907372262}
   m_Layer: 0
   m_Name: Cube1
-  m_TagString: Untagged
+  m_TagString: Organelle_SM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -878,6 +892,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &907372262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907372257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c0ed4a2ce6a6f40bdce6140d316be7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OC_UI: {fileID: 5887332248073686078, guid: 19d82b51d0745824fbdb1fed308cf32a, type: 3}
+  OC_Name: "\uBE68\uAC04\uAC70"
+  OC_Description: "\uBE68\uAC15\uBE68\uAC15"
+  showUI: 0
+  minScale: 0.2
+  maxScale: 1
+  minDistance: 1
+  maxDistance: 50
 --- !u!1 &1402913723
 GameObject:
   m_ObjectHideFlags: 0
