@@ -12,6 +12,8 @@ public class OrganelleController_StageMap : MonoBehaviour
 
     private GameObject myUI = null;
     private GameObject player = null;
+    private GameObject playerCam = null;
+    private Camera mainCam;
 
     public float minScale = 0.5f; // 최소 크기
     public float maxScale = 0.7f; // 최대 크기
@@ -21,6 +23,8 @@ public class OrganelleController_StageMap : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject;
+        playerCam = player.transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
+        mainCam = playerCam.GetComponent<Camera>();
         StartCoroutine(cGenerateUI());
     }
 
@@ -44,35 +48,33 @@ public class OrganelleController_StageMap : MonoBehaviour
     {
         while (true)
         {
-            // 여기에 머 방향 돌리고 그런 거 구현해야 함
             RaycastHit hit;
             Vector3 closest = this.gameObject.GetComponent<Collider>().ClosestPoint(player.transform.position);
             Vector3 vDistance = (closest - player.transform.position);
             Vector3 vNDistance = vDistance.normalized;
             float fDistance = vDistance.magnitude;
-            bool tooClose = false;
-            
-            //Vector3.up * (myUI.GetComponent<RectTransform>().rect.height)
+
             //if ((distance >= 50f) || (Physics.Raycast(player.transform.position, (this.transform.position - player.transform.position).normalized, out hit, distance))) { myUI.gameObject.SetActive(false); }
-            if (fDistance < 1f) { tooClose = true; }
-            if (fDistance >= 20f) { myUI.gameObject.SetActive(false); }
+
+            Vector3 viewportPos = mainCam.WorldToViewportPoint(this.transform.position);
+            //bool isInView = viewportPos.z > 0.15f && (viewportPos.x > 0.15f && viewportPos.x < 0.85f) && (viewportPos.y > 0.15f && viewportPos.y < 0.85f);
+            bool isInView = viewportPos.z > 0f && (viewportPos.x > 0f && viewportPos.x < 1f) && (viewportPos.y > 0f && viewportPos.y < 1f);
+
+            Bounds bounds = this.gameObject.GetComponent<Renderer>().bounds;
+            Vector3 minPoint = mainCam.WorldToViewportPoint(new Vector3(bounds.min.x, bounds.min.y, bounds.min.z));
+            Vector3 maxPoint = mainCam.WorldToViewportPoint(new Vector3(bounds.max.x, bounds.max.y, bounds.max.z));
+
+            if (fDistance >= 20f || !isInView) { myUI.gameObject.SetActive(false); }
             else
             {
                 float scale = 0f;
                 myUI.gameObject.SetActive(true);
-                if (tooClose) { scale = 0.005f * maxScale; }
-                else { scale = (Mathf.Clamp(1 - (fDistance / maxDistance), minScale, maxScale)) * 0.005f; }
+                scale = (Mathf.Clamp(1 - (fDistance / maxDistance), minScale, maxScale)) * 0.0002f;
                 myUI.gameObject.transform.localScale = new Vector3(scale, scale, scale);
             }
-
-            if (tooClose)
-            {
-                myUI.transform.position = closest + (GetLocalYAxis(vNDistance) * (myUI.GetComponent<RectTransform>().rect.height) * (myUI.gameObject.transform.localScale.x));
-            }
-            else { myUI.transform.position = closest - vNDistance + (GetLocalYAxis(vNDistance) * (myUI.GetComponent<RectTransform>().rect.height) * (myUI.gameObject.transform.localScale.x)); }
-
-            myUI.transform.LookAt(player.transform);
-            myUI.transform.Rotate(0, 180, 0);
+            myUI.transform.rotation = playerCam.transform.rotation;
+            //myUI.transform.position = playerCam.transform.position + 0.3f * playerCam.transform.forward + GetAddVector(minPoint, maxPoint);
+            myUI.transform.position = playerCam.transform.position + 0.3f * playerCam.transform.forward;
 
             if (showUI == false) { break; }
             yield return new WaitForSeconds(0.02f);
@@ -87,5 +89,30 @@ public class OrganelleController_StageMap : MonoBehaviour
         Vector3 localUp = Vector3.Cross(right, dir);
 
         return localUp.normalized;
+    }
+
+    private Vector3 GetAddVector(Vector3 minPoint, Vector3 maxPoint)
+    {
+        Vector3 addDir = Vector3.zero;
+
+        float width = maxPoint.x - minPoint.x;
+        float height = maxPoint.y - minPoint.y;
+        bool plusX = maxPoint.x + minPoint.x >= 0.5f ? true : false;
+        bool plusY = maxPoint.y + minPoint.y >= 0.5f ? true : false;
+
+        if (width <= 0.7 && height <= 0.7f)
+        {
+            if (plusX)
+            {
+                if (plusY) { addDir = 0.02f * (-playerCam.transform.up - playerCam.transform.right); }
+                else { addDir = 0.02f * (playerCam.transform.up - playerCam.transform.right); }
+            }
+            else
+            {
+                if (plusY) { addDir = 0.02f * (-playerCam.transform.up + playerCam.transform.right); }
+                else { addDir = 0.02f * (playerCam.transform.up + playerCam.transform.right); }
+            }
+        }
+        return addDir;
     }
 }
