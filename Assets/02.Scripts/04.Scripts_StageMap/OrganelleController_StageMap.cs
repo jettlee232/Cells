@@ -64,6 +64,8 @@ public class OrganelleController_StageMap : MonoBehaviour
             Vector3 minPoint = mainCam.WorldToViewportPoint(new Vector3(bounds.min.x, bounds.min.y, bounds.min.z));
             Vector3 maxPoint = mainCam.WorldToViewportPoint(new Vector3(bounds.max.x, bounds.max.y, bounds.max.z));
 
+            //if (isInView && (maxPoint.x <= 0.15f || minPoint.x >= 0.85f || maxPoint.y <= 0.15f || minPoint.y >= 0.85f)) isInView = false;
+
             if (fDistance >= 20f || !isInView) { myUI.gameObject.SetActive(false); }
             else
             {
