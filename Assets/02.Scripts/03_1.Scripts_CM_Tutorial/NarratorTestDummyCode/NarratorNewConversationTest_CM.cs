@@ -5,41 +5,29 @@ using PixelCrushers.DialogueSystem;
 
 public class NarratorNewConversationTest_CM : MonoBehaviour
 {
-    public DialogueSystemTrigger dialogueSystemTrigger;
-    public List<Conversation> conv;
-
-
-    private void Start()
+    public DialogueSystemTrigger dialogueSystemTrigger1;
+    public DialogueSystemTrigger dialogueSystemTrigger2;
+    public void ActivateDST1() // 1번째 트리거 작동 함수
     {
-        Debug.Log("Current DB : " + dialogueSystemTrigger.selectedDatabase);
-        Debug.Log("Current Conv : " + dialogueSystemTrigger.selectedDatabase.);
-        dialogueSystemTrigger.selectedDatabase.conversations.Clear();
+        dialogueSystemTrigger1.startConversationEntryID = 0; // 1번째 트리거의 컨버제이션 진입 번호를 0번으로 변경 (이거 안해도 되기는 한데, 안하면 나중에 컨버제이션 재활용이 불가)
+        dialogueSystemTrigger1.OnUse(); // On Use로 컨버제이션 작동           
+    }
+
+    public void ActivateDST2() // 2번째 트리거 작동 함수
+    {
+        dialogueSystemTrigger2.startConversationEntryID = 0; // 1번째 트리거의 컨버제이션 진입 번호를 0번으로 변경 (이거 안해도 되기는 한데, 안하면 나중에 컨버제이션 재활용이 불가)
+        dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동              
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {           
-            ChangeCurrentConversation();
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ActivateDST1();
         }        
-    }
-
-    public void ChangeCurrentConversation()
-    {
-        //dialogueSystemTrigger.selectedDatabase.conversations = dialogueSystemTrigger.selectedDatabase.GetConversation("Text Convers 2");
-
-        dialogueSystemTrigger.conversation = "Text Convers 2";
-
-        /*
-        if (dialogueSystemTrigger != null)
+        else if (Input.GetKeyDown(KeyCode.W))
         {
-            dialogueSystemTrigger.conversation = "Text Convers 2";
+            ActivateDST2();
         }
-        else
-        {
-            Debug.LogError("DialogueSystemTrigger 참조가 설정되지 않았습니다.");
-        }
-        */
     }
-
 }
