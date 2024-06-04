@@ -14,6 +14,7 @@ public class PlayerMoving_Lobby : MonoBehaviour
     public float rotateValue = 30f;
     public float groundCheck = 0.02f;
     public float maxSlopeAngle = 45f;
+    public bool flyable = true;
     public Transform dirStandard;
 
     private Rigidbody rb;
@@ -40,14 +41,16 @@ public class PlayerMoving_Lobby : MonoBehaviour
     {
         GetRotate();
         rb.velocity = GetUp() + GetMove();
-        Debug.Log("경사면에 있는지 : " + CheckSlope().ToString());
     }
 
     private Vector3 GetUp()
     {
-        right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-        right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out goUp);
-
+        if (flyable)
+        {
+            right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+            right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out goUp);
+        }
+        
         if (goUp) { return Vector3.up * upSpeed; }
         else
         {
@@ -64,7 +67,8 @@ public class PlayerMoving_Lobby : MonoBehaviour
         Quaternion guideRot = Quaternion.Euler(0, dirStandard.eulerAngles.y, 0);
         Vector3 moveDir = new Vector3(XZMove.x, 0f, XZMove.y);
         moveDir = guideRot * moveDir;
-        return moveDir * moveSpeed;
+        if (CheckSlope()) { return AdjustSlope(moveDir) * moveSpeed; }
+        else { return moveDir * moveSpeed; }
     }
 
     private void GetRotate()
@@ -84,11 +88,11 @@ public class PlayerMoving_Lobby : MonoBehaviour
         rotateCoroutine = false;
     }
 
-    private bool CheckGround()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, groundCheck, groundLayer)) { return true; }
-        else { return false; }
-    }
+    //private bool CheckGround()
+    //{
+    //    if (Physics.Raycast(transform.position, Vector3.down, groundCheck, groundLayer)) { return true; }
+    //    else { return false; }
+    //}
     private bool CheckSlope()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
