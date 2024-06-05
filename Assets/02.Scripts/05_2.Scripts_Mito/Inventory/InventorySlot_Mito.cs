@@ -6,6 +6,7 @@ using static Item_Mito;
 
 public class InventorySlot_Mito : MonoBehaviour
 {
+    // 슬롯 스크립트들은 추후에 상속으로 변경
     Inventory_Mito inventory;
     public ItemType slotType;
     public SnapZone snapZone;
@@ -20,15 +21,18 @@ public class InventorySlot_Mito : MonoBehaviour
         snapZone.OnDetachEvent.AddListener(OnItemDetached);
     }
 
+    // 아이템이 슬롯에 붙을때의 이벤트
     void OnItemSnapped(Grabbable item)
     {
         if (isHandlingEvent) return;
 
+        // 아이템을 일치하는 슬롯에 넣을때
         if (item.GetComponent<Item_Mito>().type == slotType)
         {
             isHandlingEvent = true;
             inventory.AddItem(item);
         }
+        // 아이템을 다른 슬롯에 넣을때
         else
         {
             isHandlingEvent = true;
@@ -39,6 +43,7 @@ public class InventorySlot_Mito : MonoBehaviour
         isHandlingEvent = false;
     }
 
+    // 아이템이 슬롯에서 떨어질때의 이벤트
     void OnItemDetached(Grabbable item)
     {
         if (isHandlingEvent) return;
@@ -50,6 +55,7 @@ public class InventorySlot_Mito : MonoBehaviour
         isHandlingEvent = false;
     }
 
+    // 이벤트 중복 호출 방지 플래그
     public void ToggleIsHandlingEvent()
     {
         isHandlingEvent = !isHandlingEvent;

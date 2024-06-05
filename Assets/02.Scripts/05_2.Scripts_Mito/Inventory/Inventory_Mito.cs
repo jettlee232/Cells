@@ -10,12 +10,16 @@ public class Inventory_Mito : MonoBehaviour
     public List<Grabbable> adenineItems = new List<Grabbable>();
     public List<Grabbable> riboseItems = new List<Grabbable>();
     public List<Grabbable> phosphateItems = new List<Grabbable>();
+    public List<Grabbable> adpItems = new List<Grabbable>();
     public List<Grabbable> atpItems = new List<Grabbable>();
+    public List<Grabbable> hIonItems = new List<Grabbable>();
 
     public InventorySlot_Mito adenineSlot; // 아데닌 슬롯 참조
     public InventorySlot_Mito riboseSlot; // 리보스 슬롯 참조
     public InventorySlot_Mito phosphateSlot; // 인산 슬롯 참조
+    public InventorySlot_Mito adpSlot; // ADP 슬롯 참조
     public InventorySlot_Mito atpSlot; // ATP 슬롯 참조
+    public InventorySlot_Mito hIonSlot; // 수소 이온 슬롯 참조
 
     public void AddItem(Grabbable item)
     {
@@ -52,6 +56,14 @@ public class Inventory_Mito : MonoBehaviour
                 else
                     SnapItemToSlot(item, phosphateSlot);
                 break;
+            // ADP
+            case ItemType.ADP:
+                adpItems.Add(item);
+                if (adpItems.Count > 1)
+                    item.gameObject.SetActive(false);
+                else
+                    SnapItemToSlot(item, adpSlot);
+                break;
             // ATP
             case ItemType.ATP:
                 atpItems.Add(item);
@@ -60,12 +72,20 @@ public class Inventory_Mito : MonoBehaviour
                 else
                     SnapItemToSlot(item, atpSlot);
                 break;
+            case ItemType.H_Ion:
+                hIonItems.Add(item);
+                if (hIonItems.Count > 1)
+                    item.gameObject.SetActive(false);
+                else
+                    SnapItemToSlot(item, hIonSlot);
+                break;
         }
 
     }
 
     public void RemoveItem(Grabbable item)
     {
+        // 아이템 종류따라 구분
         switch (item.GetComponent<Item_Mito>().type)
         {
             case ItemType.Adenine:
@@ -77,8 +97,14 @@ public class Inventory_Mito : MonoBehaviour
             case ItemType.Phosphate:
                 StartCoroutine(RemoveAndSnapRemainingItems(phosphateItems, phosphateSlot, item));
                 break;
+            case ItemType.ADP:
+                StartCoroutine(RemoveAndSnapRemainingItems(adpItems, adpSlot, item));
+                break;
             case ItemType.ATP:
                 StartCoroutine(RemoveAndSnapRemainingItems(atpItems, atpSlot, item));
+                break;
+            case ItemType.H_Ion:
+                StartCoroutine(RemoveAndSnapRemainingItems(hIonItems, hIonSlot, item));
                 break;
         }
 
@@ -86,6 +112,7 @@ public class Inventory_Mito : MonoBehaviour
 
     private IEnumerator RemoveAndSnapRemainingItems(List<Grabbable> items, InventorySlot_Mito slot, Grabbable itemToRemove)
     {
+        // 리스트에서 제거되는걸 확실하게 기다렸다가 실행
         yield return items.Remove(itemToRemove);
 
         if (items.Count > 0)
@@ -93,7 +120,8 @@ public class Inventory_Mito : MonoBehaviour
             SnapItemToSlot(items[0], slot);
         }
     }
-
+    
+    // 슬롯에 아이템 스냅
     private void SnapItemToSlot(Grabbable item, InventorySlot_Mito slot)
     {
         slot.ToggleIsHandlingEvent();
@@ -101,5 +129,4 @@ public class Inventory_Mito : MonoBehaviour
         slot.snapZone.GrabGrabbable(item);
         slot.ToggleIsHandlingEvent();
     }
-
 }

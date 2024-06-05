@@ -6,18 +6,14 @@ using static Item_Mito;
 
 public class ADPMixTable_Mito : MonoBehaviour
 {
-    // 각각의 아이템들을 담아놓은 리스트
-    public List<Grabbable> adenineItems = new List<Grabbable>();
-    public List<Grabbable> riboseItems = new List<Grabbable>();
-    public List<Grabbable> phosphateItems = new List<Grabbable>();
-    public List<Grabbable> atpItems = new List<Grabbable>();
+    // 각 아이템의 슬롯 참조
+    public MixTableSlot_Mito adenineSlot;
+    public MixTableSlot_Mito riboseSlot;
+    public MixTableSlot_Mito phosphateSlot_1;
+    public MixTableSlot_Mito phosphateSlot_2;
+    public MixTableSlot_Mito adpSlot;
 
-    public MixTableSlot_Mito adenineSlot; // 아데닌 슬롯 참조
-    public MixTableSlot_Mito riboseSlot; // 리보스 슬롯 참조
-    public MixTableSlot_Mito phosphateSlot_1; // 인산 슬롯 참조
-    public MixTableSlot_Mito phosphateSlot_2; // 인산 슬롯 참조
-    public MixTableSlot_Mito adpSlot; // ADP 슬롯 참조
-
+    // 각 아이템의 유무 변수
     public bool isAdenine = false;
     public bool isRibose = false;
     public bool isPhosphate_1 = false;
@@ -25,42 +21,29 @@ public class ADPMixTable_Mito : MonoBehaviour
 
     public GameObject adpPrefab;
 
-    public void AddItem(Grabbable item, MixTableSlot_Mito slot)
+    // 슬롯의 상태에 따라 유무 변수 업데이트
+    public void UpdateSlotStatus(ItemType itemType, bool status)
     {
-        switch (item.GetComponent<Item_Mito>().type)
+        switch (itemType)
         {
             case ItemType.Adenine:
-                adenineItems.Add(item);
+                isAdenine = status;
                 break;
             case ItemType.Ribose:
-                riboseItems.Add(item);
+                isRibose = status;
                 break;
             case ItemType.Phosphate:
-                phosphateItems.Add(item);
+                isPhosphate_1 = phosphateSlot_1.snapZone.HeldItem != null;
+                isPhosphate_2 = phosphateSlot_2.snapZone.HeldItem != null;
                 break;
         }
-        CheckForADP();
+
+        //CheckADP();
     }
 
-    public void RemoveItem(Grabbable item, MixTableSlot_Mito slot)
+    public void CheckADP()
     {
-        switch (item.GetComponent<Item_Mito>().type)
-        {
-            case ItemType.Adenine:
-                adenineItems.Remove(item);
-                break;
-            case ItemType.Ribose:
-                riboseItems.Remove(item);
-                break;
-            case ItemType.Phosphate:
-                phosphateItems.Remove(item);
-                break;
-        }
-    }
-
-    void CheckForADP()
-    {
-        if (adenineItems.Count >= 1 && riboseItems.Count >= 1 && phosphateItems.Count >= 2)
+        if (isAdenine && isRibose && isPhosphate_1 && isPhosphate_2)
         {
             MakeADP();
         }
@@ -70,35 +53,35 @@ public class ADPMixTable_Mito : MonoBehaviour
     {
         if (adpSlot.snapZone.HeldItem == null)
         {
-            // Remove the required items from the slots
-            RemoveAndDeactivateItem(adenineItems);
-            RemoveAndDeactivateItem(riboseItems);
-            RemoveAndDeactivateItem(phosphateItems);
-            RemoveAndDeactivateItem(phosphateItems); // 두번째 인산 제거
+            RemoveAllItems();
 
-            // Instantiate ADP and snap it to the ADP slot
-            GameObject adpInstance = Instantiate(adpPrefab);
-            SnapItemToSlot(adpInstance.GetComponent<Grabbable>(), adpSlot);
-
-            adenineSlot.snapZone.ReleaseAll();
-            riboseSlot.snapZone.ReleaseAll();
-            phosphateSlot_1.snapZone.ReleaseAll();
-            phosphateSlot_2.snapZone.ReleaseAll();
+            GameObject adpItem = Instantiate(adpPrefab);
+            adpSlot.snapZone.GrabGrabbable(adpItem.GetComponent<Grabbable>());
         }
     }
 
-    void RemoveAndDeactivateItem(List<Grabbable> items)
+    // ADP 조합 후 초기화
+    private void RemoveAllItems()
     {
-        if (items.Count > 0)
+        if (adenineSlot.snapZone.HeldItem != null)
         {
-            Grabbable item = items[0];
-            item.gameObject.SetActive(false);
-            items.RemoveAt(0);
+            Destroy(adenineSlot.snapZone.HeldItem.gameObject);
+            isAdenine = false;
         }
-    }
-
-    private void SnapItemToSlot(Grabbable item, MixTableSlot_Mito slot)
-    {
-        slot.snapZone.GrabGrabbable(item);
+        if (riboseSlot.snapZone.HeldItem != null)
+        {
+            Destroy(riboseSlot.snapZone.HeldItem.gameObject);
+            isRibose = false;
+        }
+        if (phosphateSlot_1.snapZone.HeldItem != null)
+        {
+            Destroy(phosphateSlot_1.snapZone.HeldItem.gameObject);
+            isPhosphate_1 = false;
+        }
+        if (phosphateSlot_2.snapZone.HeldItem != null)
+        {
+            Destroy(phosphateSlot_2.snapZone.HeldItem.gameObject);
+            isPhosphate_2 = false;
+        }
     }
 }
