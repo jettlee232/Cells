@@ -43,4 +43,5 @@ public class GameManager_Lobby : MonoBehaviour
 
     public float GetMoveSpeed() { return moveSpeed; }
     public GameObject GetPlayerCam() { return playerCam; }
+    public GameObject GetPlayer() { return player; }
 }

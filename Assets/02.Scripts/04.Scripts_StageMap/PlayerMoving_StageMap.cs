@@ -6,7 +6,7 @@ using UnityEngine.XR;
 using static PixelCrushers.DialogueSystem.SequencerShortcuts;
 using static UnityEngine.GraphicsBuffer;
 
-public class PlayerMoving_Lobby : MonoBehaviour
+public class PlayerMoving_StageMap: MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float upSpeed = 5f;
@@ -18,6 +18,7 @@ public class PlayerMoving_Lobby : MonoBehaviour
 
     private Rigidbody rb;
 
+    private bool goUp = false;
     private Vector2 XZMove = Vector2.zero;
     private Vector2 XRotate = Vector2.zero;
     private bool rotateCoroutine;
@@ -43,8 +44,15 @@ public class PlayerMoving_Lobby : MonoBehaviour
 
     private Vector3 GetUp()
     {
-        if (CheckSlope()) { return Vector3.zero; }
-        else { return Vector3.down * downSpeed; }
+        right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+        right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out goUp);
+
+        if (goUp) { return Vector3.up * upSpeed; }
+        else
+        {
+            if (CheckSlope()) { return Vector3.zero; }
+            else { return Vector3.down * downSpeed; }
+        }
     }
 
     private Vector3 GetMove()
