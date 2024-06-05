@@ -40,19 +40,4 @@ public class SelectMenu_Lobby : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player")) { UIManager_Lobby.instance.HideAlert(); }
     }
-
-    //public void GetAway(GameObject player)
-    //{
-    //    StartCoroutine(cGetAway(player));
-    //}
-    //IEnumerator cGetAway(GameObject player)
-    //{
-    //    Rigidbody playerRb = player.GetComponent<Rigidbody>();
-    //    while (Vector3.Distance(this.transform.position, player.transform.position) >= 3f)
-    //    {
-    //        playerRb.velocity = GameManager_Lobby.instance.GetMoveSpeed() * (-moveDir);
-    //        yield return new WaitForSeconds(0.02f);
-    //    }
-    //    //player.GetComponent<PlayerMoving_Lobby>().enabled = true;
-    //}
 }

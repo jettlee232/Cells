@@ -11,6 +11,9 @@ public class GameManager_Lobby : MonoBehaviour
     public float moveSpeed = 3f;
     private GameObject lastInteract = null;
 
+    public bool firstDialogue = false;
+    public bool secondDialogue = false;
+
     void Awake()
     {
         if (instance == null) { instance = this; DontDestroyOnLoad(gameObject); }
@@ -35,13 +38,11 @@ public class GameManager_Lobby : MonoBehaviour
         RemoveLastInteract();
         SceneManager.LoadScene(sceneName);
     }
-    //public void SetPlayerAway()
-    //{
-    //    lastInteract.GetComponent<SelectMenu_Lobby>().GetAway(player);
-    //    RemoveLastInteract();
-    //}
 
     public float GetMoveSpeed() { return moveSpeed; }
     public GameObject GetPlayerCam() { return playerCam; }
     public GameObject GetPlayer() { return player; }
+
+    public void SetDialogueFirstTrue() { firstDialogue = true; }
+    public void SetDailogueSecondTrue() { secondDialogue = true; }
 }

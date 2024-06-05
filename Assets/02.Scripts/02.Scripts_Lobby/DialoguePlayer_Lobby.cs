@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
 
-public class LaserPointer_Lobby : MonoBehaviour
+public class DialoguePlayer_Lobby : MonoBehaviour
 {
     public BNG.UIPointer uiPointer; // 포인터 컴포넌트
     public bool isTriggerPressed = false; // 트리거가 눌리는지 안 눌리는지
@@ -17,7 +17,6 @@ public class LaserPointer_Lobby : MonoBehaviour
     private int descObjLayer;
     private GameObject player = null;
     private Camera mainCam = null;
-    private bool isDialogue = false;
 
     UnityEngine.XR.InputDevice right; // 오른손 컨트롤러 상태를 받는 변수
 
@@ -66,17 +65,13 @@ public class LaserPointer_Lobby : MonoBehaviour
                     InstantiatePanel(obj);
                 }
             }
-            else if (rayHit.collider.gameObject.CompareTag("NPC"))
-            {
-
-            }
         }
     }
 
     public void InstantiatePanel(GameObject go)
     {
         if (descPanel.activeSelf) { DestroyDescription(); }
-        
+
         descPanel.SetActive(true);
         descPanel.GetComponent<RectTransform>().localScale = Vector3.one * 0.00125f;
         MakeDescription(go);
@@ -118,6 +113,4 @@ public class LaserPointer_Lobby : MonoBehaviour
         if (isInView && isClose) { return true; }
         else { return false; }
     }
-
-    public void IsTalking() { isDialogue = true; }
 }
