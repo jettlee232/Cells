@@ -32,7 +32,7 @@ public class BlockSpawnManager_CM : MonoBehaviour
         {
             yield return new WaitForSeconds(1.5f);
 
-            int blockSpawnPosRnd = Random.Range(0, 4);
+            int blockSpawnPosRnd = Random.Range(0, 12);
             int blockRnd1 = Random.Range(0, 2);
             int blockRnd2 = Random.Range(0, 6);
 

@@ -1,7 +1,7 @@
+using HighlightPlus;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine.Rendering;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -18,6 +18,8 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
     public bool isButtonPressed = false;
 
     UnityEngine.XR.InputDevice right;
+
+    public GameObject glowObj;
 
     void Start()
     {        
@@ -45,7 +47,7 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
             uiPointer.HidePointerIfNoObjectsFound = true; // 레이저 안 보이게 하기    
         }
 
-        if (descrptionPanel != null) // 현재 설명창이 만들어진 상태라면
+        if (descrptionPanel != null) // 현재 설명창이 안 만들어진 상태라면
         {
             FollowingDescription(descrptionPanel); // 현재 만들어진 설명창이 내 시선을 따라오게 하기
         }
@@ -63,12 +65,16 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
         {
             // 오른손 손가락 전방으로 레이저를 쏴서 DescObj라는 Layer를 가진 오브젝트라면...
             if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("DescObj"))
-            {
+            {                
                 // 현재 설명창이 가리키는 오브젝트의 이름과 레이저가 맞은 오브젝트의 이름도 다르다면...
                 // (설명창이 닫힌 상태라면 objName에는 아무것도 안 적혀있을거임)
                 if (objName != rayHit.collider.gameObject.name)
                 {
                     objName = rayHit.collider.gameObject.name; // objName에다 레이저에 맞은 오브젝트의 이름을 넣기
+
+                    //glowObj = rayHit.collider.gameObject;
+                    rayHit.collider.gameObject.GetComponent<HighlightEffect>().highlighted = true;
+                    rayHit.collider.gameObject.GetComponent<HighLightColorchange_CM>().GlowStart();
 
                     InstantiatePanel(rayHit.collider.gameObject); // 패널 만들기
                 }
@@ -93,7 +99,9 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
         descrptionPanel.GetComponent<RectTransform>().localScale = new Vector3(0.0002f, 0.0002f, 0.0002f);
 
         // 오브젝트 설명 띄우기
-        MakeDescription(go); 
+        MakeDescription(go);
+
+        glowObj = go;
     }
 
     
@@ -116,6 +124,12 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
 
     public void DestroyDescription() // 패널 없애기
     {
+        if (glowObj != null)
+        {
+            glowObj.GetComponent<HighlightEffect>().highlighted = false;
+            glowObj.GetComponent<HighLightColorchange_CM>().GlowEnd();
+        }
+                       
         Destroy(descrptionPanel);
         objName = ""; // 현재 가리키는 오브젝트가 없음을 알리기 위해 objName을 비우기
     }

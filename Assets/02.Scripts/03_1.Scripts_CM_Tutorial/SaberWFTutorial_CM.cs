@@ -14,7 +14,7 @@ public class SaberWFTutorial_CM : MonoBehaviour
     
     void Start()
     {
-        
+        tutoMgr = GameObject.Find("TutorialMgr").GetComponent<TutorialManager_CM>();
     }
 
     void Update()

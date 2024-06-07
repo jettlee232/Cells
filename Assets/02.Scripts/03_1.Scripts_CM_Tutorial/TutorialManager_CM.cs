@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PixelCrushers.DialogueSystem;
+using System.ComponentModel;
 
 public class TutorialManager_CM : MonoBehaviour
 {
+    [Header("Test Block Variable")]
     public GameObject[] testBlocks; // 12개의 테스트블록
     //public GameObject[] testBlocksVar; // 12개의 테스트블록
     public Transform[] testBlockSpawnpos; // 12개의 테스트블록 배치 위치
@@ -11,11 +14,58 @@ public class TutorialManager_CM : MonoBehaviour
     public int correctAns; // 정답 개수
     public bool[] correctAnss; // 정답 개수 체크
 
+    [Header("Test Saber Variable")]
+    public Transform testSaberSSSpawnPos;
+    public Transform testSaberWFSpawnPos;
+    public GameObject testSaberSS;
+    public GameObject testHeadWF;
+    public GameObject testSaberSSWF;
+    public GameObject testSaberSSWFComplete;
+    public GameObject saberVar;
+
+    [Header("Narrator Mgr")]
+    public NarratorDialogueHub_CM_Tutorial narrator;
+    public DialogueSystemController dsc;
+
+
     void Start()
     {
-        MakeTestBlocks();
+        //MakeTestBlocks();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            
+        }
+    }
+
+
+    // 인지질 막대기랑 머리 만들기 -> After First Encounter
+    public void MakeTestSaberSS()
+    {
+        saberVar = Instantiate(testSaberSS, testSaberSSSpawnPos.position, Quaternion.identity);        
+    }
+
+    public void MakeTestHeadWF()
+    {
+        Instantiate(testHeadWF, testSaberWFSpawnPos.position, Quaternion.identity);
+    }
+
+    // 인지질 막대기랑 머리 합치기 -> After Second Conv
+    public void MakeTestSaberSSWF()
+    {
+        Instantiate(testSaberSSWF, testSaberSSSpawnPos.position, Quaternion.Euler(90, 0, 0));
+    }
+
+    // 인지질 이중층 구조 만들게 하나 더 만들기 -> After Third Conv
+    public void MakeTestSSWFComplete()
+    {
+        Instantiate(testSaberSSWFComplete, testSaberWFSpawnPos.position, Quaternion.Euler(0, 0, 0));
+    }    
+
+    // 테스트 블록들 다 배치하기 -> After Fourth Conv
     public void MakeTestBlocks() // 테스트 블록들 다 배치하기
     {
         //testBlocksVar = new GameObject[testBlocks.Length];
@@ -34,6 +84,11 @@ public class TutorialManager_CM : MonoBehaviour
 
             //go.GetComponent<BlockMoving_CM>().speed = 0f; // 못 움직이게 스피드는 0으로 고정시켜놓기
         }
+    }
+
+    public void DeleteSaber()
+    {
+        Destroy(saberVar);
     }
 
     // (훈련용)세이버에 닿은 블록이 어떤 블록인지 알아낸 다음, 정답이면 그 블록을 삭제하고 잠시 후 다시 생성
@@ -106,4 +161,26 @@ public class TutorialManager_CM : MonoBehaviour
 
         Destroy(go);
     }
+
+    #region Register with Lua
+    private void OnEnable()
+    {
+        Lua.RegisterFunction("MakeTestSaberSS", this, SymbolExtensions.GetMethodInfo(() => MakeTestSaberSS()));
+        Lua.RegisterFunction("MakeTestHeadWF", this, SymbolExtensions.GetMethodInfo(() => MakeTestHeadWF()));
+        Lua.RegisterFunction("MakeTestSaberSSWF", this, SymbolExtensions.GetMethodInfo(() => MakeTestSaberSSWF()));
+        Lua.RegisterFunction("MakeTestSSWFComplete", this, SymbolExtensions.GetMethodInfo(() => MakeTestSSWFComplete()));
+        Lua.RegisterFunction("MakeTestBlocks", this, SymbolExtensions.GetMethodInfo(() => MakeTestBlocks()));
+        Lua.RegisterFunction("DeleteSaber", this, SymbolExtensions.GetMethodInfo(() => DeleteSaber()));        
+    }
+
+    private void OnDisable()
+    {
+        Lua.UnregisterFunction("MakeTestSaberSS");
+        Lua.UnregisterFunction("MakeTestHeadWF");
+        Lua.UnregisterFunction("MakeTestSaberSSWF");
+        Lua.UnregisterFunction("MakeTestSSWFComplete");
+        Lua.UnregisterFunction("MakeTestBlocks");
+        Lua.UnregisterFunction("DeleteSaber");
+    }
+    #endregion
 }
