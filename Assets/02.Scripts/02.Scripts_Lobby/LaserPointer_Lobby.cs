@@ -17,6 +17,7 @@ public class LaserPointer_Lobby : MonoBehaviour
     private int descObjLayer;
     private GameObject player = null;
     private Camera mainCam = null;
+    private GameObject NPC = null;
     private bool isDialogue = false;
 
     UnityEngine.XR.InputDevice right; // 오른손 컨트롤러 상태를 받는 변수
@@ -29,6 +30,7 @@ public class LaserPointer_Lobby : MonoBehaviour
         descObjLayer = 1 << LayerMask.NameToLayer("DescObj");
         player = GameManager_Lobby.instance.GetPlayer();
         mainCam = GameManager_Lobby.instance.GetPlayerCam().GetComponent<Camera>();
+        NPC = GameManager_Lobby.instance.GetNPC();
     }
 
     void Update()
@@ -68,7 +70,16 @@ public class LaserPointer_Lobby : MonoBehaviour
             }
             else if (rayHit.collider.gameObject.CompareTag("NPC"))
             {
-
+                if (GameManager_Lobby.instance.firstEnd)
+                {
+                    if (GameManager_Lobby.instance.secondCon)
+                    {
+                        // 두번째 대화 조건 만족
+                        NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST2();
+                    }
+                    else { NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST3(); }
+                }
+                else { NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST1(); }
             }
         }
     }

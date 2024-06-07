@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +9,20 @@ public class GameManager_Lobby : MonoBehaviour
     public static GameManager_Lobby instance;
     public GameObject player;
     public GameObject playerCam;
+    public GameObject NPC;
     public float moveSpeed = 3f;
     private GameObject lastInteract = null;
 
-    public bool firstDialogue = false;
-    public bool secondDialogue = false;
+    //public bool firstNow { get; set; }
+    //public bool secondNow { get; set; }
+    //public bool thirdNow { get; set; }
+
+    public bool secondCon { get; set; }
+
+    public bool firstEnd { get; set; }
+    public bool secondEnd { get; set; }
+    //public bool secondEnd { get; set; }
+    //public bool thirdEnd { get; set; }
 
     void Awake()
     {
@@ -22,12 +32,10 @@ public class GameManager_Lobby : MonoBehaviour
 
     void Start()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        //firstNow = false; secondNow = false; thirdNow = false;
+        firstEnd = false;
+        secondCon = false;
+        //firstEnd = false; secondEnd = false; thirdEnd = false;
     }
 
     public void SetLastInteract(GameObject obj) { lastInteract = obj; }
@@ -42,7 +50,5 @@ public class GameManager_Lobby : MonoBehaviour
     public float GetMoveSpeed() { return moveSpeed; }
     public GameObject GetPlayerCam() { return playerCam; }
     public GameObject GetPlayer() { return player; }
-
-    public void SetDialogueFirstTrue() { firstDialogue = true; }
-    public void SetDailogueSecondTrue() { secondDialogue = true; }
+    public GameObject GetNPC() { return NPC; }
 }

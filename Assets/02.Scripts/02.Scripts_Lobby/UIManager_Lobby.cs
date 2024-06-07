@@ -35,25 +35,25 @@ public class UIManager_Lobby : MonoBehaviour
         alert_UI.transform.GetChild(0).gameObject.GetComponent<Text>().text = lastInteract.GetComponent<SelectMenu_Lobby>().getName();
         alert_UI.transform.GetChild(1).gameObject.GetComponent<Text>().text = lastInteract.GetComponent<SelectMenu_Lobby>().getDescription();
         alert_UI.SetActive(true);
-        StartCoroutine(cFollowingUI());
+        //StartCoroutine(cFollowingUI());
     }
     public void HideAlert()
     {
         alert_UI.SetActive(false);
         lastInteract = null;
     }
-    IEnumerator cFollowingUI()
-    {
-        GameObject playerCam = GameManager_Lobby.instance.GetPlayerCam();
-        alert_UI.gameObject.transform.localScale = Vector3.one * 0.003f;
-        while (lastInteract != null)
-        {
-            if (lastInteract == null) break;
-            alert_UI.transform.rotation = playerCam.transform.rotation;
-            alert_UI.transform.position = playerCam.transform.position + 2f * playerCam.transform.forward;
-            yield return new WaitForSeconds(0.02f);
-        }
-    }
+    //IEnumerator cFollowingUI()
+    //{
+    //    GameObject playerCam = GameManager_Lobby.instance.GetPlayerCam();
+    //    alert_UI.gameObject.transform.localScale = Vector3.one * 0.003f;
+    //    while (lastInteract != null)
+    //    {
+    //        if (lastInteract == null) break;
+    //        alert_UI.transform.rotation = playerCam.transform.rotation;
+    //        alert_UI.transform.position = playerCam.transform.position + 2f * playerCam.transform.forward;
+    //        yield return new WaitForSeconds(0.02f);
+    //    }
+    //}
 
     public void OnClickAnimal()
     {

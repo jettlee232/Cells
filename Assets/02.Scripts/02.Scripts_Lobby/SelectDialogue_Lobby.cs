@@ -11,6 +11,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
     // 우선 아까 생성했던 다이얼로그 시스템 트리거들을 통제할 수 있는 변수 2개를 선언 
     public DialogueSystemTrigger dialogueSystemTrigger1; // 1번째 트리거
     public DialogueSystemTrigger dialogueSystemTrigger2; // 2번째 트리거
+    public DialogueSystemTrigger dialogueSystemTrigger3; // 3번째 트리거
     public GameObject rGrabber;
     public GameObject lGrabber;
 
@@ -30,30 +31,28 @@ public class SelectDialogue_Lobby : MonoBehaviour
     public void ActivateDST1() // 1번째 트리거 작동 함수
     {
         dialogueSystemTrigger1.startConversationEntryID = 0; // 1번째 트리거의 컨버제이션 진입 번호를 0번으로 변경 (이거 안해도 되기는 한데, 안하면 나중에 컨버제이션 재활용이 불가)
-        dialogueSystemTrigger1.OnUse(); // On Use로 컨버제이션 작동           
+        dialogueSystemTrigger1.OnUse(); // On Use로 컨버제이션 작동
+        GameManager_Lobby.instance.firstEnd = true;
     }
 
     public void ActivateDST2() // 2번째 트리거 작동 함수
     {
-        dialogueSystemTrigger2.startConversationEntryID = 0; // 2번째 트리거의 컨버제이션 진입 번호를 0번으로 변경 (이거 안해도 되기는 한데, 안하면 나중에 컨버제이션 재활용이 불가)
-        dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동              
+        if (GameManager_Lobby.instance.secondEnd) { dialogueSystemTrigger2.startConversationEntryID = 2; }
+        else { dialogueSystemTrigger2.startConversationEntryID = 0; }
+        dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동
+        GameManager_Lobby.instance.secondEnd = true;
     }
 
-    // 이건 함수가 작동하는지 대충 테스트 가능하게 넣은 업데이트문, 나중에 삭제하면 됨
-    private void Update()
+    public void ActivateDST3() // 1번째 트리거 작동 함수
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            ActivateDST1();
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            ActivateDST2();
-        }
+        dialogueSystemTrigger3.startConversationEntryID = 0; // 1번째 트리거의 컨버제이션 진입 번호를 0번으로 변경 (이거 안해도 되기는 한데, 안하면 나중에 컨버제이션 재활용이 불가)
+        dialogueSystemTrigger3.OnUse(); // On Use로 컨버제이션 작동
     }
 
+    public void fCheckTutorial() { Debug.Log("함수 들어왓당"); StartCoroutine(CheckTutorial()); }
     IEnumerator CheckTutorial()
     {
+        Debug.Log("코루틴 들어옴");
         bool moveForward = false;
         bool moveBackward = false;
         bool moveLeft = false;
@@ -76,7 +75,20 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
             yield return new WaitForSeconds(0.02f);
         }
-        // 여기에 ray 쏴서 npc랑 닿는지 확인하고 다음 대사 이어지게 하기
-        GameManager_Lobby.instance.SetDailogueSecondTrue();
+        GameManager_Lobby.instance.secondCon = true;
     }
+
+    #region Register with Lua
+
+    private void OnEnable()
+    {
+        Lua.RegisterFunction("fCheckTutorial", this, SymbolExtensions.GetMethodInfo(() => fCheckTutorial()));
+    }
+
+    private void OnDisable()
+    {
+        Lua.UnregisterFunction("fCheckTutorial");
+    }
+
+    #endregion
 }
