@@ -7,8 +7,8 @@ public class ReturnTable_Mito : MonoBehaviour
 {
     public ReturnTableSlot_Mito atpSlot; // ATP 아이템 슬롯 참조
     public GameManager_Mito gameManager; // 점수 관리를 위한 게임 매니저 참조
-    public int scoreIncrease = 10; // 반납한 ATP 한 개당 증가하는 점수
-    public float timeIncrease = 30.0f; // 반납한 ATP 한 개당 증가하는 제한 시간
+    int scoreIncrease = 100; // 반납한 ATP 한 개당 증가하는 점수
+    float timeIncrease = 0.5f; // 반납한 ATP 한 개당 증가하는 제한 시간
     
     // 아이템의 유무 변수
     public bool isATP = false;
