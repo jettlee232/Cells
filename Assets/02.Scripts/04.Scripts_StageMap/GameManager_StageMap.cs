@@ -5,43 +5,26 @@ using UnityEngine.XR;
 
 public class GameManager_StageMap : MonoBehaviour
 {
+    public static GameManager_StageMap instance;
     UnityEngine.XR.InputDevice right;
     UnityEngine.XR.InputDevice left;
 
-    private bool showUI = false;
-    private bool oldShowUI = false;
-    private GameObject[] Organelles;
+    public GameObject player;
+    public GameObject playerCam;
+    public GameObject NPC;
 
-    void Start()
+    public bool firstEnd = false;
+    public bool secondEnd = false;
+    public bool secondCon = false;
+
+    void Awake()
     {
-        Organelles = GameObject.FindGameObjectsWithTag("Organelle_SM");
+        if (instance == null) { instance = this; DontDestroyOnLoad(gameObject); }
+        else if (instance != this) { Destroy(gameObject); }
     }
 
-    void Update()
-    {
-        showOrganelleUI();
-    }
 
-    private void showOrganelleUI()
-    {
-        left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-        left.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out showUI);
-
-        if (showUI && !oldShowUI)
-        {
-            foreach (GameObject organelle in Organelles)
-            {
-                organelle.GetComponent<OrganelleController_StageMap>().fShowUI();
-            }
-            oldShowUI = true;
-        }
-        if (!showUI && oldShowUI)
-        {
-            foreach (GameObject organelle in Organelles)
-            {
-                organelle.GetComponent<OrganelleController_StageMap>().fHideUI();
-            }
-            oldShowUI = false;
-        }
-    }
+    public GameObject GetPlayer() { return player; }
+    public GameObject GetPlayerCam() { return playerCam; }
+    public GameObject GetNPC() { return NPC; }
 }

@@ -26,4 +26,10 @@ public class UIManager_StageMap : MonoBehaviour
     #region º≥∏Ì√¢
     public GameObject GetDesc() { return Desc_UI; }
     #endregion
+
+    public void OnClickTitle()
+    {
+        Desc_UI.SetActive(false);
+        GameManager_Lobby.instance.MoveScene("01_Home");
+    }
 }

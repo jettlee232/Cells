@@ -49,10 +49,9 @@ public class SelectDialogue_Lobby : MonoBehaviour
         dialogueSystemTrigger3.OnUse(); // On Use로 컨버제이션 작동
     }
 
-    public void fCheckTutorial() { Debug.Log("함수 들어왓당"); StartCoroutine(CheckTutorial()); }
+    public void fCheckTutorial() { StartCoroutine(CheckTutorial()); }
     IEnumerator CheckTutorial()
     {
-        Debug.Log("코루틴 들어옴");
         bool moveForward = false;
         bool moveBackward = false;
         bool moveLeft = false;

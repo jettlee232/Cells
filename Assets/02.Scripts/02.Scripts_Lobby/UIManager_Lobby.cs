@@ -28,6 +28,13 @@ public class UIManager_Lobby : MonoBehaviour
         
     }
 
+    public void OnClickTitle()
+    {
+        alert_UI.SetActive(false);
+        Desc_UI.SetActive(false);
+        GameManager_Lobby.instance.MoveScene("01_Home");
+    }
+
     #region 진입 알림
     public void SetAlert(GameObject menu)
     {
