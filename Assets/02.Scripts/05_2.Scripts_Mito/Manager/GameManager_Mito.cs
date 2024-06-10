@@ -16,7 +16,7 @@ public class GameManager_Mito : MonoBehaviour
     {
         // Fixed Timestep을 보정해주는 코드?
         Time.fixedDeltaTime = (Time.timeScale / UnityEngine.XR.XRDevice.refreshRate);
-        StartTimer();
+        //StartTimer();
     }
 
     void Update()
@@ -50,6 +50,11 @@ public class GameManager_Mito : MonoBehaviour
         atpTimeValue.fillAmount = atpTime;
     }
 
+    public void BtnOnClickGameStart()
+    {
+        StartTimer();
+    }
+
     public void StartTimer()
     {
         StartCoroutine(DecreaseTime());
@@ -59,7 +64,7 @@ public class GameManager_Mito : MonoBehaviour
     {
         while (atpTime > 0.0f)
         {
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(2.0f);
             atpTime -= 0.01f;
         }
     }

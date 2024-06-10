@@ -8,10 +8,7 @@ using static Item_Mito;
 public class InventoryUI_Mito : MonoBehaviour
 {
     public Inventory_Mito inventory;
-    //public Text adenineCntText;
-    //public Text riboseCntText;
-    //public Text phosphateCntText;
-    //public Text adpCntText;
+
     public Text itemText;
 
     void Start()
