@@ -87,8 +87,7 @@ public class LaserPointer_Lobby : MonoBehaviour
     public void InstantiatePanel(GameObject go)
     {
         if (descPanel.activeSelf) { DestroyDescription(); }
-        
-        descPanel.SetActive(true);
+        UIManager_StageMap.instance.OnDesc();
         descPanel.GetComponent<RectTransform>().localScale = Vector3.one * 0.00125f;
         MakeDescription(go);
     }
@@ -107,7 +106,7 @@ public class LaserPointer_Lobby : MonoBehaviour
 
     public void DestroyDescription() // 패널 없애기
     {
-        descPanel.SetActive(false);
+        UIManager_StageMap.instance.OffDesc();
         obj = null;
     }
 

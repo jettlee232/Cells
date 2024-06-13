@@ -25,6 +25,9 @@ public class UIManager_StageMap : MonoBehaviour
 
     #region º≥∏Ì√¢
     public GameObject GetDesc() { return Desc_UI; }
+
+    public void OnDesc() { Desc_UI.SetActive(true); }
+    public void OffDesc() { Desc_UI.SetActive(false); }
     #endregion
 
     public void OnClickTitle()

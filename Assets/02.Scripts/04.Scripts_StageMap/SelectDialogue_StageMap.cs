@@ -42,7 +42,7 @@ public class SelectDialogue_StageMap : MonoBehaviour
     {
         while (true)
         {
-            right = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+            right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
             right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out checkFly);
 
             if (checkFly) { break; }
