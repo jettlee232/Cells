@@ -519,13 +519,15 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: fCheckFlyTutorial()
+      userScript: 'fCheckFlyTutorial();
+
+        EnableMove()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
+        x: 161.21951
         y: 330
         width: 160
         height: 30
@@ -624,7 +626,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: DisableMove()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -955,7 +957,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: 'EnableMove();
+
+        EnableOrganelle()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []

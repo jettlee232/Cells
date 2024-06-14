@@ -60,7 +60,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
         GetRotateY();
         GetRotateX();
         CheckFlyable();
-        rb.velocity = flyable ? GetUp() + GetDown() + GetMove() : GetMove();
+        if (GameManager_StageMap.instance.GetMovable()) { rb.velocity = flyable ? GetUp() + GetDown() + GetMove() : GetMove(); }
         ResetRot();
     }
 
@@ -85,7 +85,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
         {
             while (true)
             {
-                if (!goUp) { yield break; }
+                if (!goUp || !flyable) { yield break; }
                 if (upSpeed - nowUpSpeed <= 0.1f) { nowUpSpeed = upSpeed; yield break; }
                 timer += Time.deltaTime;
                 nowUpSpeed = Mathf.Lerp(nowSpeed, upSpeed, timer / totalTimer);
@@ -103,7 +103,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
         {
             while (true)
             {
-                if (goUp) { yield break; }
+                if (goUp || !flyable) { yield break; }
                 if (nowUpSpeed <= 0.1f) { nowUpSpeed = 0f; yield break; }
                 timer += Time.deltaTime;
                 nowUpSpeed = Mathf.Lerp(nowSpeed, 0f, timer / totalTimer);
@@ -135,7 +135,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
         {
             while (true)
             {
-                if (!goDown) { yield break; }
+                if (!goDown || !flyable) { yield break; }
                 if (downSpeed - nowDownSpeed <= 0.1f) { nowDownSpeed = downSpeed; yield break; }
                 timer += Time.deltaTime;
                 nowDownSpeed = Mathf.Lerp(nowSpeed, downSpeed, timer / totalTimer);
@@ -153,7 +153,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
         {
             while (true)
             {
-                if (goDown) { yield break; }
+                if (goDown || !flyable) { yield break; }
                 if (nowDownSpeed <= 0.1f) { nowDownSpeed = 0f; yield break; }
                 timer += Time.deltaTime;
                 nowDownSpeed = Mathf.Lerp(nowSpeed, 0f, timer / totalTimer);
@@ -242,6 +242,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
     {
         return Vector3.ProjectOnPlane(dir, slopeHit.normal).normalized;
     }
+    public void StopPlayer() { rb.velocity = Vector3.zero; }
     #endregion
 
     public void CheckFlyable()
@@ -250,6 +251,6 @@ public class PlayerMoving_StageMap: MonoBehaviour
 
         right.TryGetFeatureValue(CommonUsages.secondaryButton, out pressedB);
         if (!flyable && (pressedB && !oldPressedB)) { flyable = true; }
-        else if (flyable && (pressedB && !oldPressedB)) { flyable = false; }
+        else if (flyable && (pressedB && !oldPressedB)) { flyable = false; nowUpSpeed = 0f; nowDownSpeed = 0f; }
     }
 }
