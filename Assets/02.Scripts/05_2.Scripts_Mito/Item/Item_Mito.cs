@@ -1,12 +1,20 @@
+using BNG;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Item_Mito : MonoBehaviour
 {
-    public float moveSpeed;
-    public float rotSpeed;
-    public float destroyTime = 60.0f;
+    float moveSpeed = 0.25f;
+    float rotSpeed = 180.0f;
+    public float moveDelay = 2.0f;
+    private float destroyTime = 30.0f;
+
+    public bool isGrabbed = false;
+
+    public Transform mainCameraTransform;
+
+    Grabbable grabbable;
 
     public enum ItemType
     {
@@ -34,12 +42,53 @@ public class Item_Mito : MonoBehaviour
 
     void Start()
     {
-        //Destroy(gameObject, destroyTime);
+        grabbable = GetComponent<Grabbable>();
     }
 
     void Update()
     {
-        
+        //isGrabbed = grabbable.SelectedHandPose ? true : false;
+        isGrabbed = CheckGrab();
+
+        if (!isGrabbed)
+           ItemMove();
+
+        //ItemLock();
+    }
+
+    // 아이템은 항상 움직인다
+    // isGrabbed일때는 움직이면 안된다
+    // isGrabbed가 false가 되면 한 몇초 뒤에 움직이게 한다
+    // 여기서 트윈 사용각?
+
+    public bool CheckGrab()
+    {
+        if (grabbable.RemoteGrabbing)
+        {
+            return true;
+        }
+
+        if (grabbable.SelectedHandPose)
+            return true;
+        else
+        {
+            //yield return new WaitForSeconds(moveDelay);
+            return false;
+        }
+    }
+
+    public void ItemMove()
+    {
+        transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.World);
+    }
+
+    public void ItemLock()
+    {
+        if (transform.parent.GetComponent<SnapZone>())
+        {
+            transform.localPosition = Vector3.zero;
+            transform.localEulerAngles = Vector3.zero;
+        }
     }
 
     public string GetItemTypeName()

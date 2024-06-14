@@ -6,31 +6,19 @@ using UnityEngine;
 public class RayInteraction_Mito : MonoBehaviour
 {
     public InventoryUI_Mito inventoryUI;
-    private LineRenderer lineRenderer;
+    public Grabber rightHandGrabber;
 
-    void Start()
-    {
-        // LineRenderer 컴포넌트 추가 및 설정
-        lineRenderer = gameObject.AddComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.01f;
-        lineRenderer.endWidth = 0.01f;
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.startColor = Color.green;
-        lineRenderer.endColor = Color.green;
-    }
+    Ray ray;
+    RaycastHit hit;
+    public Grabbable item;
 
     void Update()
     {
-        Vector3 rayStart = transform.position;
-        Vector3 rayEnd = rayStart + (transform.forward * 10.0f);
-
-        // LineRenderer의 점 업데이트
-        lineRenderer.SetPosition(0, rayStart);
-        lineRenderer.SetPosition(1, rayEnd);
+        item = rightHandGrabber?.HeldGrabbable;
 
         // Raycast로 아이템 감지
-        Ray ray = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
+        ray = new Ray(transform.position, transform.forward);
+
         if (Physics.Raycast(ray, out hit))
         {
             // 스냅존(각 슬롯)에서 아이템의 정보를 가져옴
@@ -43,6 +31,41 @@ public class RayInteraction_Mito : MonoBehaviour
             {
                 inventoryUI.ClearCurrentItemText();
             }
+
+            
         }
+    }
+
+    public void RaycastItemSnap()
+    {
+        ray = new Ray(transform.position, transform.forward);
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            SnapZone snapZone = hit.collider.GetComponent<SnapZone>();
+
+            if (snapZone && item)
+            {
+                //item.GetComponent<Rigidbody>().isKinematic = true;
+                //item.transform.localPosition = Vector3.zero;
+                //item.transform.localEulerAngles = Vector3.zero;
+                item.transform.localPosition = snapZone.transform.position;
+                item.transform.localEulerAngles = snapZone.transform.localEulerAngles;
+
+                //snapZone.GrabGrabbable(item);
+
+                //snapZone.OnSnapEvent.Invoke(item);
+                // 내가 호출해서 실행되는 이벤트랑
+                // 이걸 호출하면 슬롯에 붙으면서 이벤트가 실행되는거랑 2개가 되는건가 설마?
+            }
+        }
+    }
+
+    public void RaycastItemDetach()
+    {
+        Debug.Log("호출테스트");
+        // gripamount로 체크?
+
+
     }
 }
