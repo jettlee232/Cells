@@ -110,13 +110,13 @@ public class RayDescription_Mito : MonoBehaviour
     public void FollowingDescription(GameObject descPanel) // 패널이 플레이어 시선 따라가게 하기
     {
         // 이 부분은 동적인 효과를 위해 넣은건데 사실 없어도 되긴 할듯하네요... 보고 필요 없다 싶으면 빼도 됩니다
-        if (descPanel.GetComponent<RectTransform>().localScale.x < 0.002f)
-        {
-            descPanel.GetComponent<RectTransform>().localScale =
-            new Vector3(descPanel.GetComponent<RectTransform>().localScale.x + 0.0005f,
-            descPanel.GetComponent<RectTransform>().localScale.y + 0.0005f,
-            descPanel.GetComponent<RectTransform>().localScale.z + 0.0005f);
-        }
+        //if (descPanel.GetComponent<RectTransform>().localScale.x < 0.002f)
+        //{
+        //    descPanel.GetComponent<RectTransform>().localScale =
+        //    new Vector3(descPanel.GetComponent<RectTransform>().localScale.x + 0.0005f,
+        //    descPanel.GetComponent<RectTransform>().localScale.y + 0.0005f,
+        //    descPanel.GetComponent<RectTransform>().localScale.z + 0.0005f);
+        //}
         //
 
         // 패널의 위치와 각도가 패널스폰포인트의 위치와 각도와 일치하도록 강제로 실시간 고정
@@ -148,17 +148,5 @@ public class RayDescription_Mito : MonoBehaviour
 
         // 현재 패널이 가리키는 오브젝트의 이름을 저장
         //objName = descrptionPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text;
-    }
-
-    public void CatchItem(GameObject Item)
-    {
-        //Item.GetComponent<Grabbable>().GrabItem(grabber);
-        Item.transform.position = grabber.transform.position;
-        grabber.GrabGrabbable(Item.GetComponent<Grabbable>());
-
-        if (descrptionPanel != null) // 패널이 있다면 그 패널은 지우기
-        {
-            DestroyDescription();
-        }
     }
 }

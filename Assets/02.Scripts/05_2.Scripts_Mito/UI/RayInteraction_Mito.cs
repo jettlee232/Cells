@@ -23,6 +23,8 @@ public class RayInteraction_Mito : MonoBehaviour
         {
             // 스냅존(각 슬롯)에서 아이템의 정보를 가져옴
             SnapZone snapZone = hit.collider.GetComponent<SnapZone>();
+            GrabAction grabAction = hit.collider.GetComponent<GrabAction>();
+
             if (snapZone != null && snapZone.HeldItem != null)
             {
                 inventoryUI.UpdateCurrentItemText(snapZone.HeldItem);
@@ -32,10 +34,15 @@ public class RayInteraction_Mito : MonoBehaviour
                 inventoryUI.ClearCurrentItemText();
             }
 
-            
+            if (GetComponentInParent<HandController>().GripAmount >= 1.0f && !item)
+            {
+                if (grabAction)
+                    RaycastItemDetach(grabAction);
+            }
         }
     }
 
+    // 오른손의 Grabber에서 OnReleaseEvent로 호출
     public void RaycastItemSnap()
     {
         ray = new Ray(transform.position, transform.forward);
@@ -61,11 +68,11 @@ public class RayInteraction_Mito : MonoBehaviour
         }
     }
 
-    public void RaycastItemDetach()
+    public void RaycastItemDetach(GrabAction grabAction)
     {
         Debug.Log("호출테스트");
         // gripamount로 체크?
 
-
+        grabAction.OnGrabEvent.Invoke(rightHandGrabber);
     }
 }
