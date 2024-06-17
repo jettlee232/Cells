@@ -10,7 +10,7 @@ public class BlockMoving_CM : MonoBehaviour
     void Start()
     {
         trns = GetComponent<Transform>();
-        StartCoroutine(BlockMove());
+        StartCoroutine(BlockMove());        
     }
     
     IEnumerator BlockMove()
@@ -21,5 +21,5 @@ public class BlockMoving_CM : MonoBehaviour
             
             trns.Translate(Vector3.back * speed * Time.deltaTime);
         }        
-    }
+    }    
 }

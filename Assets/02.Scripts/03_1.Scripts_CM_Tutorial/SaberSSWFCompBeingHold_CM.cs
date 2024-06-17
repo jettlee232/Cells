@@ -5,14 +5,19 @@ using UnityEngine;
 public class SaberSSWFCompBeingHold_CM : MonoBehaviour
 {
     public GameObject parentObj;
+    public Vector3 attachVec = new Vector3(0f, -1.05f, -1.7f);
+    public Quaternion attachRot = Quaternion.Euler(0f, 180f, 0f);
 
+    public bool isThisFirstAttach = false;
     public bool checkFlag = false;
     public GameObject attachPos;
 
     void Start()
     {
         parentObj = transform.parent.gameObject;
-        attachPos = GameObject.Find("SaberWFSSCompleteAttachPos"); // 장착 지점을 받아오기        
+        attachPos = GameObject.Find("DoubleAttachPos"); // 장착 지점을 받아오기
+        attachVec = new Vector3(0f, -1.05f, -1.7f);
+        attachRot = Quaternion.Euler(0f, 180f, 0f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,9 +30,6 @@ public class SaberSSWFCompBeingHold_CM : MonoBehaviour
             other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().bc2.enabled = true;
             other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().bc3.enabled = true;
 
-            //other.transform.parent.gameObject.GetComponent<BoxCollider>().center = new Vector3(0, -0.5f, 0);
-            //other.transform.parent.gameObject.GetComponent<BoxCollider>().size = new Vector3(1, 1.5f, 1);
-
             parentObj.transform.SetParent(other.gameObject.transform); // 닿은 오브젝트를 이 오브젝트의 부모로 만들고
 
             parentObj.GetComponent<BNG.Grabbable>().enabled = false;
@@ -35,8 +37,14 @@ public class SaberSSWFCompBeingHold_CM : MonoBehaviour
             parentObj.GetComponent<Rigidbody>().isKinematic = false;
             parentObj.GetComponent<BoxCollider>().enabled = false;
 
-            parentObj.transform.position = other.gameObject.transform.position; // 이 오브젝트의 위치를 닿은 오브젝트의 위치로 바꾸기
-            parentObj.transform.rotation = Quaternion.identity; // 각도 초기화
+            parentObj.transform.position = attachVec;
+            parentObj.transform.rotation = attachRot;
+
+            if (isThisFirstAttach == false)
+            {
+                isThisFirstAttach = true;
+                GameObject.Find("NarratorNPC").GetComponent<NarratorDialogueHub_CM_Tutorial>().StartCov_3();
+            }
 
             checkFlag = true;
             StartCoroutine(HoldPos());
@@ -48,10 +56,8 @@ public class SaberSSWFCompBeingHold_CM : MonoBehaviour
             {
                 parentObj.transform.SetParent(attachPos.transform); // 강제적으로 항상 오브젝트를 자식 객체로 만들어버리기
 
-                //parentObj.transform.position = attachPos.transform.position;
-                parentObj.transform.localPosition = new Vector3(attachPos.transform.position.x - 0.75f, 0, 0);
-                parentObj.transform.localRotation = Quaternion.identity;
-                //parentObj.transform.localRotation = Quaternion.Euler(0, 0, 180);
+                parentObj.transform.localPosition = attachVec;
+                parentObj.transform.localRotation = attachRot;
                 yield return new WaitForSeconds(0.01f);
             }
             Debug.Log("코루틴 종료");
