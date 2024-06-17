@@ -9,9 +9,8 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerMoving_Lobby : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float upSpeed = 5f;
     public float downSpeed = 2f;
-    public float rotateValue = 30f;
+    public float rotateSpeed = 50f;
     public float groundCheck = 0.02f;
     public float maxSlopeAngle = 45f;
     public Transform dirStandard;
@@ -20,7 +19,7 @@ public class PlayerMoving_Lobby : MonoBehaviour
 
     private Vector2 XZMove = Vector2.zero;
     private Vector2 XRotate = Vector2.zero;
-    private bool rotateCoroutine;
+    private Quaternion nowTrans;
 
     private int groundLayer;
     private RaycastHit slopeHit;
@@ -31,25 +30,26 @@ public class PlayerMoving_Lobby : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rotateCoroutine = false;
         groundLayer = 1 << LayerMask.NameToLayer("Ground");
     }
 
     void Update()
     {
+        left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+        right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+
         GetRotate();
-        rb.velocity = GetUp() + GetMove();
+        rb.velocity = GetDown() + GetMove();
     }
 
-    private Vector3 GetUp()
+    private Vector3 GetDown()
     {
-        if (CheckSlope()) { return Vector3.zero; }
+        if (CheckSlope() || CheckGround()) { return Vector3.zero; }
         else { return Vector3.down * downSpeed; }
     }
 
     private Vector3 GetMove()
     {
-        left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
         left.TryGetFeatureValue(CommonUsages.primary2DAxis, out XZMove);
 
         Quaternion guideRot = Quaternion.Euler(0, dirStandard.eulerAngles.y, 0);
@@ -61,26 +61,17 @@ public class PlayerMoving_Lobby : MonoBehaviour
 
     private void GetRotate()
     {
-        right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
         right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
 
-        if (!rotateCoroutine && (XRotate.x >= 0.2f || XRotate.x <= -0.2f)) { rotateCoroutine = true; StartCoroutine(cRotate(XRotate.x)); }
-        else { return; }
+        nowTrans = transform.rotation * Quaternion.Euler(0f, XRotate.x * rotateSpeed * Time.deltaTime, 0f);
+        transform.rotation = nowTrans;
     }
 
-    IEnumerator cRotate(float x)
+    private bool CheckGround()
     {
-        if (x >= 0f) { transform.rotation = transform.rotation * Quaternion.Euler(0f, rotateValue, 0f); }
-        else { transform.rotation = transform.rotation * Quaternion.Euler(0f, -rotateValue, 0f); }
-        yield return new WaitForSeconds(0.3f);
-        rotateCoroutine = false;
+        if (Physics.Raycast(transform.position, Vector3.down, groundCheck, groundLayer)) { return true; }
+        else { return false; }
     }
-
-    //private bool CheckGround()
-    //{
-    //    if (Physics.Raycast(transform.position, Vector3.down, groundCheck, groundLayer)) { return true; }
-    //    else { return false; }
-    //}
     private bool CheckSlope()
     {
         Ray ray = new Ray(transform.position, Vector3.down);

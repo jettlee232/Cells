@@ -1,7 +1,9 @@
+using Language.Lua;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.XR;
 
@@ -18,7 +20,6 @@ public class LaserPointer_StageMap : MonoBehaviour
     private GameObject player = null;
     private Camera mainCam = null;
     private GameObject NPC = null;
-    private bool isDialogue = false;
 
     UnityEngine.XR.InputDevice right; // 오른손 컨트롤러 상태를 받는 변수
 
@@ -50,7 +51,7 @@ public class LaserPointer_StageMap : MonoBehaviour
         if (descPanel.activeSelf) // 현재 설명창이 만들어진 상태라면
         {
             FollowingDescription(UIManager_StageMap.instance.GetDesc()); // 현재 만들어진 설명창이 내 시선을 따라오게 하기
-            if (isButtonPressed || !CheckSight()) { DestroyDescription(); }
+            if (!CheckSight()) { DestroyDescription(); }
         }
     }
 
@@ -84,11 +85,10 @@ public class LaserPointer_StageMap : MonoBehaviour
     {
         if (descPanel.activeSelf) { DestroyDescription(); }
 
-        descPanel.SetActive(true);
+        UIManager_StageMap.instance.OnDesc();
         descPanel.GetComponent<RectTransform>().localScale = Vector3.one * 0.00125f;
         MakeDescription(go);
     }
-
 
     public void FollowingDescription(GameObject descPanel) // 패널이 플레이어 시선 따라가게 하기
     {
@@ -103,7 +103,7 @@ public class LaserPointer_StageMap : MonoBehaviour
 
     public void DestroyDescription() // 패널 없애기
     {
-        descPanel.SetActive(false);
+        UIManager_StageMap.instance.OffDesc();
         obj = null;
     }
 
@@ -111,20 +111,24 @@ public class LaserPointer_StageMap : MonoBehaviour
     {
         descPanel.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = go.GetComponent<DescObj_StageMap>().GetName();
         descPanel.transform.GetChild(0).GetChild(1).GetComponent<Text>().text = go.GetComponent<DescObj_StageMap>().GetDesc();
+        descPanel.transform.GetChild(1).GetChild(0).GetComponent<Button>().onClick.AddListener(() => GameManager_StageMap.instance.MoveScene(go.GetComponent<DescObj_StageMap>().GetSceneName()));
     }
 
     private bool CheckSight()
     {
-        Vector3 viewportPos = mainCam.WorldToViewportPoint(obj.transform.position);
-        bool isInView = viewportPos.z > 0f && (viewportPos.x > 0f && viewportPos.x < 1f) && (viewportPos.y > 0f && viewportPos.y < 1f);
+        if (obj == null || mainCam == null || obj.transform == null) { DestroyDescription(); return false; }
+        else
+        {
+            Vector3 viewportPos = mainCam.WorldToViewportPoint(obj.transform.position);
 
-        Vector3 closest = obj.GetComponent<Collider>().ClosestPoint(player.transform.position);
-        Vector3 vDistance = (closest - player.transform.position);
-        bool isClose = (vDistance.magnitude <= maxDistance) ? true : false;
+            bool isInView = viewportPos.z > 0f && (viewportPos.x > 0f && viewportPos.x < 1f) && (viewportPos.y > 0f && viewportPos.y < 1f);
 
-        if (isInView && isClose) { return true; }
-        else { return false; }
+            Vector3 closest = obj.GetComponent<Collider>().ClosestPoint(player.transform.position);
+            Vector3 vDistance = (closest - player.transform.position);
+            bool isClose = (vDistance.magnitude <= maxDistance) ? true : false;
+
+            if (isInView && isClose) { return true; }
+            else { return false; }
+        }
     }
-
-    public void IsTalking() { isDialogue = true; }
 }
