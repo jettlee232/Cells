@@ -49,8 +49,7 @@ public class LaserPointer_Lobby : MonoBehaviour
 
         if (descPanel.activeSelf) // 현재 설명창이 만들어진 상태라면
         {
-            FollowingDescription(UIManager_Lobby.instance.GetDesc()); // 현재 만들어진 설명창이 내 시선을 따라오게 하기
-            if (isButtonPressed || !CheckSight()) { DestroyDescription(); }
+            if (!CheckSight()) { DestroyDescription(); }
         }
     }
 
@@ -87,22 +86,10 @@ public class LaserPointer_Lobby : MonoBehaviour
     public void InstantiatePanel(GameObject go)
     {
         if (descPanel.activeSelf) { DestroyDescription(); }
-        
-        descPanel.SetActive(true);
+
+        UIManager_Lobby.instance.OnDesc();
         descPanel.GetComponent<RectTransform>().localScale = Vector3.one * 0.00125f;
         MakeDescription(go);
-    }
-
-
-    public void FollowingDescription(GameObject descPanel) // 패널이 플레이어 시선 따라가게 하기
-    {
-        if (descPanel.GetComponent<RectTransform>().localScale.x < 0.00125f)
-        {
-            descPanel.GetComponent<RectTransform>().localScale =
-            new Vector3(descPanel.GetComponent<RectTransform>().localScale.x + 0.00001f,
-            descPanel.GetComponent<RectTransform>().localScale.y + 0.00001f,
-            descPanel.GetComponent<RectTransform>().localScale.z + 0.00001f);
-        }
     }
 
     public void DestroyDescription() // 패널 없애기
@@ -119,7 +106,9 @@ public class LaserPointer_Lobby : MonoBehaviour
 
     private bool CheckSight()
     {
+        if (obj == null || mainCam == null || obj.transform == null) DestroyDescription();
         Vector3 viewportPos = mainCam.WorldToViewportPoint(obj.transform.position);
+
         bool isInView = viewportPos.z > 0f && (viewportPos.x > 0f && viewportPos.x < 1f) && (viewportPos.y > 0f && viewportPos.y < 1f);
 
         Vector3 closest = obj.GetComponent<Collider>().ClosestPoint(player.transform.position);
