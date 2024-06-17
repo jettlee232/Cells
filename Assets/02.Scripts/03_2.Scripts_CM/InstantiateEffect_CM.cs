@@ -28,7 +28,6 @@ public class InstantiateEffect_CM : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("SizeUp");
             yield return new WaitForSeconds(0.002f);
 
             initSize.x += 0.001f;
@@ -48,7 +47,6 @@ public class InstantiateEffect_CM : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Spin");
             transform.Rotate(Vector3.up, curSpeed * Time.deltaTime);
             
             if (curSpeed > minSpeed)

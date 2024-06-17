@@ -179,9 +179,10 @@ public class TutorialManager_CM : MonoBehaviour
         }
     }
 
-    public void StartConv2()
+    public void PlayClip(double d)
     {
-        narrator.StartCov_2();
+        // 나중에 ㄱㄱ
+        //AudioMgr_CM.Instance.PlaySFX((int)d);
     }
 
     IEnumerator RemakeAfter2Sec(int i)
@@ -199,6 +200,7 @@ public class TutorialManager_CM : MonoBehaviour
         else go.transform.rotation = Quaternion.Euler(0, 90, 0);
     }
 
+
     #region Register with Lua
     private void OnEnable()
     {
@@ -211,6 +213,10 @@ public class TutorialManager_CM : MonoBehaviour
         Lua.RegisterFunction("PlayAudioClip", this, SymbolExtensions.GetMethodInfo(() => PlayAudioClip((double)0)));
         Lua.RegisterFunction("QuestionByNarrator", this, SymbolExtensions.GetMethodInfo(() => QuestionByNarrator()));
         Lua.RegisterFunction("UILaserOnOff", this, SymbolExtensions.GetMethodInfo(() => UILaserOnOff()));
+
+        // 새로 추가한 거
+        Lua.RegisterFunction("PlayClip", this, SymbolExtensions.GetMethodInfo(() => PlayClip((double)0)));
+
     }
 
     private void OnDisable()
@@ -224,6 +230,9 @@ public class TutorialManager_CM : MonoBehaviour
         Lua.UnregisterFunction("PlayAudioClip");
         Lua.UnregisterFunction("QuestionByNarrator");
         Lua.UnregisterFunction("UILaserOnOff");
+
+        // 새로 추가한 거
+        Lua.UnregisterFunction("PlayClip");
     }
     #endregion
 }
