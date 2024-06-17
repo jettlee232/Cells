@@ -21,6 +21,30 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
 
     public GameObject glowObj;
 
+    public Dictionary<string, string> objDesc = new Dictionary<string, string>
+    {
+        { "Cube1", "My Name Is Cube 1" },
+        { "Cube2", "My Name Is Cube 2" },
+        { "Cube3", "My Name Is Cube 3" },
+        { "Sphere.013_CM", "This is Sphere.013_CM" },
+        { "Sphere.012_CM", "This is Sphere.012_CM" },
+        { "Sphere.011_CM", "This is Sphere.011_CM" },
+        { "Sphere.010_CM", "This is Sphere.010_CM" },
+        { "Sphere.009_CM", "This is Sphere.009_CM" },
+        { "Sphere.008_CM", "This is Sphere.008_CM" },
+        { "Sphere.007_CM", "This is Sphere.007_CM" },
+        { "Sphere.006_CM", "This is Sphere.006_CM" },
+        { "Sphere.005_CM", "This is Sphere.005_CM" },
+        { "Sphere.004_CM", "This is Sphere.004_CM" },
+        { "Sphere.003_CM", "This is Sphere.003_CM" },
+        { "Sphere.002_CM", "This is Sphere.002_CM" },
+        { "Sphere.001_CM", "This is Sphere.001_CM" },
+        { "Phospholipid_Tail_CM", "This is Phospholipid_Tail_CM"},
+        { "Phospholipid_Single_CM", "This is Phospholipid_Single_CM" },
+        { "Phospholipid_Head_CM", "This is Phospholipid_Head_CM" },
+        { "Phospholipid_Double_CM", "This is Phospholipid_Double_CM" },
+        { "Phospholipid_Bulk_CM", "This is Phospholipid_Bulk_CM "}
+    };
     void Start()
     {        
         uiPointer = gameObject.GetComponent<BNG.UIPointer>();
@@ -33,9 +57,13 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
     {
         // 각 bool값 변수들에 트리거 버튼과 A버튼이 눌리는지 안 눌리는지 실시간으로 받기
         right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-        right.TryGetFeatureValue(CommonUsages.triggerButton, out isTriggerPressed);
-        right.TryGetFeatureValue(CommonUsages.primaryButton, out isButtonPressed);
 
+        if (right.isValid)
+        {
+            right.TryGetFeatureValue(CommonUsages.triggerButton, out isTriggerPressed);
+            right.TryGetFeatureValue(CommonUsages.primaryButton, out isButtonPressed);
+        }
+        
         if (isTriggerPressed == true) // 트리거가 눌리고 있다면
         {
             uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
@@ -73,8 +101,12 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
                     objName = rayHit.collider.gameObject.name; // objName에다 레이저에 맞은 오브젝트의 이름을 넣기
 
                     //glowObj = rayHit.collider.gameObject;
-                    rayHit.collider.gameObject.GetComponent<HighlightEffect>().highlighted = true;
-                    rayHit.collider.gameObject.GetComponent<HighLightColorchange_CM>().GlowStart();
+                    var highlightEffect = rayHit.collider.gameObject.GetComponent<HighlightEffect>();
+                    if (highlightEffect != null)
+                    {
+                        highlightEffect.highlighted = true;
+                        rayHit.collider.gameObject.GetComponent<HighLightColorchange_CM>().GlowStart();
+                    }                    
 
                     InstantiatePanel(rayHit.collider.gameObject); // 패널 만들기
                 }
@@ -139,15 +171,10 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
         // 일단 이 코드에서는 GameObject의 name으로 검사하긴 했는데, 다소 무식한 방법이니 Tag든 Layer든 그 외 컴포넌트의 다른 변수 값이든 좀 더 스마트한 조건식을 사용하기를 권장
 
         // 게임오브젝트의 이름으로 검사해서 설명창을 띄우는 조건식 (추후 서버 연동식이든 json 연동식이든 형식 변경 필요)
-        if (go.name == "Cube1")
+        if (objDesc.ContainsKey(go.name))
         {
-            descrptionPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Cube1";
-            descrptionPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "My Name Is Cube 1";
-        }
-        else if (go.name == "Cube2")
-        {
-            descrptionPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Cube2";
-            descrptionPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "My Name Is Cube 2";
+            descrptionPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = go.name;
+            descrptionPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = objDesc[go.name];
         }
 
         // 현재 패널이 가리키는 오브젝트의 이름을 저장

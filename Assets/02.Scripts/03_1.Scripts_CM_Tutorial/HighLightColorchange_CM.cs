@@ -10,7 +10,6 @@ public class HighLightColorchange_CM : MonoBehaviour
     public float updownFloat = 0.02f;
 
     public bool glowFlag = false;
-    public bool updownFlag = false;
 
     private Coroutine glowCoroutine = null;
 
@@ -23,16 +22,16 @@ public class HighLightColorchange_CM : MonoBehaviour
     {
         if (glowCoroutine == null)
         {
+            glowFlag = true;
             glowCoroutine = StartCoroutine(Glow());
         }
     }
 
     public void GlowEnd()
     {
-        glowFlag = false;
-
         if (glowCoroutine != null)
         {
+            glowFlag = false;
             StopCoroutine(glowCoroutine);
             glowCoroutine = null;
         }
@@ -40,8 +39,6 @@ public class HighLightColorchange_CM : MonoBehaviour
 
     IEnumerator Glow()
     {
-        glowFlag = true;        
-
         while (glowFlag)
         {
             hlEffect.innerGlow -= updownFloat;
@@ -50,9 +47,9 @@ public class HighLightColorchange_CM : MonoBehaviour
             if (hlEffect.innerGlow <= 0 || hlEffect.innerGlow >= 1)
             {
                 updownFloat = -updownFloat;
-            }                
+            }
         }
 
-        updownFloat = 0.02f;
+        glowCoroutine = null;
     }
 }
