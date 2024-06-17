@@ -1,4 +1,3 @@
-using HighlightPlus;
 using Language.Lua;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,9 +22,6 @@ public class LaserPointer_StageMap : MonoBehaviour
     private GameObject NPC = null;
 
     UnityEngine.XR.InputDevice right; // 오른손 컨트롤러 상태를 받는 변수
-
-    public GameObject glowObj;
-    private HighlightEffect highlightEffect;
 
     void Start()
     {
@@ -70,14 +66,6 @@ public class LaserPointer_StageMap : MonoBehaviour
                 if (obj != rayHit.collider.gameObject)
                 {
                     obj = rayHit.collider.gameObject;
-
-                    highlightEffect = obj.GetComponent<HighlightEffect>();
-                    if (highlightEffect != null)
-                    {
-                        highlightEffect.highlighted = true;
-                        rayHit.collider.gameObject.GetComponent<HighLightColorchange_SM>().GlowStart();
-                    }
-
                     InstantiatePanel(obj);
                 }
             }
@@ -100,8 +88,6 @@ public class LaserPointer_StageMap : MonoBehaviour
         UIManager_StageMap.instance.OnDesc();
         descPanel.GetComponent<RectTransform>().localScale = Vector3.one * 0.00125f;
         MakeDescription(go);
-
-        glowObj = go;
     }
 
     public void FollowingDescription(GameObject descPanel) // 패널이 플레이어 시선 따라가게 하기
@@ -117,12 +103,6 @@ public class LaserPointer_StageMap : MonoBehaviour
 
     public void DestroyDescription() // 패널 없애기
     {
-        if (glowObj != null)
-        {
-            glowObj.GetComponent<HighlightEffect>().highlighted = false;
-            glowObj.GetComponent<HighLightColorchange_SM>().GlowEnd();
-        }
-
         UIManager_StageMap.instance.OffDesc();
         obj = null;
     }
