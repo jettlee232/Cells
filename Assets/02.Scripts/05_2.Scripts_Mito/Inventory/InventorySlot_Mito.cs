@@ -24,7 +24,10 @@ public class InventorySlot_Mito : MonoBehaviour
     // 아이템이 슬롯에 붙을때의 이벤트
     void OnItemSnapped(Grabbable item)
     {
+        Debug.Log("인벤토리 아이템 스냅시작");
         if (isHandlingEvent) return;
+
+        Debug.Log("인벤토리 아이템 스냅중");
 
         // 아이템을 일치하는 슬롯에 넣을때
         if (item.GetComponent<Item_Mito>().type == slotType)
@@ -41,6 +44,7 @@ public class InventorySlot_Mito : MonoBehaviour
         }
 
         isHandlingEvent = false;
+        Debug.Log("인벤토리 아이템 스냅종료");
     }
 
     // 아이템이 슬롯에서 떨어질때의 이벤트

@@ -8,6 +8,10 @@ public class GameManager_Mito : MonoBehaviour
 {
     public int atpScore = 0;
     public float atpTime = 1.0f;
+    public int atpCount = 0;
+    public int atpGoal = 4;
+
+    public Text atpGoalText;
     public Text atpScoreText;
     public Text atpTimeText;
     public Image atpTimeValue;
@@ -16,7 +20,7 @@ public class GameManager_Mito : MonoBehaviour
     {
         // Fixed Timestep을 보정해주는 코드?
         Time.fixedDeltaTime = (Time.timeScale / UnityEngine.XR.XRDevice.refreshRate);
-        //StartTimer();
+        BtnOnClickGameStart();
     }
 
     void Update()
@@ -28,7 +32,13 @@ public class GameManager_Mito : MonoBehaviour
     public void IncreaseScore(int amount)
     {
         atpScore += amount;
+        atpCount++;
         //UpdateScoreUI();
+        
+        if (atpCount >= atpGoal)
+        {
+            GameClear();
+        }
     }
 
     public void IncreaseTime(float amount)
@@ -40,6 +50,7 @@ public class GameManager_Mito : MonoBehaviour
     private void UpdateScoreUI()
     {
         atpScoreText.text = "ATP 점수\n" + atpScore;
+        atpGoalText.text = "ATP 목표\n" + atpCount + " / " + atpGoal;
     }
 
     private void UpdateTimeUI()
@@ -55,7 +66,7 @@ public class GameManager_Mito : MonoBehaviour
         StartTimer();
     }
 
-    public void StartTimer()
+    void StartTimer()
     {
         StartCoroutine(DecreaseTime());
     }
@@ -67,5 +78,10 @@ public class GameManager_Mito : MonoBehaviour
             yield return new WaitForSeconds(2.0f);
             atpTime -= 0.01f;
         }
+    }
+
+    void GameClear()
+    {
+        Debug.Log("ATP를 목표치만큼 모았습니다.");
     }
 }
