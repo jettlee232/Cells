@@ -1,8 +1,6 @@
-using BNG;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIManager_StageMap : MonoBehaviour
 {
@@ -11,7 +9,7 @@ public class UIManager_StageMap : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null) { instance = this; }
+        if (instance == null) { instance = this; DontDestroyOnLoad(gameObject); }
         else if (instance != this) { Destroy(gameObject); }
     }
 
@@ -25,18 +23,13 @@ public class UIManager_StageMap : MonoBehaviour
 
     //}
 
-    #region 소기관 설명창
+    #region 설명창
     public GameObject GetDesc() { return Desc_UI; }
-
-    public void OnDesc() { Desc_UI.SetActive(true); }
-    public void OffDesc() { Desc_UI.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = ""; Desc_UI.SetActive(false); }
-    public bool CheckDesc() { return Desc_UI.activeSelf; }
-    public void EnableButton() { Desc_UI.transform.GetChild(1).GetChild(0).GetComponent<UnityEngine.UI.Button>().interactable = true; }
     #endregion
 
     public void OnClickTitle()
     {
-        OffDesc();
-        GameManager_StageMap.instance.MoveScene("01_Home");
+        Desc_UI.SetActive(false);
+        GameManager_Lobby.instance.MoveScene("01_Home");
     }
 }

@@ -11,16 +11,23 @@ public class SelectMenu_Lobby : MonoBehaviour
     public string alertName;
     public string alertDescription;
     private Vector3 moveDir = Vector3.zero;
-    private bool desc;
 
-    public string GetName() { return alertName; }
-    public string GetDescription() { return alertDescription; }
-    public string GetSceneName() { return nextSceneName; }
+    void Start()
+    {
+
+    }
+
+    void Update()
+    {
+        
+    }
+
+    public string getName() { return alertName; }
+    public string getDescription() { return alertDescription; }
+    public string getSceneName() { return nextSceneName; }
 
     private void OnTriggerEnter(Collider other)
     {
-        desc = UIManager_Lobby.instance.CheckDesc();
-        UIManager_Lobby.instance.OffDesc();
         if (other.gameObject.CompareTag("Player"))
         {
             Rigidbody rb = other.GetComponent<Rigidbody>();
@@ -32,6 +39,5 @@ public class SelectMenu_Lobby : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player")) { UIManager_Lobby.instance.HideAlert(); }
-        if (desc) { UIManager_Lobby.instance.OnDesc(); }
     }
 }

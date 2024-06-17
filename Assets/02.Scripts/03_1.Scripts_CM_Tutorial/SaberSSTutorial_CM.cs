@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class SaberSSTutorial_CM : MonoBehaviour
 {
@@ -15,7 +14,7 @@ public class SaberSSTutorial_CM : MonoBehaviour
 
     void Start()
     {
-        tutoMgr = GameObject.Find("TutorialMgr").GetComponent<TutorialManager_CM>();
+        
     }
 
     void Update()
@@ -46,10 +45,5 @@ public class SaberSSTutorial_CM : MonoBehaviour
             }            
         }
         //previousPos = transform.position;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
     }
 }

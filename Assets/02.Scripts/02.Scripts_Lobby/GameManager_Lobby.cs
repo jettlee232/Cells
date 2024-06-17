@@ -11,26 +11,39 @@ public class GameManager_Lobby : MonoBehaviour
     public GameObject playerCam;
     public GameObject NPC;
     public float moveSpeed = 3f;
+    private GameObject lastInteract = null;
+
+    //public bool firstNow { get; set; }
+    //public bool secondNow { get; set; }
+    //public bool thirdNow { get; set; }
 
     public bool secondCon { get; set; }
 
     public bool firstEnd { get; set; }
     public bool secondEnd { get; set; }
+    //public bool secondEnd { get; set; }
+    //public bool thirdEnd { get; set; }
 
     void Awake()
     {
-        if (instance == null) { instance = this; }
+        if (instance == null) { instance = this; DontDestroyOnLoad(gameObject); }
         else if (instance != this) { Destroy(gameObject); }
     }
 
     void Start()
     {
+        //firstNow = false; secondNow = false; thirdNow = false;
         firstEnd = false;
         secondCon = false;
+        //firstEnd = false; secondEnd = false; thirdEnd = false;
     }
+
+    public void SetLastInteract(GameObject obj) { lastInteract = obj; }
+    public void RemoveLastInteract() { lastInteract = null; }
 
     public void MoveScene(string sceneName)
     {
+        RemoveLastInteract();
         SceneManager.LoadScene(sceneName);
     }
 

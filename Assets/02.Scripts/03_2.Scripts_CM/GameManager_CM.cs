@@ -47,16 +47,6 @@ public class GameManager_CM : MonoBehaviour
         GameStart();
     }
 
-    //
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GameRestart();
-        }
-    }
-    //
-
     public void GameStart()
     {
         Debug.Log("Game Start!");
@@ -68,7 +58,7 @@ public class GameManager_CM : MonoBehaviour
         gameoverPanel.SetActive(false);
 
         restartBlock.SetActive(false);
-        exitBlock.SetActive(false);        
+        exitBlock.SetActive(false);
 
         rightAns = 0;
         wrongAns = 0;
@@ -193,18 +183,7 @@ public class GameManager_CM : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         restartBlock.SetActive(true);
-        restartBlock.GetComponent<InstantiateEffect_CM>().GoStart();
-
-        //
-        exitBlock.SetActive(true);
-        exitBlock.GetComponent<InstantiateEffect_CM>().GoStart();
-        //
-
-        if (isSucces == true)
-        {
-            exitBlock.SetActive(true);
-            exitBlock.GetComponent<InstantiateEffect_CM>().GoStart();
-        }            
+        if (isSucces == true) exitBlock.SetActive(true);        
     }
 
     IEnumerator TimerOnGo()

@@ -53,14 +53,6 @@ MonoBehaviour:
       value: True
       type: 2
       typeString: CustomFieldType_Boolean
-    - title: Name es
-      value: 
-      type: 4
-      typeString: CustomFieldType_Localization
-    - title: Description es
-      value: 
-      type: 4
-      typeString: CustomFieldType_Localization
     portrait: {fileID: 0}
     spritePortrait: {fileID: 0}
     alternatePortraits: []
@@ -83,14 +75,6 @@ MonoBehaviour:
       value: False
       type: 2
       typeString: CustomFieldType_Boolean
-    - title: Name es
-      value: 
-      type: 4
-      typeString: CustomFieldType_Localization
-    - title: Description es
-      value: 
-      type: 4
-      typeString: CustomFieldType_Localization
     portrait: {fileID: 0}
     spritePortrait: {fileID: 0}
     alternatePortraits: []
@@ -107,7 +91,7 @@ MonoBehaviour:
     - title: Initial Value
       value: 
       type: 0
-      typeString: CustomFieldType_Text
+      typeString: 
     - title: Description
       value: 
       type: 0
@@ -189,10 +173,6 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 1
       isRoot: 0
       isGroup: 0
@@ -248,10 +228,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: Hi? Welcome to Animal Cell
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 1
       isRoot: 0
       isGroup: 0
@@ -267,7 +243,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(0);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -309,10 +285,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: Blah Blah
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 1
       isRoot: 0
       isGroup: 0
@@ -328,14 +300,14 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(1);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 157.99442
-        y: 124.28569
+        x: 159.05824
+        y: 125.34952
         width: 160
         height: 30
     - id: 3
@@ -370,10 +342,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: werer
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 1
       isRoot: 0
       isGroup: 0
@@ -389,7 +357,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(2);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -422,17 +390,15 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\uC5EC\uAE30 \uC774 \uB9C9\uB300\uAE30\uAC00 \uBCF4\uC774\uC9C0?"
+        value: "\uC5EC\uAE30 \uC774 \uB9C9\uB300\uAE30\uAC00 \uBCF4\uC774\uC9C0?
+          \uC774\uAC74 \uB3D9\uBB3C\uC138\uD3EC\uC758 \uC138\uD3EC\uB9C9\uC744 \uAD6C\uC131\uD558\uB294
+          \u2018\uC778\uC9C0\uC9C8\u2019\uC774\uB77C\uB294 \uBD84\uC790\uC57C"
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: s
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 1
       isRoot: 0
       isGroup: 0
@@ -444,21 +410,17 @@ MonoBehaviour:
       - originConversationID: 1
         originDialogueID: 4
         destinationConversationID: 1
-        destinationDialogueID: 7
+        destinationDialogueID: 5
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'MakeTestSaberSS();
-
-        MakeTestHeadWF();
-
-        PlayAudioClip(3);'
+      userScript: MakeTestSaberSSAndHeadWF();
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 161.33098
+        x: 159.05824
         y: 225.34952
         width: 160
         height: 30
@@ -494,10 +456,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: www
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 1
       isRoot: 0
       isGroup: 0
@@ -513,14 +471,14 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(5);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 153.97314
-        y: 320.12186
+        x: 159.05824
+        y: 274.3495
         width: 160
         height: 30
     - id: 6
@@ -553,10 +511,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: qqq
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 1
       isRoot: 0
       isGroup: 0
@@ -566,80 +520,19 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: PlayAudioClip(6);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 159.68535
-        y: 366.05017
-        width: 160
-        height: 30
-    - id: 7
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: "\uC774\uAC74 \uB3D9\uBB3C\uC138\uD3EC\uC758 \uC138\uD3EC\uB9C9\uC744
-          \uAD6C\uC131\uD558\uB294 \u2018\uC778\uC9C0\uC9C8\u2019\uC774\uB77C\uB294
-          \uBD84\uC790\uC57C"
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      - title: es
-        value: a
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 1
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 1
-        originDialogueID: 7
-        destinationConversationID: 1
-        destinationDialogueID: 5
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: PlayAudioClip(4);
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 160.80292
-        y: 275.2601
+        x: 159.05824
+        y: 324.3495
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 9.530638}
-    canvasZoom: 0.8800001
+    canvasScrollPosition: {x: 0.9708252, y: 0}
+    canvasZoom: 1.03
   - id: 2
     fields:
     - title: Title
@@ -716,10 +609,6 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 2
       isRoot: 0
       isGroup: 0
@@ -768,17 +657,14 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\uC798\uD588\uC5B4!"
+        value: "\uC798\uD588\uC5B4! \uC774\uC81C \uC778\uC9C0\uC9C8\uC774 \uC5B4\uB5BB\uAC8C
+          \uC0DD\uAE34\uC9C0 \uC54C\uACA0\uC9C0?"
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 2
       isRoot: 0
       isGroup: 0
@@ -790,11 +676,11 @@ MonoBehaviour:
       - originConversationID: 2
         originDialogueID: 1
         destinationConversationID: 2
-        destinationDialogueID: 5
+        destinationDialogueID: 2
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(7);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -835,10 +721,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 2
       isRoot: 0
       isGroup: 0
@@ -850,18 +732,18 @@ MonoBehaviour:
       - originConversationID: 2
         originDialogueID: 2
         destinationConversationID: 2
-        destinationDialogueID: 6
+        destinationDialogueID: 3
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(9);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 162.27272
-        y: 176.59093
+        x: 160
+        y: 131.13637
         width: 160
         height: 30
     - id: 3
@@ -895,10 +777,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 2
       isRoot: 0
       isGroup: 0
@@ -914,14 +792,14 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(11);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 163.40907
-        y: 293.63635
+        x: 160
+        y: 180
         width: 160
         height: 30
     - id: 4
@@ -955,10 +833,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 2
       isRoot: 0
       isGroup: 0
@@ -968,133 +842,14 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: PlayAudioClip(12);
+      userScript: MakeTestSaberSSWF()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 165.6818
-        y: 355
-        width: 160
-        height: 30
-    - id: 5
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: "\uC774\uC81C \uC778\uC9C0\uC9C8\uC774 \uC5B4\uB5BB\uAC8C \uC0DD\uAE34\uC9C0
-          \uC54C\uACA0\uC9C0?"
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 2
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 2
-        originDialogueID: 5
-        destinationConversationID: 2
-        destinationDialogueID: 2
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: PlayAudioClip(8);
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 155.45453
-        y: 125.45453
-        width: 160
-        height: 30
-    - id: 6
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: "\uC774\uB807\uAC8C \uB9D0\uC774\uC57C"
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 2
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 2
-        originDialogueID: 6
-        destinationConversationID: 2
-        destinationDialogueID: 3
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: PlayAudioClip(10);
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 161.13637
-        y: 239.09093
+        x: 160
+        y: 230
         width: 160
         height: 30
     entryGroups: []
@@ -1176,10 +931,6 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 3
       isRoot: 0
       isGroup: 0
@@ -1228,17 +979,13 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\uC88B\uC558\uC5B4!"
+        value: "\uC88B\uC558\uC5B4! \uBC29\uAE08 \uC138\uD3EC\uB9C9\uC744 \uB9CC\uB4E4\uC5C8\uC5B4!"
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 3
       isRoot: 0
       isGroup: 0
@@ -1250,11 +997,11 @@ MonoBehaviour:
       - originConversationID: 3
         originDialogueID: 1
         destinationConversationID: 3
-        destinationDialogueID: 3
+        destinationDialogueID: 2
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(13);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1287,8 +1034,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\uC778\uC9C0\uC9C8 \uC774\uC911\uCE35\uC5D0\uC11C \uBB3C\uACFC \uCE5C\uD55C
-          \uBD80\uBD84\uC774 \uB9CE\uC744\uAE4C, \uBB3C\uACFC \uCE5C\uD558\uC9C0
+        value: "\uADF8\uB7FC \uC778\uC9C0\uC9C8 \uC774\uC911\uCE35\uC5D0\uC11C \uBB3C\uACFC
+          \uCE5C\uD55C \uBD80\uBD84\uC774 \uB9CE\uC744\uAE4C, \uBB3C\uACFC \uCE5C\uD558\uC9C0
           \uC54A\uC740 \uBD80\uBD84\uC774 \uB9CE\uC744\uAE4C?"
         type: 0
         typeString: 
@@ -1296,10 +1043,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 3
       isRoot: 0
       isGroup: 0
@@ -1309,138 +1052,14 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'PlayAudioClip(16);
-
-        QuestionByNarrator()'
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 197
-        y: 292
-        width: 160
-        height: 30
-    - id: 3
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: "\uBC29\uAE08 \uC138\uD3EC\uB9C9\uC744 \uB9CC\uB4E4\uC5C8\uC5B4!"
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      - title: Response Menu Sequence
-        value: 
-        type: 0
-        typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 3
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 3
-        originDialogueID: 3
-        destinationConversationID: 3
-        destinationDialogueID: 4
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: PlayAudioClip(14);
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 169
-        y: 150
-        width: 160
-        height: 30
-    - id: 4
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: "\uADF8\uB7FC \uAE5C\uC9DD \uD034\uC988\uC57C!"
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 3
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 3
-        originDialogueID: 4
-        destinationConversationID: 3
-        destinationDialogueID: 2
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: PlayAudioClip(15);
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 187
-        y: 217
+        x: 160
+        y: 130
         width: 160
         height: 30
     entryGroups: []
@@ -1522,10 +1141,6 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 4
       isRoot: 0
       isGroup: 0
@@ -1585,10 +1200,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 4
       isRoot: 0
       isGroup: 0
@@ -1604,7 +1215,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(17);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1645,10 +1256,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 4
       isRoot: 0
       isGroup: 0
@@ -1664,7 +1271,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(18);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1706,10 +1313,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 4
       isRoot: 0
       isGroup: 0
@@ -1725,7 +1328,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(19);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1765,10 +1368,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 4
       isRoot: 0
       isGroup: 0
@@ -1784,7 +1383,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(20);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1826,10 +1425,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 4
       isRoot: 0
       isGroup: 0
@@ -1839,9 +1434,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'MakeTestBlocks();
-
-        PlayAudioClip(21);'
+      userScript: MakeTestBlocks()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1930,10 +1523,6 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 5
       isRoot: 0
       isGroup: 0
@@ -1993,10 +1582,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 5
       isRoot: 0
       isGroup: 0
@@ -2018,7 +1603,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 161
+        x: 160
         y: 80
         width: 160
         height: 30
@@ -2053,10 +1638,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 5
       isRoot: 0
       isGroup: 0
@@ -2079,7 +1660,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 160
-        y: 132
+        y: 130
         width: 160
         height: 30
     - id: 3
@@ -2114,10 +1695,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 5
       isRoot: 0
       isGroup: 0
@@ -2173,10 +1750,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 5
       isRoot: 0
       isGroup: 0
@@ -2234,10 +1807,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 5
       isRoot: 0
       isGroup: 0
@@ -2336,16 +1905,12 @@ MonoBehaviour:
         value: None()
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 6
       isRoot: 0
       isGroup: 0
       nodeColor: 
       delaySimStatus: 0
-      falseConditionAction: Block
+      falseConditionAction: 
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 6
@@ -2388,17 +1953,13 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\uC798\uD588\uC5B4!!"
+        value: "\uC798\uD588\uC5B4!! \uC544\uC8FC \uB611\uB611\uD55C\uB370?"
         type: 0
         typeString: 
       - title: Sequence
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 6
       isRoot: 0
       isGroup: 0
@@ -2410,11 +1971,11 @@ MonoBehaviour:
       - originConversationID: 6
         originDialogueID: 1
         destinationConversationID: 6
-        destinationDialogueID: 6
+        destinationDialogueID: 2
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(26);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2456,10 +2017,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 6
       isRoot: 0
       isGroup: 0
@@ -2475,14 +2032,14 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(28);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 194
-        y: 191
+        x: 160
+        y: 130
         width: 160
         height: 30
     - id: 3
@@ -2515,10 +2072,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 6
       isRoot: 0
       isGroup: 0
@@ -2534,14 +2087,14 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(30);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 193
-        y: 239
+        x: 160
+        y: 180
         width: 160
         height: 30
     - id: 4
@@ -2575,10 +2128,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 6
       isRoot: 0
       isGroup: 0
@@ -2594,14 +2143,14 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(31);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 193
-        y: 289
+        x: 160
+        y: 230
         width: 160
         height: 30
     - id: 5
@@ -2634,10 +2183,6 @@ MonoBehaviour:
         value: 
         type: 0
         typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
       conversationID: 6
       isRoot: 0
       isGroup: 0
@@ -2647,73 +2192,14 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: PlayAudioClip(32);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 193
-        y: 339
-        width: 160
-        height: 30
-    - id: 6
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: "\uC544\uC8FC \uB611\uB611\uD55C\uB370?"
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 6
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 6
-        originDialogueID: 6
-        destinationConversationID: 6
-        destinationDialogueID: 2
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: PlayAudioClip(27);
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 172
-        y: 130
+        x: 160
+        y: 280
         width: 160
         height: 30
     entryGroups: []
@@ -2728,12 +2214,9 @@ MonoBehaviour:
     syncItemsDatabase: {fileID: 0}
     syncLocationsDatabase: {fileID: 0}
     syncVariablesDatabase: {fileID: 0}
-  templateJson: '{"treatItemsAsQuests":true,"actorFields":[{"title":"Name","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Pictures","value":"[]","type":3,"typeString":"CustomFieldType_Files"},{"title":"Description","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"IsPlayer","value":"False","type":2,"typeString":"CustomFieldType_Boolean"},{"title":"Name
-    es","value":"","type":4,"typeString":"CustomFieldType_Localization"},{"title":"Description
-    es","value":"","type":4,"typeString":"CustomFieldType_Localization"}],"itemFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Pictures","value":"[]","type":3,"typeString":"CustomFieldType_Files"},{"title":"Description","value":"","type":0,"typeString":""},{"title":"Is
+  templateJson: '{"treatItemsAsQuests":true,"actorFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Pictures","value":"[]","type":3,"typeString":"CustomFieldType_Files"},{"title":"Description","value":"","type":0,"typeString":""},{"title":"IsPlayer","value":"False","type":2,"typeString":"CustomFieldType_Boolean"}],"itemFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Pictures","value":"[]","type":3,"typeString":"CustomFieldType_Files"},{"title":"Description","value":"","type":0,"typeString":""},{"title":"Is
     Item","value":"True","type":2,"typeString":"CustomFieldType_Boolean"}],"questFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Pictures","value":"[]","type":3,"typeString":"CustomFieldType_Files"},{"title":"Description","value":"","type":0,"typeString":""},{"title":"Success
     Description","value":"","type":0,"typeString":""},{"title":"Failure Description","value":"","type":0,"typeString":""},{"title":"State","value":"unassigned","type":0,"typeString":""},{"title":"Is
     Item","value":"False","type":2,"typeString":"CustomFieldType_Boolean"}],"locationFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Description","value":"","type":0,"typeString":""}],"variableFields":[{"title":"Name","value":"","type":0,"typeString":""},{"title":"Initial
-    Value","value":"","type":0,"typeString":""},{"title":"Description","value":"","type":0,"typeString":""}],"conversationFields":[{"title":"Title","value":"","type":0,"typeString":""},{"title":"Description","value":"","type":0,"typeString":""},{"title":"Actor","value":"0","type":5,"typeString":"CustomFieldType_Actor"},{"title":"Conversant","value":"0","type":5,"typeString":"CustomFieldType_Actor"}],"dialogueEntryFields":[{"title":"Title","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Description","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Actor","value":"","type":5,"typeString":"CustomFieldType_Actor"},{"title":"Conversant","value":"","type":5,"typeString":"CustomFieldType_Actor"},{"title":"Menu
-    Text","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Dialogue
-    Text","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"Sequence","value":"","type":0,"typeString":"CustomFieldType_Text"},{"title":"es","value":"","type":4,"typeString":"CustomFieldType_Localization"}],"actorPrimaryFieldTitles":[],"itemPrimaryFieldTitles":[],"questPrimaryFieldTitles":[],"locationPrimaryFieldTitles":[],"variablePrimaryFieldTitles":[],"conversationPrimaryFieldTitles":[],"dialogueEntryPrimaryFieldTitles":[],"npcLineColor":{"r":1.0,"g":0.0,"b":0.0,"a":1.0},"pcLineColor":{"r":0.0,"g":0.0,"b":1.0,"a":1.0},"repeatLineColor":{"r":0.5,"g":0.5,"b":0.5,"a":1.0}}'
+    Value","value":"","type":0,"typeString":""},{"title":"Description","value":"","type":0,"typeString":""}],"conversationFields":[{"title":"Title","value":"","type":0,"typeString":""},{"title":"Description","value":"","type":0,"typeString":""},{"title":"Actor","value":"0","type":5,"typeString":"CustomFieldType_Actor"},{"title":"Conversant","value":"0","type":5,"typeString":"CustomFieldType_Actor"}],"dialogueEntryFields":[{"title":"Title","value":"","type":0,"typeString":""},{"title":"Description","value":"","type":0,"typeString":""},{"title":"Actor","value":"","type":5,"typeString":"CustomFieldType_Actor"},{"title":"Conversant","value":"","type":5,"typeString":"CustomFieldType_Actor"},{"title":"Menu
+    Text","value":"","type":0,"typeString":""},{"title":"Dialogue Text","value":"","type":0,"typeString":""},{"title":"Sequence","value":"","type":0,"typeString":""}],"actorPrimaryFieldTitles":[],"itemPrimaryFieldTitles":[],"questPrimaryFieldTitles":[],"locationPrimaryFieldTitles":[],"variablePrimaryFieldTitles":[],"conversationPrimaryFieldTitles":[],"dialogueEntryPrimaryFieldTitles":[],"npcLineColor":{"r":1.0,"g":0.0,"b":0.0,"a":1.0},"pcLineColor":{"r":0.0,"g":0.0,"b":1.0,"a":1.0},"repeatLineColor":{"r":0.5,"g":0.5,"b":0.5,"a":1.0}}'
