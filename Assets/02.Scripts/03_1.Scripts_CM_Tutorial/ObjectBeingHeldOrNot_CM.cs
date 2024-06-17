@@ -6,7 +6,7 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
 {
     public TutorialManager_CM tutoMgr;
 
-    public float revortPos;
+    public float revortPos = 0.2f;
 
     public BNG.Grabbable grabbable;
     public Rigidbody rb;
@@ -25,8 +25,10 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
     public BoxCollider bc3;
 
     [Header("SaberSS or HeadWF Flag")]
-    public bool isThisSaberSS = false;
-    public bool isThisHeadWF = false;
+    public bool isThisTail = false;
+    public bool isThisHead = false;
+    public bool isThisSingle = false;
+    public bool isThisDouble = false;
     public bool firstGrab = false;
 
     void Start()
@@ -38,8 +40,28 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
         rb.useGravity = true;
         rb.isKinematic = true;
 
-        objRespawnPoint1 = tutoMgr.testSaberSSSpawnPos;
-        objRespawnPoint2 = tutoMgr.testSaberWFSpawnPos;
+        if (isThisTail == true)
+        {
+            objRespawnPoint1 = tutoMgr.spawnPos_Tail;
+        }
+        else if (isThisHead == true)
+        {
+            objRespawnPoint1 = tutoMgr.spawnPos_Head;
+        }
+        else if (isThisSingle == true)
+        {
+            objRespawnPoint1 = tutoMgr.spawnPos_Single;
+        }
+        else if (isThisDouble == true)
+        {
+            objRespawnPoint1 = tutoMgr.spawnPos_Double;
+        }
+        else
+        {
+            Debug.Log("Fucking Error");
+        }
+
+        objRespawnPoint2 = tutoMgr.spawnPos_Single;
 
         objSpawnRotate = Quaternion.identity;
 
@@ -59,10 +81,14 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
             isHeld = true;
             rb.isKinematic = false; // kinematic 해제
 
-            if (isThisSaberSS == true && firstGrab == false)
+            // 2 - 각 오브젝트를 터치할 블록들 생성 및 연습 지시 -> (아예 처음 잡은 상태라면 2번째 대사 목록들 출력)
+            if (isThisTail == true && tutoMgr.firstGrab == false)
             {
-                firstGrab = true;
-                tutoMgr.narrator.StartCov_Second();
+                tutoMgr.firstGrab = true;
+            }
+            else if (isThisHead == true && tutoMgr.firstGrab == false)
+            {
+                tutoMgr.firstGrab = true;
             }
         }
 
@@ -90,22 +116,21 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
                         go.GetComponent<ObjectBeingHeldOrNot_CM>().isHeld = false;
                     }
                 }
-                else if (statusFlag == 2)
+                else if (statusFlag == 2) // 인지질 이중층 구조를 만든 상태라면
                 {                    
                     objRespawnPoint1.position = objRespawnPoint2.position;
-                    objSpawnRotate = Quaternion.Euler(90, 90, 0);                    
+                    objSpawnRotate = Quaternion.Euler(90, 0, 0);                 
                 }
-                else if (statusFlag == 3)
+                else if (statusFlag == 3) // 인지질 이중층을 쌍으로 만든 최종 형태라면
                 {
-                    objRespawnPoint1.position = new Vector3(objRespawnPoint2.position.x, objRespawnPoint2.position.y - .5f, objRespawnPoint2.position.z);
-                    objSpawnRotate = Quaternion.Euler(90, 90, 0);                    
+                    objRespawnPoint1.position = new Vector3(objRespawnPoint2.position.x, objRespawnPoint2.position.y, objRespawnPoint2.position.z);
+                    objSpawnRotate = Quaternion.Euler(90, 90, 0);    
                 }
             }
             
             // kinematic도 받고, 원래 스폰 포인트로 돌아오고 각도도 원래대로 만들기 (각도는 필요하다면 다른 값을 주도록)
             rb.isKinematic = true;
-            if (isThisHeadWF) transform.position = objRespawnPoint2.position;
-            else transform.position = objRespawnPoint1.position;
+            transform.position = objRespawnPoint1.position;
             transform.rotation = objSpawnRotate;
             isHeld = false;
 

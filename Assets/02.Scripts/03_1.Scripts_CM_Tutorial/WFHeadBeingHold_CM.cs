@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class WFHeadBeingHold_CM : MonoBehaviour
 {
+    public bool isInzizilMakeIt = false;
     public bool checkFlag = false;
     public GameObject attachPos;
+    NarratorDialogueHub_CM_Tutorial narrator = null;
 
-    public bool firstAttach = false;
+    [Header("StartConv_3's Coroutine Wait Time : 10 Seconds")]
+    public float waitTime = 1f;
 
     void Start()
     {
-        attachPos = GameObject.Find("WFHeadAttachPos"); // 장착 지점을 받아오기        
+        attachPos = GameObject.Find("HeadAttachPos"); // 장착 지점을 받아오기        
+        narrator = GameObject.Find("NarratorNPC").GetComponent<NarratorDialogueHub_CM_Tutorial>();
     }    
 
     private void OnTriggerEnter(Collider other)
@@ -35,10 +39,11 @@ public class WFHeadBeingHold_CM : MonoBehaviour
             checkFlag = true;
             StartCoroutine(HoldPos());
 
-            if (firstAttach == false)
+            if (isInzizilMakeIt == false)
             {
-                firstAttach = true;
-                GetComponent<ObjectBeingHeldOrNot_CM>().tutoMgr.narrator.StartCov_Third();
+                Debug.Log("=======inzizilMakeIt=======");
+                isInzizilMakeIt = true;
+                StartCoroutine(StartConv2After10Sec());
             }            
         }
     }
@@ -57,5 +62,14 @@ public class WFHeadBeingHold_CM : MonoBehaviour
         }
         Debug.Log("코루틴 종료");
 
+    }
+
+    IEnumerator StartConv2After10Sec()
+    {
+        Debug.Log("conv2 코루틴 진입");
+        yield return new WaitForSeconds(waitTime);
+        Debug.Log("conv2 코루틴 탈출");
+
+        narrator.StartCov_2();   
     }
 }

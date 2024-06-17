@@ -3,6 +3,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.XR;
 
 namespace PixelCrushers
 {
@@ -14,6 +15,10 @@ namespace PixelCrushers
     [RequireComponent(typeof(UnityEngine.UI.Selectable))]
     public class UIButtonKeyTrigger : MonoBehaviour, IEventSystemUser
     {
+        // 나중에 지워야 함
+        UnityEngine.XR.InputDevice right;
+        private bool isBButtonPressed;
+        // 나중에 지워야 함
 
         [Tooltip("Trigger the selectable when this key is pressed.")]
         public KeyCode key = KeyCode.None;
@@ -60,6 +65,7 @@ namespace PixelCrushers
 
         protected void Update()
         {
+            /*
             if (!monitorInput) return;
             if (!(m_selectable.enabled && m_selectable.interactable && m_selectable.gameObject.activeInHierarchy)) return;
             if (InputDeviceManager.IsKeyDown(key) || 
@@ -68,7 +74,16 @@ namespace PixelCrushers
             {
                 if (skipIfBeingClickedBySubmit && IsBeingClickedBySubmit()) return;
                 Click();
+            }*/
+            // 나중에 지워야 함
+            right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+            right.TryGetFeatureValue(CommonUsages.primaryButton, out isBButtonPressed);
+            if (isBButtonPressed)
+            {
+                if (skipIfBeingClickedBySubmit && IsBeingClickedBySubmit()) return;
+                Click();
             }
+            // 나중에 지워야 함
         }
 
         protected virtual bool IsBeingClickedBySubmit()

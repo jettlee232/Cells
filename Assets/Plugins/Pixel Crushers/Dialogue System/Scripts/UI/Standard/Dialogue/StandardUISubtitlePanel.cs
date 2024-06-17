@@ -25,7 +25,7 @@ namespace PixelCrushers.DialogueSystem
         public UITextField portraitName;
 
         [Tooltip("Subtitle text.")]
-        public UITextField subtitleText;
+        public UITextField subtitleText;        
 
         [Tooltip("Add speaker's name to subtitle text.")]
         public bool addSpeakerName = false;
