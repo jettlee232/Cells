@@ -117,6 +117,12 @@ public class LaserPointer_StageMap : MonoBehaviour
 
     public void DestroyDescription() // 패널 없애기
     {
+        if (glowObj != null)
+        {
+            glowObj.GetComponent<HighlightEffect>().highlighted = false;
+            glowObj.GetComponent<HighLightColorchange_SM>().GlowEnd();
+        }
+
         UIManager_StageMap.instance.OffDesc();
         obj = null;
     }

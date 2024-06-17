@@ -36,7 +36,7 @@ public class UIManager_StageMap : MonoBehaviour
 
     public void OnClickTitle()
     {
-        Desc_UI.SetActive(false);
-        GameManager_Lobby.instance.MoveScene("01_Home");
+        OffDesc();
+        GameManager_StageMap.instance.MoveScene("01_Home");
     }
 }

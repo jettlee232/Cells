@@ -1120,8 +1120,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116311417}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0017900001, y: 0.00179, z: 2.0564198}
+  m_LocalPosition: {x: 0, y: 0, z: 1.25}
+  m_LocalScale: {x: 0.001, y: 0.001, z: 2.0564198}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 247634691}
@@ -2915,12 +2915,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 186431599}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &206790521 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5117709272763234209, guid: 2af1d2045149fe743b81bc4d1a6f8406,
-    type: 3}
-  m_PrefabInstance: {fileID: 162738116}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &211024251
 GameObject:
   m_ObjectHideFlags: 0
@@ -19431,8 +19425,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762706399}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
+  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalScale: {x: 0.002, y: 0.002, z: 0.002}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 287645839}
@@ -19440,7 +19434,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.6, y: 0.6}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1762706401
@@ -23803,7 +23797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e3bab06f2b51d4887954910850cc1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 206790521}
+  player: {fileID: 162738117}
   playerCam: {fileID: 843602021}
   uiPointer: {fileID: 1498492036}
   NPC: {fileID: 1416126477}
@@ -23960,7 +23954,7 @@ MonoBehaviour:
   preloadResources: 1
   warmUpConversationController: 0
   dontHideImmediateDuringWarmup: 0
-  dontDestroyOnLoad: 1
+  dontDestroyOnLoad: 0
   allowOnlyOneInstance: 1
   onStartTriggerWaitForSaveDataApplied: 0
   dialogueTimeMode: 0
@@ -23995,7 +23989,7 @@ MonoBehaviour:
   backButtons:
   - Cancel
   submitButton: Submit
-  singleton: 1
+  singleton: 0
   onUseKeyboard:
     m_PersistentCalls:
       m_Calls: []
