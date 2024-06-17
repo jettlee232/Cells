@@ -26,7 +26,6 @@ public class BlockSpawnManager_CM : MonoBehaviour
 
     IEnumerator MakeBlock()
     {
-        Debug.Log("Block Spawn Start!");
         isGameRunning = true;
         while (isGameRunning)
         {
@@ -36,18 +35,19 @@ public class BlockSpawnManager_CM : MonoBehaviour
             int blockRnd1 = Random.Range(0, 2);
             int blockRnd2 = Random.Range(0, 6);
 
-            GameObject go1 = null;
-            GameObject go2 = null;
+            GameObject go = null;
 
             if (blockRnd1 == 0)
             {
-                go1 = Instantiate(blockWF[blockRnd2]);
+                go = Instantiate(blockWF[blockRnd2]);
             }
             else if (blockRnd1 == 1)
             {
-                go1 = Instantiate(blockSS[blockRnd2]);
+                go = Instantiate(blockSS[blockRnd2]);
             }
-            else // 난이도가 높아짐, 일단은 보류
+            // 난이도가 높아짐, 일단은 보류
+            /*
+            else 
             {                
                 go2 = Instantiate(blockSS[blockRnd2]);
                 if (blockSpawnPosRnd < 2) go2.transform.position = blockSpawnPos[blockSpawnPosRnd + 1].position;
@@ -57,12 +57,15 @@ public class BlockSpawnManager_CM : MonoBehaviour
                 int blockRnd3 = Random.Range(0, 6);
                 go1 = Instantiate(blockWF[blockRnd3]);
             }
+            */
 
-            go1.transform.position = blockSpawnPos[blockSpawnPosRnd].position;
-            go1.transform.rotation = Quaternion.identity;
-            go1.transform.SetParent(spawnedBlockGroup);
+            go.transform.position = blockSpawnPos[blockSpawnPosRnd].position;
+            go.transform.rotation = Quaternion.identity;
+            //go.transform.GetChild(2).gameObject.SetActive(false); // 3D 텍스트 오브젝트 감추기
+            go.transform.SetParent(spawnedBlockGroup);
         }        
 
+        // *** 이거 왜 있는 거였더라? 나중에 다시 테스트 ***
         for (int i = 0; i < spawnedBlockGroup.childCount; i++) 
         {
             Destroy(spawnedBlockGroup.GetChild(i).gameObject);
