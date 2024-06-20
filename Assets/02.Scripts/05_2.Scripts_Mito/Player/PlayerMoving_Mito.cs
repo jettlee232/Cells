@@ -84,7 +84,7 @@ public class PlayerMoving_Mito : MonoBehaviour
         {
             while (true)
             {
-                if (!goUp) { yield break; }
+                if (!goUp || !flyable) { yield break; }
                 if (upSpeed - nowUpSpeed <= 0.1f) { nowUpSpeed = upSpeed; yield break; }
                 timer += Time.deltaTime;
                 nowUpSpeed = Mathf.Lerp(nowSpeed, upSpeed, timer / totalTimer);
@@ -102,7 +102,7 @@ public class PlayerMoving_Mito : MonoBehaviour
         {
             while (true)
             {
-                if (goUp) { yield break; }
+                if (goUp || !flyable) { yield break; }
                 if (nowUpSpeed <= 0.1f) { nowUpSpeed = 0f; yield break; }
                 timer += Time.deltaTime;
                 nowUpSpeed = Mathf.Lerp(nowSpeed, 0f, timer / totalTimer);
@@ -134,7 +134,7 @@ public class PlayerMoving_Mito : MonoBehaviour
         {
             while (true)
             {
-                if (!goDown) { yield break; }
+                if (!goDown || !flyable) { yield break; }
                 if (downSpeed - nowDownSpeed <= 0.1f) { nowDownSpeed = downSpeed; yield break; }
                 timer += Time.deltaTime;
                 nowDownSpeed = Mathf.Lerp(nowSpeed, downSpeed, timer / totalTimer);
@@ -152,7 +152,7 @@ public class PlayerMoving_Mito : MonoBehaviour
         {
             while (true)
             {
-                if (goDown) { yield break; }
+                if (goDown || !flyable) { yield break; }
                 if (nowDownSpeed <= 0.1f) { nowDownSpeed = 0f; yield break; }
                 timer += Time.deltaTime;
                 nowDownSpeed = Mathf.Lerp(nowSpeed, 0f, timer / totalTimer);

@@ -6,15 +6,25 @@ using UnityEngine.UI;
 
 public class GameManager_Mito : MonoBehaviour
 {
+    public static GameManager_Mito Instance { get; private set; }
+
     public int atpScore = 0;
-    public float atpTime = 1.0f;
+    public float atpCurTime = 1.0f;
+    public float atpMaxTime = 1.0f;
     public int atpCount = 0;
     public int atpGoal = 4;
 
-    public Text atpGoalText;
-    public Text atpScoreText;
-    public Text atpTimeText;
-    public Image atpTimeValue;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     void Start()
     {
@@ -23,17 +33,15 @@ public class GameManager_Mito : MonoBehaviour
         BtnOnClickGameStart();
     }
 
-    void Update()
-    {
-        UpdateScoreUI();
-        UpdateTimeUI();
-    }
+    //void Update()
+    //{
+
+    //}
 
     public void IncreaseScore(int amount)
     {
         atpScore += amount;
         atpCount++;
-        //UpdateScoreUI();
         
         if (atpCount >= atpGoal)
         {
@@ -43,22 +51,9 @@ public class GameManager_Mito : MonoBehaviour
 
     public void IncreaseTime(float amount)
     {
-        atpTime += amount;
-        //UpdateTimeUI();
-    }
-
-    private void UpdateScoreUI()
-    {
-        atpScoreText.text = "ATP 점수\n" + atpScore;
-        atpGoalText.text = "ATP 목표\n" + atpCount + " / " + atpGoal;
-    }
-
-    private void UpdateTimeUI()
-    {
-        int roundedTime = Mathf.RoundToInt(atpTime * 100);
-
-        atpTimeText.text = roundedTime.ToString() + "%";
-        atpTimeValue.fillAmount = atpTime;
+        atpCurTime += amount;
+        if (atpCurTime > atpMaxTime)
+            atpCurTime = atpMaxTime;
     }
 
     public void BtnOnClickGameStart()
@@ -73,10 +68,10 @@ public class GameManager_Mito : MonoBehaviour
 
     IEnumerator DecreaseTime()
     {
-        while (atpTime > 0.0f)
+        while (atpCurTime > 0.0f)
         {
             yield return new WaitForSeconds(2.0f);
-            atpTime -= 0.01f;
+            atpCurTime -= 0.01f;
         }
     }
 

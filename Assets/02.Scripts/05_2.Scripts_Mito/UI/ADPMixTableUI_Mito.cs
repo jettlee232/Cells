@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ADPMixTableUI_Mito : MonoBehaviour
 {
     public ADPMixTable_Mito adpMixTable;
-    public Text adenineCntText;
-    public Text riboseCntText;
-    public Text phosphateCntText;
-
-    private int requiredAdenine = 1;
-    private int requiredRibose = 1;
-    private int requiredPhosphate = 2;
+    public TextMeshProUGUI adenineCheckText;
+    public TextMeshProUGUI riboseCheckText;
+    public TextMeshProUGUI phosphateCheckText_1;
+    public TextMeshProUGUI phosphateCheckText_2;
 
     void Start()
     {
@@ -22,16 +20,34 @@ public class ADPMixTableUI_Mito : MonoBehaviour
     void Update()
     {
         UpdateUIText();
+        UpdateUIImage();
     }
 
     void UpdateUIText()
     {
-        int currentAdenine = adpMixTable.isAdenine ? 1 : 0;
-        int currentRibose = adpMixTable.isRibose ? 1 : 0;
-        int currentPhosphate = (adpMixTable.isPhosphate_1 ? 1 : 0) + (adpMixTable.isPhosphate_2 ? 1 : 0);
+        string currentAdenine = adpMixTable.isAdenine ? "O" : "X";
+        string currentRibose = adpMixTable.isRibose ? "O" : "X";
+        string currentPhosphate_1 = adpMixTable.isPhosphate_1 ? "O" : "X";
+        string currentPhosphate_2 = adpMixTable.isPhosphate_2 ? "O" : "X";
 
-        adenineCntText.text = "필요\n아데닌\n" + (requiredAdenine - currentAdenine);
-        riboseCntText.text = "필요\n리보스\n" + (requiredRibose - currentRibose);
-        phosphateCntText.text = "필요\n인산\n" + (requiredPhosphate - currentPhosphate);
+        adenineCheckText.text = currentAdenine;
+        riboseCheckText.text = currentRibose;
+        phosphateCheckText_1.text = currentPhosphate_1;
+        phosphateCheckText_2.text = currentPhosphate_2;
+    }
+
+    void UpdateUIImage()
+    {
+        adenineCheckText.GetComponentInParent<Image>().color =
+            adpMixTable.isAdenine ? Color.green : Color.red;
+
+        riboseCheckText.GetComponentInParent<Image>().color =
+            adpMixTable.isRibose ? Color.green : Color.red;
+
+        phosphateCheckText_1.GetComponentInParent<Image>().color =
+            adpMixTable.isPhosphate_1 ? Color.green : Color.red;
+
+        phosphateCheckText_2.GetComponentInParent<Image>().color =
+            adpMixTable.isPhosphate_2 ? Color.green : Color.red;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RayInteraction_Mito : MonoBehaviour
 {
-    public InventoryUI_Mito inventoryUI;
+    //public InventoryUI_Mito inventoryUI;
     public Grabber rightHandGrabber;
 
     Ray ray;
@@ -22,17 +22,17 @@ public class RayInteraction_Mito : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             // 스냅존(각 슬롯)에서 아이템의 정보를 가져옴
-            SnapZone snapZone = hit.collider.GetComponent<SnapZone>();
+            //SnapZone snapZone = hit.collider.GetComponent<SnapZone>();
             GrabAction grabAction = hit.collider.GetComponent<GrabAction>();
 
-            if (snapZone != null && snapZone.HeldItem != null)
-            {
-                inventoryUI.UpdateCurrentItemText(snapZone.HeldItem);
-            }
-            else
-            {
-                inventoryUI.ClearCurrentItemText();
-            }
+            //if (snapZone != null && snapZone.HeldItem != null && hit.collider.CompareTag("Inventory"))
+            //{
+            //    inventoryUI.UpdateCurrentItemText(snapZone.HeldItem);
+            //}
+            //else
+            //{
+            //    inventoryUI.ClearCurrentItemText();
+            //}
 
             if (GetComponentInParent<HandController>().GripAmount >= 1.0f && !item)
             {
@@ -42,6 +42,7 @@ public class RayInteraction_Mito : MonoBehaviour
         }
     }
 
+    // Ray로 먼곳에 들고있는 아이템 스냅하기
     // 오른손의 Grabber에서 OnReleaseEvent로 호출
     public void RaycastItemSnap()
     {
@@ -56,6 +57,10 @@ public class RayInteraction_Mito : MonoBehaviour
                 //item.GetComponent<Rigidbody>().isKinematic = true;
                 //item.transform.localPosition = Vector3.zero;
                 //item.transform.localEulerAngles = Vector3.zero;
+
+                // 아이템을 놓고 MaxDropTime 안에 SnapZone 근처에 있으면
+                // 자동으로 스냅되는 기능이 프레임워크에 있었다.
+                // 나중에 이동시간을 조절하면 될듯?
                 item.transform.localPosition = snapZone.transform.position;
                 item.transform.localEulerAngles = snapZone.transform.localEulerAngles;
 
@@ -68,9 +73,10 @@ public class RayInteraction_Mito : MonoBehaviour
         }
     }
 
+    // Ray로 먼곳의 아이템 손으로 가져오기
+    // Update에서 GripAmount 확인해서 실행
     public void RaycastItemDetach(GrabAction grabAction)
     {
-        Debug.Log("호출테스트");
         // gripamount로 체크?
 
         grabAction.OnGrabEvent.Invoke(rightHandGrabber);

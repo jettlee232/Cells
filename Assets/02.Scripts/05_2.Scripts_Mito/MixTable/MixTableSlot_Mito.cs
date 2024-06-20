@@ -8,7 +8,8 @@ public class MixTableSlot_Mito : MonoBehaviour
 {
     // 슬롯 스크립트들은 추후에 상속으로 변경
     public ADPMixTable_Mito adpMixTable;
-    public ATPMixTable_Mito atpMixTable;
+    public ATPMixTableInside_Mito atpMixTableInside;
+    public ATPMixTableOutside_Mito atpMixTableOutside;
 
     public ItemType slotType;
     public SnapZone snapZone;
@@ -20,7 +21,8 @@ public class MixTableSlot_Mito : MonoBehaviour
     void Start()
     {
         adpMixTable ??= GetComponentInParent<ADPMixTable_Mito>();
-        atpMixTable ??= GetComponentInParent<ATPMixTable_Mito>();
+        atpMixTableInside ??= GetComponentInParent<ATPMixTableInside_Mito>();
+        atpMixTableOutside ??= GetComponentInParent<ATPMixTableOutside_Mito>();
         snapZone = GetComponent<SnapZone>();
         snapZone.OnSnapEvent.AddListener(OnItemSnapped);
         snapZone.OnDetachEvent.AddListener(OnItemDetached);
@@ -30,13 +32,18 @@ public class MixTableSlot_Mito : MonoBehaviour
     void OnItemSnapped(Grabbable item)
     {
         if (isHandlingEvent) return;
-
+        
         isHandlingEvent = true;
 
         if (item.GetComponent<Item_Mito>().type == slotType)
         {
+            item.gameObject.SetActive(false);
+
             adpMixTable?.UpdateSlotStatus(slotType, true);
-            atpMixTable?.UpdateSlotStatus(slotType, true);
+            atpMixTableInside?.UpdateSlotStatus(slotType, true);
+            atpMixTableOutside?.AddHIon(1);
+
+            item.gameObject.SetActive(true);
         }
         else
         {
@@ -55,7 +62,7 @@ public class MixTableSlot_Mito : MonoBehaviour
         isHandlingEvent = true;
 
         adpMixTable?.UpdateSlotStatus(slotType, false);
-        atpMixTable?.UpdateSlotStatus(slotType, false);
+        atpMixTableInside?.UpdateSlotStatus(slotType, false);
 
         isHandlingEvent = false;
     }
