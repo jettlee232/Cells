@@ -30,6 +30,8 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
     public void ActivateDST1() // 1번째 트리거 작동 함수
     {
+        fStopPlayer_LB();
+        if (GameManager_Lobby.instance.firstEnd) { dialogueSystemTrigger2.startConversationEntryID = 2; }
         dialogueSystemTrigger1.startConversationEntryID = 0; // 1번째 트리거의 컨버제이션 진입 번호를 0번으로 변경 (이거 안해도 되기는 한데, 안하면 나중에 컨버제이션 재활용이 불가)
         dialogueSystemTrigger1.OnUse(); // On Use로 컨버제이션 작동
         GameManager_Lobby.instance.firstEnd = true;
@@ -37,6 +39,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
     public void ActivateDST2() // 2번째 트리거 작동 함수
     {
+        fStopPlayer_LB();
         if (GameManager_Lobby.instance.secondEnd) { dialogueSystemTrigger2.startConversationEntryID = 2; }
         else { dialogueSystemTrigger2.startConversationEntryID = 0; }
         dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동
@@ -45,6 +48,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
     public void ActivateDST3() // 1번째 트리거 작동 함수
     {
+        fStopPlayer_LB();
         dialogueSystemTrigger3.startConversationEntryID = 0; // 1번째 트리거의 컨버제이션 진입 번호를 0번으로 변경 (이거 안해도 되기는 한데, 안하면 나중에 컨버제이션 재활용이 불가)
         dialogueSystemTrigger3.OnUse(); // On Use로 컨버제이션 작동
     }
@@ -77,16 +81,25 @@ public class SelectDialogue_Lobby : MonoBehaviour
         GameManager_Lobby.instance.secondCon = true;
     }
 
+    public void fStopPlayer_LB() { GameManager_Lobby.instance.StopPlayer(); }
+    public void fMovePlayer_LB() { GameManager_Lobby.instance.EnableMovePlayer(); }
+
+    public void fWarpable_LB() { GameManager_Lobby.instance.SetWarpable(); }
+
     #region Register with Lua
 
     private void OnEnable()
     {
         Lua.RegisterFunction("fCheckTutorial", this, SymbolExtensions.GetMethodInfo(() => fCheckTutorial()));
+        Lua.RegisterFunction("fMovePlayer_LB", this, SymbolExtensions.GetMethodInfo(() => fMovePlayer_LB()));
+        Lua.RegisterFunction("fWarpable_LB", this, SymbolExtensions.GetMethodInfo(() => fWarpable_LB()));
     }
 
     private void OnDisable()
     {
         Lua.UnregisterFunction("fCheckTutorial");
+        Lua.UnregisterFunction("fMovePlayer_LB");
+        Lua.UnregisterFunction("fWarpable_LB");
     }
 
     #endregion

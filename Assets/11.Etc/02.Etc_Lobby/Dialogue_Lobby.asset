@@ -626,9 +626,11 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'fCheckTutorial()
+      userScript: 'fMovePlayer_LB();
 
-'
+        fCheckTutorial();
+
+        fMovePlayer_LB()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1061,7 +1063,11 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: 'fMovePlayer_LB();
+
+        fWarpable_LB();
+
+        fMovePlayer_LB()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1079,11 +1085,11 @@ MonoBehaviour:
     - title: Title
       value: Lobby_3
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Description
       value: 
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Actor
       value: 1
       type: 5
@@ -1269,7 +1275,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: 'fMovePlayer_LB();
+
+        fMovePlayer_LB()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []

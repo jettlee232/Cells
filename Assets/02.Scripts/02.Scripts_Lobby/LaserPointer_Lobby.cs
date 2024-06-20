@@ -100,23 +100,18 @@ public class LaserPointer_Lobby : MonoBehaviour
 
     public void MakeDescription(GameObject go) // 게임 오브젝트의 이름과 종류에 따라 설명창 텍스트를 수정하기
     {
-        descPanel.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = go.GetComponent<DescObj_Lobby>().GetName();
-        descPanel.transform.GetChild(0).GetChild(1).GetComponent<Text>().text = go.GetComponent<DescObj_Lobby>().GetDesc();
+        descPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = go.GetComponent<DescObj_Lobby>().GetName();
     }
 
     private bool CheckSight()
     {
-        if (obj == null || mainCam == null || obj.transform == null) DestroyDescription();
-        Vector3 viewportPos = mainCam.WorldToViewportPoint(obj.transform.position);
+        Vector3 viewportPos = Vector3.one;
+        if (obj == null || mainCam == null || obj.transform == null) { DestroyDescription(); }
+        else { mainCam.WorldToViewportPoint(obj.transform.position); }
 
         bool isInView = viewportPos.z > 0f && (viewportPos.x > 0f && viewportPos.x < 1f) && (viewportPos.y > 0f && viewportPos.y < 1f);
 
-        Vector3 closest = obj.GetComponent<Collider>().ClosestPoint(player.transform.position);
-        Vector3 vDistance = (closest - player.transform.position);
-        bool isClose = (vDistance.magnitude <= maxDistance) ? true : false;
-
-        if (isInView && isClose) { return true; }
-        else { return false; }
+        return isInView;
     }
 
     public void IsTalking() { isDialogue = true; }

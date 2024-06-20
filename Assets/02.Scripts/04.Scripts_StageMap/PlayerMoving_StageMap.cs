@@ -60,7 +60,12 @@ public class PlayerMoving_StageMap: MonoBehaviour
         GetRotateY();
         GetRotateX();
         CheckFlyable();
-        if (GameManager_StageMap.instance.GetMovable()) { rb.velocity = flyable ? GetUp() + GetDown() + GetMove() : GetMove(); }
+        if (GameManager_StageMap.instance.GetMovable())
+        {
+            if (flyable) { rb.velocity = GetUp() + GetDown() + GetMove(); }
+            else { rb.velocity = GetMove(); }
+        }
+        else { rb.velocity = Vector3.zero; }
         ResetRot();
     }
 
@@ -242,7 +247,6 @@ public class PlayerMoving_StageMap: MonoBehaviour
     {
         return Vector3.ProjectOnPlane(dir, slopeHit.normal).normalized;
     }
-    public void StopPlayer() { rb.velocity = Vector3.zero; }
     #endregion
 
     public void CheckFlyable()
@@ -253,4 +257,6 @@ public class PlayerMoving_StageMap: MonoBehaviour
         if (!flyable && (pressedB && !oldPressedB)) { flyable = true; }
         else if (flyable && (pressedB && !oldPressedB)) { flyable = false; nowUpSpeed = 0f; nowDownSpeed = 0f; }
     }
+    public void DisableFly() { flyable = false; }
+    public void EnableFly() { flyable = true; rb.velocity = Vector3.zero; goUp = false; oldUp = false; goDown = false; oldDown = false; }
 }

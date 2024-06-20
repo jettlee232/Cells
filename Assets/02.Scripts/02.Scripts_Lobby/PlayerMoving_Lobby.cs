@@ -39,7 +39,7 @@ public class PlayerMoving_Lobby : MonoBehaviour
         right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
 
         GetRotate();
-        rb.velocity = GetDown() + GetMove();
+        rb.velocity = GameManager_Lobby.instance.PlayerMove() ? GetDown() + GetMove() : Vector3.zero;
     }
 
     private Vector3 GetDown()

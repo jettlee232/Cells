@@ -16,11 +16,13 @@ public class SelectDialogue_StageMap : MonoBehaviour
 
     public float length = 5f;
     private GameObject player = null;
+    private GameObject tutorial = null;
     private bool checkFly = false;
 
     private void Start()
     {
         player = GameManager_StageMap.instance.GetPlayer();
+        tutorial = GameManager_StageMap.instance.GetTutorialManager();
         ActivateDST1();
     }
 
@@ -35,31 +37,24 @@ public class SelectDialogue_StageMap : MonoBehaviour
 
     public void ActivateDST2() // 2번째 트리거 작동 함수
     {
+        if (UIManager_StageMap.instance.GetUpsideSubtitle()) { UIManager_StageMap.instance.VanishUpsideSubtitle(); }
         dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동
         DisableMove();
         GameManager_StageMap.instance.secondEnd = true;
     }
 
     #region 스크립트에 쓰일 함수
-    public void fCheckFlyTutorial() { StartCoroutine(CheckFlyTutorial()); }
-    IEnumerator CheckFlyTutorial()
+    //public void fCheckFlyTutorial() { StartCoroutine(CheckFlyTutorial()); }
+    public void fCheckFlyTutorial()
     {
-        while (true)
-        {
-            right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-            right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out checkFly);
-
-            if (checkFly) { break; }
-            yield return new WaitForSeconds(0.02f);
-        }
-        GameManager_StageMap.instance.secondCon = true;
+        UIManager_StageMap.instance.SetUpsideSubtitle("Find targets!!");
+        tutorial.GetComponent<TutorialManager_StageMap>().StartTutorial();
     }
 
     public void EnableMove() { GameManager_StageMap.instance.EnableMove(); }
     public void DisableMove()
     {
         GameManager_StageMap.instance.DisableMove();
-        GameManager_StageMap.instance.StopPlayer();
         GameManager_StageMap.instance.RemoveSelect();
     }
     public void EnableOrganelle() { UIManager_StageMap.instance.EnableButton(); }

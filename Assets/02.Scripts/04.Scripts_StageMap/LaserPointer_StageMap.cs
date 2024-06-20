@@ -20,6 +20,7 @@ public class LaserPointer_StageMap : MonoBehaviour
     private GameObject player = null;
     private Camera mainCam = null;
     private GameObject NPC = null;
+    public bool outer = false;
 
     UnityEngine.XR.InputDevice right; // 오른손 컨트롤러 상태를 받는 변수
 
@@ -36,18 +37,21 @@ public class LaserPointer_StageMap : MonoBehaviour
 
     void Update()
     {
-        // 각 bool값 변수들에 트리거 버튼과 A버튼이 눌리는지 안 눌리는지 실시간으로 받기        
-        right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-        right.TryGetFeatureValue(CommonUsages.triggerButton, out isTriggerPressed);
-        right.TryGetFeatureValue(CommonUsages.primaryButton, out isButtonPressed);
-
-        if (isTriggerPressed) // 트리거가 눌리고 있다면
+        if (!outer)
         {
-            uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
-            CheckRay(transform.position, transform.forward, 10f); // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
-        }
-        else { uiPointer.HidePointerIfNoObjectsFound = true; }
+            // 각 bool값 변수들에 트리거 버튼과 A버튼이 눌리는지 안 눌리는지 실시간으로 받기        
+            right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+            right.TryGetFeatureValue(CommonUsages.triggerButton, out isTriggerPressed);
+            right.TryGetFeatureValue(CommonUsages.primaryButton, out isButtonPressed);
 
+            if (isTriggerPressed) // 트리거가 눌리고 있다면
+            {
+                uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
+                CheckRay(transform.position, transform.forward, 10f); // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
+            }
+            else { uiPointer.HidePointerIfNoObjectsFound = true; }
+        }
+        
         if (descPanel.activeSelf) // 현재 설명창이 만들어진 상태라면
         {
             FollowingDescription(UIManager_StageMap.instance.GetDesc()); // 현재 만들어진 설명창이 내 시선을 따라오게 하기
@@ -71,7 +75,7 @@ public class LaserPointer_StageMap : MonoBehaviour
             }
             else if (rayHit.collider.gameObject.CompareTag("NPC"))
             {
-                if (GameManager_StageMap.instance.secondCon)
+                if (GameManager_StageMap.instance.GetSecondCon())
                 {
                     // 두번째 대화 조건 만족
                     NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST2();
@@ -86,7 +90,6 @@ public class LaserPointer_StageMap : MonoBehaviour
         if (descPanel.activeSelf) { DestroyDescription(); }
 
         UIManager_StageMap.instance.OnDesc();
-        descPanel.GetComponent<RectTransform>().localScale = Vector3.one * 0.00125f;
         MakeDescription(go);
     }
 
@@ -95,9 +98,9 @@ public class LaserPointer_StageMap : MonoBehaviour
         if (descPanel.GetComponent<RectTransform>().localScale.x < 0.00125f)
         {
             descPanel.GetComponent<RectTransform>().localScale =
-            new Vector3(descPanel.GetComponent<RectTransform>().localScale.x + 0.00001f,
-            descPanel.GetComponent<RectTransform>().localScale.y + 0.00001f,
-            descPanel.GetComponent<RectTransform>().localScale.z + 0.00001f);
+            new Vector3(descPanel.GetComponent<RectTransform>().localScale.x + 0.0002f,
+            descPanel.GetComponent<RectTransform>().localScale.y + 0.0002f,
+            descPanel.GetComponent<RectTransform>().localScale.z + 0.0002f);
         }
     }
 
@@ -109,26 +112,44 @@ public class LaserPointer_StageMap : MonoBehaviour
 
     public void MakeDescription(GameObject go) // 게임 오브젝트의 이름과 종류에 따라 설명창 텍스트를 수정하기
     {
-        descPanel.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = go.GetComponent<DescObj_StageMap>().GetName();
-        descPanel.transform.GetChild(0).GetChild(1).GetComponent<Text>().text = go.GetComponent<DescObj_StageMap>().GetDesc();
+        descPanel.GetComponent<RectTransform>().localScale = Vector3.one * 0.00005f;
+        descPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = go.GetComponent<DescObj_StageMap>().GetName();
+        descPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = go.GetComponent<DescObj_StageMap>().GetDesc();
         descPanel.transform.GetChild(1).GetChild(0).GetComponent<Button>().onClick.AddListener(() => GameManager_StageMap.instance.MoveScene(go.GetComponent<DescObj_StageMap>().GetSceneName()));
     }
 
     private bool CheckSight()
     {
-        if (obj == null || mainCam == null || obj.transform == null) { DestroyDescription(); return false; }
-        else
+        if (!outer)
         {
-            Vector3 viewportPos = mainCam.WorldToViewportPoint(obj.transform.position);
+            if (obj == null || mainCam == null || obj.transform == null) { DestroyDescription(); return false; }
+            else
+            {
+                Vector3 viewportPos = mainCam.WorldToViewportPoint(obj.transform.position);
 
-            bool isInView = viewportPos.z > 0f && (viewportPos.x > 0f && viewportPos.x < 1f) && (viewportPos.y > 0f && viewportPos.y < 1f);
+                bool isInView = viewportPos.z > 0f && (viewportPos.x > 0f && viewportPos.x < 1f) && (viewportPos.y > 0f && viewportPos.y < 1f);
 
-            Vector3 closest = obj.GetComponent<Collider>().ClosestPoint(player.transform.position);
-            Vector3 vDistance = (closest - player.transform.position);
-            bool isClose = (vDistance.magnitude <= maxDistance) ? true : false;
+                Vector3 closest = obj.GetComponent<Collider>().ClosestPoint(player.transform.position);
+                Vector3 vDistance = (closest - player.transform.position);
+                bool isClose = (vDistance.magnitude <= maxDistance) ? true : false;
 
-            if (isInView && isClose) { return true; }
-            else { return false; }
+                if (isInView && isClose) { return true; }
+                else { return false; }
+            }
+        }
+        else { return true; }
+    }
+
+    // 외부에서 (OrganelleEnter_StageMap) 오브젝트를 넣을 때
+    public void SetObj(GameObject obj_out)
+    {
+        // obj_out은 외부 obj라는 뜻이다ㅎㅎ
+        if (obj != obj_out)
+        {
+            obj = obj_out;
+            InstantiatePanel(obj);
         }
     }
+    public void InObj() { outer = true; }
+    public void OutObj() { outer = false; }
 }

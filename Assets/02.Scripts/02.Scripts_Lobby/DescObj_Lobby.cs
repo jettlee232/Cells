@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DescObj_Lobby : MonoBehaviour
 {
-    public string Name;
-    public string Desc;
+    public string name;
+    public string desc;
 
-    public string GetName() { return Name; }
-    public string GetDesc() { return Desc; }
+    public string GetName() { return name; }
+    public string GetDesc() { return desc; }
 }

@@ -14,6 +14,7 @@ public class GameManager_StageMap : MonoBehaviour
     public GameObject playerCam;
     public GameObject uiPointer;
     public GameObject NPC;
+    public GameObject TutorialManager;
 
     public bool firstEnd = false;
     public bool secondEnd = false;
@@ -29,15 +30,18 @@ public class GameManager_StageMap : MonoBehaviour
     #region 플레이어, NPC
     public GameObject GetPlayer() { return player; }
     public GameObject GetPlayerCam() { return playerCam; }
-    public void StopPlayer() { player.GetComponent<PlayerMoving_StageMap>().StopPlayer(); }
     public GameObject GetNPC() { return NPC; }
     public void FirstEnd() { firstEnd = true; }
     public bool GetFirstEnd() { return firstEnd; }
+    public void ClearTutorial() { UIManager_StageMap.instance.SetUpsideSubtitle("Talk to NPC!!"); secondCon = true; }
+    public bool GetSecondCon() { return secondCon; }
     public bool GetMovable() { return movable; }
-    public void EnableMove() { movable = true; }
-    public void DisableMove() { movable = false; }
+    public void EnableMove() { movable = true; player.GetComponent<PlayerMoving_StageMap>().EnableFly(); }
+    public void DisableMove() { movable = false; player.GetComponent<PlayerMoving_StageMap>().DisableFly(); }
     public void RemoveSelect() { uiPointer.GetComponent<LaserPointer_StageMap>().DestroyDescription(); }
     #endregion
+
+    public GameObject GetTutorialManager() { return TutorialManager; }
 
     public void MoveScene(string sceneName)
     {
