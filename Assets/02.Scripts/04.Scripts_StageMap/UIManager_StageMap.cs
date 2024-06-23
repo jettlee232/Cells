@@ -26,16 +26,24 @@ public class UIManager_StageMap : MonoBehaviour
         Desc_UI.SetActive(false);
     }
 
-    //void Update()
-    //{
-
-    //}
-
     #region 소기관 설명창
     public GameObject GetDesc() { return Desc_UI; }
 
     public void OnDesc() { Desc_UI.SetActive(true); }
-    public void OffDesc() { Desc_UI.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = ""; Desc_UI.SetActive(false); }
+    public void OffDesc() { StartCoroutine(VanishDesc()); }
+    IEnumerator VanishDesc()
+    {
+        while (Desc_UI.GetComponent<RectTransform>().localScale.x >= 0.00005f)
+        {
+            Desc_UI.GetComponent<RectTransform>().localScale =
+            new Vector3(Desc_UI.GetComponent<RectTransform>().localScale.x - 0.0002f,
+            Desc_UI.GetComponent<RectTransform>().localScale.y - 0.0002f,
+            Desc_UI.GetComponent<RectTransform>().localScale.z - 0.0002f);
+            yield return null;
+        }
+        Desc_UI.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+        Desc_UI.SetActive(false);
+    }
     public bool CheckDesc() { return Desc_UI.activeSelf; }
     public void EnableButton() { Desc_UI.transform.GetChild(1).GetChild(0).GetComponent<UnityEngine.UI.Button>().interactable = true; }
     #endregion

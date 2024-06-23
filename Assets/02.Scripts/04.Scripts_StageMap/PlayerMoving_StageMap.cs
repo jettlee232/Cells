@@ -7,8 +7,10 @@ using static PixelCrushers.DialogueSystem.SequencerShortcuts;
 
 public class PlayerMoving_StageMap: MonoBehaviour
 {
+    [Header("Flyable")]
     public bool flyable = true;
 
+    [Header("Speed")]
     public float startTimer = 0.4f; // 속도가 0일 때부터 최대 속도까지 빨라질 때 걸리는 시간 (정지 -> 이동 관성)
     public float finishTimer = 1f; // 속도가 최대일 때부터 0까지 느려질 때 걸리는 시간 (이동 -> 정지 관성)
     public float moveSpeed = 10f;    // 이동 속도 (전후좌우)
@@ -25,6 +27,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
     private bool pressedB = false;
     private bool oldPressedB = false;
 
+    [Header("Settings")]
     private float groundCheck = 0.02f;
     private float maxSlopeAngle = 45f;
     public Transform dirStandard;   // 여기에 센터아이 앵커
@@ -258,5 +261,5 @@ public class PlayerMoving_StageMap: MonoBehaviour
         else if (flyable && (pressedB && !oldPressedB)) { flyable = false; nowUpSpeed = 0f; nowDownSpeed = 0f; }
     }
     public void DisableFly() { flyable = false; }
-    public void EnableFly() { flyable = true; rb.velocity = Vector3.zero; goUp = false; oldUp = false; goDown = false; oldDown = false; }
+    public void EnableFly() { flyable = true; nowUpSpeed = 0f; nowDownSpeed = 0f; }
 }

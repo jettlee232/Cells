@@ -33,7 +33,7 @@ public class GameManager_StageMap : MonoBehaviour
     public GameObject GetNPC() { return NPC; }
     public void FirstEnd() { firstEnd = true; }
     public bool GetFirstEnd() { return firstEnd; }
-    public void ClearTutorial() { UIManager_StageMap.instance.SetUpsideSubtitle("Talk to NPC!!"); secondCon = true; }
+    public void ClearTutorial() { UIManager_StageMap.instance.SetUpsideSubtitle("NPC에게 돌아가자!"); secondCon = true; }
     public bool GetSecondCon() { return secondCon; }
     public bool GetMovable() { return movable; }
     public void EnableMove() { movable = true; player.GetComponent<PlayerMoving_StageMap>().EnableFly(); }

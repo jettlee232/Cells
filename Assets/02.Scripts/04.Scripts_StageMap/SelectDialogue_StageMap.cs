@@ -47,7 +47,7 @@ public class SelectDialogue_StageMap : MonoBehaviour
     //public void fCheckFlyTutorial() { StartCoroutine(CheckFlyTutorial()); }
     public void fCheckFlyTutorial()
     {
-        UIManager_StageMap.instance.SetUpsideSubtitle("Find targets!!");
+        UIManager_StageMap.instance.SetUpsideSubtitle("비행을 하면서 3개의 타겟을 찾아보자!");
         tutorial.GetComponent<TutorialManager_StageMap>().StartTutorial();
     }
 

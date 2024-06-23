@@ -6,21 +6,25 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.XR;
+using HighlightPlus;
 
 public class LaserPointer_StageMap : MonoBehaviour
 {
-    public BNG.UIPointer uiPointer; // 포인터 컴포넌트
-    public bool isTriggerPressed = false; // 트리거가 눌리는지 안 눌리는지
-    public bool isButtonPressed = false; // 오른손 A버튼이 눌리는지 안 눌리는지
+    private BNG.UIPointer uiPointer; // 포인터 컴포넌트
+    private bool isTriggerPressed = false; // 트리거가 눌리는지 안 눌리는지
+    private bool isButtonPressed = false; // 오른손 A버튼이 눌리는지 안 눌리는지
     public float maxDistance;
 
-    public GameObject obj = null;
+    private GameObject obj = null;
     private GameObject descPanel = null;
     private int descObjLayer;
     private GameObject player = null;
     private Camera mainCam = null;
     private GameObject NPC = null;
-    public bool outer = false;
+    private bool outer = false;
+
+    private GameObject glowObj;
+    private HighlightEffect highlightEffect;
 
     UnityEngine.XR.InputDevice right; // 오른손 컨트롤러 상태를 받는 변수
 
@@ -47,7 +51,7 @@ public class LaserPointer_StageMap : MonoBehaviour
             if (isTriggerPressed) // 트리거가 눌리고 있다면
             {
                 uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
-                CheckRay(transform.position, transform.forward, 10f); // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
+                if (GameManager_StageMap.instance.GetMovable()) { CheckRay(transform.position, transform.forward, 10f); } // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
             }
             else { uiPointer.HidePointerIfNoObjectsFound = true; }
         }
@@ -70,6 +74,12 @@ public class LaserPointer_StageMap : MonoBehaviour
                 if (obj != rayHit.collider.gameObject)
                 {
                     obj = rayHit.collider.gameObject;
+                    highlightEffect = obj.transform.parent.GetComponent<HighlightEffect>();
+                    if (highlightEffect != null)
+                    {
+                        highlightEffect.highlighted = true;
+                        rayHit.collider.gameObject.GetComponent<HighLightColorchange_StageMap>().GlowStart();
+                    }
                     InstantiatePanel(obj);
                 }
             }
@@ -91,6 +101,7 @@ public class LaserPointer_StageMap : MonoBehaviour
 
         UIManager_StageMap.instance.OnDesc();
         MakeDescription(go);
+        glowObj = go;
     }
 
     public void FollowingDescription(GameObject descPanel) // 패널이 플레이어 시선 따라가게 하기
@@ -107,6 +118,11 @@ public class LaserPointer_StageMap : MonoBehaviour
     public void DestroyDescription() // 패널 없애기
     {
         UIManager_StageMap.instance.OffDesc();
+        if (glowObj != null)
+        {
+            glowObj.transform.parent.GetComponent<HighlightEffect>().highlighted = false;
+            glowObj.GetComponent<HighLightColorchange_StageMap>().GlowEnd();
+        }
         obj = null;
     }
 

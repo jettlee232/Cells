@@ -86,6 +86,10 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
     public void fWarpable_LB() { GameManager_Lobby.instance.SetWarpable(); }
 
+    public void fShowNPCTalk_LB() { UIManager_Lobby.instance.ShowNPCTalk(); }
+
+    public void fShowUpsideSubtitle_LB(string des) { UIManager_Lobby.instance.SetUpsideSubtitle(des); }
+
     #region Register with Lua
 
     private void OnEnable()
@@ -93,6 +97,8 @@ public class SelectDialogue_Lobby : MonoBehaviour
         Lua.RegisterFunction("fCheckTutorial", this, SymbolExtensions.GetMethodInfo(() => fCheckTutorial()));
         Lua.RegisterFunction("fMovePlayer_LB", this, SymbolExtensions.GetMethodInfo(() => fMovePlayer_LB()));
         Lua.RegisterFunction("fWarpable_LB", this, SymbolExtensions.GetMethodInfo(() => fWarpable_LB()));
+        Lua.RegisterFunction("fShowNPCTalk_LB", this, SymbolExtensions.GetMethodInfo(() => fShowNPCTalk_LB()));
+        Lua.RegisterFunction("fShowUpsideSubtitle_LB", this, SymbolExtensions.GetMethodInfo(() => fShowUpsideSubtitle_LB(string.Empty)));
     }
 
     private void OnDisable()
@@ -100,6 +106,8 @@ public class SelectDialogue_Lobby : MonoBehaviour
         Lua.UnregisterFunction("fCheckTutorial");
         Lua.UnregisterFunction("fMovePlayer_LB");
         Lua.UnregisterFunction("fWarpable_LB");
+        Lua.UnregisterFunction("fShowNPCTalk_LB");
+        Lua.UnregisterFunction("fShowUpsideSubtitle_LB");
     }
 
     #endregion
