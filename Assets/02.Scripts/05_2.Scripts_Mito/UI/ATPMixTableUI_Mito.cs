@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class ATPMixTableUI_Mito : MonoBehaviour
 {
-    public ATPMixTable_Mito atpMixTable;
+    //public ATPMixTable_Mito atpMixTable;
+    public ATPMixTableInside_Mito atpMixTableInside;
+    public ATPMixTableOutside_Mito atpMixTableOutside;
     public Text adpCntText;
     public Text phosphateCntText;
     public Text maxHIonCountText;
@@ -17,24 +19,32 @@ public class ATPMixTableUI_Mito : MonoBehaviour
 
     void Start()
     {
-        UpdateUIText();
+        UpdateInsideUIText();
+        UpdateOutsideUIText();
     }
 
     void Update()
     {
-        UpdateUIText();
+        UpdateInsideUIText();
+        UpdateOutsideUIText();
     }
 
-    void UpdateUIText()
+    void UpdateInsideUIText()
     {
-        int currentHIon = atpMixTable.curHIonCount;
-        float maxHIonCount = atpMixTable.maxHIonCount;
-        float hIonPercentage = (currentHIon / maxHIonCount) * 100.0f;
-        int currentADP = atpMixTable.isADP ? 1 : 0;
-        int currentPhosphate = atpMixTable.isPhosphate ? 1 : 0;
+        int currentADP = atpMixTableInside.isADP ? 1 : 0;
+        int currentPhosphate = atpMixTableInside.isPhosphate ? 1 : 0;
 
         adpCntText.text = "필요\nADP\n" + (requiredADP - currentADP);
-        phosphateCntText.text = "필요\n인산\n" + (requiredPhosphate - currentPhosphate);
+        phosphateCntText.text = "필요\n인산염\n" + (requiredPhosphate - currentPhosphate);
+        
+    }
+
+    void UpdateOutsideUIText()
+    {
+        int currentHIon = atpMixTableOutside.curHIonCount;
+        float maxHIonCount = atpMixTableOutside.maxHIonCount;
+        float hIonPercentage = (currentHIon / maxHIonCount) * 100.0f;
+
         //maxHIonCountText.text = $"전체\n수소이온\n{currentHIon / atpMixTable.maxHIonCount * 100}%";//수정필요
         maxHIonCountText.text = $"전체\n수소이온\n{hIonPercentage:F1}%";
         //needHIonCountText.text = "필요\n수소이온\n" + (requiredHIonPerATP - currentHIon);//수정필요

@@ -109,15 +109,15 @@ public class RayDescription_Mito : MonoBehaviour
 
     public void FollowingDescription(GameObject descPanel) // 패널이 플레이어 시선 따라가게 하기
     {
-        // 이 부분은 동적인 효과를 위해 넣은건데 사실 없어도 되긴 할듯하네요... 보고 필요 없다 싶으면 빼도 됩니다
-        //if (descPanel.GetComponent<RectTransform>().localScale.x < 0.002f)
-        //{
-        //    descPanel.GetComponent<RectTransform>().localScale =
-        //    new Vector3(descPanel.GetComponent<RectTransform>().localScale.x + 0.0005f,
-        //    descPanel.GetComponent<RectTransform>().localScale.y + 0.0005f,
-        //    descPanel.GetComponent<RectTransform>().localScale.z + 0.0005f);
-        //}
-        //
+        //이 부분은 동적인 효과를 위해 넣은건데 사실 없어도 되긴 할듯하네요... 보고 필요 없다 싶으면 빼도 됩니다
+        if (descPanel.GetComponent<RectTransform>().localScale.x < 0.002f)
+        {
+            descPanel.GetComponent<RectTransform>().localScale =
+            new Vector3(descPanel.GetComponent<RectTransform>().localScale.x + 0.0005f,
+            descPanel.GetComponent<RectTransform>().localScale.y + 0.0005f,
+            descPanel.GetComponent<RectTransform>().localScale.z + 0.0005f);
+        }
+
 
         // 패널의 위치와 각도가 패널스폰포인트의 위치와 각도와 일치하도록 강제로 실시간 고정
         descPanel.transform.position = descriptionPanelSpawnPoint.position;
