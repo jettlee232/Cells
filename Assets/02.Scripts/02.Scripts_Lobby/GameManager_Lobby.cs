@@ -11,6 +11,8 @@ public class GameManager_Lobby : MonoBehaviour
     public GameObject playerCam;
     public GameObject NPC;
     public float moveSpeed = 3f;
+    private bool movable = true;
+    private bool warpable = false;
 
     public bool secondCon { get; set; }
 
@@ -37,5 +39,11 @@ public class GameManager_Lobby : MonoBehaviour
     public float GetMoveSpeed() { return moveSpeed; }
     public GameObject GetPlayerCam() { return playerCam; }
     public GameObject GetPlayer() { return player; }
+    public void StopPlayer() { movable = false; }
+    public void EnableMovePlayer() { movable = true; }
+    public bool PlayerMove() { return movable; }
     public GameObject GetNPC() { return NPC; }
+
+    public bool GetWarpable() { return warpable; }
+    public void SetWarpable() { warpable = true; }
 }

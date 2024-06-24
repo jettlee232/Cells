@@ -19,14 +19,18 @@ public class SelectMenu_Lobby : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        desc = UIManager_Lobby.instance.CheckDesc();
-        UIManager_Lobby.instance.OffDesc();
-        if (other.gameObject.CompareTag("Player"))
+        if (!GameManager_Lobby.instance.GetWarpable()) { return; }
+        else
         {
-            Rigidbody rb = other.GetComponent<Rigidbody>();
-            moveDir = rb.velocity.normalized;
-            //other.GetComponent<PlayerMoving_Lobby>().enabled = false;
-            UIManager_Lobby.instance.SetAlert(this.gameObject);
+            desc = UIManager_Lobby.instance.CheckDesc();
+            UIManager_Lobby.instance.OffDesc();
+            if (other.gameObject.CompareTag("Player"))
+            {
+                Rigidbody rb = other.GetComponent<Rigidbody>();
+                moveDir = rb.velocity.normalized;
+                //other.GetComponent<PlayerMoving_Lobby>().enabled = false;
+                UIManager_Lobby.instance.SetAlert(this.gameObject);
+            }
         }
     }
     private void OnTriggerExit(Collider other)

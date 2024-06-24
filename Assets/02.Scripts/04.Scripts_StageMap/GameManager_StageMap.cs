@@ -10,15 +10,21 @@ public class GameManager_StageMap : MonoBehaviour
     UnityEngine.XR.InputDevice right;
     UnityEngine.XR.InputDevice left;
 
+    [Header("Settings")]
     public GameObject player;
     public GameObject playerCam;
     public GameObject uiPointer;
     public GameObject NPC;
+    public GameObject TutorialManager;
 
-    public bool firstEnd = false;
-    public bool secondEnd = false;
-    public bool secondCon = false;
-    public bool movable = true;
+    [Header("Timers")]
+    public float minSelectTime = 0.5f;         // 한번 UI를 끈 후 다시 UI를 키도록 인식할 때까지 지연할 시간 (뭔소린지 해보면 앎)
+
+    private bool firstEnd = false;
+    private bool secondEnd = false;
+    private bool secondCon = false;
+    private bool movable = true;
+    private bool selectable = true;
 
     void Awake()
     {
@@ -29,15 +35,34 @@ public class GameManager_StageMap : MonoBehaviour
     #region 플레이어, NPC
     public GameObject GetPlayer() { return player; }
     public GameObject GetPlayerCam() { return playerCam; }
-    public void StopPlayer() { player.GetComponent<PlayerMoving_StageMap>().StopPlayer(); }
     public GameObject GetNPC() { return NPC; }
     public void FirstEnd() { firstEnd = true; }
     public bool GetFirstEnd() { return firstEnd; }
+    public void ClearTutorial() { UIManager_StageMap.instance.SetUpsideSubtitle("NPC에게 돌아가자!"); secondCon = true; }
+    public void SecondEnd() { secondEnd = true; }
+    public bool GetSecondCon() { return secondCon; }
     public bool GetMovable() { return movable; }
-    public void EnableMove() { movable = true; }
-    public void DisableMove() { movable = false; }
+    public void EnableMove() { movable = true; player.GetComponent<PlayerMoving_StageMap>().EnableFly(); }
+    public void DisableMove() { movable = false; player.GetComponent<PlayerMoving_StageMap>().DisableFly(); }
     public void RemoveSelect() { uiPointer.GetComponent<LaserPointer_StageMap>().DestroyDescription(); }
     #endregion
+
+    #region UI 끝 -> 새로운 UI 까지
+
+    public void WaitForNewUI() { StartCoroutine(WaitUITimer(minSelectTime)); }
+    public bool GetSelectable() { return selectable; }
+    IEnumerator WaitUITimer(float timer)
+    {
+        selectable = false;
+        Debug.Log(selectable);
+        yield return new WaitForSeconds(timer);
+        selectable = true;
+        Debug.Log(selectable);
+    }
+
+    #endregion
+
+    public GameObject GetTutorialManager() { return TutorialManager; }
 
     public void MoveScene(string sceneName)
     {
