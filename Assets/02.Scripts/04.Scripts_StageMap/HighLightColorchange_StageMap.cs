@@ -20,10 +20,8 @@ public class HighLightColorchange_StageMap : MonoBehaviour
 
     public void GlowStart()
     {
-        Debug.Log("하이라이트 글로우스타트 들어옴");
         if (glowCoroutine == null)
         {
-            Debug.Log("하이라이트 글로우스타트 이프문 들어옴");
             glowFlag = true;
             glowCoroutine = StartCoroutine(Glow());
         }
@@ -41,7 +39,6 @@ public class HighLightColorchange_StageMap : MonoBehaviour
 
     IEnumerator Glow()
     {
-        Debug.Log("하이라이트 글로우 코루틴 들어옴");
         while (glowFlag)
         {
             hlEffect.innerGlow -= updownFloat;

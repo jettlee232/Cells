@@ -13,7 +13,7 @@ public class LaserPointer_StageMap : MonoBehaviour
     private BNG.UIPointer uiPointer; // 포인터 컴포넌트
     private bool isTriggerPressed = false; // 트리거가 눌리는지 안 눌리는지
     private bool isButtonPressed = false; // 오른손 A버튼이 눌리는지 안 눌리는지
-    public float maxDistance;
+    public float maxDistance;           // 레이저 최대 길이
 
     private GameObject obj = null;
     private GameObject descPanel = null;
@@ -51,7 +51,7 @@ public class LaserPointer_StageMap : MonoBehaviour
             if (isTriggerPressed) // 트리거가 눌리고 있다면
             {
                 uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
-                if (GameManager_StageMap.instance.GetMovable()) { CheckRay(transform.position, transform.forward, 10f); } // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
+                if (GameManager_StageMap.instance.GetMovable() && GameManager_StageMap.instance.GetSelectable()) { CheckRay(transform.position, transform.forward, 10f); } // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
             }
             else { uiPointer.HidePointerIfNoObjectsFound = true; }
         }
@@ -124,6 +124,8 @@ public class LaserPointer_StageMap : MonoBehaviour
             glowObj.GetComponent<HighLightColorchange_StageMap>().GlowEnd();
         }
         obj = null;
+        glowObj = null;
+        GameManager_StageMap.instance.WaitForNewUI();
     }
 
     public void MakeDescription(GameObject go) // 게임 오브젝트의 이름과 종류에 따라 설명창 텍스트를 수정하기
@@ -163,6 +165,12 @@ public class LaserPointer_StageMap : MonoBehaviour
         if (obj != obj_out)
         {
             obj = obj_out;
+            highlightEffect = obj.transform.parent.GetComponent<HighlightEffect>();
+            if (highlightEffect != null)
+            {
+                highlightEffect.highlighted = true;
+                obj.GetComponent<HighLightColorchange_StageMap>().GlowStart();
+            }
             InstantiatePanel(obj);
         }
     }

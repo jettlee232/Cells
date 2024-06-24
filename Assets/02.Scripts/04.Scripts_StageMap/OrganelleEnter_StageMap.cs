@@ -46,7 +46,7 @@ public class OrganelleEnter_StageMap : MonoBehaviour
             if (isTriggerPressed) // 트리거가 눌리고 있다면
             {
                 uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
-                if (GameManager_StageMap.instance.GetMovable()) { pointer.GetComponent<LaserPointer_StageMap>().SetObj(this.gameObject); }
+                if (GameManager_StageMap.instance.GetMovable() && GameManager_StageMap.instance.GetSelectable()) { pointer.GetComponent<LaserPointer_StageMap>().SetObj(this.gameObject); }
             }
             else { uiPointer.HidePointerIfNoObjectsFound = true; }
             yield return null;

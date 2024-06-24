@@ -93,7 +93,7 @@ public class ButtonDoorController_Lobby : MonoBehaviour
         while (true)
         {
             BPdistance = button.transform.position - player.transform.position;
-            if (BPdistance.z > 0 && BPdistance.magnitude <= BPCloseDistance) { break; }
+            if (BPdistance.z < 0 && BPdistance.magnitude <= BPCloseDistance) { break; }
             yield return null;
         }
         ChangeScript();
@@ -107,7 +107,7 @@ public class ButtonDoorController_Lobby : MonoBehaviour
 
     public void HideButtonScript()
     {
-        UIManager_Lobby.instance.ClearUpsideSubtitle();
+        UIManager_Lobby.instance.VanishUpsideSubtitle();
     }
 
     #endregion

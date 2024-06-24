@@ -276,8 +276,8 @@ public class UIManager_Lobby : MonoBehaviour
         TutorialPanel.transform.GetChild(0).gameObject.SetActive(true);
         TutorialPanel.transform.GetChild(1).gameObject.SetActive(true);
 
-        TutorialPanel.transform.GetChild(0).GetComponent<Text>().text = des;
-        TutorialPanel.transform.GetChild(1).GetComponent<Image>().sprite = img;
+        TutorialPanel.transform.GetChild(0).GetComponent<Image>().sprite = img;
+        TutorialPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = des;
 
         if (tOpaquePanelColor.a - TutorialPanel.GetComponent<Image>().color.a <= 0.00001f)
         {
