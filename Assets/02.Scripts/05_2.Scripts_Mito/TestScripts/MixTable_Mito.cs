@@ -26,10 +26,6 @@ public class MixTable_Mito : MonoBehaviour
     public int maxHIonCount = 12;
     public int hIonPerATP = 3;
 
-    private int requiredAdenine = 1;
-    private int requiredRibose = 1;
-    private int requiredPhosphate = 2;
-
     public void AddHIon(int amount)
     {
         hIonCount = Mathf.Clamp(hIonCount + amount, 0, maxHIonCount);

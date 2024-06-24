@@ -4,10 +4,11 @@ using UnityEngine;
 public class BlockDestroy_CM : MonoBehaviour
 {
     public GameObject particle;
-    public bool destroyFlag = false;
+
+    public bool flag = false;
 
     private void OnDestroy()
     {
-        if (destroyFlag == true) Instantiate(particle, transform.position, transform.rotation);
+        if (flag) Instantiate(particle, transform.position, transform.rotation);
     }
 }

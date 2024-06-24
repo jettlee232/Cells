@@ -31,7 +31,11 @@ public class ReturnTableSlot_Mito : MonoBehaviour
 
         if (item.GetComponent<Item_Mito>().type == slotType)
         {
+            item.gameObject.SetActive(false);
+
             returnTable.UpdateSlotStatus(slotType, true);
+
+            item.gameObject.SetActive(true);
         }
         else
         {

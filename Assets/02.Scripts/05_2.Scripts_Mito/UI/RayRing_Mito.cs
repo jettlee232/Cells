@@ -1,3 +1,4 @@
+using BNG;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 public class RayRing_Mito : MonoBehaviour
 {
     public Color RestingColor = Color.gray;
-    public Color ValidSnapColor = Color.white;
+    public Color ValidSnapColor = Color.green;
 
     public Text ringText;
     public bool validSnap = false;
@@ -25,7 +26,9 @@ public class RayRing_Mito : MonoBehaviour
 
     public bool checkIsValidRaySnap()
     {
-
-        return false;
+        if (GetComponentInParent<GrabbablesInTrigger>().ClosestGrabbable != null)
+            return true;
+        else
+            return false;
     }
 }

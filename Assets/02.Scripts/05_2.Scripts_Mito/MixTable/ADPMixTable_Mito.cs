@@ -33,12 +33,15 @@ public class ADPMixTable_Mito : MonoBehaviour
                 isRibose = status;
                 break;
             case ItemType.Phosphate:
-                isPhosphate_1 = phosphateSlot_1.snapZone.HeldItem != null;
-                isPhosphate_2 = phosphateSlot_2.snapZone.HeldItem != null;
+                UpdatePhosphateSlots();
                 break;
         }
-
-        //CheckADP();
+    }
+    
+    public void UpdatePhosphateSlots()
+    {
+        isPhosphate_1 = phosphateSlot_1.snapZone.HeldItem != null;
+        isPhosphate_2 = phosphateSlot_2.snapZone.HeldItem != null;
     }
 
     public void CheckADP()

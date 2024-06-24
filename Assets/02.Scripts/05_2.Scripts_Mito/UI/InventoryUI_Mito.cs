@@ -1,36 +1,41 @@
-using BNG;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using static Item_Mito;
 
 public class InventoryUI_Mito : MonoBehaviour
 {
     public Inventory_Mito inventory;
 
-    public Text itemText;
+    //public Text itemText;
+    public TextMeshProUGUI adenineCntText;
+    public TextMeshProUGUI riboseCntText;
+    public TextMeshProUGUI phosphateCntText;
+    public TextMeshProUGUI hIonCntText;
+    public TextMeshProUGUI adpCntText;
+    public TextMeshProUGUI atpCntText;
 
-    void Start()
+    private void Update()
     {
-        ClearCurrentItemText();
+        UpdateItemCounts();
     }
 
-    // 감지된 아이템의 정보를 출력
-    public void UpdateCurrentItemText(Grabbable item)
-    {
-        Item_Mito itemMito = item.GetComponent<Item_Mito>();
-        if (itemMito != null)
-        {
-            itemText.text = $"{itemMito.GetItemTypeName()}\n{GetItemCount(itemMito.type)}";
-        }
-    }
+    //// 감지된 아이템의 정보를 출력
+    //public void UpdateCurrentItemText(Grabbable item)
+    //{
+    //    Item_Mito itemMito = item.GetComponent<Item_Mito>();
+    //    if (itemMito != null)
+    //    {
+    //        itemText.text = $"{itemMito.GetItemTypeName()}\n{GetItemCount(itemMito.type)}";
+    //    }
+    //}
 
-    // 인벤토리 텍스트 초기화
-    public void ClearCurrentItemText()
-    {
-        itemText.text = "";
-    }
+    //// 인벤토리 텍스트 초기화
+    //public void ClearCurrentItemText()
+    //{
+    //    itemText.text = "";
+    //}
 
     // 인벤토리의 아이템 개수 가져오기
     private int GetItemCount(ItemType type)
@@ -53,4 +58,15 @@ public class InventoryUI_Mito : MonoBehaviour
                 return 0;
         }
     }
+
+    private void UpdateItemCounts()
+    {
+        adenineCntText.text = GetItemCount(ItemType.Adenine).ToString();
+        riboseCntText.text = GetItemCount(ItemType.Ribose).ToString();
+        phosphateCntText.text = GetItemCount(ItemType.Phosphate).ToString();
+        hIonCntText.text = GetItemCount(ItemType.H_Ion).ToString();
+        adpCntText.text = GetItemCount(ItemType.ADP).ToString();
+        atpCntText.text = GetItemCount(ItemType.ATP).ToString();
+    }
+
 }

@@ -13,6 +13,7 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
     public Transform descriptionPanelSpawnPoint;
     public string objName;
 
+    public LineRenderer line;
     public BNG.UIPointer uiPointer;
     public bool isTriggerPressed = false;
     public bool isButtonPressed = false;
@@ -43,19 +44,23 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
         { "Phospholipid_Single_CM", "This is Phospholipid_Single_CM" },
         { "Phospholipid_Head_CM", "This is Phospholipid_Head_CM" },
         { "Phospholipid_Double_CM", "This is Phospholipid_Double_CM" },
-        { "Phospholipid_Bulk_CM", "This is Phospholipid_Bulk_CM "}
+        { "Phospholipid_Bulk_CM", "This is Phospholipid_Bulk_CM "},
+        { "Phospholipid_Single_EyesOnlyCM", "This is Phospholipid_Single_EyesOnlyCM "},
+        { "Phospholipid_Double_EyesOnly_CM", "This is Phospholipid_Double_EyesOnly_CM "},
+        { "Phospholipid_Bulk_EyesOnly_CM", "This is Phospholipid_Bulk_EyesOnly_CM "}
     };
     void Start()
-    {        
+    {
+        line = gameObject.GetComponent<LineRenderer>();
         uiPointer = gameObject.GetComponent<BNG.UIPointer>();
         descrptionPanel = null;
 
-        objName = "";        
+        objName = "";
     }
 
     void Update()
     {
-        // °¢ bool°ª º¯¼öµé¿¡ Æ®¸®°Å ¹öÆ°°ú A¹öÆ°ÀÌ ´­¸®´ÂÁö ¾È ´­¸®´ÂÁö ½Ç½Ã°£À¸·Î ¹Þ±â
+        // ï¿½ï¿½ boolï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½é¿¡ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ Aï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ±ï¿½
         right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
 
         if (right.isValid)
@@ -63,25 +68,31 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
             right.TryGetFeatureValue(CommonUsages.triggerButton, out isTriggerPressed);
             right.TryGetFeatureValue(CommonUsages.primaryButton, out isButtonPressed);
         }
-        
-        if (isTriggerPressed == true) // Æ®¸®°Å°¡ ´­¸®°í ÀÖ´Ù¸é
-        {
-            uiPointer.HidePointerIfNoObjectsFound = false; // ·¹ÀÌÀú º¸ÀÌ°Ô ÇÏ±â
 
-            CheckRay(transform.position, transform.forward, 10f); // ÇöÀç ·¹ÀÌÀú¿¡ ¸ÂÀº ¿ÀºêÁ§Æ®°¡ ¹ºÁö °Ë»çÇÏ±â           
-        }
-        else // Æ®¸®°Å°¡ ¾È ´­¸®°í ÀÖ´Ù¸é
+        if (isTriggerPressed == true) // Æ®ï¿½ï¿½ï¿½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
         {
-            uiPointer.HidePointerIfNoObjectsFound = true; // ·¹ÀÌÀú ¾È º¸ÀÌ°Ô ÇÏ±â    
+            //uiPointer.enabled = true;
+            //uiPointer.HidePointerIfNoObjectsFound = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ï±ï¿½
+
+            line.enabled = true;
+
+            CheckRay(transform.position, transform.forward, 10f); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï±ï¿½           
+        }
+        else // Æ®ï¿½ï¿½ï¿½Å°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
+        {
+            //uiPointer.enabled = false;
+            //uiPointer.HidePointerIfNoObjectsFound = true; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ï±ï¿½    
+
+            line.enabled = false;
         }
 
-        if (descrptionPanel != null) // ÇöÀç ¼³¸íÃ¢ÀÌ ¾È ¸¸µé¾îÁø »óÅÂ¶ó¸é
+        if (descrptionPanel != null) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½
         {
-            FollowingDescription(descrptionPanel); // ÇöÀç ¸¸µé¾îÁø ¼³¸íÃ¢ÀÌ ³» ½Ã¼±À» µû¶ó¿À°Ô ÇÏ±â
+            FollowingDescription(descrptionPanel); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½
         }
-        if (isButtonPressed == true && descrptionPanel != null) // ÇöÀç ¼³¸íÃ¢ÀÌ ¸¸µé¾îÁø »óÅÂÀÌ°í A¹öÆ°ÀÌ ´­¸° »óÅÂ¶ó¸é
+        if (isButtonPressed == true && descrptionPanel != null) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ Aï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½
         {
-            DestroyDescription(); // ÇöÀç ¸¸µé¾îÁø ¼³¸íÃ¢À» ¾ø¾Ö±â
+            DestroyDescription(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½Ö±ï¿½
         }
     }
 
@@ -91,14 +102,14 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit rayHit, length))
         {
-            // ¿À¸¥¼Õ ¼Õ°¡¶ô Àü¹æÀ¸·Î ·¹ÀÌÀú¸¦ ½÷¼­ DescObj¶ó´Â Layer¸¦ °¡Áø ¿ÀºêÁ§Æ®¶ó¸é...
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DescObjï¿½ï¿½ï¿½ Layerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½...
             if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("DescObj"))
-            {                
-                // ÇöÀç ¼³¸íÃ¢ÀÌ °¡¸®Å°´Â ¿ÀºêÁ§Æ®ÀÇ ÀÌ¸§°ú ·¹ÀÌÀú°¡ ¸ÂÀº ¿ÀºêÁ§Æ®ÀÇ ÀÌ¸§µµ ´Ù¸£´Ù¸é...
-                // (¼³¸íÃ¢ÀÌ ´ÝÈù »óÅÂ¶ó¸é objName¿¡´Â ¾Æ¹«°Íµµ ¾È ÀûÇôÀÖÀ»°ÅÀÓ)
+            {
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½Ù¸ï¿½...
+                // (ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ objNameï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
                 if (objName != rayHit.collider.gameObject.name)
                 {
-                    objName = rayHit.collider.gameObject.name; // objName¿¡´Ù ·¹ÀÌÀú¿¡ ¸ÂÀº ¿ÀºêÁ§Æ®ÀÇ ÀÌ¸§À» ³Ö±â
+                    objName = rayHit.collider.gameObject.name; // objNameï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
 
                     //glowObj = rayHit.collider.gameObject;
                     var highlightEffect = rayHit.collider.gameObject.GetComponent<HighlightEffect>();
@@ -106,9 +117,9 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
                     {
                         highlightEffect.highlighted = true;
                         rayHit.collider.gameObject.GetComponent<HighLightColorchange_CM>().GlowStart();
-                    }                    
+                    }
 
-                    InstantiatePanel(rayHit.collider.gameObject); // ÆÐ³Î ¸¸µé±â
+                    InstantiatePanel(rayHit.collider.gameObject); // ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
                 }
             }
         }
@@ -116,30 +127,30 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
 
     public void InstantiatePanel(GameObject go)
     {
-        if (descrptionPanel != null) // ÀÌ¹Ì ¸¸µé¾îÁ® ÀÖ´Â ÆÐ³ÎÀÌ ÀÖ´Ù¸é ±× ÆÐ³ÎÀº Áö¿ì±â
+        if (descrptionPanel != null) // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             DestroyDescription();
         }
 
-        // ÆÐ³Î ¸¸µé°í À§Ä¡¶û °¢µµ ÁÖ±â
+        // ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
         descrptionPanel = Instantiate(laserDescriptionCanvas);
 
         descrptionPanel.transform.position = descriptionPanelSpawnPoint.position;
         descrptionPanel.transform.rotation = Quaternion.identity;
 
-        // ÆÐ³ÎÀÇ ÃÊ±â Å©±â´Â ÀÛ°Ô ¼³Á¤ÇÏ±â
+        // ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ Å©ï¿½ï¿½ï¿½ ï¿½Û°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
         descrptionPanel.GetComponent<RectTransform>().localScale = new Vector3(0.0002f, 0.0002f, 0.0002f);
 
-        // ¿ÀºêÁ§Æ® ¼³¸í ¶ç¿ì±â
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         MakeDescription(go);
 
         glowObj = go;
     }
 
-    
-    public void FollowingDescription(GameObject descPanel) // ÆÐ³ÎÀÌ ÇÃ·¹ÀÌ¾î ½Ã¼± µû¶ó°¡°Ô ÇÏ±â
+
+    public void FollowingDescription(GameObject descPanel) // ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ã¼ï¿½ ï¿½ï¿½ï¿½ó°¡°ï¿½ ï¿½Ï±ï¿½
     {
-        // ÀÌ ºÎºÐÀº µ¿ÀûÀÎ È¿°ú¸¦ À§ÇØ ³ÖÀº°Çµ¥ »ç½Ç ¾ø¾îµµ µÇ±ä ÇÒµíÇÏ³×¿ä... º¸°í ÇÊ¿ä ¾ø´Ù ½ÍÀ¸¸é »©µµ µË´Ï´Ù
+        // ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½îµµ ï¿½Ç±ï¿½ ï¿½Òµï¿½ï¿½Ï³×¿ï¿½... ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë´Ï´ï¿½
         if (descPanel.GetComponent<RectTransform>().localScale.x < 0.002f)
         {
             descPanel.GetComponent<RectTransform>().localScale =
@@ -148,36 +159,38 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
             descPanel.GetComponent<RectTransform>().localScale.z + 0.0005f);
         }
         //
-        
-        // ÆÐ³ÎÀÇ À§Ä¡¿Í °¢µµ°¡ ÆÐ³Î½ºÆùÆ÷ÀÎÆ®ÀÇ À§Ä¡¿Í °¢µµ¿Í ÀÏÄ¡ÇÏµµ·Ï °­Á¦·Î ½Ç½Ã°£ °íÁ¤
+
+        // ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³Î½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
         descPanel.transform.position = descriptionPanelSpawnPoint.position;
         descPanel.transform.rotation = descriptionPanelSpawnPoint.rotation;
     }
 
-    public void DestroyDescription() // ÆÐ³Î ¾ø¾Ö±â
+    public void DestroyDescription() // ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½Ö±ï¿½
     {
         if (glowObj != null)
         {
             glowObj.GetComponent<HighlightEffect>().highlighted = false;
             glowObj.GetComponent<HighLightColorchange_CM>().GlowEnd();
         }
-                       
+
         Destroy(descrptionPanel);
-        objName = ""; // ÇöÀç °¡¸®Å°´Â ¿ÀºêÁ§Æ®°¡ ¾øÀ½À» ¾Ë¸®±â À§ÇØ objNameÀ» ºñ¿ì±â
+        objName = ""; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ objNameï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
-    public void MakeDescription(GameObject go) // °ÔÀÓ ¿ÀºêÁ§Æ®ÀÇ ÀÌ¸§°ú Á¾·ù¿¡ µû¶ó ¼³¸íÃ¢ ÅØ½ºÆ®¸¦ ¼öÁ¤ÇÏ±â
+    public void MakeDescription(GameObject go) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
     {
-        // ÀÏ´Ü ÀÌ ÄÚµå¿¡¼­´Â GameObjectÀÇ nameÀ¸·Î °Ë»çÇÏ±ä Çß´Âµ¥, ´Ù¼Ò ¹«½ÄÇÑ ¹æ¹ýÀÌ´Ï Tagµç Layerµç ±× ¿Ü ÄÄÆ÷³ÍÆ®ÀÇ ´Ù¸¥ º¯¼ö °ªÀÌµç Á» ´õ ½º¸¶Æ®ÇÑ Á¶°Ç½ÄÀ» »ç¿ëÇÏ±â¸¦ ±ÇÀå
+        // ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½Úµå¿¡ï¿½ï¿½ï¿½ï¿½ GameObjectï¿½ï¿½ nameï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï±ï¿½ ï¿½ß´Âµï¿½, ï¿½Ù¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ Tagï¿½ï¿½ Layerï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±â¸¦ ï¿½ï¿½ï¿½ï¿½
 
-        // °ÔÀÓ¿ÀºêÁ§Æ®ÀÇ ÀÌ¸§À¸·Î °Ë»çÇØ¼­ ¼³¸íÃ¢À» ¶ç¿ì´Â Á¶°Ç½Ä (ÃßÈÄ ¼­¹ö ¿¬µ¿½ÄÀÌµç json ¿¬µ¿½ÄÀÌµç Çü½Ä º¯°æ ÇÊ¿ä)
+        // ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ json ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½)
         if (objDesc.ContainsKey(go.name))
         {
             descrptionPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = go.name;
             descrptionPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = objDesc[go.name];
         }
 
-        // ÇöÀç ÆÐ³ÎÀÌ °¡¸®Å°´Â ¿ÀºêÁ§Æ®ÀÇ ÀÌ¸§À» ÀúÀå
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         objName = descrptionPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text;
+
+        AudioMgr_CM.Instance.PlaySFXByInt(2);
     }
 }

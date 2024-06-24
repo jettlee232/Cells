@@ -6,6 +6,8 @@ using UnityEngine.XR;
 
 public class PlayerMoving_Mito : MonoBehaviour
 {
+    public bool isMoving = false;
+
     public bool flyable = true;
 
     public float startTimer = 0.4f; // 속도가 0일 때부터 최대 속도까지 빨라질 때 걸리는 시간 (정지 -> 이동 관성)
@@ -56,11 +58,26 @@ public class PlayerMoving_Mito : MonoBehaviour
     {
         right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
         left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-        GetRotateY();
-        //GetRotateX();
-        CheckFlyable();
-        rb.velocity = flyable ? GetUp() + GetDown() + GetMove() : GetMove();
-        ResetRot();
+
+        if (isMoving)
+        {
+            GetRotateY();
+            //GetRotateX();
+            //CheckFlyable();
+            rb.velocity = flyable ? GetUp() + GetDown() + GetMove() : GetMove();
+            ResetRot();
+        }
+    }
+
+    public void StartPlayer(float delay)
+    {
+        StartCoroutine(SetPlayer(delay));
+    }
+
+    IEnumerator SetPlayer(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isMoving = true;
     }
 
     #region 상승
@@ -68,7 +85,7 @@ public class PlayerMoving_Mito : MonoBehaviour
     {
         oldUp = goUp;
 
-        right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out goUp);
+        left.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out goUp);
 
         if (goUp && !oldUp) { StartCoroutine(cStartUp()); }
         if (!goUp && oldUp) { StartCoroutine(cFinishUp()); }
@@ -84,7 +101,7 @@ public class PlayerMoving_Mito : MonoBehaviour
         {
             while (true)
             {
-                if (!goUp) { yield break; }
+                if (!goUp || !flyable) { yield break; }
                 if (upSpeed - nowUpSpeed <= 0.1f) { nowUpSpeed = upSpeed; yield break; }
                 timer += Time.deltaTime;
                 nowUpSpeed = Mathf.Lerp(nowSpeed, upSpeed, timer / totalTimer);
@@ -102,7 +119,7 @@ public class PlayerMoving_Mito : MonoBehaviour
         {
             while (true)
             {
-                if (goUp) { yield break; }
+                if (goUp || !flyable) { yield break; }
                 if (nowUpSpeed <= 0.1f) { nowUpSpeed = 0f; yield break; }
                 timer += Time.deltaTime;
                 nowUpSpeed = Mathf.Lerp(nowSpeed, 0f, timer / totalTimer);
@@ -118,7 +135,7 @@ public class PlayerMoving_Mito : MonoBehaviour
         if (CheckGround()) { return Vector3.zero; }
         oldDown = goDown;
 
-        left.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out goDown);
+        right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out goDown);
 
         if (goDown && !oldDown) { StartCoroutine(cStartDown()); }
         if (!goDown && oldDown) { StartCoroutine(cFinishDown()); }
@@ -134,7 +151,7 @@ public class PlayerMoving_Mito : MonoBehaviour
         {
             while (true)
             {
-                if (!goDown) { yield break; }
+                if (!goDown || !flyable) { yield break; }
                 if (downSpeed - nowDownSpeed <= 0.1f) { nowDownSpeed = downSpeed; yield break; }
                 timer += Time.deltaTime;
                 nowDownSpeed = Mathf.Lerp(nowSpeed, downSpeed, timer / totalTimer);
@@ -152,7 +169,7 @@ public class PlayerMoving_Mito : MonoBehaviour
         {
             while (true)
             {
-                if (goDown) { yield break; }
+                if (goDown || !flyable) { yield break; }
                 if (nowDownSpeed <= 0.1f) { nowDownSpeed = 0f; yield break; }
                 timer += Time.deltaTime;
                 nowDownSpeed = Mathf.Lerp(nowSpeed, 0f, timer / totalTimer);

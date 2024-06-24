@@ -16,13 +16,15 @@ public class Inventory_Mito : MonoBehaviour
 
     public InventorySlot_Mito adenineSlot; // 아데닌 슬롯 참조
     public InventorySlot_Mito riboseSlot; // 리보스 슬롯 참조
-    public InventorySlot_Mito phosphateSlot; // 인산 슬롯 참조
+    public InventorySlot_Mito phosphateSlot; // 인산염 슬롯 참조
     public InventorySlot_Mito adpSlot; // ADP 슬롯 참조
     public InventorySlot_Mito atpSlot; // ATP 슬롯 참조
     public InventorySlot_Mito hIonSlot; // 수소 이온 슬롯 참조
 
     public void AddItem(Grabbable item)
     {
+        if (item.GetComponent<Item_Mito>().isInventory) return;
+
         // 우선 아이템이 들어오면 꺼놓음
         item.gameObject.SetActive(false);
 
@@ -48,7 +50,7 @@ public class Inventory_Mito : MonoBehaviour
                 else
                     SnapItemToSlot(item, riboseSlot);
                 break;
-            // 인산
+            // 인산염
             case ItemType.Phosphate:
                 phosphateItems.Add(item);
                 if (phosphateItems.Count > 1)
@@ -81,10 +83,13 @@ public class Inventory_Mito : MonoBehaviour
                 break;
         }
 
+        item.GetComponent<Item_Mito>().isInventory = true;
     }
 
     public void RemoveItem(Grabbable item)
     {
+        if (!item.GetComponent<Item_Mito>().isInventory) return;
+
         // 아이템 종류따라 구분
         switch (item.GetComponent<Item_Mito>().type)
         {
@@ -114,6 +119,7 @@ public class Inventory_Mito : MonoBehaviour
     {
         // 리스트에서 제거되는걸 확실하게 기다렸다가 실행
         yield return items.Remove(itemToRemove);
+        yield return itemToRemove.GetComponent<Item_Mito>().isInventory = false;
 
         if (items.Count > 0)
         {
