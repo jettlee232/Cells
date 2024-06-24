@@ -8,6 +8,8 @@ using UnityEngine.XR;
 using Language.Lua;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
+using TMPro;
 
 public class TutorialManager_CM : MonoBehaviour
 {
@@ -69,6 +71,7 @@ public class TutorialManager_CM : MonoBehaviour
     public BNG.Grabber grab1;
     public BNG.Grabber grab2;
 
+
     void Start()
     {
 
@@ -98,6 +101,10 @@ public class TutorialManager_CM : MonoBehaviour
         rule.gameObject.SetActive(false);
 
         quizCanvas.SetActive(true);
+
+        quizCanvas.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Quiz_CM_1");
+        quizCanvas.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Quiz_CM_2");
+        quizCanvas.transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Quiz_CM_3");
     }
 
     // ������ ������ �Ӹ� ����� -> After First Encounter
@@ -214,7 +221,6 @@ public class TutorialManager_CM : MonoBehaviour
         audioSrc.PlayOneShot(audioClipsArr[i]);
     }
 
-    // (�Ʒÿ�)���̹��� ���� ������ � �������� �˾Ƴ� ����, �����̸� �� ������ �����ϰ� ��� �� �ٽ� ����
     public void CorrectAnswer(GameObject go)
     {
         int rnd = Random.Range(0, 4);
@@ -246,7 +252,6 @@ public class TutorialManager_CM : MonoBehaviour
         }
     }
 
-    // (�Ʒÿ�) ���̹��� ���� ������ � �������� �˾Ƴ� ����, �����̸� �� ������ �����ϰ� ��� �� �ٽ� ����
     public void WrongAnswer(GameObject go)
     {
         StartCoroutine(WrondAnswerEffect());
@@ -322,10 +327,10 @@ public class TutorialManager_CM : MonoBehaviour
         anim.Play(animName);
     }
 
-    public void NewQuest(string questText)
+    public void NewQuest(string questContents)
     {
         if (quest.gameObject.activeSelf == false) quest.gameObject.SetActive(true);
-        quest.PanelOpen(questText); // text quest change
+        quest.PanelOpen(FireStoreManager_Test_CM.Instance.ReadCSV(questContents)); // text quest change
     }
 
     public void QuestOver()
@@ -333,10 +338,10 @@ public class TutorialManager_CM : MonoBehaviour
         quest.PanelClose();
     }
 
-    public void NewRule(string newRule, string imgName)
+    public void NewRule(string ruleContents, string imgName)
     {
         if (rule.gameObject.activeSelf == false) rule.gameObject.SetActive(true);
-        rule.PanelOpen(newRule, imgName);
+        rule.PanelOpen(FireStoreManager_Test_CM.Instance.ReadCSV(ruleContents), imgName);
     }
 
     public void RuleOver()
@@ -344,11 +349,15 @@ public class TutorialManager_CM : MonoBehaviour
         rule.PanelClose();
     }
 
-    public void EODescPanelMade(double eoObj, double descPanel, string title, string detail)
+    public void EODescPanelMade(double eoObj, double descPanel, string panelConentes, string detailContents)
     {
         int i = (int)eoObj;
         int j = (int)descPanel;
-        eoVar[i].transform.GetChild(j).GetComponent<EODescPanelTween_CM>().PanelOpen(title, detail);
+        Debug.Log(FireStoreManager_Test_CM.Instance.ReadCSV(panelConentes));
+        Debug.Log(FireStoreManager_Test_CM.Instance.ReadCSV(detailContents));
+
+        eoVar[i].transform.GetChild(j).GetComponent<EODescPanelTween_CM>().
+        PanelOpen(FireStoreManager_Test_CM.Instance.ReadCSV(panelConentes), FireStoreManager_Test_CM.Instance.ReadCSV(detailContents));
     }
 
     public void SkipConv()

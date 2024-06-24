@@ -41,9 +41,16 @@ public class GameManager_CM : MonoBehaviour
 
     [Header("Other Scripts")]
     public BlockSpawnManager_CM bsMgr;
+    public BNG.MyFader_CM scrFader;
+    public BNG.SmoothLocomotion smoothLocomotion;
+    public BNG.UIPointer uiPointer;
+
 
     void Start()
     {
+        smoothLocomotion.enabled = false; // 일단 이 코드 2개는 무조건 비활성화되게 수정
+        uiPointer.enabled = false; // 일단 이 코드 2개는 무조건 비활성화되게 수정
+
         GameStart();
     }
 
@@ -163,6 +170,11 @@ public class GameManager_CM : MonoBehaviour
         TextUpdate_ScoreAndCombo();
     }
 
+    public void RedFade()
+    {
+        StartCoroutine(WrondAnswerEffect());
+    }
+
     public void GameOver()
     {
         isGameStart = false;
@@ -220,5 +232,15 @@ public class GameManager_CM : MonoBehaviour
             yield return new WaitForSeconds(1f);
             curLeftTime -= 1.0f;
         }
+    }
+
+    IEnumerator WrondAnswerEffect()
+    {
+        scrFader.ChangeFadeImageColor(Color.red, 12f, 0.33f);
+        scrFader.DoFadeIn();
+
+        yield return new WaitForSeconds(0.75f);
+
+        scrFader.DoFadeOut();
     }
 }

@@ -402,8 +402,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 161.26602
-        y: 164.83003
+        x: 160.00021
+        y: 163.56422
         width: 160
         height: 30
     - id: 4
@@ -520,9 +520,12 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: "PlayAudioClip(5);\nEODescPanelMade(0, 0, \"\uBA38\uB9AC\", \"\uBB3C\uACFC
-        \uCE5C\uD55C \uBA38\uB9AC\");\nEODescPanelMade(0, 1, \"\uAF2C\uB9AC\", \"\uBB3C\uACFC
-        \uCE5C\uD558\uC9C0 \uC54A\uC740 \uBA38\uB9AC\")"
+      userScript: 'PlayAudioClip(5);
+
+        EODescPanelMade(0, 0, "Panel_CM_1",
+        "Panel_CM_2");
+
+        EODescPanelMade(0, 1, "Panel_CM_3", "Panel_CM_4")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -587,8 +590,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160.28214
-        y: 366.99496
+        x: 159.01631
+        y: 368.2608
         width: 160
         height: 30
     - id: 7
@@ -697,7 +700,15 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "NewQuest(\"\uC778\uC9C0\uC9C8\uC744 \uB9CC\uB4E4\uC5B4\uBCF4\uC790!\");\nPlayClip(1);\nMaketutorialObj_Tail();\nMakeTutorialObj_Head();\nSkipConv()"
+      userScript: 'NewQuest("Quest_CM_1");
+
+        PlayClip(1);
+
+        MaketutorialObj_Tail();
+
+        MakeTutorialObj_Head();
+
+        SkipConv();'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -991,8 +1002,16 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: "PlayAudioClip(10);\nIntroduceEyesOnlyObject(1);\nDeleteSaber();\nEODescPanelMade(1,
-        0, \"\uC778\uC9C0\uC9C8\", \"\uADF8\uB7EC\uD558\uB2E4\");\nEOObj3DText(1)"
+      userScript: 'PlayAudioClip(10);
+
+        IntroduceEyesOnlyObject(1);
+
+        DeleteSaber();
+
+        EODescPanelMade(1,
+        0, "Panel_CM_5", "Panel_CM_6");
+
+        EOObj3DText(1)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1052,8 +1071,12 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: "PlayAudioClip(12);\nEODescPanelMade(2, 0, \"\uC138\uD3EC\uB9C9\",
-        \"\uADF8\uB7EC\uD558\uB2E4\")\nEOObj3DText(2)"
+      userScript: 'PlayAudioClip(12);
+
+        EODescPanelMade(2, 0, "Panel_CM_5",
+        "Panel_CM_6");
+
+        EOObj3DText(2)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1290,9 +1313,20 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "NewQuest(\"\uC778\uC9C0\uC9C8 \uC774\uC911\uCE35 \uAD6C\uC870\uB97C
-        \uB9CC\uB4E4\uC5B4\uBCF4\uC790\");\r\nPlayClip(0);\r\nNewRule(\"\uC778\uC9C0\uC9C8
-        \uC774\uC911\uCE35 \uAD6C\uC870 \uB9CC\uB4DC\uB294 \uBC95\", \"f1\");\r\nDeleteSaber();\r\nMakeTutorialObj_Single();\r\nPlayClip(1);\r\nSkipConv();"
+      userScript: 'NewQuest("Quest_CM_3");
+
+        PlayClip(0);
+
+        NewRule("Rule_CM_1",
+        "f1");
+
+        DeleteSaber();
+
+        MakeTutorialObj_Single();
+
+        PlayClip(1);
+
+        SkipConv();'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1711,7 +1745,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 165
+        x: 166.21951
         y: 290.2195
         width: 160
         height: 30
@@ -2131,8 +2165,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 159.97198
-        y: 282.6289
+        x: 161.61133
+        y: 285.9076
         width: 160
         height: 30
     - id: 9
@@ -2377,7 +2411,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 161.97198
+        x: 160.33264
         y: 414.6289
         width: 160
         height: 30
@@ -2424,8 +2458,11 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "NewQuest(\"\uCE5C\uC218\uC131 \uBB3C\uC9C8\uACFC \uC18C\uC218\uC131
-        \uBB3C\uC9C8\uC744 \uAD6C\uBD84\uD574\uBCF4\uC790!\");\nSkipConv();\nMakePlayerMove()"
+      userScript: 'NewQuest("Quest_CM_5");
+
+        MakePlayerMove();
+
+        SkipConv();'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3235,8 +3272,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.7600002
+    canvasScrollPosition: {x: 46.718723, y: 0}
+    canvasZoom: 0.7900002
   syncInfo:
     syncActors: 0
     syncItems: 0

@@ -66,6 +66,7 @@ public class SaberScript_CM : MonoBehaviour
                 if (gameMgr != null)
                 {
                     gameMgr.ScoreDown();
+                    gameMgr.RedFade();
                 }
                 else if (gameMgr == null)
                 {

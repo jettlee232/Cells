@@ -18,7 +18,7 @@ public class SaberSSWFBeingHold_CM : MonoBehaviour
     void Start()
     {
         parentObj = transform.parent.gameObject;
-        attachPos = GameObject.Find("SingleAttachPos"); 
+        attachPos = GameObject.Find("SingleAttachPos");
         attachVec = new Vector3(0.8f, -3.4f, 0f);
         attachRot = Quaternion.Euler(0, 180f, -180f);
 
@@ -28,7 +28,7 @@ public class SaberSSWFBeingHold_CM : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == attachPos && parentObj.GetComponent<BNG.Grabbable>().BeingHeld == true) 
+        if (other.gameObject == attachPos && parentObj.GetComponent<BNG.Grabbable>().BeingHeld == true)
         {
             other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().statusFlag = 2;
             other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().bc1.enabled = true;
@@ -43,7 +43,7 @@ public class SaberSSWFBeingHold_CM : MonoBehaviour
             other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().TurnEffect(2, true);
             other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().TurnEffect(3, true);
 
-            parentObj.transform.SetParent(other.gameObject.transform); 
+            parentObj.transform.SetParent(other.gameObject.transform);
 
             parentObj.GetComponent<BNG.Grabbable>().enabled = false;
             parentObj.GetComponent<Rigidbody>().useGravity = false;
@@ -59,9 +59,9 @@ public class SaberSSWFBeingHold_CM : MonoBehaviour
                 isThisFirstAttach = true;
                 GameObject.Find("TutorialMgr").GetComponent<TutorialManager_CM>().MaketutorialObj_Double();
 
-                // Äù½ºÆ® ÆÐ³Î ÅØ½ºÆ® º¯°æ                
-                GameObject.FindGameObjectWithTag("MainCamera").transform.GetChild(2).GetComponent<QuestPanel_CM>().ChangeText("ÀÎÁöÁú³¢¸® ¾ç¿·À¸·Î ¿¬°áÇØº¸ÀÚ!");
-                GameObject.FindGameObjectWithTag("MainCamera").transform.GetChild(3).GetComponent<RulePanel_CM>().ChangeText("ÀÎÁöÁú³¢¸® ¾ç¿·À¸·Î ¿¬°áÇÏ´Â ¹ý");
+                // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ð³ï¿½ ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½                
+                GameObject.FindGameObjectWithTag("MainCamera").transform.GetChild(2).GetComponent<QuestPanel_CM>().ChangeText(FireStoreManager_Test_CM.Instance.ReadCSV("Quest_CM_4"));
+                GameObject.FindGameObjectWithTag("MainCamera").transform.GetChild(3).GetComponent<RulePanel_CM>().ChangeText(FireStoreManager_Test_CM.Instance.ReadCSV("Rule_CM_2"));
                 GameObject.FindGameObjectWithTag("MainCamera").transform.GetChild(3).GetComponent<RulePanel_CM>().ChangeImg("f2");
             }
 

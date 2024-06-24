@@ -24,30 +24,27 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
 
     public Dictionary<string, string> objDesc = new Dictionary<string, string>
     {
-        { "Cube1", "My Name Is Cube 1" },
-        { "Cube2", "My Name Is Cube 2" },
-        { "Cube3", "My Name Is Cube 3" },
-        { "Sphere.013_CM", "This is Sphere.013_CM" },
-        { "Sphere.012_CM", "This is Sphere.012_CM" },
-        { "Sphere.011_CM", "This is Sphere.011_CM" },
-        { "Sphere.010_CM", "This is Sphere.010_CM" },
-        { "Sphere.009_CM", "This is Sphere.009_CM" },
-        { "Sphere.008_CM", "This is Sphere.008_CM" },
-        { "Sphere.007_CM", "This is Sphere.007_CM" },
-        { "Sphere.006_CM", "This is Sphere.006_CM" },
-        { "Sphere.005_CM", "This is Sphere.005_CM" },
-        { "Sphere.004_CM", "This is Sphere.004_CM" },
-        { "Sphere.003_CM", "This is Sphere.003_CM" },
-        { "Sphere.002_CM", "This is Sphere.002_CM" },
-        { "Sphere.001_CM", "This is Sphere.001_CM" },
-        { "Phospholipid_Tail_CM", "This is Phospholipid_Tail_CM"},
-        { "Phospholipid_Single_CM", "This is Phospholipid_Single_CM" },
-        { "Phospholipid_Head_CM", "This is Phospholipid_Head_CM" },
-        { "Phospholipid_Double_CM", "This is Phospholipid_Double_CM" },
-        { "Phospholipid_Bulk_CM", "This is Phospholipid_Bulk_CM "},
-        { "Phospholipid_Single_EyesOnlyCM", "This is Phospholipid_Single_EyesOnlyCM "},
-        { "Phospholipid_Double_EyesOnly_CM", "This is Phospholipid_Double_EyesOnly_CM "},
-        { "Phospholipid_Bulk_EyesOnly_CM", "This is Phospholipid_Bulk_EyesOnly_CM "}
+        { "Sphere.013_CM", "DescPanel_CM_S13" },
+        { "Sphere.012_CM", "DescPanel_CM_S12" },
+        { "Sphere.011_CM", "DescPanel_CM_S11" },
+        { "Sphere.010_CM", "DescPanel_CM_S10" },
+        { "Sphere.009_CM", "DescPanel_CM_S9" },
+        { "Sphere.008_CM", "DescPanel_CM_S8" },
+        { "Sphere.007_CM", "DescPanel_CM_S7" },
+        { "Sphere.006_CM", "DescPanel_CM_S6" },
+        { "Sphere.005_CM", "DescPanel_CM_S5" },
+        { "Sphere.004_CM", "DescPanel_CM_S4" },
+        { "Sphere.003_CM", "DescPanel_CM_S3" },
+        { "Sphere.002_CM", "DescPanel_CM_S2" },
+        { "Sphere.001_CM", "DescPanel_CM_S1" },
+        { "Phospholipid_Tail_CM", "DescPanel_CM_P1"},
+        { "Phospholipid_Single_CM", "DescPanel_CM_P2" },
+        { "Phospholipid_Head_CM", "DescPanel_CM_P3" },
+        { "Phospholipid_Double_CM", "DescPanel_CM_P4" },
+        { "Phospholipid_Bulk_CM", "DescPanel_CM_P5" },
+        { "Phospholipid_Single_EyesOnlyCM", "DescPanel_CM_E1" },
+        { "Phospholipid_Double_EyesOnly_CM", "DescPanel_CM_E2" },
+        { "Phospholipid_Bulk_EyesOnly_CM", "DescPanel_CM_E3" }
     };
     void Start()
     {
@@ -179,16 +176,15 @@ public class LaserPointerAndDescription_CM : MonoBehaviour
 
     public void MakeDescription(GameObject go) // ���� ������Ʈ�� �̸��� ������ ���� ����â �ؽ�Ʈ�� �����ϱ�
     {
-        // �ϴ� �� �ڵ忡���� GameObject�� name���� �˻��ϱ� �ߴµ�, �ټ� ������ ����̴� Tag�� Layer�� �� �� ������Ʈ�� �ٸ� ���� ���̵� �� �� ����Ʈ�� ���ǽ��� ����ϱ⸦ ����
-
-        // ���ӿ�����Ʈ�� �̸����� �˻��ؼ� ����â�� ���� ���ǽ� (���� ���� �������̵� json �������̵� ���� ���� �ʿ�)
-        if (objDesc.ContainsKey(go.name))
+        if (FireStoreManager_Test_CM.Instance.csvData.ContainsKey(go.name))
         {
-            descrptionPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = go.name;
-            descrptionPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = objDesc[go.name];
+            descrptionPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text =
+            FireStoreManager_Test_CM.Instance.ReadCSV(go.name);
+
+            descrptionPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text =
+            FireStoreManager_Test_CM.Instance.ReadCSV(go.name + "_D");
         }
 
-        // ���� �г��� ����Ű�� ������Ʈ�� �̸��� ����
         objName = descrptionPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text;
 
         AudioMgr_CM.Instance.PlaySFXByInt(2);
