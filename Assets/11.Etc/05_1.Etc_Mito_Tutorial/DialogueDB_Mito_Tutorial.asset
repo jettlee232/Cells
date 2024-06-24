@@ -459,7 +459,13 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 5
+        destinationConversationID: 2
+        destinationDialogueID: 0
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -675,7 +681,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: ToggleMiniHalfMito()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -790,8 +796,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 0, y: 19.072165}
+    canvasZoom: 0.96999997
   - id: 3
     fields:
     - title: Title
@@ -994,14 +1000,14 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: ToggleMiniHalfMito()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 160
-        y: 196
+        y: 195
         width: 160
         height: 30
     - id: 3
@@ -1155,7 +1161,13 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 3
+        originDialogueID: 5
+        destinationConversationID: 4
+        destinationDialogueID: 0
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -1163,8 +1175,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 162
-        y: 450
+        x: 161
+        y: 449
         width: 160
         height: 30
     entryGroups: []
@@ -1318,7 +1330,11 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: 'ToggleFlyable();
+
+        SetPlayerSpeed(15, 15, 15);
+
+        TogglePlayerWall()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1374,7 +1390,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: LookAtMito()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1430,7 +1446,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 158
+        x: 159
         y: 256
         width: 160
         height: 30
@@ -1518,7 +1534,7 @@ MonoBehaviour:
       isGroup: 0
       nodeColor: 
       delaySimStatus: 0
-      falseConditionAction: 
+      falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 5
@@ -1534,8 +1550,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 30
+        x: 80
+        y: 50
         width: 160
         height: 30
     - id: 1
@@ -1589,8 +1605,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 165
-        y: 111
+        x: 80
+        y: 134
         width: 160
         height: 30
     - id: 2
@@ -1645,8 +1661,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 161
-        y: 179
+        x: 80
+        y: 218
         width: 160
         height: 30
     - id: 3
@@ -1695,8 +1711,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 162
-        y: 256
+        x: 80
+        y: 302
         width: 160
         height: 30
     entryGroups: []
