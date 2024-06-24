@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 7818730871308870997}
   - component: {fileID: -7921506941101683431}
   - component: {fileID: 7354528253742797278}
+  - component: {fileID: -4262279677136067261}
   m_Layer: 0
   m_Name: Philic_VitaminC_CM
-  m_TagString: Untagged
+  m_TagString: WFBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1740742bb476624f96378b6688602ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 10
 --- !u!114 &7354528253742797278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,12 +62,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f529a67bab0264db1b2d4dbbbb6bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hlTrigger: {fileID: 913056498078215419, guid: f5513d3989e4b6b4abaa8af97a0da3f3,
-    type: 3}
   hlEffect: {fileID: 536283050593596421, guid: f5513d3989e4b6b4abaa8af97a0da3f3, type: 3}
   updownFloat: 0.02
   glowFlag: 0
-  updownFlag: 0
+--- !u!114 &-4262279677136067261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30892522074446068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c49bd58fa9aa447a1e0db91ef38527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 1391589557849848, guid: 4d52494325dd77a488a9331ebb1c5a87, type: 3}
+  flag: 0
 --- !u!1 &1784998554168918430
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 1391589557849848, guid: 4d52494325dd77a488a9331ebb1c5a87, type: 3}
-  destroyFlag: 0
+  flag: 0
 --- !u!114 &2274221989749930676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,11 +214,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f529a67bab0264db1b2d4dbbbb6bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hlTrigger: {fileID: 0}
   hlEffect: {fileID: 0}
   updownFloat: 0.05
   glowFlag: 0
-  updownFlag: 0
 --- !u!114 &6453189439571197860
 MonoBehaviour:
   m_ObjectHideFlags: 0
