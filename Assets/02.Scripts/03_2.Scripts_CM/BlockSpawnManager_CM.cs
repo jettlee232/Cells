@@ -45,7 +45,7 @@ public class BlockSpawnManager_CM : MonoBehaviour
             {
                 go = Instantiate(blockSS[blockRnd2]);
             }
-            // ³­ÀÌµµ°¡ ³ô¾ÆÁü, ÀÏ´ÜÀº º¸·ù
+            // ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             /*
             else 
             {                
@@ -61,12 +61,12 @@ public class BlockSpawnManager_CM : MonoBehaviour
 
             go.transform.position = blockSpawnPos[blockSpawnPosRnd].position;
             go.transform.rotation = Quaternion.identity;
-            //go.transform.GetChild(2).gameObject.SetActive(false); // 3D ÅØ½ºÆ® ¿ÀºêÁ§Æ® °¨Ãß±â
+            go.transform.GetChild(2).gameObject.SetActive(false); // 3D ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ß±ï¿½
             go.transform.SetParent(spawnedBlockGroup);
-        }        
+        }
 
-        // *** ÀÌ°Å ¿Ö ÀÖ´Â °Å¿´´õ¶ó? ³ªÁß¿¡ ´Ù½Ã Å×½ºÆ® ***
-        for (int i = 0; i < spawnedBlockGroup.childCount; i++) 
+        // *** ï¿½Ì°ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Å¿ï¿½ï¿½ï¿½ï¿½ï¿½? ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½Ù½ï¿½ ï¿½×½ï¿½Æ® ***
+        for (int i = 0; i < spawnedBlockGroup.childCount; i++)
         {
             Destroy(spawnedBlockGroup.GetChild(i).gameObject);
         }

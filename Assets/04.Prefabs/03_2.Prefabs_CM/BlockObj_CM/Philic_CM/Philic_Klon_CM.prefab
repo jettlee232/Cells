@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 1391589557849848, guid: 4d52494325dd77a488a9331ebb1c5a87, type: 3}
-  destroyFlag: 0
+  flag: 0
 --- !u!114 &909257430896748005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,11 +218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f529a67bab0264db1b2d4dbbbb6bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hlTrigger: {fileID: 0}
   hlEffect: {fileID: 0}
   updownFloat: 0.05
   glowFlag: 0
-  updownFlag: 0
 --- !u!114 &8167289211013806603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,9 +447,10 @@ GameObject:
   - component: {fileID: 7253774538207751519}
   - component: {fileID: -1937367824737916158}
   - component: {fileID: 1937730188828735068}
+  - component: {fileID: 4101957647860486630}
   m_Layer: 0
   m_Name: Philic_Klon_CM
-  m_TagString: Untagged
+  m_TagString: WFBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -486,7 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1740742bb476624f96378b6688602ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 10
 --- !u!114 &1937730188828735068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,12 +498,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f529a67bab0264db1b2d4dbbbb6bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hlTrigger: {fileID: 913056498078215419, guid: f5513d3989e4b6b4abaa8af97a0da3f3,
-    type: 3}
   hlEffect: {fileID: 536283050593596421, guid: f5513d3989e4b6b4abaa8af97a0da3f3, type: 3}
   updownFloat: 0.02
   glowFlag: 0
-  updownFlag: 0
+--- !u!114 &4101957647860486630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4051760898811739491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c49bd58fa9aa447a1e0db91ef38527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 1391589557849848, guid: 4d52494325dd77a488a9331ebb1c5a87, type: 3}
+  flag: 0
 --- !u!1 &5407297812661648913
 GameObject:
   m_ObjectHideFlags: 0
