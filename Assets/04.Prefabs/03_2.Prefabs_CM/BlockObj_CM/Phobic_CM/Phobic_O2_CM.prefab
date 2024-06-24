@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7898778248870061945}
   - component: {fileID: -4013494550446941631}
   - component: {fileID: 9011040328873483052}
+  - component: {fileID: -7156432206249129772}
   m_Layer: 0
   m_Name: Phobic_O2_CM
   m_TagString: SSBlock
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1740742bb476624f96378b6688602ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 10
 --- !u!114 &9011040328873483052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,11 +62,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f529a67bab0264db1b2d4dbbbb6bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hlTrigger: {fileID: 0}
   hlEffect: {fileID: 0}
   updownFloat: 0.02
   glowFlag: 0
-  updownFlag: 0
+--- !u!114 &-7156432206249129772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626202637211834066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c49bd58fa9aa447a1e0db91ef38527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 1426067436075648732, guid: 123ff58784337da42bd32b6b06075a51,
+    type: 3}
+  flag: 0
 --- !u!1 &1816263107515725452
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particle: {fileID: 1426067436075648732, guid: 123ff58784337da42bd32b6b06075a51,
     type: 3}
-  destroyFlag: 0
+  flag: 0
 --- !u!114 &8088707421183278127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,11 +216,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f529a67bab0264db1b2d4dbbbb6bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hlTrigger: {fileID: 0}
   hlEffect: {fileID: 0}
   updownFloat: 0.02
   glowFlag: 0
-  updownFlag: 0
 --- !u!114 &5373046066810061188
 MonoBehaviour:
   m_ObjectHideFlags: 0

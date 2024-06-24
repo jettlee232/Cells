@@ -6,18 +6,18 @@ using UnityEngine;
 public class GameManager_CM : MonoBehaviour
 {
     [Header("Gaming Variable")]
-    public int rightAns; // Á¤´ä °³¼ö
-    public int wrongAns; // ¿À´ä °³¼ö
-    private int score = 100; // Á¤´ä ½Ã ¸¶´Ù È¹µæÇÏ´Â Á¡¼ö, °íÁ¤
-    public int curScore; // ÇöÀç Á¡¼ö
-    public int goalScore = 5000; // ¸ñÇ¥ Á¡¼ö
-    public int rightAnsStreak; // ¿¬¼Ó Á¤´ä
-    public float scoreMultiply = 1.0f; // ÄÞº¸ ¹è¼ö
-    public float curLeftTime; // ³²Àº °ÔÀÓ ½Ã°£
+    public int rightAns; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public int wrongAns; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private int score = 100; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½
+    public int curScore; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public int goalScore = 5000; // ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
+    public int rightAnsStreak; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float scoreMultiply = 1.0f; // ï¿½Þºï¿½ ï¿½ï¿½ï¿½
+    public float curLeftTime; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
     public float leftTime = 180.0f;
-    public float countdownTime = 3; // Ä«¿îÆ®´Ù¿î ½Ã°£
+    public float countdownTime = 3; // Ä«ï¿½ï¿½Æ®ï¿½Ù¿ï¿½ ï¿½Ã°ï¿½
     public bool isGameStart = false;
-    public bool isSucces;    
+    public bool isSucces;
 
     [Header("In-Game Text Contents")]
     public TextMeshProUGUI countdownTimerText;
@@ -60,7 +60,7 @@ public class GameManager_CM : MonoBehaviour
     public void GameStart()
     {
         Debug.Log("Game Start!");
-        StartCoroutine(CountDown()); // Ä«¿îÆ®´Ù¿î ÄÚ·çÆ¾        
+        StartCoroutine(CountDown()); // Ä«ï¿½ï¿½Æ®ï¿½Ù¿ï¿½ ï¿½Ú·ï¿½Æ¾        
     }
 
     public void GameRestart()
@@ -68,7 +68,7 @@ public class GameManager_CM : MonoBehaviour
         gameoverPanel.SetActive(false);
 
         restartBlock.SetActive(false);
-        exitBlock.SetActive(false);        
+        exitBlock.SetActive(false);
 
         rightAns = 0;
         wrongAns = 0;
@@ -87,11 +87,11 @@ public class GameManager_CM : MonoBehaviour
         countdownTimerText.gameObject.SetActive(true);
         countdownTimerText.text = "";
         while (countdownTime != 0)
-        {            
+        {
             Debug.Log(countdownTime);
 
             countdownTimerText.text = countdownTime.ToString();
-            
+
             yield return new WaitForSeconds(1);
 
             countdownTime--;
@@ -102,37 +102,37 @@ public class GameManager_CM : MonoBehaviour
         countdownTime = 3;
         countdownTimerText.gameObject.SetActive(false);
 
-        // ÀÎ°ÔÀÓ UIµé º¸ÀÌ°Ô
+        // ï¿½Î°ï¿½ï¿½ï¿½ UIï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½
         timerCountText.gameObject.SetActive(true);
         scorePanel.gameObject.SetActive(true);
         ruleText.gameObject.SetActive(true);
 
-        // ºí·Ï ½ºÆù ½ÃÀÛ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         bsMgr.BlockSpawnStart();
 
-        // ³²Àº °ÔÀÓ ½Ã°£ Ä«¿îÆ® ½ÃÀÛ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ Ä«ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         curLeftTime = leftTime;
         StartCoroutine(TimerOnGo());
     }
 
-    public void Scoreup() // Á¤´ä ½Ã ½ÇÇà ÇÔ¼ö - Á¡¼ö Áõ°¡ (¿ÜºÎ¿¡¼­ ½ÇÇà like SaberWF/CC)
+    public void Scoreup() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ like SaberWF/CC)
     {
-        curScore += (int)(score * scoreMultiply); // ÇöÀç Á¡¼ö¿¡ Á¡¼ö Ãß°¡ (100 X Á¡¼ö ¹è¼ö)
-        rightAns++; // Á¤´ä °³¼ö Áõ°¡
+        curScore += (int)(score * scoreMultiply); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ (100 X ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½)
+        rightAns++; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        rightAnsStreak++; // ¿¬¼Ó Á¤´ä °³¼ö Áõ°¡
+        rightAnsStreak++; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         ScoreStreakComboMultiplyCheck();
-        
-        TextUpdate_ScoreAndCombo(); // ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®_Á¡¼ö¿Í ÄÞº¸ ÇÔ¼ö ½ÇÇà
 
-        CheckScore(); // °ÔÀÓ Á¾·á Á¶°Ç (¸ñÇ¥ Á¡¼ö ´Þ¼º ¿©ºÎ) °Ë»ç
+        TextUpdate_ScoreAndCombo(); // ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þºï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+
+        CheckScore(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ ï¿½ï¿½ï¿½ï¿½) ï¿½Ë»ï¿½
     }
-    
-    public void ScoreStreakComboMultiplyCheck() // ¿¬¼Ó Á¤´ä °³¼ö·Î Á¡¼ö ¹è¼ö Áõ°¡ È®ÀÎ
+
+    public void ScoreStreakComboMultiplyCheck() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     {
-        if (rightAnsStreak > 0 && rightAnsStreak % 2 == 0) // 10ÀÇ ´ÜÀ§·Î Á¡¼ö°¡ Áõ°¡ÇÏ¸é
+        if (rightAnsStreak > 0 && rightAnsStreak % 2 == 0) // 10ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
         {
-            scoreMultiply += 0.2f; // Á¡¼ö ¹è¼ö 0.2 Áõ°¡ ex) 1.0x -> 1.2x -> 1.4x
+            scoreMultiply += 0.2f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 0.2 ï¿½ï¿½ï¿½ï¿½ ex) 1.0x -> 1.2x -> 1.4x
 
             multiplyCountText.text = "x " + scoreMultiply.ToString();
             Debug.Log(scoreMultiply);
@@ -141,21 +141,21 @@ public class GameManager_CM : MonoBehaviour
 
     public void TextUpdate_ScoreAndCombo()
     {
-        scoreCountText.text = curScore.ToString(); // ÇöÀç Á¡¼ö¸¦ stringÀ¸·Î º¯È¯ÇÏ¿© scoreCountTextÀÇ text ÄÄÆ÷³ÍÆ®¿¡ ´ëÀÔ
-        comboCountText.text = rightAnsStreak.ToString(); // ¸¶Âù°¡Áö·Î ¿¬¼Ó Á¤´ä °³¼öµµ Àû¿ë
+        scoreCountText.text = curScore.ToString(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ stringï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï¿ï¿½ scoreCountTextï¿½ï¿½ text ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        comboCountText.text = rightAnsStreak.ToString(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         multiplyCountText.text = "x " + scoreMultiply.ToString();
     }
 
     public void CheckScore()
     {
-        if (curScore >= goalScore) // ¸ñÇ¥ Á¡¼ö¿¡ µµ´ÞÇÏ¸é
+        if (curScore >= goalScore) // ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
         {
             isSucces = true;
             GameOver();
         }
     }
 
-    public void ScoreDown() // ¿À´ä ½Ã ½ÇÇà ÇÔ¼ö - Á¡¼ö ÇÏ¶ôÀº ¾ø´Âµ¥ ÀÏ´Ü ¤·¤· (¿ÜºÎ¿¡¼­ ½ÇÇà like BlockDestPlane Or SaberWF/CC)
+    public void ScoreDown() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Âµï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ like BlockDestPlane Or SaberWF/CC)
     {
         wrongAns++;
         rightAnsStreak = 0;
@@ -167,21 +167,21 @@ public class GameManager_CM : MonoBehaviour
     {
         isGameStart = false;
 
-        // BlockSpawnManagerÇÑÅ× ºí·Ï »ý¼º ±×¸¸ÇÏ¶ó°í ÇÏ±â
+        // BlockSpawnManagerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½Ï¶ï¿½ï¿½ ï¿½Ï±ï¿½
         bsMgr.BlockSpawnStop();
 
-        // Á¾·á¿Í µ¿½Ã¿¡ ½ÇÇàµÇ´Â ÇÔ¼öµé ÀÛ¼º, (±âÁ¸ UIµé ¾Èº¸ÀÌ°Ô, °ÔÀÓ Á¾·á Àü¿ë UI´Â º¸ÀÌ°Ô)
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½, (ï¿½ï¿½ï¿½ï¿½ UIï¿½ï¿½ ï¿½Èºï¿½ï¿½Ì°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UIï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½)
         timerCountText.gameObject.SetActive(false);
         scorePanel.gameObject.SetActive(false);
         ruleText.gameObject.SetActive(false);
 
         gameoverPanel.SetActive(true);
-        // clearTimeText.text =  // ÃÑ ½Ã°£¿¡¼­ ÇöÀç ½Ã°£À» »« °É Time.date Çü½ÄÀ¸·Î
+        // clearTimeText.text =  // ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ Time.date ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         rightAnsText.text = rightAns.ToString();
         wrongAnsText.text = wrongAns.ToString();
         rightAnsStreakText.text = rightAnsStreak.ToString();
         curScoreCountText.text = curScore.ToString();
-        
+
         if (isSucces == true) successOrFailText.text = "Success!";
         else successOrFailText.text = "Fail!";
 
@@ -193,23 +193,18 @@ public class GameManager_CM : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         restartBlock.SetActive(true);
-        restartBlock.GetComponent<InstantiateEffect_CM>().GoStart();
-
-        //
-        exitBlock.SetActive(true);
-        exitBlock.GetComponent<InstantiateEffect_CM>().GoStart();
-        //
+        //restartBlock.GetComponent<InstantiateEffect_CM>().GoStart();
 
         if (isSucces == true)
         {
             exitBlock.SetActive(true);
-            exitBlock.GetComponent<InstantiateEffect_CM>().GoStart();
-        }            
+            //exitBlock.GetComponent<InstantiateEffect_CM>().GoStart();
+        }
     }
 
     IEnumerator TimerOnGo()
     {
-        while(isGameStart == true)
+        while (isGameStart == true)
         {
             if (curLeftTime <= 0)
             {
@@ -221,7 +216,7 @@ public class GameManager_CM : MonoBehaviour
             int seconds = Mathf.FloorToInt(curLeftTime % 60);
 
             timerCountText.text = string.Format("{0}:{1:00}", minutes, seconds);
-            
+
             yield return new WaitForSeconds(1f);
             curLeftTime -= 1.0f;
         }

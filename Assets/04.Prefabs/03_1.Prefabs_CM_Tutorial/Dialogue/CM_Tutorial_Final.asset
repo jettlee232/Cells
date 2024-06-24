@@ -268,7 +268,13 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(0);
+      userScript: 'PlayAudioClip(0);
+
+        PlayNarratorAnimation("Reaction");
+
+        UILaserOnOff();
+
+        MakePlayerMove()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -396,8 +402,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 159.05824
-        y: 175.34952
+        x: 161.26602
+        y: 164.83003
         width: 160
         height: 30
     - id: 4
@@ -451,9 +457,9 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'PlayAudioClip(3);
 
-        MaketutorialObj_Tail();
+        PlayClip(0);
 
-        MakeTutorialObj_Head()'
+        IntroduceEyesOnlyObject(0)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -514,7 +520,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(5);
+      userScript: "PlayAudioClip(5);\nEODescPanelMade(0, 0, \"\uBA38\uB9AC\", \"\uBB3C\uACFC
+        \uCE5C\uD55C \uBA38\uB9AC\");\nEODescPanelMade(0, 1, \"\uAF2C\uB9AC\", \"\uBB3C\uACFC
+        \uCE5C\uD558\uC9C0 \uC54A\uC740 \uBA38\uB9AC\")"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -565,7 +573,13 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 6
+        destinationConversationID: 1
+        destinationDialogueID: 8
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: PlayAudioClip(6);
       onExecute:
@@ -628,19 +642,74 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(4);
+      userScript: 'PlayAudioClip(4);
+
+        EOObj3DText(0)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160.80292
-        y: 275.2601
+        x: 162.23148
+        y: 276.68866
+        width: 160
+        height: 30
+    - id: 8
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: es
+        value: 
+        type: 4
+        typeString: CustomFieldType_Localization
+      conversationID: 1
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Passthrough
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: "NewQuest(\"\uC778\uC9C0\uC9C8\uC744 \uB9CC\uB4E4\uC5B4\uBCF4\uC790!\");\nPlayClip(1);\nMaketutorialObj_Tail();\nMakeTutorialObj_Head();\nSkipConv()"
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 161.71066
+        y: 418.42355
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.82000005
+    canvasScrollPosition: {x: 15.609827, y: 0}
+    canvasZoom: 0.7900001
   - id: 2
     fields:
     - title: Title
@@ -797,7 +866,11 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(7);
+      userScript: 'PlayAudioClip(7);
+
+        QuestOver();
+
+        PlayNarratorAnimation("Reaction")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -857,7 +930,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(9);
+      userScript: 'PlayAudioClip(9);
+
+        DestroyEyesOnlyObject(0)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -916,14 +991,15 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(10);
+      userScript: "PlayAudioClip(10);\nIntroduceEyesOnlyObject(1);\nDeleteSaber();\nEODescPanelMade(1,
+        0, \"\uC778\uC9C0\uC9C8\", \"\uADF8\uB7EC\uD558\uB2E4\");\nEOObj3DText(1)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 161.21947
-        y: 215.22728
+        y: 216.4468
         width: 160
         height: 30
     - id: 7
@@ -976,7 +1052,8 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(12);
+      userScript: "PlayAudioClip(12);\nEODescPanelMade(2, 0, \"\uC138\uD3EC\uB9C9\",
+        \"\uADF8\uB7EC\uD558\uB2E4\")\nEOObj3DText(2)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1028,18 +1105,22 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 2
+        originDialogueID: 8
+        destinationConversationID: 2
+        destinationDialogueID: 11
+        isConnector: 0
+        priority: 2
       conditionsString: 
-      userScript: 'PlayAudioClip(13);
-
-        MakeTutorialObj_Single()'
+      userScript: PlayAudioClip(13);
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 163.82478
-        y: 364.9501
+        x: 162.18544
+        y: 363.31076
         width: 160
         height: 30
     - id: 9
@@ -1092,7 +1173,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(8);
+      userScript: 'PlayAudioClip(8);
+
+        PlayNarratorAnimation("Happy")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1152,19 +1235,76 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(11);
+      userScript: 'PlayAudioClip(11);
+
+        IntroduceEyesOnlyObject(2)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 151.46335
-        y: 255.47119
+        x: 163.65846
+        y: 262.78824
+        width: 160
+        height: 30
+    - id: 11
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: es
+        value: 
+        type: 4
+        typeString: CustomFieldType_Localization
+      conversationID: 2
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Passthrough
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: "NewQuest(\"\uC778\uC9C0\uC9C8 \uC774\uC911\uCE35 \uAD6C\uC870\uB97C
+        \uB9CC\uB4E4\uC5B4\uBCF4\uC790\");\r\nPlayClip(0);\r\nNewRule(\"\uC778\uC9C0\uC9C8
+        \uC774\uC911\uCE35 \uAD6C\uC870 \uB9CC\uB4DC\uB294 \uBC95\", \"f1\");\r\nDeleteSaber();\r\nMakeTutorialObj_Single();\r\nPlayClip(1);\r\nSkipConv();"
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 163.82478
+        y: 414.9501
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 25.609772}
-    canvasZoom: 0.8200002
+    canvasScrollPosition: {x: 98.82269, y: 57.213097}
+    canvasZoom: 0.7300002
   - id: 3
     fields:
     - title: Title
@@ -1321,13 +1461,17 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(14);
+      userScript: 'PlayAudioClip(14);
+
+        QuestOver();
+
+        RuleOver()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 161
+        x: 162.21951
         y: 78
         width: 160
         height: 30
@@ -1380,14 +1524,16 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(16);
+      userScript: 'PlayAudioClip(16);
+
+        DeleteSaber()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 164.99998
-        y: 179.24388
+        x: 166.2195
+        y: 180.4634
         width: 160
         height: 30
     - id: 3
@@ -1433,13 +1579,15 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 3
+        originDialogueID: 3
+        destinationConversationID: 3
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
       conditionsString: 
-      userScript: 'PlayAudioClip(17);
-
-        QuestionByNarrator();
-
-        UILaserOnOff()'
+      userScript: PlayAudioClip(17)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1498,14 +1646,73 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(15);
+      userScript: 'PlayAudioClip(15);
+
+        PlayNarratorAnimation("Goofy Running")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 162.21951
-        y: 128.00002
+        x: 163.43903
+        y: 129.21953
+        width: 160
+        height: 30
+    - id: 5
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: es
+        value: 
+        type: 4
+        typeString: CustomFieldType_Localization
+      conversationID: 3
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: 'QuestionByNarrator();
+
+        UILaserOnOff();
+
+        SkipConv()'
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 165
+        y: 290.2195
         width: 160
         height: 30
     entryGroups: []
@@ -1667,7 +1874,11 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'PlayAudioClip(18);
 
-        UILaserOnOff()'
+        UILaserOnOff();
+
+        PlayNarratorAnimation("Reaction");
+
+        PlayClip(1)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1787,7 +1998,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(21);
+      userScript: 'PlayAudioClip(21);
+
+        MakeTestBlocks(true)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1848,7 +2061,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(22);
+      userScript: 'PlayAudioClip(22);
+
+        MakeTestBlocks(false)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1908,7 +2123,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(23);
+      userScript: 'PlayAudioClip(23);
+
+        HighlightRemote(2)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1976,7 +2193,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 158.97198
-        y: 324.6289
+        y: 325.99878
         width: 160
         height: 30
     - id: 10
@@ -2029,11 +2246,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'PlayAudioClip(25);
-
-        MakeTestBlocks();
-
-        DeleteSaber()'
+      userScript: PlayAudioClip(25)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2095,7 +2308,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(19);
+      userScript: 'PlayAudioClip(19);
+
+        HighlightRemote(2)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2146,13 +2361,17 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 4
+        originDialogueID: 12
+        destinationConversationID: 4
+        destinationDialogueID: 13
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: 'PlayAudioClip(26);
 
-        MaketutorialObj_Tail();
-
-        MakeTutorialObj_Head()'
+        MakePhosSticks()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2162,9 +2381,63 @@ MonoBehaviour:
         y: 414.6289
         width: 160
         height: 30
+    - id: 13
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: es
+        value: 
+        type: 4
+        typeString: CustomFieldType_Localization
+      conversationID: 4
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: "NewQuest(\"\uCE5C\uC218\uC131 \uBB3C\uC9C8\uACFC \uC18C\uC218\uC131
+        \uBB3C\uC9C8\uC744 \uAD6C\uBD84\uD574\uBCF4\uC790!\");\nSkipConv();\nMakePlayerMove()"
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 161.97198
+        y: 464.6289
+        width: 160
+        height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 27.477966}
-    canvasZoom: 0.8200002
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 0.6100004
   - id: 6
     fields:
     - title: Title
@@ -2725,7 +2998,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 161
-        y: 277.42102
+        y: 278.73682
         width: 160
         height: 30
     - id: 5
@@ -2829,9 +3102,17 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 7
+        originDialogueID: 6
+        destinationConversationID: 7
+        destinationDialogueID: 8
+        isConnector: 0
+        priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(33);
+      userScript: 'PlayAudioClip(33);
+
+        PlayNarratorAnimation("Reaction")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2900,9 +3181,62 @@ MonoBehaviour:
         y: 124.705475
         width: 160
         height: 30
+    - id: 8
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: es
+        value: 
+        type: 4
+        typeString: CustomFieldType_Localization
+      conversationID: 7
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: FadeOutAndMoveScene()
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 161.26678
+        y: 421.73926
+        width: 160
+        height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 10.588257}
-    canvasZoom: 0.85000014
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 0.7600002
   syncInfo:
     syncActors: 0
     syncItems: 0
