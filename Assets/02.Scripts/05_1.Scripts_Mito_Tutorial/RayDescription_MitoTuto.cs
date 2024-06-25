@@ -18,6 +18,7 @@ public class RayDescription_MitoTuto : MonoBehaviour
     public BNG.UIPointer uiPointer;
     public bool isTriggerPressed = false;
     public bool isButtonPressed = false;
+    private bool wasButtonPressed;
 
     UnityEngine.XR.InputDevice right;
 
@@ -26,9 +27,9 @@ public class RayDescription_MitoTuto : MonoBehaviour
     // 이거 중요!!!!!!!!!!!
     public Dictionary<string, string> objDesc = new Dictionary<string, string>
     {
-        { "Cube1", "My Name Is Cube 1" },
-        { "Cube2", "My Name Is Cube 2" },
-        { "Cube3", "My Name Is Cube 3" }
+        { "ME Liquid", "My Name Is ME Liquid" },
+        { "mitoExterior_Mito", "My Name Is mitoExterior_Mito" },
+        { "mitoInteriorHalf_Mito", "My Name Is mitoInteriorHalf_Mito" }
     };
     void Start()
     {
@@ -49,7 +50,7 @@ public class RayDescription_MitoTuto : MonoBehaviour
             right.TryGetFeatureValue(CommonUsages.primaryButton, out isButtonPressed);
         }
 
-        if (isButtonPressed == true) // 트리거가 눌리고 있다면
+        if (isButtonPressed == true) // 버튼이 눌리고 있다면
         {
             uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
 
@@ -64,10 +65,12 @@ public class RayDescription_MitoTuto : MonoBehaviour
         {
             FollowingDescription(descrptionPanel); // 현재 만들어진 설명창이 내 시선을 따라오게 하기
         }
-        if (isButtonPressed == true && descrptionPanel != null) // 현재 설명창이 만들어진 상태이고 A버튼이 눌린 상태라면
+        if (isButtonPressed == true && !wasButtonPressed && descrptionPanel != null) // 현재 설명창이 만들어진 상태이고 A버튼이 눌린 상태라면
         {
             DestroyDescription(); // 현재 만들어진 설명창을 없애기
         }
+
+        wasButtonPressed = isButtonPressed;
     }
 
     public void CheckRay(Vector3 targetPos, Vector3 direction, float length)
@@ -90,7 +93,7 @@ public class RayDescription_MitoTuto : MonoBehaviour
                     if (highlightEffect != null)
                     {
                         highlightEffect.highlighted = true;
-                        rayHit.collider.gameObject.GetComponent<HighLightColorchange_CM>().GlowStart();
+                        rayHit.collider.gameObject.GetComponent<HighLightColorchange_MitoTuto>().GlowStart();
                     }
 
                     InstantiatePanel(rayHit.collider.gameObject); // 패널 만들기
@@ -144,7 +147,7 @@ public class RayDescription_MitoTuto : MonoBehaviour
         if (glowObj != null)
         {
             glowObj.GetComponent<HighlightEffect>().highlighted = false;
-            glowObj.GetComponent<HighLightColorchange_CM>().GlowEnd();
+            glowObj.GetComponent<HighLightColorchange_MitoTuto>().GlowEnd();
         }
 
         Destroy(descrptionPanel);
@@ -164,34 +167,5 @@ public class RayDescription_MitoTuto : MonoBehaviour
 
         // 현재 패널이 가리키는 오브젝트의 이름을 저장
         objName = descrptionPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text;
-    }
-
-    private void HandleRaycastHit(RaycastHit hit)
-    {
-        //if (Physics.Raycast(transform.position, transform.forward, out hit, 10))
-        //{
-        //    HandleRaycastHit(hit);
-        //}
-        //else
-        //{
-        //    explainPanel.SetActive(false);
-        //    explainText.text = "";
-        //}
-
-        if (hit.collider.CompareTag("Matrix"))
-        {
-            explainPanel.SetActive(true);
-            explainText.text = "기질";
-        }
-        else if (hit.collider.CompareTag("Cristae"))
-        {
-            explainPanel.SetActive(true);
-            explainText.text = "주름";
-        }
-        else
-        {
-            explainPanel.SetActive(false);
-            explainText.text = "";
-        }
     }
 }

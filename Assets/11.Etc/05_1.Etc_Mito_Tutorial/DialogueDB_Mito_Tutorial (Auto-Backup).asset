@@ -1422,9 +1422,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: "\uC790 \uADF8\uB7FC, \uC774\uBC88\uC5D4 \uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00
-          \uC5B4\uB5BB\uAC8C \uC0DD\uACBC\uB294\uC9C0 \uC9C1\uC811 \uBE44\uD589\uD558\uBA74\uC11C
-          \uD655\uC778\uD574\uBD10!"
+        value: "AudioWait(Mito_Tuto/audio_14_\uC790_\uADF8\uB7FC__\uC774\uBC88\uC5D4_\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00_\uC5B4\uB5BB\uAC8C_\uC0DD\uACBC\uB294\uC9C0_\uC9C1\uC811_\uBE44\uD589\uD558~)"
         type: 0
         typeString: 
       conversationID: 4
@@ -1944,7 +1942,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 159
-        y: 159
+        y: 160
         width: 160
         height: 30
     - id: 3
@@ -2854,8 +2852,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 30
+        x: 80
+        y: 50
         width: 160
         height: 30
     - id: 1
@@ -2903,14 +2901,16 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: 'ToggleATP();
+
+        ChangeQuestText("")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 80
+        x: 81
+        y: 135
         width: 160
         height: 30
     - id: 2
@@ -2953,14 +2953,14 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: "ChangeQuestText(\"ATP\uB97C \uC870\uD569\uD574\uBCF4\uC790!\")"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 157
-        y: 231
+        x: 80
+        y: 302
         width: 160
         height: 30
     - id: 3
@@ -3015,8 +3015,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 130
+        x: 80
+        y: 218
         width: 160
         height: 30
     entryGroups: []
@@ -3119,8 +3119,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 29
+        x: 80
+        y: 50
         width: 160
         height: 30
     - id: 1
@@ -3174,8 +3174,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 79
+        x: 80
+        y: 134
         width: 160
         height: 30
     - id: 2
@@ -3231,8 +3231,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 129
+        x: 80
+        y: 218
         width: 160
         height: 30
     - id: 3
@@ -3288,8 +3288,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 179
+        x: 80
+        y: 302
         width: 160
         height: 30
     - id: 4
@@ -3343,8 +3343,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 229
+        x: 80
+        y: 386
         width: 160
         height: 30
     - id: 5
@@ -3392,8 +3392,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 279
+        x: 80
+        y: 470
         width: 160
         height: 30
     entryGroups: []

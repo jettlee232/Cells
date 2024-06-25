@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MitochondriaMiniHalf_Mito : MonoBehaviour
+public class MitochondriaMiniHalf_MitoTuto : MonoBehaviour
 {
     public bool dialogueActive = false; // 대화가 활성화되었는지 확인하는 플래그
 
