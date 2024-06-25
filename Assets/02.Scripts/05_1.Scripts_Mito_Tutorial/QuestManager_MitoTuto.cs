@@ -7,7 +7,10 @@ using UnityEngine.XR;
 
 public class QuestManager_MitoTuto : MonoBehaviour
 {
+    public static QuestManager_MitoTuto Instance { get; private set; }
+
     UnityEngine.XR.InputDevice right;
+    PlayerMoving_Mito playerMoving_Mito;
 
     public TextMeshProUGUI questText;
 
@@ -19,8 +22,23 @@ public class QuestManager_MitoTuto : MonoBehaviour
 
     public GameObject npcToolTip;
 
+    private void Awake()
+    {
+        // 싱글톤 인스턴스 설정
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); // 인스턴스가 중복 생성되지 않도록 기존 인스턴스를 파괴
+        }
+    }
+
     void Start()
     {
+        playerMoving_Mito = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMoving_Mito>();
+
         StartCoroutine(StartDelayQuestTextReset(5.0f));
     }
 
@@ -32,7 +50,6 @@ public class QuestManager_MitoTuto : MonoBehaviour
         if (npcToolTip.activeSelf)
         {
             playerInRange = true;
-            QuestTextReset();
         }
         else
         {
@@ -43,42 +60,33 @@ public class QuestManager_MitoTuto : MonoBehaviour
         {
             if (isABtnPressed && !wasABtnPressed && !dialogueActive)
             {
-                DialogueController_MitoTuto.Instance.ActivateDST(3);
+                if (!playerMoving_Mito.flyable)
+                    DialogueController_MitoTuto.Instance.ActivateDST(3);
+                else
+                    DialogueController_MitoTuto.Instance.ActivateDST(7);
                 dialogueActive = true;
+                npcToolTip.SetActive(false);
             }
         }
 
         wasABtnPressed = isABtnPressed;
-
-        if (dialogueActive)
-            npcToolTip.SetActive(false);
     }
 
     IEnumerator StartDelayQuestTextReset(float delay)
     {
         yield return new WaitForSeconds(delay);
-        HelloNpcText();
+        ChangeQuestText("NPC에게 말을 걸어보자!");
         yield return new WaitForSeconds(delay / 2.0f);
-        QuestTextReset();
+        ResetQuestText();
     }
 
-    public void QuestTextReset()
+    public void ResetQuestText()
     {
         questText.text = string.Empty;
     }
 
-    public void HelloNpcText()
+    public void ChangeQuestText(string text)
     {
-        questText.text = "NPC에게 말을 걸어보자!";
-    }
-
-    public void SeeMitoText()
-    {
-        questText.text = "미토콘드리아 모형을 살펴보자!";
-    }
-
-    public void CanFlyText()
-    {
-        questText.text = "미토콘드리아 속을 비행해보자!";
+        questText.text = text;
     }
 }

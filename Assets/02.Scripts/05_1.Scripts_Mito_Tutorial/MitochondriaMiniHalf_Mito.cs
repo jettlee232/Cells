@@ -19,6 +19,7 @@ public class MitochondriaMiniHalf_Mito : MonoBehaviour
     // 대충 내막 외막 막사이공간 설명 3개 다 보면 실행
     public void FinishExplainMito()
     {
+        // 대충 조건
         DialogueController_MitoTuto.Instance.ActivateDST(5);
     }
 }
