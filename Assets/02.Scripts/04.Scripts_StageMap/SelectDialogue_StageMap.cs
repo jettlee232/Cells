@@ -49,14 +49,21 @@ public class SelectDialogue_StageMap : MonoBehaviour
         tutorial.GetComponent<TutorialManager_StageMap>().StartTutorial();
     }
 
-    public void EnableMove_SM() { GameManager_StageMap.instance.EnableMove(); }
+    public void EnableMove_SM() { GameManager_StageMap.instance.EnableMove(); Debug.Log("½ÇÇàµÊ1"); }
     public void DisableMove_SM()
     {
         GameManager_StageMap.instance.DisableMove();
         GameManager_StageMap.instance.RemoveSelect();
     }
-    //public void EnableOrganelle_SM() { UIManager_StageMap.instance.EnableButton(); }
-    public void WaitForNewUI_SM() { GameManager_StageMap.instance.WaitForNewUI(); }
+    public void EnableOrganelle_SM() { UIManager_StageMap.instance.EnanbleOrganelleButton(); Debug.Log("½ÇÇàµÊ3"); }
+    public void WaitForNewUI_SM() { GameManager_StageMap.instance.WaitForNewUI(); Debug.Log("½ÇÇàµÊ2"); }
+    public void Subtitle_Explore_SM() { StartCoroutine(cSubtitle_Explore_SM()); Debug.Log("½ÇÇàµÊ4"); }
+    IEnumerator cSubtitle_Explore_SM()
+    {
+        UIManager_StageMap.instance.SetUpsideSubtitle("µ¿¹°¼¼Æ÷¸¦ Å½ÇèÇØ º¸ÀÚ!");
+        yield return new WaitForSeconds(5f);
+        UIManager_StageMap.instance.VanishUpsideSubtitle();
+    }
     #endregion
 
     #region Register with Lua
@@ -66,17 +73,19 @@ public class SelectDialogue_StageMap : MonoBehaviour
         Lua.RegisterFunction("CheckFlyTutorial_SM", this, SymbolExtensions.GetMethodInfo(() => CheckFlyTutorial_SM()));
         Lua.RegisterFunction("EnableMove_SM", this, SymbolExtensions.GetMethodInfo(() => EnableMove_SM()));
         Lua.RegisterFunction("DisableMove_SM", this, SymbolExtensions.GetMethodInfo(() => DisableMove_SM()));
-        //Lua.RegisterFunction("EnableOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => EnableOrganelle_SM()));
+        Lua.RegisterFunction("EnableOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => EnableOrganelle_SM()));
         Lua.RegisterFunction("WaitForNewUI_SM", this, SymbolExtensions.GetMethodInfo(() => WaitForNewUI_SM()));
+        Lua.RegisterFunction("Subtitle_Explore_SM", this, SymbolExtensions.GetMethodInfo(() => Subtitle_Explore_SM()));
     }
 
     private void OnDisable()
     {
-        Lua.UnregisterFunction("fCheckFlyTutorial_SM");
+        Lua.UnregisterFunction("CheckFlyTutorial_SM");
         Lua.UnregisterFunction("EnableMove_SM");
         Lua.UnregisterFunction("DisableMove_SM");
-        //Lua.UnregisterFunction("EnableOrganelle_SM");
+        Lua.UnregisterFunction("EnableOrganelle_SM");
         Lua.UnregisterFunction("WaitForNewUI_SM");
+        Lua.UnregisterFunction("Subtitle_Explore_SM");
     }
 
     #endregion

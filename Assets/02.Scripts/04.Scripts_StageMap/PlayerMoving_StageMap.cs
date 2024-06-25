@@ -62,7 +62,6 @@ public class PlayerMoving_StageMap: MonoBehaviour
         left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
         GetRotateY();
         GetRotateX();
-        CheckFlyable();
         if (GameManager_StageMap.instance.GetMovable())
         {
             if (flyable) { rb.velocity = GetUp() + GetDown() + GetMove(); }
@@ -77,7 +76,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
     {
         oldUp = goUp;
 
-        right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out goUp);
+        right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out goUp);
 
         if (goUp && !oldUp) { StartCoroutine(cStartUp()); }
         if (!goUp && oldUp) { StartCoroutine(cFinishUp()); }
@@ -127,7 +126,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
         if (CheckGround()) { return Vector3.zero; }
         oldDown = goDown;
 
-        left.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out goDown);
+        left.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out goDown);
 
         if (goDown && !oldDown) { StartCoroutine(cStartDown()); }
         if (!goDown && oldDown) { StartCoroutine(cFinishDown()); }
@@ -252,14 +251,6 @@ public class PlayerMoving_StageMap: MonoBehaviour
     }
     #endregion
 
-    public void CheckFlyable()
-    {
-        oldPressedB = pressedB;
-
-        right.TryGetFeatureValue(CommonUsages.secondaryButton, out pressedB);
-        if (!flyable && (pressedB && !oldPressedB)) { flyable = true; }
-        else if (flyable && (pressedB && !oldPressedB)) { flyable = false; nowUpSpeed = 0f; nowDownSpeed = 0f; }
-    }
     public void DisableFly() { flyable = false; }
     public void EnableFly() { flyable = true; nowUpSpeed = 0f; nowDownSpeed = 0f; }
 }
