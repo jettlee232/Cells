@@ -36,6 +36,5 @@ public class SelectMenu_Lobby : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player")) { UIManager_Lobby.instance.HideAlert(); }
-        if (desc) { UIManager_Lobby.instance.OnDesc(); }
     }
 }

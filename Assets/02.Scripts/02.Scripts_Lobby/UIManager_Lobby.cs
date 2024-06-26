@@ -33,6 +33,10 @@ public class UIManager_Lobby : MonoBehaviour
     public string pressTutorialText = "이건 버튼 누르라는 설명";
     public Sprite pressTutorialImage;
 
+    [Header("DescUI Settings")]
+    public float DescUITimer = 0.2f;
+    public float DescUIFullSize = 0.00125f;
+
     // 아래로는 튜토리얼 UI에 쓰일 변수들
     private Color tNowPanelColor;
     private Color tNowImageColor;
@@ -109,18 +113,50 @@ public class UIManager_Lobby : MonoBehaviour
 
     #region 설명창
     public GameObject GetDesc() { return Desc_UI; }
-    public void OnDesc() { Desc_UI.SetActive(true); }
-    public void OffDesc() { StartCoroutine(VanishDesc()); }
-    IEnumerator VanishDesc()
+    public void OnDesc(GameObject go)
     {
-        while (Desc_UI.GetComponent<RectTransform>().localScale.x >= 0.00005f)
+        if (CheckDesc())
         {
-            Desc_UI.GetComponent<RectTransform>().localScale =
-            new Vector3(Desc_UI.GetComponent<RectTransform>().localScale.x - 0.0002f,
-            Desc_UI.GetComponent<RectTransform>().localScale.y - 0.0002f,
-            Desc_UI.GetComponent<RectTransform>().localScale.z - 0.0002f);
+            Desc_UI.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = go.GetComponent<DescObj_Lobby>().GetName();
+            Desc_UI.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = go.GetComponent<DescObj_Lobby>().GetDesc();
+        }
+        else { StartCoroutine(ShowDesc(go)); }
+    }
+    public void OffDesc() { StartCoroutine(VanishDesc()); }
+    IEnumerator ShowDesc(GameObject go)
+    {
+        Desc_UI.SetActive(true);
+
+        Desc_UI.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = go.GetComponent<DescObj_Lobby>().GetName();
+        Desc_UI.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>().text = go.GetComponent<DescObj_Lobby>().GetDesc();
+
+        Vector3 nowDescSize = Desc_UI.GetComponent<RectTransform>().localScale;
+
+        float timer = 0f;
+        float totalTimer = (DescUIFullSize - nowDescSize.x) / DescUIFullSize * DescUITimer;
+        while (true)
+        {
+            if (DescUIFullSize - Desc_UI.GetComponent<RectTransform>().localScale.x <= 0.0000001f) { break; }
+            Desc_UI.GetComponent<RectTransform>().localScale = Vector3.Lerp(nowDescSize, Vector3.one * DescUIFullSize, timer / totalTimer);
+            timer += Time.deltaTime;
             yield return null;
         }
+        Desc_UI.GetComponent<RectTransform>().localScale = Vector3.one * DescUIFullSize;
+    }
+    IEnumerator VanishDesc()
+    {
+        Vector3 nowDescSize = Desc_UI.GetComponent<RectTransform>().localScale;
+
+        float timer = 0f;
+        float totalTimer = nowDescSize.x / DescUIFullSize * DescUITimer;
+        while (true)
+        {
+            if (Desc_UI.GetComponent<RectTransform>().localScale.x <= 0.0000001f) { break; }
+            Desc_UI.GetComponent<RectTransform>().localScale = Vector3.Lerp(nowDescSize, Vector3.zero, timer / totalTimer);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
         Desc_UI.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
         Desc_UI.SetActive(false);
     }

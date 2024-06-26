@@ -16,7 +16,7 @@ public class LaserPointer_StageMap : MonoBehaviour
     public float maxDistance;           // 레이저 최대 길이
     public GameObject touchEffect;
 
-    public GameObject obj = null;
+    private GameObject obj = null;
     private GameObject descPanel = null;
     private int descObjLayer;
     private int UILayer;
@@ -29,7 +29,7 @@ public class LaserPointer_StageMap : MonoBehaviour
     private bool outer = false;
     private int NPCLayer;
 
-    public GameObject glowObj;
+    private GameObject glowObj;
     private HighlightEffect highlightEffect;
 
     UnityEngine.XR.InputDevice right; // 오른손 컨트롤러 상태를 받는 변수
@@ -68,7 +68,6 @@ public class LaserPointer_StageMap : MonoBehaviour
         
         if (descPanel.activeSelf) // 현재 설명창이 만들어진 상태라면
         {
-            FollowingDescription(UIManager_StageMap.instance.GetDesc()); // 현재 만들어진 설명창이 내 시선을 따라오게 하기
             if (!CheckSight()) { DestroyDescription(); }
         }
     }
@@ -127,17 +126,6 @@ public class LaserPointer_StageMap : MonoBehaviour
     {
         UIManager_StageMap.instance.OnDesc(go);
         glowObj = go;
-    }
-
-    public void FollowingDescription(GameObject descPanel) // 패널이 플레이어 시선 따라가게 하기
-    {
-        if (descPanel.GetComponent<RectTransform>().localScale.x < 0.00125f)
-        {
-            descPanel.GetComponent<RectTransform>().localScale =
-            new Vector3(descPanel.GetComponent<RectTransform>().localScale.x + 0.0002f,
-            descPanel.GetComponent<RectTransform>().localScale.y + 0.0002f,
-            descPanel.GetComponent<RectTransform>().localScale.z + 0.0002f);
-        }
     }
 
     public void DestroyDescription() // 패널 없애기
