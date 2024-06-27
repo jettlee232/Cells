@@ -50,7 +50,7 @@ public class ItemGrab_MitoTuto : MonoBehaviour
         {
             if (myATPMix != null)
             {
-                myATPMix.CheckMyItem(item.tag);
+                myATPMix.GrabItem();
             }
         }
         
@@ -63,7 +63,7 @@ public class ItemGrab_MitoTuto : MonoBehaviour
         {
             if (myATPMix != null)
             {
-                myATPMix.CheckOtherItem(item.tag);
+                myATPMix.CheckOtherItem(item);
             }
         }
     }

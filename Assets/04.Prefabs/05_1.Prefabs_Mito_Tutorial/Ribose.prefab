@@ -433,6 +433,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 539839008513943013}
     m_Modifications:
+    - target: {fileID: 749387402491446814, guid: 623c0fbad146669488d301b08f6f35a6,
+        type: 3}
+      propertyPath: m_Name
+      value: R_AdeininePos
+      objectReference: {fileID: 0}
+    - target: {fileID: 749387402491446814, guid: 623c0fbad146669488d301b08f6f35a6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Adeinine
+      objectReference: {fileID: 0}
     - target: {fileID: 1991763069540156774, guid: 623c0fbad146669488d301b08f6f35a6,
         type: 3}
       propertyPath: m_IsTrigger
@@ -493,6 +503,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ribose_MitoTuto
       objectReference: {fileID: 0}
+    - target: {fileID: 5104963383469353161, guid: 623c0fbad146669488d301b08f6f35a6,
+        type: 3}
+      propertyPath: m_Name
+      value: R_PhosphatePos
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104963383469353161, guid: 623c0fbad146669488d301b08f6f35a6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Phosphate
+      objectReference: {fileID: 0}
     - target: {fileID: 8679818589839717211, guid: 623c0fbad146669488d301b08f6f35a6,
         type: 3}
       propertyPath: m_IsTrigger
@@ -545,8 +565,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b8a593e762c7346892ba3565c49ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentGrabbable: {fileID: 6684652446122922322}
-  handPose: {fileID: 0}
+  myPos: {x: 0.05885093, y: -0.16104509, z: 0.07730766}
+  myRot: {x: 13.186042, y: 229.66928, z: 282.12466}
   isAdeinine: 0
   isRibose: 0
   isPhosphate: 0
@@ -789,8 +809,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b8a593e762c7346892ba3565c49ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentGrabbable: {fileID: 6684652446122922322}
-  handPose: {fileID: 0}
+  myPos: {x: 0.05885093, y: -0.16104509, z: 0.07730766}
+  myRot: {x: 13.186042, y: 229.66928, z: 282.12466}
   isAdeinine: 0
   isRibose: 0
   isPhosphate: 0
