@@ -14,6 +14,8 @@ public class MyATPMix_MitoTuto : MonoBehaviour
     public bool isRibose;
     public bool isPhosphate;
 
+    public List<Collider> collidersInRange = new List<Collider>();
+
     void Start()
     {
 
@@ -56,32 +58,76 @@ public class MyATPMix_MitoTuto : MonoBehaviour
         }
     }
 
-    public void CheckOtherItem()
+    public void CheckOtherItem(string tag)
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, 0.025f);
-        foreach (Collider collider in colliders)
+        foreach (Collider collider in collidersInRange)
         {
+            if (collider.CompareTag("Adeinine") && !isAdeinine)
+            {
+                AttachItem(collider.transform, "A_RibosePos");
+                isAdeinine = true;
+            }
+            else if (collider.CompareTag("Ribose") && !isRibose)
+            {
+                AttachItem(collider.transform, "R_AdeininePos", "R_PhosphatePos");
+                isRibose = true;
+            }
+            else if (collider.CompareTag("Phosphate") && !isPhosphate)
+            {
+                AttachItem(collider.transform, "P_RibosePos");
+                isPhosphate = true;
+            }
+
+            /* 테스트
             if (collider != null)
             {
                 switch (collider.transform.root.tag)
                 {
-                    case "Adeinine":
-                        isAdeinine = true;
+                    case "Adeinine": // 아데닌에 닿았을때
+                        if (isRibose) // 들고있는 아이템이 리보스
+                        {
+                            Debug.Log("리보스 + 아데닌");
+                        }
                         break;
-                    case "Ribose":
-                        isRibose = true;
+                    case "Ribose": // 리보스에 닿았을때
+                        if (isAdeinine) // 들고있는 아이템이 아데닌
+                        {
+                            Debug.Log("아데닌 + 리보스");
+                        }
+                        else if (isPhosphate) // 들고있는 아이템이 인산염
+                        {
+                            Debug.Log("인산염 + 리보스");
+                        }
                         break;
-                    case "Phosphate":
-                        isPhosphate = true;
+                    case "Phosphate": // 인산염에 닿았을때
+                        if (isRibose) // 들고있는 아이템이 리보스
+                        {
+                            Debug.Log("리보스 + 인산염");
+                        }
+                        break;
+                    default:
+                        ResetMyItem();
                         break;
                 }
+                ResetMyItem();
             }
+            */
         }
+    }
 
-        if (isAdeinine && isRibose && isPhosphate)
+    private void AttachItem(Transform item, params string[] positionNames)
+    {
+        foreach (string posName in positionNames)
         {
-            // 모든 조합이 완료되면 특정 동작을 수행합니다.
-            //DialogueController_MitoTuto.Instance.ActivateDST(n); // 예: n번 다이얼로그 실행
+            Transform pos = item.Find(posName);
+            if (pos != null)
+            {
+                item.SetParent(pos);
+                item.localPosition = Vector3.zero;
+                item.localRotation = Quaternion.identity;
+                return;
+            }
         }
     }
 
@@ -96,5 +142,21 @@ public class MyATPMix_MitoTuto : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, 0.025f);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Adeinine") || other.CompareTag("Ribose") || other.CompareTag("Phosphate"))
+        {
+            collidersInRange.Add(other);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Adeinine") || other.CompareTag("Ribose") || other.CompareTag("Phosphate"))
+        {
+            collidersInRange.Remove(other);
+        }
     }
 }

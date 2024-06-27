@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e69aab6d4aec245ba0e27a1280f9a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightHandGrabber: {fileID: 0}
+  handGrabber: {fileID: 0}
   item: {fileID: 0}
 --- !u!1 &31126421
 GameObject:
@@ -1448,6 +1448,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &846391132 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 184099144179019061, guid: 2af1d2045149fe743b81bc4d1a6f8406,
+    type: 3}
+  m_PrefabInstance: {fileID: 1942141272}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &846391140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846391132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e69aab6d4aec245ba0e27a1280f9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handGrabber: {fileID: 0}
+  item: {fileID: 0}
 --- !u!1 &883358454
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,13 +2257,18 @@ PrefabInstance:
     - target: {fileID: 3999118806619653437, guid: f4865f73cbd7a5f418cf34abce1564ab,
         type: 3}
       propertyPath: m_TagString
-      value: Phosphate
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4024947911208811098, guid: f4865f73cbd7a5f418cf34abce1564ab,
         type: 3}
       propertyPath: raycastCamera
       value: 
       objectReference: {fileID: 1303406432}
+    - target: {fileID: 4148795873461037867, guid: f4865f73cbd7a5f418cf34abce1564ab,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4975964975168640639, guid: f4865f73cbd7a5f418cf34abce1564ab,
         type: 3}
       propertyPath: m_Name
@@ -2277,7 +2302,7 @@ PrefabInstance:
     - target: {fileID: 8917579869749046250, guid: f4865f73cbd7a5f418cf34abce1564ab,
         type: 3}
       propertyPath: m_TagString
-      value: Adeinine
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2827,7 +2852,7 @@ PrefabInstance:
     - target: {fileID: 6475538579223131501, guid: 300405e0d0e40984e99b049731a599fd,
         type: 3}
       propertyPath: m_TagString
-      value: Ribose
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8072445020427420670, guid: 300405e0d0e40984e99b049731a599fd,
         type: 3}
@@ -4764,7 +4789,7 @@ PrefabInstance:
     - target: {fileID: 3317216041616301243, guid: fe0e417075e3e494599c96968c050e5e,
         type: 3}
       propertyPath: m_TagString
-      value: Ribose
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7397740896566987120, guid: fe0e417075e3e494599c96968c050e5e,
         type: 3}
@@ -6404,6 +6429,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1942141283}
+    - targetCorrespondingSourceObject: {fileID: 184099144179019061, guid: 2af1d2045149fe743b81bc4d1a6f8406,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 846391140}
     - targetCorrespondingSourceObject: {fileID: 7519735083184255402, guid: 2af1d2045149fe743b81bc4d1a6f8406,
         type: 3}
       insertIndex: -1

@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class ItemGrab_MitoTuto : MonoBehaviour
 {
-    public Grabber rightHandGrabber;
+    public Grabber handGrabber;
     public Grabbable item;
 
     void Start()
     {
-        rightHandGrabber = GetComponent<Grabber>();
+        handGrabber = GetComponent<Grabber>();
     }
 
     void Update()
@@ -23,7 +23,7 @@ public class ItemGrab_MitoTuto : MonoBehaviour
         // 아무것도 들고있지 않을때는 false (null != null)
         // 아이템을 잡았을때는 true (item != null) 이후에 item 변수에 item 저장
         // 아이템을 놓았을때는 true (null != item) 이후에 item 변수에 null 저장
-        if (rightHandGrabber.HeldGrabbable != item)
+        if (handGrabber.HeldGrabbable != item)
         {
             // 아이템을 놓았을경우 오른손에는 아이템이 없고, 아이템 변수는 item
             if (item != null)
@@ -33,34 +33,38 @@ public class ItemGrab_MitoTuto : MonoBehaviour
             }
 
             // 아이템을 잡았을경우 오른손에는 아이템이 있고, 아이템 변수는 null
-            if (rightHandGrabber.HeldGrabbable != null)
+            if (handGrabber.HeldGrabbable != null)
             {
                 // 아이템 그랩
-                ItemGrabEvent(rightHandGrabber.HeldGrabbable);
+                ItemGrabEvent(handGrabber.HeldGrabbable);
             }
 
-            item = rightHandGrabber.HeldGrabbable;
+            item = handGrabber.HeldGrabbable;
         }
     }
 
     private void ItemGrabEvent(Grabbable item)
     {
-        MyATPMix_MitoTuto myATPMix = item.GetComponentInChildren<MyATPMix_MitoTuto>();
-        string tag = item.tag;
-        if (myATPMix != null)
+        MyATPMix_MitoTuto[] myATPMixArray = item.GetComponentsInChildren<MyATPMix_MitoTuto>();
+        foreach (MyATPMix_MitoTuto myATPMix in myATPMixArray)
         {
-            Debug.Log(tag);
-            myATPMix.CheckMyItem(item.tag);
+            if (myATPMix != null)
+            {
+                myATPMix.CheckMyItem(item.tag);
+            }
         }
+        
     }
 
     private void ItemReleaseEvent(Grabbable item)
     {
-        MyATPMix_MitoTuto myATPMix = item.GetComponentInChildren<MyATPMix_MitoTuto>();
-        if (myATPMix != null)
+        MyATPMix_MitoTuto[] myATPMixArray = item.GetComponentsInChildren<MyATPMix_MitoTuto>();
+        foreach (MyATPMix_MitoTuto myATPMix in myATPMixArray)
         {
-            myATPMix.CheckOtherItem();
-
+            if (myATPMix != null)
+            {
+                myATPMix.CheckOtherItem(item.tag);
+            }
         }
     }
 }
