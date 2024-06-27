@@ -34,6 +34,8 @@ public class RayInteraction_Mito : MonoBehaviour
             //    inventoryUI.ClearCurrentItemText();
             //}
 
+            // 조건 수정 필요
+            // 그립을 꾹 누르고있을때 Ray가 닿아도 스냅됨
             if (GetComponentInParent<HandController>().GripAmount >= 1.0f && !item)
             {
                 if (grabAction)

@@ -25,7 +25,7 @@ public class DialogueController_MitoTuto : MonoBehaviour
     public void ActivateDST(int n)
     {
         dialogueSystemTriggers[n - 1].startConversationEntryID = 0; // n번째 트리거의 컨버제이션 진입 번호를 0번으로 변경 (이거 안해도 되기는 한데, 안하면 나중에 컨버제이션 재활용이 불가)
-        dialogueSystemTriggers[n - 1].OnUse(); // On Use로 컨버제이션 작동            
+        dialogueSystemTriggers[n - 1].OnUse(); // On Use로 컨버제이션 작동
     }
 
 }

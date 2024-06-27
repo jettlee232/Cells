@@ -239,7 +239,7 @@ MonoBehaviour:
       - originConversationID: 1
         originDialogueID: 1
         destinationConversationID: 1
-        destinationDialogueID: 6
+        destinationDialogueID: 2
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -250,10 +250,65 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 80
-        y: 135.09889
+        y: 134
         width: 160
         height: 30
     - id: 2
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uC5D0 \uC628 \uAC78 \uD658\uC601\uD574!"
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: "AudioWait(Mito_Tuto/audio_01_\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uC5D0_\uC628_\uAC78_\uD658\uC601\uD574_)"
+        type: 0
+        typeString: 
+      conversationID: 1
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 2
+        destinationConversationID: 1
+        destinationDialogueID: 3
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 80
+        y: 218
+        width: 160
+        height: 30
+    - id: 3
       fields:
       - title: Title
         value: 
@@ -293,9 +348,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 1
-        originDialogueID: 2
+        originDialogueID: 3
         destinationConversationID: 1
-        destinationDialogueID: 3
+        destinationDialogueID: 4
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -305,11 +360,11 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 78.90109
-        y: 275.14285
+        x: 80
+        y: 302
         width: 160
         height: 30
-    - id: 3
+    - id: 4
       fields:
       - title: Title
         value: 
@@ -349,9 +404,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 1
-        originDialogueID: 3
+        originDialogueID: 4
         destinationConversationID: 1
-        destinationDialogueID: 4
+        destinationDialogueID: 5
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -361,11 +416,11 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 78.90109
-        y: 359.14285
+        x: 80
+        y: 386
         width: 160
         height: 30
-    - id: 4
+    - id: 5
       fields:
       - title: Title
         value: 
@@ -405,9 +460,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 1
-        originDialogueID: 4
+        originDialogueID: 5
         destinationConversationID: 1
-        destinationDialogueID: 5
+        destinationDialogueID: 6
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -417,11 +472,11 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 78.90109
-        y: 443.14285
+        x: 80
+        y: 470
         width: 160
         height: 30
-    - id: 5
+    - id: 6
       fields:
       - title: Title
         value: 
@@ -461,7 +516,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 1
-        originDialogueID: 5
+        originDialogueID: 6
         destinationConversationID: 2
         destinationDialogueID: 0
         isConnector: 0
@@ -473,67 +528,12 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 77.8022
-        y: 528.2416
-        width: 160
-        height: 30
-    - id: 6
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: "\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uC5D0 \uC628 \uAC78 \uD658\uC601\uD574!"
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: "AudioWait(Mito_Tuto/audio_01_\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uC5D0_\uC628_\uAC78_\uD658\uC601\uD574_)"
-        type: 0
-        typeString: 
-      conversationID: 1
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 1
-        originDialogueID: 6
-        destinationConversationID: 1
-        destinationDialogueID: 2
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 78.90109
-        y: 205.97803
+        x: 80
+        y: 554
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 5.494507, y: 13.98901}
+    canvasScrollPosition: {x: 0, y: 34.48355}
     canvasZoom: 0.9100001
   - id: 2
     fields:
@@ -797,8 +797,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 14.705883}
-    canvasZoom: 0.85
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 1
   - id: 3
     fields:
     - title: Title
@@ -1001,7 +1001,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ToggleMiniHalfMito()
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1440,7 +1440,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'ToggleFlyable();
+      userScript: 'ToggleMiniHalfMito();
+
+        ToggleFlyable();
 
         ToggleIsMoving();
 
@@ -1605,7 +1607,11 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'ChangeQuestText("");
+      userScript: 'ToggleFlyable();
+
+        SetPlayerSpeed(3, 15, 15);
+
+        ChangeQuestText("");
 
         ToggleNpcTooltip()'
       onExecute:
@@ -2364,7 +2370,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: EnableGrabATP()
+      userScript: ToggleGrabATP()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2635,7 +2641,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: ToggleATP()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2687,7 +2693,7 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "ChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00 \uC0DD\uC0B0\uD558\uB294
-        \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\");\nToggleATP();\nEnableGrabATP()"
+        \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\");\nToggleATP();\nToggleGrabATP()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2742,7 +2748,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ToggleATP()
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2753,7 +2759,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 2, y: 18}
+    canvasScrollPosition: {x: 10, y: 28}
     canvasZoom: 1
   - id: 9
     fields:

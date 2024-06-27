@@ -27,9 +27,17 @@ public class RayDescription_MitoTuto : MonoBehaviour
     // 이거 중요!!!!!!!!!!!
     public Dictionary<string, string> objDesc = new Dictionary<string, string>
     {
+        { "MyATP", "나는 아데노신 삼인산이다" },
+        { "Cristae_Mito", "나는 주름" },
         { "ME Liquid", "My Name Is ME Liquid" },
         { "mitoExterior_Mito", "My Name Is mitoExterior_Mito" },
-        { "mitoInteriorHalf_Mito", "My Name Is mitoInteriorHalf_Mito" }
+        { "mitoInteriorHalf_Mito", "My Name Is mitoInteriorHalf_Mito" },
+        { "Adeinine", "아데닌" },
+        { "Ribose", "리보스"},
+        { "Phosphate", "인산염" },
+        { "ADP", "아데노신 이인산" },
+        { "ATP", "아데노신 삼인산" },
+        { "H_Ion", "수소이온" }
     };
     void Start()
     {

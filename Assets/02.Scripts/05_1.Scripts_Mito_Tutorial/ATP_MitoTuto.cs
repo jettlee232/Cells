@@ -1,4 +1,5 @@
 using BNG;
+using HighlightPlus;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,8 +16,11 @@ public class ATP_MitoTuto : MonoBehaviour
         if (GetComponent<Grabbable>().SelectedHandPose)
         {
             isATPGrabbed = true;
+            GetComponent<HighlightEffect>().highlighted = true;
         }
-        
+        else
+            GetComponent<HighlightEffect>().highlighted = false;
+
         if (GetComponentInChildren<Grabbable>().SelectedHandPose) // юс╫ц
         {
             isComponentGrabbed = true;

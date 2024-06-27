@@ -101,9 +101,9 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         atp.SetActive(!atp.activeSelf);
     }
 
-    public void EnableGrabATP()
+    public void ToggleGrabATP()
     {
-        atp.GetComponent<SphereCollider>().enabled = true;
+        atp.GetComponent<SphereCollider>().enabled = (!atp.GetComponent<SphereCollider>().enabled);
         atp.transform.GetChild(0).gameObject.SetActive(!atp.transform.GetChild(0).gameObject.activeSelf);
     }
 
@@ -133,7 +133,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.RegisterFunction("SliceMito", this, SymbolExtensions.GetMethodInfo(() => SliceMito()));
         Lua.RegisterFunction("LookAtMito", this, SymbolExtensions.GetMethodInfo(() => LookAtMito()));
         Lua.RegisterFunction("ToggleATP", this, SymbolExtensions.GetMethodInfo(() => ToggleATP()));
-        Lua.RegisterFunction("EnableGrabATP", this, SymbolExtensions.GetMethodInfo(() => EnableGrabATP()));
+        Lua.RegisterFunction("ToggleGrabATP", this, SymbolExtensions.GetMethodInfo(() => ToggleGrabATP()));
         Lua.RegisterFunction("ChangeQuestText", this, SymbolExtensions.GetMethodInfo(() => ChangeQuestText(string.Empty)));
     }
 
@@ -152,7 +152,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.UnregisterFunction("SliceMito");
         Lua.UnregisterFunction("LookAtMito");
         Lua.UnregisterFunction("ToggleATP");
-        Lua.UnregisterFunction("EnableGrabATP");
+        Lua.UnregisterFunction("ToggleGrabATP");
         Lua.UnregisterFunction("ChangeQuestText");
     }
     #endregion
