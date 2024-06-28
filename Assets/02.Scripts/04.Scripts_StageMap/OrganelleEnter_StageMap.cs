@@ -9,7 +9,6 @@ public class OrganelleEnter_StageMap : MonoBehaviour
     public GameObject pointer;
     private BNG.UIPointer uiPointer; // 포인터 컴포넌트
 
-    public bool isTriggerPressed = false; // 트리거가 눌리는지 안 눌리는지
     public bool isButtonPressed = false; // 오른손 A버튼이 눌리는지 안 눌리는지
     private bool enter = false;
 
@@ -40,10 +39,9 @@ public class OrganelleEnter_StageMap : MonoBehaviour
         {
             if (!enter) break;
             right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-            right.TryGetFeatureValue(CommonUsages.triggerButton, out isTriggerPressed);
             right.TryGetFeatureValue(CommonUsages.primaryButton, out isButtonPressed);
 
-            if (isTriggerPressed) // 트리거가 눌리고 있다면
+            if (isButtonPressed) // 버튼이 눌리고 있다면
             {
                 uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
                 if (GameManager_StageMap.instance.GetMovable() && GameManager_StageMap.instance.GetSelectable()) { pointer.GetComponent<LaserPointer_StageMap>().SetObj(this.gameObject); }

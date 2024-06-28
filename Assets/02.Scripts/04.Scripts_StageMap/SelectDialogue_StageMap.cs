@@ -28,14 +28,16 @@ public class SelectDialogue_StageMap : MonoBehaviour
 
     public void ActivateDST1() // 1번째 트리거 작동 함수
     {
+        DisableMove_SM();
         if (GameManager_StageMap.instance.GetFirstEnd()) { dialogueSystemTrigger1.startConversationEntryID = 4; }
-        else { DisableMove_SM(); dialogueSystemTrigger1.startConversationEntryID = 0; }
+        else { dialogueSystemTrigger1.startConversationEntryID = 0; }
         dialogueSystemTrigger1.OnUse(); // On Use로 컨버제이션 작동
         GameManager_StageMap.instance.FirstEnd();
     }
 
     public void ActivateDST2() // 2번째 트리거 작동 함수
     {
+        DisableMove_SM();
         if (UIManager_StageMap.instance.GetUpsideSubtitle()) { UIManager_StageMap.instance.VanishUpsideSubtitle(); }
         dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동
         GameManager_StageMap.instance.SecondEnd();
@@ -49,21 +51,24 @@ public class SelectDialogue_StageMap : MonoBehaviour
         tutorial.GetComponent<TutorialManager_StageMap>().StartTutorial();
     }
 
-    public void EnableMove_SM() { GameManager_StageMap.instance.EnableMove(); Debug.Log("실행됨1"); }
+    public void EnableMove_SM() { GameManager_StageMap.instance.EnableMove(); }
     public void DisableMove_SM()
     {
         GameManager_StageMap.instance.DisableMove();
         GameManager_StageMap.instance.RemoveSelect();
     }
-    public void EnableOrganelle_SM() { UIManager_StageMap.instance.EnanbleOrganelleButton(); Debug.Log("실행됨3"); }
-    public void WaitForNewUI_SM() { GameManager_StageMap.instance.WaitForNewUI(); Debug.Log("실행됨2"); }
-    public void Subtitle_Explore_SM() { StartCoroutine(cSubtitle_Explore_SM()); Debug.Log("실행됨4"); }
+    public void EnableOrganelle_SM() { UIManager_StageMap.instance.EnanbleOrganelleButton(); }
+    public void WaitForNewUI_SM() { GameManager_StageMap.instance.WaitForNewUI(); }
+    public void Subtitle_Explore_SM() { StartCoroutine(cSubtitle_Explore_SM()); }
     IEnumerator cSubtitle_Explore_SM()
     {
         UIManager_StageMap.instance.SetUpsideSubtitle("동물세포를 탐험해 보자!");
         yield return new WaitForSeconds(5f);
         UIManager_StageMap.instance.VanishUpsideSubtitle();
     }
+    public void ShowTutorial_SM() { UIManager_StageMap.instance.ShowTutorial(); }
+    public void ShowOrganelle_SM() { UIManager_StageMap.instance.ShowOrganelleUI(); }
+    public void HideOrganelle_SM() { UIManager_StageMap.instance.HideOrganelleUI(); }
     #endregion
 
     #region Register with Lua
@@ -76,6 +81,9 @@ public class SelectDialogue_StageMap : MonoBehaviour
         Lua.RegisterFunction("EnableOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => EnableOrganelle_SM()));
         Lua.RegisterFunction("WaitForNewUI_SM", this, SymbolExtensions.GetMethodInfo(() => WaitForNewUI_SM()));
         Lua.RegisterFunction("Subtitle_Explore_SM", this, SymbolExtensions.GetMethodInfo(() => Subtitle_Explore_SM()));
+        Lua.RegisterFunction("ShowTutorial_SM", this, SymbolExtensions.GetMethodInfo(() => ShowTutorial_SM()));
+        Lua.RegisterFunction("ShowOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => ShowOrganelle_SM()));
+        Lua.RegisterFunction("HideOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => HideOrganelle_SM()));
     }
 
     private void OnDisable()
@@ -86,6 +94,9 @@ public class SelectDialogue_StageMap : MonoBehaviour
         Lua.UnregisterFunction("EnableOrganelle_SM");
         Lua.UnregisterFunction("WaitForNewUI_SM");
         Lua.UnregisterFunction("Subtitle_Explore_SM");
+        Lua.UnregisterFunction("ShowTutorial_SM");
+        Lua.UnregisterFunction("ShowOrganelle_SM");
+        Lua.UnregisterFunction("HideOrganelle_SM");
     }
 
     #endregion

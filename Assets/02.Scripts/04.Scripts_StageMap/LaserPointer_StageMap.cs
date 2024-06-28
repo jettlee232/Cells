@@ -7,7 +7,6 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.XR;
 using HighlightPlus;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class LaserPointer_StageMap : MonoBehaviour
 {
@@ -61,12 +60,13 @@ public class LaserPointer_StageMap : MonoBehaviour
             if (isButtonPressed) // 트리거가 눌리고 있다면
             {
                 uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
+                CheckRay(transform.position, transform.forward, 10f);
                 if (GameManager_StageMap.instance.GetMovable() && GameManager_StageMap.instance.GetSelectable()) { CheckRay(transform.position, transform.forward, 10f); } // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
             }
             else { uiPointer.HidePointerIfNoObjectsFound = true; }
         }
-        
-        if (descPanel.activeSelf) // 현재 설명창이 만들어진 상태라면
+
+        if (UIManager_StageMap.instance.CheckDesc()) // 현재 설명창이 만들어진 상태라면
         {
             if (!CheckSight()) { DestroyDescription(); }
         }
@@ -145,6 +145,21 @@ public class LaserPointer_StageMap : MonoBehaviour
     {
         if (!outer)
         {
+            //if (obj == null || mainCam == null || obj.transform == null) { DestroyDescription(); return false; }
+            //else
+            //{
+            //    Vector3 viewportPos = mainCam.WorldToViewportPoint(obj.transform.position);
+
+            //    bool isInView = viewportPos.z > 0f && (viewportPos.x > 0f && viewportPos.x < 1f) && (viewportPos.y > 0f && viewportPos.y < 1f);
+
+            //    Vector3 closest = obj.GetComponent<Collider>().ClosestPoint(player.transform.position);
+            //    Vector3 vDistance = (closest - player.transform.position);
+            //    bool isClose = (vDistance.magnitude <= maxDistance) ? true : false;
+
+            //    if (isInView && isClose) { return true; }
+            //    else { return false; }
+            //}
+
             if (obj == null || mainCam == null || obj.transform == null) { DestroyDescription(); return false; }
             else
             {
@@ -152,11 +167,7 @@ public class LaserPointer_StageMap : MonoBehaviour
 
                 bool isInView = viewportPos.z > 0f && (viewportPos.x > 0f && viewportPos.x < 1f) && (viewportPos.y > 0f && viewportPos.y < 1f);
 
-                Vector3 closest = obj.GetComponent<Collider>().ClosestPoint(player.transform.position);
-                Vector3 vDistance = (closest - player.transform.position);
-                bool isClose = (vDistance.magnitude <= maxDistance) ? true : false;
-
-                if (isInView && isClose) { return true; }
+                if (isInView) { return true; }
                 else { return false; }
             }
         }

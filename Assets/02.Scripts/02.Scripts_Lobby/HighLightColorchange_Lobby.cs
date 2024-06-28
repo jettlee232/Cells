@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class HighLightColorchange_Lobby : MonoBehaviour
 {
-    public HighlightEffect hlEffect;
+    private GameObject[] hlGameObjects;
+    public HighlightEffect[] hlEffect;
 
     public float updownFloat = 0.02f;
 
@@ -15,7 +16,12 @@ public class HighLightColorchange_Lobby : MonoBehaviour
 
     void Start()
     {
-        hlEffect = GetComponent<HighlightEffect>();
+        hlGameObjects = GameObject.FindGameObjectsWithTag("Interactable");
+        hlEffect = new HighlightEffect[hlGameObjects.Length];
+        for (int i = 0; i < hlGameObjects.Length; i++)
+        {
+            hlEffect[i] = hlGameObjects[i].GetComponent<HighlightEffect>();
+        }
     }
 
     public void GlowStart()
@@ -39,16 +45,7 @@ public class HighLightColorchange_Lobby : MonoBehaviour
 
     IEnumerator Glow()
     {
-        while (glowFlag)
-        {
-            hlEffect.innerGlow -= updownFloat;
-            yield return new WaitForSeconds(0.02f);
-
-            if (hlEffect.innerGlow <= 0 || hlEffect.innerGlow >= 1)
-            {
-                updownFloat = -updownFloat;
-            }
-        }
+        while (glowFlag) { yield return new WaitForSeconds(0.02f); }
 
         glowCoroutine = null;
     }
