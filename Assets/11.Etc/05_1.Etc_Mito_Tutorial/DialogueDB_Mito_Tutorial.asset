@@ -243,7 +243,11 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ToggleNpcTooltip()
+      userScript: 'ToggleNpcTooltip();
+
+        ToggleIsMoving();
+
+        SetPlayerPosition()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -533,7 +537,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 34.48355}
+    canvasScrollPosition: {x: 0, y: 28.989014}
     canvasZoom: 0.9100001
   - id: 2
     fields:
@@ -731,7 +735,7 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "EnableGrabMiniHalfMito();\nChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
-        \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\")"
+        \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\");\nToggleIsMoving()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1181,7 +1185,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 58, y: 0}
     canvasZoom: 1
   - id: 4
     fields:
@@ -2381,7 +2385,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 73, y: 0}
     canvasZoom: 1
   - id: 8
     fields:
@@ -3392,18 +3396,18 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: EndTutorial()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 80
-        y: 470
+        x: 79
+        y: 472
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 0, y: 6}
     canvasZoom: 1
   - id: 11
     fields:

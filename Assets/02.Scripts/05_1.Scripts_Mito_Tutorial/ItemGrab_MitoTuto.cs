@@ -7,10 +7,12 @@ public class ItemGrab_MitoTuto : MonoBehaviour
 {
     public Grabber handGrabber;
     public Grabbable item;
+    public RayDescription_MitoTuto rayDescription;
 
     void Start()
     {
         handGrabber = GetComponent<Grabber>();
+        rayDescription = FindObjectOfType<RayDescription_MitoTuto>();
     }
 
     void Update()
@@ -53,7 +55,12 @@ public class ItemGrab_MitoTuto : MonoBehaviour
                 myATPMix.GrabItem();
             }
         }
-        
+
+        if (rayDescription != null)
+        {
+            rayDescription.InstantiatePanel(item.gameObject);
+        }
+
     }
 
     private void ItemReleaseEvent(Grabbable item)

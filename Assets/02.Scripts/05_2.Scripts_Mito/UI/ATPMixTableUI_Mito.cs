@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +9,10 @@ public class ATPMixTableUI_Mito : MonoBehaviour
     //public ATPMixTable_Mito atpMixTable;
     public ATPMixTableInside_Mito atpMixTableInside;
     public ATPMixTableOutside_Mito atpMixTableOutside;
-    public Text adpCntText;
-    public Text phosphateCntText;
-    public Text maxHIonCountText;
-    public Text needHIonCountText;
+    public TextMeshProUGUI adpCheckText;
+    public TextMeshProUGUI phosphateCheckText;
+    public TextMeshProUGUI hIonCountText;
+    public TextMeshProUGUI hIonPercentageText;
 
     private int requiredADP = 1;
     private int requiredPhosphate = 1;
@@ -26,17 +27,27 @@ public class ATPMixTableUI_Mito : MonoBehaviour
     void Update()
     {
         UpdateInsideUIText();
+        UpdateInsideUIImage();
         UpdateOutsideUIText();
+        UpdateOutsideUIImage();
     }
 
     void UpdateInsideUIText()
     {
-        int currentADP = atpMixTableInside.isADP ? 1 : 0;
-        int currentPhosphate = atpMixTableInside.isPhosphate ? 1 : 0;
+        string currentADP = atpMixTableInside.isADP ? "O" : "X";
+        string currentPhosphate = atpMixTableInside.isPhosphate ? "O" : "X";
 
-        adpCntText.text = "필요\nADP\n" + (requiredADP - currentADP);
-        phosphateCntText.text = "필요\n인산염\n" + (requiredPhosphate - currentPhosphate);
-        
+        adpCheckText.text = currentADP;
+        phosphateCheckText.text = currentPhosphate;
+    }
+
+    void UpdateInsideUIImage()
+    {
+        adpCheckText.GetComponentInParent<Image>().color =
+            atpMixTableInside.isADP ? Color.green : Color.red;
+
+        phosphateCheckText.GetComponentInParent<Image>().color =
+            atpMixTableInside.isPhosphate ? Color.green : Color.red;
     }
 
     void UpdateOutsideUIText()
@@ -45,9 +56,14 @@ public class ATPMixTableUI_Mito : MonoBehaviour
         float maxHIonCount = atpMixTableOutside.maxHIonCount;
         float hIonPercentage = (currentHIon / maxHIonCount) * 100.0f;
 
-        //maxHIonCountText.text = $"전체\n수소이온\n{currentHIon / atpMixTable.maxHIonCount * 100}%";//수정필요
-        maxHIonCountText.text = $"전체\n수소이온\n{hIonPercentage:F1}%";
-        //needHIonCountText.text = "필요\n수소이온\n" + (requiredHIonPerATP - currentHIon);//수정필요
-        needHIonCountText.text = $"필요\n수소이온\n{Mathf.Max(0, requiredHIonPerATP - currentHIon)}";
+        hIonCountText.text = $"{Mathf.Max(0, requiredHIonPerATP - currentHIon)}";
+        hIonPercentageText.text = $"{hIonPercentage:F1}%";
     }
+
+    void UpdateOutsideUIImage()
+    {
+        hIonCountText.GetComponentInParent<Image>().color =
+            atpMixTableOutside.curHIonCount >= requiredHIonPerATP ? Color.green : Color.red;
+    }
+
 }

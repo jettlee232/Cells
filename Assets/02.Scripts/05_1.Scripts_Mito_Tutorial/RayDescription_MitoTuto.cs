@@ -16,7 +16,7 @@ public class RayDescription_MitoTuto : MonoBehaviour
     public string objName;
 
     public BNG.UIPointer uiPointer;
-    public bool isTriggerPressed = false;
+    public bool isGripPressed = false;
     public bool isButtonPressed = false;
     private bool wasButtonPressed;
 
@@ -27,11 +27,12 @@ public class RayDescription_MitoTuto : MonoBehaviour
     // 이거 중요!!!!!!!!!!!
     public Dictionary<string, string> objDesc = new Dictionary<string, string>
     {
-        { "MyATP", "나는 아데노신 삼인산이다" },
-        { "Cristae_Mito", "나는 주름" },
-        { "ME Liquid", "My Name Is ME Liquid" },
-        { "mitoExterior_Mito", "My Name Is mitoExterior_Mito" },
-        { "mitoInteriorHalf_Mito", "My Name Is mitoInteriorHalf_Mito" },
+        { "MyATP", "아데노신 삼인산" },
+        { "Cristae_Mito", "주름" },
+        { "ME Liquid", "막사이공간" },
+        { "mitoExterior_Mito", "외막" },
+        { "mitoInteriorHalf_Mito", "내막" },
+        { "Matrix_Mito", "기질" },
         { "Adeinine", "아데닌" },
         { "Ribose", "리보스"},
         { "Phosphate", "인산염" },
@@ -54,7 +55,7 @@ public class RayDescription_MitoTuto : MonoBehaviour
 
         if (right.isValid)
         {
-            right.TryGetFeatureValue(CommonUsages.triggerButton, out isTriggerPressed);
+            right.TryGetFeatureValue(CommonUsages.gripButton, out isGripPressed);
             right.TryGetFeatureValue(CommonUsages.primaryButton, out isButtonPressed);
         }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PixelCrushers.DialogueSystem;
-using static System.Net.WebRequestMethods;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager_MitoTuto : MonoBehaviour
 {
@@ -26,9 +26,10 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         }
     }
 
-    public void PlayDialogue(int n)
+    public void SetPlayerPosition()
     {
-        DialogueController_MitoTuto.Instance.ActivateDST(n);
+        playerMoving_Mito.transform.localPosition = new Vector3(12.1f, -0.27f, 0.6f);
+        playerMoving_Mito.transform.localEulerAngles = new Vector3(0, 90.0f, 0);
     }
 
     public void ToggleNpcTooltip()
@@ -90,8 +91,8 @@ public class TutorialManager_MitoTuto : MonoBehaviour
 
     public void LookAtMito()
     {
-        playerMoving_Mito.transform.parent.position = new Vector3(52.5f, 76.27f, 6.5f);
-        playerMoving_Mito.transform.parent.eulerAngles = new Vector3(0, 270.0f, 0);
+        playerMoving_Mito.transform.localPosition = Vector3.zero;
+        playerMoving_Mito.transform.localEulerAngles = new Vector3(0, 270.0f, 0);
     }
 
     public void ToggleATP()
@@ -117,10 +118,20 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         QuestManager_MitoTuto.Instance.questText.text = text;
     }
 
+    public void EndTutorial()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+
+        int curScene = scene.buildIndex;
+        int nextScene = curScene + 1;
+
+        SceneManager.LoadScene(nextScene);
+    }
+
     #region Register with Lua
     private void OnEnable()
     {
-        Lua.RegisterFunction("PlayDialogue", this, SymbolExtensions.GetMethodInfo(() => PlayDialogue((int)0)));
+        Lua.RegisterFunction("SetPlayerPosition", this, SymbolExtensions.GetMethodInfo(() => SetPlayerPosition()));
         Lua.RegisterFunction("ToggleNpcTooltip", this, SymbolExtensions.GetMethodInfo(() => ToggleNpcTooltip()));
         Lua.RegisterFunction("ReadyDialogue", this, SymbolExtensions.GetMethodInfo(() => ReadyDialogue()));
         Lua.RegisterFunction("ToggleIsMoving", this, SymbolExtensions.GetMethodInfo(() => ToggleIsMoving()));
@@ -135,11 +146,12 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.RegisterFunction("ToggleATP", this, SymbolExtensions.GetMethodInfo(() => ToggleATP()));
         Lua.RegisterFunction("ToggleGrabATP", this, SymbolExtensions.GetMethodInfo(() => ToggleGrabATP()));
         Lua.RegisterFunction("ChangeQuestText", this, SymbolExtensions.GetMethodInfo(() => ChangeQuestText(string.Empty)));
+        Lua.RegisterFunction("EndTutorial", this, SymbolExtensions.GetMethodInfo(() => EndTutorial()));
     }
 
     private void OnDisable()
     {
-        Lua.UnregisterFunction("PlayDialogue");
+        Lua.UnregisterFunction("SetPlayerPosition");
         Lua.UnregisterFunction("ToggleNpcTooltip");
         Lua.UnregisterFunction("ReadyDialogue");
         Lua.UnregisterFunction("ToggleIsMoving");
@@ -154,6 +166,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.UnregisterFunction("ToggleATP");
         Lua.UnregisterFunction("ToggleGrabATP");
         Lua.UnregisterFunction("ChangeQuestText");
+        Lua.UnregisterFunction("EndTutorial");
     }
     #endregion
 }

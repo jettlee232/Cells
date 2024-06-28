@@ -9,10 +9,6 @@ public class MyATPMix_MitoTuto : MonoBehaviour
     public Vector3 myPos;
     public Vector3 myRot;
 
-    public bool isAdeinine;
-    public bool isRibose;
-    public bool isPhosphate;
-
     public void GrabItem()
     {
         transform.parent.GetComponentInParent<HighlightEffect>().highlighted = true;
@@ -41,24 +37,10 @@ public class MyATPMix_MitoTuto : MonoBehaviour
                         {
                             Debug.Log("아데닌이 리보스의 아데닌Pos에 충돌");
                             AttachItem(item, collider.transform);
-                            isAdeinine = true;
                         }
+
                         // 리보스가 자식으로 있을때 인산염과의 충돌
-                        Transform riboseInAdeinine = item.transform.Find("Ribose");
-                        if (riboseInAdeinine != null)
-                        {
-                            Collider[] riboseColliders = Physics.OverlapSphere(riboseInAdeinine.position, 0.025f);
-                            foreach (Collider riboseCollider in riboseColliders)
-                            {
-                                if (riboseCollider.CompareTag("Phosphate") && riboseCollider.transform.root.CompareTag("Ribose"))
-                                {
-                                    Debug.Log("리보스의 R_PhosphatePos와 인산염의 충돌");
-                                    AttachItem(item, riboseCollider.transform);
-                                    isPhosphate = true;
-                                    break;
-                                }
-                            }
-                        }
+                        
                         break;
                     case "Ribose": // 들고있는 아이템이 리보스
                         if (collider.CompareTag("Ribose")) // 리보스Pos에 닿았을때
@@ -66,14 +48,12 @@ public class MyATPMix_MitoTuto : MonoBehaviour
                             if (collider.transform.root.CompareTag("Adeinine") && transform.CompareTag("Adeinine")) // 아데닌의 리보스Pos
                             {
                                 Debug.Log("리보스가 아데닌의 리보스Pos에 충돌");
-                                AttachItem(item, collider.transform);
-                                isRibose = true;
+                                //AttachItem(item, collider.transform);
                             }
-                            if (collider.transform.root.CompareTag("Phosphate") && transform.CompareTag("Phosphate")) // 아데닌의 리보스Pos
+                            if (collider.transform.root.CompareTag("Phosphate") && transform.CompareTag("Phosphate")) // 인산염의 리보스Pos
                             {
                                 Debug.Log("리보스가 인산염의 리보스Pos에 충돌");
-                                AttachItem(item, collider.transform);
-                                isRibose = true;
+                                //AttachItem(item, collider.transform);
                             }
                         }
                         break;
@@ -82,24 +62,10 @@ public class MyATPMix_MitoTuto : MonoBehaviour
                         {
                             Debug.Log("인산염이 리보스의 인산염Pos에 충돌");
                             AttachItem(item, collider.transform);
-                            isPhosphate = true;
                         }
+
                         // 리보스가 자식으로 있을때 아데닌과의 충돌
-                        Transform riboseInPhosphate = item.transform.Find("Ribose");
-                        if (riboseInPhosphate != null)
-                        {
-                            Collider[] riboseColliders = Physics.OverlapSphere(riboseInPhosphate.position, 0.025f);
-                            foreach (Collider riboseCollider in riboseColliders)
-                            {
-                                if (riboseCollider.CompareTag("Adeinine") && riboseCollider.transform.root.CompareTag("Ribose"))
-                                {
-                                    Debug.Log("리보스의 R_AdeininePos와 아데닌의 충돌");
-                                    AttachItem(item, riboseCollider.transform);
-                                    isAdeinine = true;
-                                    break;
-                                }
-                            }
-                        }
+                        
                         break;
                 }
                 ReleaseItem();
@@ -114,6 +80,7 @@ public class MyATPMix_MitoTuto : MonoBehaviour
         //item.transform.localPosition = myPos;
         //item.transform.localRotation = Quaternion.Euler(myRot);
         item.GetComponent<Grabbable>().enabled = false;
+        QuestManager_MitoTuto.Instance.CheckMyATP();
     }
 
     private void OnDrawGizmos()

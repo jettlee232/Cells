@@ -20,6 +20,11 @@ public class QuestManager_MitoTuto : MonoBehaviour
     public bool isABtnPressed = false;
     public bool wasABtnPressed = false;
 
+    public bool isAdeinine = false;
+    public bool isRibose = false;
+    public bool isPhosphate = false;
+    public int trueCount = 0;
+
     public GameObject npcToolTip;
 
     private void Awake()
@@ -88,5 +93,16 @@ public class QuestManager_MitoTuto : MonoBehaviour
     public void ChangeQuestText(string text)
     {
         questText.text = text;
+    }
+
+    public void CheckMyATP()
+    {
+        trueCount++;
+
+        if (trueCount >= 2)
+        {
+            Debug.Log("두 개 이상의 요소가 결합되었습니다!");
+            DialogueController_MitoTuto.Instance.ActivateDST(12);
+        }
     }
 }
