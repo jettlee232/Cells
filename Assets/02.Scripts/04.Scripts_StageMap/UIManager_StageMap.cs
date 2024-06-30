@@ -5,8 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using static UnityEngine.GraphicsBuffer;
-using Unity.VisualScripting;
 using System;
 
 public class UIManager_StageMap : MonoBehaviour
@@ -28,15 +26,15 @@ public class UIManager_StageMap : MonoBehaviour
     public static UIManager_StageMap instance;
     public GameObject Desc_UI;
     private GameObject[] Descs;
-    public GameObject UpsideSubtitle;
+    public GameObject QuestPanel;
     public GameObject NPCTalkPanel;
     public GameObject[] TutorialPanels;
     public GameObject OrganelleDescUI;
+    public GameObject OptionPanel;
 
     [Header("Variables")]
     public float UpsideSubtitleVanishTimer = 1f;
     public float DescUITimer = 0.2f;
-    //private Vector3 DescUIFullSize;
     private int nowTutorial = 0;
     private Nullable<ORGANELLES> nowSelectedOrganelle;
 
@@ -49,8 +47,8 @@ public class UIManager_StageMap : MonoBehaviour
 
     void Start()
     {
-        //DescUIFullSize = Descs[0].GetComponent<RectTransform>().localScale;
         InitDesc();
+        DOTween.Init();
     }
 
     #region 소기관 설명창
@@ -74,106 +72,50 @@ public class UIManager_StageMap : MonoBehaviour
     {
         ORGANELLES type = (ORGANELLES)Enum.Parse(typeof(ORGANELLES), go.GetComponent<DescObj_StageMap>().GetType());
 
-        if (CheckDesc()) { Descs[(int)nowSelectedOrganelle].SetActive(false); }
-        Descs[(int)type].SetActive(true);
+        if (CheckDesc()) { StartCoroutine(DestroyAfterRewind(Descs[(int)nowSelectedOrganelle])); }
+        StartCoroutine(ShowDesc(Descs[(int)type].gameObject));
 
         nowSelectedOrganelle = type;
     }
     public void OffDesc()
     {
-        foreach (GameObject organelle in Descs) { if (organelle.gameObject.activeSelf) organelle.SetActive(false); }
+        foreach (GameObject organelle in Descs)
+        {
+            if (organelle.gameObject.activeSelf)
+            {
+                transform.DOScale(Vector3.zero, 1f);
+                transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
+                StartCoroutine(DestroyAfterRewind(organelle.gameObject));
+                break;
+            }
+        }
+        GameManager_StageMap.instance.uiPointer.GetComponent<LaserPointer_StageMap>().DestroyDescription();
         nowSelectedOrganelle = null;
     }
-
-
-    //public void OffDesc() { StartCoroutine(VanishDesc()); }
-    //IEnumerator ShowDesc(GameObject go)
-    //{
-    //    Desc_UI.SetActive(true);
-
-    //    Desc_UI.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = go.GetComponent<DescObj_StageMap>().GetName();
-    //    Desc_UI.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = go.GetComponent<DescObj_StageMap>().GetDesc();
-
-    //    Vector3 nowDescSize = Desc_UI.GetComponent<RectTransform>().localScale;
-
-    //    float timer = 0f;
-    //    float totalTimer = (DescUIFullSize.x - nowDescSize.x) / DescUIFullSize.x * DescUITimer;
-    //    while (true)
-    //    {
-    //        if (DescUIFullSize.x - Desc_UI.GetComponent<RectTransform>().localScale.x <= 0.0000001f) { break; }
-    //        Desc_UI.GetComponent<RectTransform>().localScale = Vector3.Lerp(nowDescSize, DescUIFullSize, timer / totalTimer);
-    //        timer += Time.deltaTime;
-    //        yield return null;
-    //    }
-    //}
-    //IEnumerator VanishDesc()
-    //{
-    //    Vector3 nowDescSize = Desc_UI.GetComponent<RectTransform>().localScale;
-
-    //    float timer = 0f;
-    //    float totalTimer = nowDescSize.x / DescUIFullSize.x * DescUITimer;
-    //    while (true)
-    //    {
-    //        if (Desc_UI.GetComponent<RectTransform>().localScale.x <= 0.0000001f) { break; }
-    //        Desc_UI.GetComponent<RectTransform>().localScale = Vector3.Lerp(nowDescSize, Vector3.zero, timer / totalTimer);
-    //        timer += Time.deltaTime;
-    //        yield return null;
-    //    }
-
-    //    Desc_UI.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
-    //    Desc_UI.SetActive(false);
-    //}
-    //public bool CheckDesc() { return Desc_UI.activeSelf; }
+    private IEnumerator DestroyAfterRewind(GameObject organelle)
+    {
+        yield return new WaitForSeconds(1.05f);
+        organelle.SetActive(false);
+    }
+    private IEnumerator ShowDesc(GameObject organelle)
+    {
+        yield return new WaitForSeconds(0.05f);
+        organelle.SetActive(true);
+        organelle.transform.localPosition = Vector3.zero;
+        organelle.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        organelle.transform.localScale = Vector3.zero;
+        organelle.transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
+        organelle.transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
+    }
     #endregion
 
-    #region 상단 자막
+    #region 퀘스트
 
-    public void SetUpsideSubtitle(string des)
-    {
-        UpsideSubtitle.SetActive(true);
-        UpsideSubtitle.GetComponent<TextMeshProUGUI>().text = des;
-        UpsideSubtitleChangeEffect();        
-    }
-
-    public void ClearUpsideSubtitle()
-    {
-        UpsideSubtitle.SetActive(false);
-        UpsideSubtitle.GetComponent<TextMeshProUGUI>().text = "";
-    }
-
-    public void VanishUpsideSubtitle()
-    {
-        StartCoroutine(cVanishUpsideSubtitle());
-    }
-
-    IEnumerator cVanishUpsideSubtitle()
-    {
-        float timer = 0f;
-
-        Color nowColor = UpsideSubtitle.GetComponent<TextMeshProUGUI>().color;
-        Color opaqueColor = new Color(nowColor.r, nowColor.g, nowColor.b, 1f);
-        Color transparentColor = new Color(nowColor.r, nowColor.g, nowColor.b, 0f);
-
-        UpsideSubtitle.gameObject.SetActive(true);
-
-        while (true)
-        {
-            if (UpsideSubtitle.GetComponent<TextMeshProUGUI>().color.a <= 0.00001f) { UpsideSubtitle.GetComponent<TextMeshProUGUI>().color = transparentColor; break; }
-            timer += Time.deltaTime;
-            UpsideSubtitle.GetComponent<TextMeshProUGUI>().color = Color.Lerp(opaqueColor, transparentColor, timer / UpsideSubtitleVanishTimer);
-            yield return null;
-        }
-        UpsideSubtitle.GetComponent<TextMeshProUGUI>().text = "";
-        UpsideSubtitle.gameObject.SetActive(false);
-    }
-
-    public bool GetUpsideSubtitle() { return UpsideSubtitle.activeSelf; }
-
-    private void UpsideSubtitleChangeEffect()
-    {
-        Vector3 temp = UpsideSubtitle.transform.localScale;
-        UpsideSubtitle.transform.DOPunchScale(temp * 0.5f, 0.2f).OnComplete(() => UpsideSubtitle.transform.localScale = temp);
-    }
+    public void SetQuest(string str) { QuestPanel.GetComponent<QuestPanel_CM>().PanelOpen(str); }
+    public void SetQuest(string str, float time) { QuestPanel.GetComponent<QuestPanel_CM>().PanelOpen(str, time); }
+    public void ChangeQuest(string str) { QuestPanel.GetComponent<QuestPanel_CM>().ChangeText(str); }
+    public void HideQuest() { QuestPanel.GetComponent<QuestPanel_CM>().PanelClose(); }
+    public bool GetQuest() { return QuestPanel.activeSelf; }
 
     #endregion
 
@@ -209,11 +151,6 @@ public class UIManager_StageMap : MonoBehaviour
         GameManager_StageMap.instance.EnableMove();
     }
 
-    public void HideTutorial()
-    {
-        TutorialPanels[0].transform.parent.gameObject.SetActive(false);
-    }
-
     public void NextTutorial()
     {
         if (nowTutorial < TutorialPanels.Length - 1)
@@ -222,18 +159,22 @@ public class UIManager_StageMap : MonoBehaviour
             nowTutorial++;
             ShowTutorial();
         }
-        else { return; }
-    }
-    public void PreviousTutorial()
-    {
-        if (nowTutorial > 0)
+        else
         {
-            TutorialPanels[nowTutorial].SetActive(false);
-            nowTutorial--;
-            ShowTutorial();
+            foreach (GameObject panel in TutorialPanels) { panel.SetActive(false); }
         }
-        else { return; }
     }
+
+    #endregion
+
+    #region 옵션창
+
+    public void RotateUp()
+    {
+        GameManager_StageMap.instance.GetPlayer().GetComponent<PlayerMoving_StageMap>().RotateUp();
+        OptionPanel.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = ((int)(GameManager_StageMap.instance.GetPlayer().GetComponent<PlayerMoving_StageMap>().GetRotateSpeed() / 10f)).ToString();
+    }
+    public void RotateDown() { GameManager_StageMap.instance.GetComponent<PlayerMoving_StageMap>().RotateDown(); }
 
     #endregion
 

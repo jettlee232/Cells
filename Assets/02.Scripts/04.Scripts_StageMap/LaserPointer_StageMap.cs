@@ -60,7 +60,7 @@ public class LaserPointer_StageMap : MonoBehaviour
             if (isButtonPressed) // 트리거가 눌리고 있다면
             {
                 uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
-                CheckRay(transform.position, transform.forward, 10f);
+                CheckRay(transform.position, transform.forward, maxDistance);
                 if (GameManager_StageMap.instance.GetMovable() && GameManager_StageMap.instance.GetSelectable()) { CheckRay(transform.position, transform.forward, 10f); } // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
             }
             else { uiPointer.HidePointerIfNoObjectsFound = true; }
@@ -100,7 +100,7 @@ public class LaserPointer_StageMap : MonoBehaviour
                     if (obj != rayHit.collider.gameObject)
                     {
                         obj = rayHit.collider.gameObject;
-                        highlightEffect = obj.transform.parent.GetComponent<HighlightEffect>();
+                        highlightEffect = obj.transform.GetComponent<HighlightEffect>();
                         if (highlightEffect != null)
                         {
                             highlightEffect.highlighted = true;
@@ -134,7 +134,7 @@ public class LaserPointer_StageMap : MonoBehaviour
         UIManager_StageMap.instance.OffDesc();
         if (glowObj != null)
         {
-            glowObj.transform.parent.GetComponent<HighlightEffect>().highlighted = false;
+            glowObj.transform.GetComponent<HighlightEffect>().highlighted = false;
             glowObj.GetComponent<HighLightColorchange_StageMap>().GlowEnd();
         }
         obj = null;
@@ -181,7 +181,7 @@ public class LaserPointer_StageMap : MonoBehaviour
         if (obj != obj_out)
         {
             obj = obj_out;
-            highlightEffect = obj.transform.parent.GetComponent<HighlightEffect>();
+            highlightEffect = obj.transform.GetComponent<HighlightEffect>();
             if (highlightEffect != null)
             {
                 highlightEffect.highlighted = true;

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using TMPro;
 using DG.Tweening;
 
@@ -12,7 +11,9 @@ public class QuestPanel_CM : MonoBehaviour
     public WordEffect1 wordEffect;
     private float duration = 2.0f;
 
-    // ¥…µø¿˚ UI 
+    private Coroutine corou;
+
+    // Îä•ÎèôÏ†Å UI 
     public Transform playerCam; // Experimental
     private bool lookPlayerFlag = false; // Experimental
 
@@ -25,46 +26,70 @@ public class QuestPanel_CM : MonoBehaviour
         targetRectTransform.sizeDelta = Vector2.zero;
 
         if (wordEffect == null) wordEffect = gameObject.transform.GetChild(0).GetChild(0).GetComponent<WordEffect1>();
-        wordEffect.enabled = false;
+        wordEffect.enabled = true;
 
         DOTween.Init();
     }
 
     public void PanelOpen(string newQuest)
     {
-        tmpText.text = "";
-        StartCoroutine(ChangeQuestTextAfterFewSec(newQuest));
+        if (corou != null)
+        {
+            StopCoroutine(corou);
+            corou = null;
+        }
+
+
+        ChangeText(newQuest);
+        wordEffect.enabled = true;
+        tmpText.transform.GetComponent<RectTransform>().localScale = new Vector3(0.01f, 0.01f, 0.01f);
+        tmpText.transform.GetComponent<RectTransform>().DOScale(new Vector3(1, 1, 1), duration);
         targetRectTransform.DOSizeDelta(new Vector2(530, 100), duration);
     }
 
-    IEnumerator ChangeQuestTextAfterFewSec(string newQuest)
+    public void PanelOpen(string newQuest, float exitTime) // Ï∂îÍ∞Ä, ÏàòÏ†ïÌïú Î∂ÄÎ∂Ñ
     {
-        yield return new WaitForSeconds(1f);
+        if (corou != null)
+        {
+            StopCoroutine(corou);
+            corou = null;
+        }
+
         ChangeText(newQuest);
+        wordEffect.enabled = true;
+        tmpText.transform.GetComponent<RectTransform>().localScale = new Vector3(0.01f, 0.01f, 0.01f);
+        tmpText.transform.GetComponent<RectTransform>().DOScale(new Vector3(1, 1, 1), duration);
+        targetRectTransform.DOSizeDelta(new Vector2(530, 100), duration);
+
+        Invoke("PanelClose", exitTime);
     }
 
     public void ChangeText(string newQuest)
     {
-        wordEffect.enabled = true;
         tmpText.text = newQuest;
     }
 
     public void PanelClose()
     {
-        wordEffect.enabled = false;
-        tmpText.text = "";
-        targetRectTransform.DOSizeDelta(Vector2.zero, duration);
-        StartCoroutine(PanelDisabled());
+        if (corou != null) StopCoroutine(corou);
+
+        corou = StartCoroutine(PanelDisabled());
     }
 
     IEnumerator PanelDisabled()
     {
-        yield return new WaitForSeconds(duration + 0.5f);
+        wordEffect.enabled = false;
+        tmpText.transform.GetComponent<RectTransform>().DOScale(Vector3.zero, duration);
+        targetRectTransform.DOSizeDelta(Vector2.zero, duration);
+        yield return new WaitForSeconds(duration);
+        tmpText.text = "";
         gameObject.SetActive(false);
+
+        corou = null;
     }
 
 
-    // ¥…µø¿˚ UI
+    // Îä•ÎèôÏ†Å UI
     public void PanelTween(GameObject go) // Experimental
     {
         Transform goPos = go.transform;

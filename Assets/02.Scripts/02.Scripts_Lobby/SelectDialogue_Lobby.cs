@@ -78,9 +78,9 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
     public void Warpable_LB() { GameManager_Lobby.instance.SetWarpable(); }
 
-    public void ShowNPCTalk_LB() { UIManager_Lobby.instance.ShowNPCTalk(); }
+    public void ShowNPCTalk_LB() { UIManager_Lobby.instance.ShowBubble(); }
 
-    public void ShowUpsideSubtitle_LB() { UIManager_Lobby.instance.SetUpsideSubtitle("동물 세포 포탈로 들어가보자!"); }
+    public void ShowUpsideSubtitle_LB() { UIManager_Lobby.instance.SetQuest("동물 세포 포탈로 들어가보자!"); }
 
     #region Register with Lua
 

@@ -6,16 +6,13 @@ using UnityEngine;
 public class HighLightColorchange_StageMap : MonoBehaviour
 {
     public HighlightEffect hlEffect;
-
     public float updownFloat = 0.02f;
-
     public bool glowFlag = false;
-
     private Coroutine glowCoroutine = null;
 
     void Start()
     {
-        hlEffect = transform.parent.GetComponent<HighlightEffect>();
+        hlEffect = GetComponent<HighlightEffect>();
     }
 
     public void GlowStart()
@@ -24,6 +21,7 @@ public class HighLightColorchange_StageMap : MonoBehaviour
         {
             glowFlag = true;
             glowCoroutine = StartCoroutine(Glow());
+            StartCoroutine(Glow());
         }
     }
 
@@ -37,10 +35,15 @@ public class HighLightColorchange_StageMap : MonoBehaviour
         }
     }
 
-    IEnumerator Glow()
+    IEnumerator Glow() // 추가, 수정한 부분
     {
+        hlEffect.highlighted = true;
+
+        /*
         while (glowFlag)
         {
+            hlEffect.highlighted = true;
+
             hlEffect.innerGlow -= updownFloat;
             yield return new WaitForSeconds(0.02f);
 
@@ -49,7 +52,10 @@ public class HighLightColorchange_StageMap : MonoBehaviour
                 updownFloat = -updownFloat;
             }
         }
+        */
+        yield return null;
 
+        hlEffect.highlighted = false;
         glowCoroutine = null;
     }
 }

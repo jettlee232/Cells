@@ -227,6 +227,13 @@ public class PlayerMoving_StageMap: MonoBehaviour
             }
         }
     }
+
+    public void RotateUp() { rotateSpeed += 10f; }
+    public void RotateDown()
+    {
+        if (rotateSpeed > 10f) { rotateSpeed -= 10f; }
+    }
+    public float GetRotateSpeed() { return rotateSpeed; }
     #endregion
 
     #region 기타

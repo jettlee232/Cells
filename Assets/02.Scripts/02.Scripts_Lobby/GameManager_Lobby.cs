@@ -10,6 +10,7 @@ public class GameManager_Lobby : MonoBehaviour
     public GameObject player;
     public GameObject playerCam;
     public GameObject NPC;
+    public GameObject UIPointer;
     public float moveSpeed = 3f;
     private bool movable = true;
     private bool warpable = false;
@@ -43,6 +44,7 @@ public class GameManager_Lobby : MonoBehaviour
     public void EnableMovePlayer() { movable = true; }
     public bool PlayerMove() { return movable; }
     public GameObject GetNPC() { return NPC; }
+    public GameObject GetUIPointer() { return UIPointer; }
 
     public bool GetWarpable() { return warpable; }
     public void SetWarpable() { warpable = true; }

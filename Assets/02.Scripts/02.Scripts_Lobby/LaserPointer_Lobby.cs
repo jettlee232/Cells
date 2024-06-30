@@ -13,7 +13,6 @@ public class LaserPointer_Lobby : MonoBehaviour
     public float maxDistance;
 
     private GameObject obj = null;
-    private GameObject descPanel = null;
     private int descObjLayer;
     private GameObject player = null;
     private Camera mainCam = null;
@@ -25,7 +24,6 @@ public class LaserPointer_Lobby : MonoBehaviour
     void Start()
     {
         uiPointer = gameObject.GetComponent<BNG.UIPointer>(); // UI 컴포넌트 받기
-        descPanel = UIManager_Lobby.instance.GetDesc();
         obj = null;
         descObjLayer = 1 << LayerMask.NameToLayer("DescObj");
         player = GameManager_Lobby.instance.GetPlayer();
@@ -42,11 +40,11 @@ public class LaserPointer_Lobby : MonoBehaviour
         if (isButtonPressed) // 버튼이 눌리고 있다면
         {
             uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
-            CheckRay(transform.position, transform.forward, 10f); // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
+            CheckRay(transform.position, transform.forward, maxDistance); // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
         }
         else { uiPointer.HidePointerIfNoObjectsFound = true; }
 
-        if (descPanel.activeSelf) // 현재 설명창이 만들어진 상태라면
+        if (obj != null && obj.gameObject.layer == LayerMask.NameToLayer("DescObj")) // 현재 설명창이 만들어진 상태라면
         {
             if (!CheckSight()) { DestroyDescription(); }
         }
@@ -63,7 +61,7 @@ public class LaserPointer_Lobby : MonoBehaviour
                 if (obj != rayHit.collider.gameObject)
                 {
                     obj = rayHit.collider.gameObject;
-                    InstantiatePanel(obj);
+                    obj.GetComponent<TextObject_Lobby>().ShowText();
                 }
             }
             else if (rayHit.collider.gameObject.CompareTag("NPC"))
@@ -82,14 +80,10 @@ public class LaserPointer_Lobby : MonoBehaviour
         }
     }
 
-    public void InstantiatePanel(GameObject go)
-    {
-        UIManager_Lobby.instance.OnDesc(go);
-    }
-
     public void DestroyDescription() // 패널 없애기
     {
-        descPanel.SetActive(false);
+        if (obj == null) return;
+        obj.GetComponent<TextObject_Lobby>().HideText();
         obj = null;
     }
 
@@ -103,6 +97,4 @@ public class LaserPointer_Lobby : MonoBehaviour
 
         return isInView;
     }
-
-    public void IsTalking() { isDialogue = true; }
 }

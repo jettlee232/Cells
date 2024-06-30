@@ -24,9 +24,6 @@ public class ButtonDoorController_Lobby : MonoBehaviour
     private float DPdistance; // 문-플레이어 사이 거리
     private float Ddistance;    // 문이 열릴 때까지 (= 닫힐 때까지) 거리
     private Vector3 BPdistance;   // 버튼-플레이어 사이 벡터
-
-    private string pressTutorialText;
-    private Sprite pressTutorialImage;
     
     private void Start()
     {
@@ -36,8 +33,7 @@ public class ButtonDoorController_Lobby : MonoBehaviour
         doorPos = door.transform.position;
         StartCoroutine(ShowButtonScript());
 
-        pressTutorialText = UIManager_Lobby.instance.GetPressTutorialText();
-        pressTutorialImage = UIManager_Lobby.instance.GetPressTutorialImage();
+        UIManager_Lobby.instance.ShowPressTutorial();
     }
 
     #region 버튼-문 함수
@@ -101,13 +97,14 @@ public class ButtonDoorController_Lobby : MonoBehaviour
 
     private void ChangeScript()
     {
-        UIManager_Lobby.instance.SetUpsideSubtitle("버튼을 눌러보자!");
-        UIManager_Lobby.instance.SetTutorial(pressTutorialText, pressTutorialImage);
+        UIManager_Lobby.instance.ChangeQuest("버튼을 눌러보자!");
+        UIManager_Lobby.instance.ShowPressTutorial();
     }
 
     public void HideButtonScript()
     {
-        UIManager_Lobby.instance.VanishUpsideSubtitle();
+        UIManager_Lobby.instance.HideTutorial();
+        UIManager_Lobby.instance.HideQuest();
     }
 
     #endregion

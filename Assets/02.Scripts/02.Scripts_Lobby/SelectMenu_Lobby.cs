@@ -11,7 +11,6 @@ public class SelectMenu_Lobby : MonoBehaviour
     public string alertName;
     public string alertDescription;
     private Vector3 moveDir = Vector3.zero;
-    private bool desc;
 
     public string GetName() { return alertName; }
     public string GetDescription() { return alertDescription; }
@@ -22,8 +21,7 @@ public class SelectMenu_Lobby : MonoBehaviour
         if (!GameManager_Lobby.instance.GetWarpable()) { return; }
         else
         {
-            desc = UIManager_Lobby.instance.CheckDesc();
-            UIManager_Lobby.instance.OffDesc();
+            GameManager_Lobby.instance.GetUIPointer().GetComponent<LaserPointer_Lobby>().DestroyDescription();
             if (other.gameObject.CompareTag("Player"))
             {
                 Rigidbody rb = other.GetComponent<Rigidbody>();

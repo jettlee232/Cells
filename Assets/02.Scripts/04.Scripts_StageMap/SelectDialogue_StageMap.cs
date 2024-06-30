@@ -38,16 +38,15 @@ public class SelectDialogue_StageMap : MonoBehaviour
     public void ActivateDST2() // 2번째 트리거 작동 함수
     {
         DisableMove_SM();
-        if (UIManager_StageMap.instance.GetUpsideSubtitle()) { UIManager_StageMap.instance.VanishUpsideSubtitle(); }
+        if (UIManager_StageMap.instance.GetQuest()) { UIManager_StageMap.instance.HideQuest(); }
         dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동
         GameManager_StageMap.instance.SecondEnd();
     }
 
     #region 스크립트에 쓰일 함수
-    //public void fCheckFlyTutorial() { StartCoroutine(CheckFlyTutorial()); }
     public void CheckFlyTutorial_SM()
     {
-        UIManager_StageMap.instance.SetUpsideSubtitle("비행을 하면서 3개의 타겟을 찾아보자!");
+        UIManager_StageMap.instance.SetQuest("비행을 하면서 3개의 타겟을 찾아보자!");
         tutorial.GetComponent<TutorialManager_StageMap>().StartTutorial();
     }
 
@@ -59,13 +58,7 @@ public class SelectDialogue_StageMap : MonoBehaviour
     }
     public void EnableOrganelle_SM() { UIManager_StageMap.instance.EnanbleOrganelleButton(); }
     public void WaitForNewUI_SM() { GameManager_StageMap.instance.WaitForNewUI(); }
-    public void Subtitle_Explore_SM() { StartCoroutine(cSubtitle_Explore_SM()); }
-    IEnumerator cSubtitle_Explore_SM()
-    {
-        UIManager_StageMap.instance.SetUpsideSubtitle("동물세포를 탐험해 보자!");
-        yield return new WaitForSeconds(5f);
-        UIManager_StageMap.instance.VanishUpsideSubtitle();
-    }
+    public void Subtitle_Explore_SM() { UIManager_StageMap.instance.SetQuest("동물세포를 탐험해 보자!", 5f); }
     public void ShowTutorial_SM() { UIManager_StageMap.instance.ShowTutorial(); }
     public void ShowOrganelle_SM() { UIManager_StageMap.instance.ShowOrganelleUI(); }
     public void HideOrganelle_SM() { UIManager_StageMap.instance.HideOrganelleUI(); }
