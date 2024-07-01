@@ -16,25 +16,14 @@ public class TextObject_Lobby : MonoBehaviour
 
     public void ShowText()
     {
-        isShow = true;
         this.gameObject.SetActive(true);
-        StartCoroutine(FollowPlayer());
+        Vector3 direction = player.transform.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+        targetRotation *= Quaternion.Euler(-90f, 0f, 0f);
+        transform.rotation = targetRotation;
     }
     public void HideText()
     {
-        isShow = false;
-    }
-
-    IEnumerator FollowPlayer()
-    {
-        while (true)
-        {
-            if (!isShow) { break; }
-            Vector3 direction = player.transform.position - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-            targetRotation *= Quaternion.Euler(-90f, 0f, 0f);
-            transform.rotation = targetRotation;
-            yield return null;
-        }
+        this.gameObject.SetActive(false);
     }
 }

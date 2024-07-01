@@ -20,7 +20,6 @@ public class SelectMenu_Lobby : MonoBehaviour
         if (!GameManager_Lobby.instance.GetWarpable()) { return; }
         else
         {
-            GameManager_Lobby.instance.GetUIPointer().GetComponent<LaserPointer_Lobby>().DestroyDescription();
             if (other.gameObject.CompareTag("Player")) { UIManager_Lobby.instance.SetAlert(this.gameObject); }
         }
     }

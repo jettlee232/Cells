@@ -93,7 +93,7 @@ public class LaserPointer_StageMap : MonoBehaviour
                 GameManager_StageMap.instance.WaitForNewUI();
                 Instantiate(touchEffect, rayHit.point, Quaternion.LookRotation(player.transform.position));
                 Debug.Log(rayHit.collider.gameObject.name);
-                if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("DescObj"))
+                if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("Organelle"))
                 {
                     if (obj != rayHit.collider.gameObject)
                     {

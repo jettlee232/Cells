@@ -48,6 +48,7 @@ public class GameManager_Lobby : MonoBehaviour
     public GameObject GetUIPointer() { return UIPointer; }
     public void GlowAllStart() { interactableManager.GetComponent<InteractableManager_Lobby>().GlowStart(); }
     public void GlowAllEnd() { interactableManager.GetComponent<InteractableManager_Lobby>().GlowEnd(); }
+    public GameObject GetInteractable() { return interactableManager; }
 
     public bool GetWarpable() { return warpable; }
     public void SetWarpable() { warpable = true; }
