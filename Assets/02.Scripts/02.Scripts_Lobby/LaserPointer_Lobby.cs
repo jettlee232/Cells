@@ -56,12 +56,12 @@ public class LaserPointer_Lobby : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit rayHit, length))
         {
-            if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("DescObj"))
+            if (rayHit.collider.gameObject.CompareTag("Interactable"))
             {
                 if (obj != rayHit.collider.gameObject)
                 {
                     obj = rayHit.collider.gameObject;
-                    obj.GetComponent<TextObject_Lobby>().ShowText();
+                    obj.transform.GetChild(0).GetComponent<TextObject_Lobby>().ShowText();
                 }
             }
             else if (rayHit.collider.gameObject.CompareTag("NPC"))
@@ -80,10 +80,10 @@ public class LaserPointer_Lobby : MonoBehaviour
         }
     }
 
-    public void DestroyDescription() // 패널 없애기
+    public void DestroyDescription() // 3D Text 패널 없애기
     {
         if (obj == null) return;
-        obj.GetComponent<TextObject_Lobby>().HideText();
+        obj.transform.GetChild(0).GetComponent<TextObject_Lobby>().HideText();
         obj = null;
     }
 

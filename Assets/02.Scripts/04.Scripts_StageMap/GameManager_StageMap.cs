@@ -18,7 +18,7 @@ public class GameManager_StageMap : MonoBehaviour
     public GameObject TutorialManager;
 
     [Header("Timers")]
-    public float minSelectTime = 0.2f;         // 한번 UI를 끈 후 다시 UI를 키도록 인식할 때까지 지연할 시간 (뭔소린지 해보면 앎)
+    public float minSelectTime = 0.5f;         // 한번 UI를 끈 후 다시 UI를 키도록 인식할 때까지 지연할 시간 (뭔소린지 해보면 앎)
 
     private bool firstEnd = false;
     private bool secondEnd = false;
@@ -45,6 +45,7 @@ public class GameManager_StageMap : MonoBehaviour
     public void EnableMove() { movable = true; player.GetComponent<PlayerMoving_StageMap>().EnableFly(); }
     public void DisableMove() { movable = false; player.GetComponent<PlayerMoving_StageMap>().DisableFly(); }
     public void RemoveSelect() { uiPointer.GetComponent<LaserPointer_StageMap>().DestroyDescription(); }
+    public GameObject GetUIPointer() { return uiPointer; }
     #endregion
 
     #region UI 끝 -> 새로운 UI 까지

@@ -28,6 +28,7 @@ public class UIManager_StageMap : MonoBehaviour
     private GameObject[] Descs;
     public GameObject QuestPanel;
     public GameObject NPCTalkPanel;
+    public GameObject NPCTalkButton;
     public GameObject[] TutorialPanels;
     public GameObject OrganelleDescUI;
     public GameObject OptionPanel;
@@ -72,40 +73,42 @@ public class UIManager_StageMap : MonoBehaviour
     {
         ORGANELLES type = (ORGANELLES)Enum.Parse(typeof(ORGANELLES), go.GetComponent<DescObj_StageMap>().GetType());
 
-        if (CheckDesc()) { StartCoroutine(DestroyAfterRewind(Descs[(int)nowSelectedOrganelle])); }
+        if (CheckDesc() && nowSelectedOrganelle != null) { StartCoroutine(DestroyAfterRewind(Descs[(int)nowSelectedOrganelle])); }
         StartCoroutine(ShowDesc(Descs[(int)type].gameObject));
 
         nowSelectedOrganelle = type;
     }
     public void OffDesc()
     {
-        foreach (GameObject organelle in Descs)
+        foreach (GameObject organelleUI in Descs)
         {
-            if (organelle.gameObject.activeSelf)
+            if (organelleUI.gameObject.activeSelf)
             {
                 transform.DOScale(Vector3.zero, 1f);
                 transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
-                StartCoroutine(DestroyAfterRewind(organelle.gameObject));
+                StartCoroutine(DestroyAfterRewind(organelleUI.gameObject));
                 break;
             }
         }
-        GameManager_StageMap.instance.uiPointer.GetComponent<LaserPointer_StageMap>().DestroyDescription();
+        GameManager_StageMap.instance.GetUIPointer().GetComponent<LaserPointer_StageMap>().InitObj();
         nowSelectedOrganelle = null;
     }
     private IEnumerator DestroyAfterRewind(GameObject organelle)
     {
-        yield return new WaitForSeconds(1.05f);
+        yield return null;
         organelle.SetActive(false);
     }
-    private IEnumerator ShowDesc(GameObject organelle)
+    private IEnumerator ShowDesc(GameObject organelleUI)
     {
         yield return new WaitForSeconds(0.05f);
-        organelle.SetActive(true);
-        organelle.transform.localPosition = Vector3.zero;
-        organelle.transform.localRotation = Quaternion.Euler(0, 0, 0);
-        organelle.transform.localScale = Vector3.zero;
-        organelle.transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
-        organelle.transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
+        organelleUI.SetActive(true);
+        organelleUI.transform.localPosition = Vector3.zero;
+        organelleUI.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        organelleUI.transform.localScale = Vector3.zero;
+        organelleUI.transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
+        //organelleUI.transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
+        //organelleUI.transform.DORotate(new Vector3(0f, 360f + organelleUI.transform.parent.gameObject.transform.localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
+        organelleUI.transform.DORotate(new Vector3(0f, 360f + GameManager_StageMap.instance.GetPlayer().transform.localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
     }
     #endregion
 
@@ -127,8 +130,6 @@ public class UIManager_StageMap : MonoBehaviour
         NPCTalkPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = des;
         NPCTalkPanel.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
         NPCTalkPanel.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<Image>().sprite = img;
-        NPCTalkPanel.transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<UnityEngine.UI.Button>().interactable = false;
-        NPCTalkPanel.transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => GameManager_StageMap.instance.MoveScene(sceneName));
     }
     public void OnClickNPCXBtn()
     {
@@ -136,10 +137,8 @@ public class UIManager_StageMap : MonoBehaviour
         NPCTalkPanel.SetActive(false);
         GameManager_StageMap.instance.EnableMove();
     }
-    public void EnanbleOrganelleButton()
-    {
-        NPCTalkPanel.transform.GetChild(1).GetChild(0).GetChild(2).GetChild(0).GetComponent<UnityEngine.UI.Button>().interactable = true;
-    }
+    public void HideNPCPanel() { NPCTalkPanel.SetActive(false); }
+    public void EnanbleOrganelleButton() { NPCTalkButton.GetComponent<UnityEngine.UI.Button>().interactable = true; }
 
     #endregion
 

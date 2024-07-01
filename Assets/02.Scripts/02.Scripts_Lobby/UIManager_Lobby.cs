@@ -30,6 +30,7 @@ public class UIManager_Lobby : MonoBehaviour
     void Start()
     {
         alert_UI.SetActive(false);
+        HideTutorial();
         StartCoroutine(cStart());
     }
 

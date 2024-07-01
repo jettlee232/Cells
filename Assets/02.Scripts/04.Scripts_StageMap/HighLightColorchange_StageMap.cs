@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HighLightColorchange_StageMap : MonoBehaviour
 {
+    public HighlightEffect tempHl;
     public HighlightEffect hlEffect;
     public float updownFloat = 0.02f;
     public bool glowFlag = false;
@@ -12,8 +13,11 @@ public class HighLightColorchange_StageMap : MonoBehaviour
 
     void Start()
     {
-        hlEffect = GetComponent<HighlightEffect>();
+        if (tempHl == null) { hlEffect = GetComponent<HighlightEffect>(); }
+        else { hlEffect = tempHl; Debug.Log("hlEffect = " + hlEffect.gameObject.name); }
     }
+
+    public HighlightEffect GetHl() { return hlEffect; }
 
     public void GlowStart()
     {
