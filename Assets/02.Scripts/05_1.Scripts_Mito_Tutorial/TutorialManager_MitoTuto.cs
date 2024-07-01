@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PixelCrushers.DialogueSystem;
 using UnityEngine.SceneManagement;
+using BNG;
 
 public class TutorialManager_MitoTuto : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     public GameObject mitoMap1;
     public GameObject mitoMap2;
     public GameObject mitoMap3;
+
+    public GameObject adeinine;
+    public GameObject ribose;
+    public GameObject phosphate;
 
     void Start()
     {
@@ -110,13 +115,34 @@ public class TutorialManager_MitoTuto : MonoBehaviour
 
     public void ToggleGrabATP()
     {
-        atp.GetComponent<SphereCollider>().enabled = (!atp.GetComponent<SphereCollider>().enabled);
+        SphereCollider sphereCollider = atp.GetComponent<SphereCollider>();
+        if (sphereCollider != null)
+        {
+            sphereCollider.enabled = !sphereCollider.enabled;
+        }
         atp.transform.GetChild(0).gameObject.SetActive(!atp.transform.GetChild(0).gameObject.activeSelf);
     }
 
     public void EnableGrabATPComponent()
     {
+        Collider[] childColliders = atp.GetComponentsInChildren<Collider>(true);
+        foreach (Collider collider in childColliders)
+        {
+            collider.enabled = true;
+        }
 
+        Grabbable[] grabbableComponents = atp.GetComponentsInChildren<Grabbable>(true);
+        foreach (Grabbable grabbable in grabbableComponents)
+        {
+            grabbable.enabled = true;
+        }
+    }
+
+    public void SetActiveATPMixComponents()
+    {
+        adeinine.SetActive(true);
+        ribose.SetActive(true);
+        phosphate.SetActive(true);
     }
 
     public void CloseQuest()
@@ -136,7 +162,13 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         int curScene = scene.buildIndex;
         int nextScene = curScene + 1;
 
-        SceneManager.LoadScene(nextScene);
+        StartCoroutine(LoadNextScene(nextScene));
+    }
+
+    IEnumerator LoadNextScene(int index)
+    {
+        yield return new WaitForSeconds(3.0f);
+        SceneManager.LoadScene(index);
     }
 
     #region Register with Lua
@@ -156,6 +188,8 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.RegisterFunction("LookAtMito", this, SymbolExtensions.GetMethodInfo(() => LookAtMito()));
         Lua.RegisterFunction("ToggleATP", this, SymbolExtensions.GetMethodInfo(() => ToggleATP()));
         Lua.RegisterFunction("ToggleGrabATP", this, SymbolExtensions.GetMethodInfo(() => ToggleGrabATP()));
+        Lua.RegisterFunction("EnableGrabATPComponent", this, SymbolExtensions.GetMethodInfo(() => EnableGrabATPComponent()));
+        Lua.RegisterFunction("SetActiveATPMixComponents", this, SymbolExtensions.GetMethodInfo(() => SetActiveATPMixComponents()));
         Lua.RegisterFunction("CloseQuest", this, SymbolExtensions.GetMethodInfo(() => CloseQuest()));
         Lua.RegisterFunction("ChangeQuestText", this, SymbolExtensions.GetMethodInfo(() => ChangeQuestText(string.Empty)));
         Lua.RegisterFunction("EndTutorial", this, SymbolExtensions.GetMethodInfo(() => EndTutorial()));
@@ -177,6 +211,8 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.UnregisterFunction("LookAtMito");
         Lua.UnregisterFunction("ToggleATP");
         Lua.UnregisterFunction("ToggleGrabATP");
+        Lua.UnregisterFunction("EnableGrabATPComponent");
+        Lua.UnregisterFunction("SetActiveATPMixComponents");
         Lua.UnregisterFunction("CloseQuest");
         Lua.UnregisterFunction("ChangeQuestText");
         Lua.UnregisterFunction("EndTutorial");

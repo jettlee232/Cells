@@ -19,14 +19,14 @@ public class QuestManager_MitoTuto : MonoBehaviour
 
     public bool playerInRange = false; // 플레이어가 범위 내에 있는지 확인하는 플래그
     public bool dialogueActive = false; // 대화가 활성화되었는지 확인하는 플래그
+    public bool isDesc = false;
 
     public bool isABtnPressed = false;
     public bool wasABtnPressed = false;
 
-    public bool isAdeinine = false;
+    public bool isAdenine = false;
     public bool isRibose = false;
     public bool isPhosphate = false;
-    public int trueCount = 0;
 
     public GameObject npcToolTip;
 
@@ -77,6 +77,8 @@ public class QuestManager_MitoTuto : MonoBehaviour
             }
         }
 
+        CheckInteractionATPComponent();
+
         wasABtnPressed = isABtnPressed;
     }
 
@@ -99,14 +101,19 @@ public class QuestManager_MitoTuto : MonoBehaviour
         questText.text = text;
     }
 
+    public void CheckInteractionATPComponent()
+    {
+        if (isAdenine && isRibose && isPhosphate && !isDesc)
+        {
+            DialogueController_MitoTuto.Instance.ActivateDST(11);
+
+            isDesc = true;
+        }
+    }
+
     public void CheckMyATP()
     {
-        //trueCount++;
-
-        //if (trueCount >= 2)
-        //{
-            Debug.Log("MyATP 완성");
-            DialogueController_MitoTuto.Instance.ActivateDST(12);
-        //}
+        Debug.Log("MyATP 완성");
+        DialogueController_MitoTuto.Instance.ActivateDST(12);
     }
 }

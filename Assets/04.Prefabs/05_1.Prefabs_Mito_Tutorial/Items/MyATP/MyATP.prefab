@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6271936066460036282}
   - component: {fileID: 4085514511652375061}
   - component: {fileID: 5272465441786470425}
+  - component: {fileID: 1542583001165586647}
   m_Layer: 6
   m_Name: MyATP
   m_TagString: Untagged
@@ -424,6 +425,22 @@ MonoBehaviour:
   hlEffect: {fileID: 0}
   updownFloat: 0.02
   glowFlag: 0
+--- !u!114 &1542583001165586647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362754420201280755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed3696ecfa111c41b13eb87709a934b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explainCanvas: {fileID: 0}
+  explainItemPanel: {fileID: 6357633978083711654, guid: 311e0b98edf47e84ead32fc8de332bde,
+    type: 3}
+  explainShowPos: {fileID: 0}
 --- !u!1001 &2013348216573030876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -512,6 +529,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8341030976011988761, guid: fe0e417075e3e494599c96968c050e5e,
+        type: 3}
+      propertyPath: itemPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 362754420201280755}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -650,6 +672,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Phosphate
       objectReference: {fileID: 0}
+    - target: {fileID: 4752748355531449979, guid: 300405e0d0e40984e99b049731a599fd,
+        type: 3}
+      propertyPath: itemPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 362754420201280755}
     - target: {fileID: 6391420597527168625, guid: 300405e0d0e40984e99b049731a599fd,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -12,6 +12,7 @@ public class RayDescription_MitoTuto : MonoBehaviour
 
     public GameObject descCanvasPrefab;
     private GameObject instDescCanvas;
+    public Transform descCanvasPos;
     public GameObject currentPanel;
     public GameObject glowObj;
 
@@ -34,7 +35,7 @@ public class RayDescription_MitoTuto : MonoBehaviour
         { "mitoExterior_Mito", "외막" },
         { "mitoInteriorHalf_Mito", "내막" },
         { "Matrix_Mito", "기질" },
-        { "Adeinine", "아데닌" },
+        { "Adenine", "아데닌" },
         { "Ribose", "리보스"},
         { "Phosphate", "인산염" },
         { "ADP", "아데노신 이인산" },
@@ -91,14 +92,17 @@ public class RayDescription_MitoTuto : MonoBehaviour
             {
                 if (currentPanel != descObj.explainItemPanel)
                 {
-                    instDescCanvas = Instantiate(descCanvasPrefab);
-                    instDescCanvas.transform.position = descObj.transform.position;
+                    //instDescCanvas = Instantiate(descCanvasPrefab);
+                    //instDescCanvas.transform.position = descObj.transform.position + Vector3.up * 0.5f;
                     //descCanvas.transform.SetParent(descObj.transform);
                     //descCanvas.transform.position = Vector3.zero;
 
                     currentPanel = descObj.GetComponent<ItemExplain_MitoTuto>().explainItemPanel;
+                    descObj.isDesc = true;
 
                     InstantiatePanel_Tween(currentPanel, descObj.gameObject);
+                    canMakeRayDescription = !canMakeRayDescription;
+                    StartCoroutine(DelayToggleRayStateChange(1.5f));
                 }
             }
         }
@@ -113,8 +117,10 @@ public class RayDescription_MitoTuto : MonoBehaviour
         }
 
         descrptionPanel = Instantiate(panel);
-        descrptionPanel.transform.SetParent(instDescCanvas.transform);
-        descrptionPanel.GetComponent<RectTransform>().position = Vector3.zero;
+        descrptionPanel.name = panel.name;
+        //descrptionPanel.transform.SetParent(instDescCanvas.transform);
+        descrptionPanel.transform.SetParent(descCanvasPos);
+        //descrptionPanel.GetComponent<RectTransform>().position = Vector3.zero;
         descrptionPanel.GetComponent<DescriptionTween_Mito>().HLObjInit(rayhit);
 
         glowObj = rayhit;
@@ -123,11 +129,13 @@ public class RayDescription_MitoTuto : MonoBehaviour
     {
         Destroy(descrptionPanel);
         Destroy(instDescCanvas);
+        currentPanel = null;
     }
 
-    public void RayStateChange(bool flag)
+    IEnumerator DelayToggleRayStateChange(float delay)
     {
-        canMakeRayDescription = flag;
+        yield return new WaitForSeconds(delay);
+        canMakeRayDescription = !canMakeRayDescription;
     }
 
     /*

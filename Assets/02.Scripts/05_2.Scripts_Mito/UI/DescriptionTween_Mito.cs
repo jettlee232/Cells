@@ -10,6 +10,9 @@ public class DescriptionTween_Mito : MonoBehaviour
     public Button closeBtn;
     public GameObject hlObj;
 
+    public RayDescription_MitoTuto rayDesc;
+    public Coroutine lookPlayer;
+
     void Start()
     {
         DOTween.Init();
@@ -19,7 +22,8 @@ public class DescriptionTween_Mito : MonoBehaviour
         transform.localScale = Vector3.zero;
         transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
         transform.DORotate(new Vector3(0f, 360f + transform.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
-        //transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360).OnComplete(() => StartCoroutine(LookPlayer()));
+        transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360).OnComplete(()
+            => lookPlayer = StartCoroutine(LookPlayer()));
 
         if (closeBtn == null)
         {
@@ -28,10 +32,15 @@ public class DescriptionTween_Mito : MonoBehaviour
             closeBtn = go.GetComponent<Button>();
         }
         closeBtn.onClick.AddListener(ReverseTweenAndDestroy);
+
+        rayDesc = GameObject.Find("RightHandPointer").GetComponent<RayDescription_MitoTuto>();
     }
 
     public void ReverseTweenAndDestroy() // Button으로 호출하는 거
     {
+        StopCoroutine(lookPlayer);
+        rayDesc.currentPanel = null;
+
         transform.DOScale(Vector3.zero, 1f);
         transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
         StartCoroutine(DestroyAfterRewind());
@@ -44,6 +53,7 @@ public class DescriptionTween_Mito : MonoBehaviour
         yield return new WaitForSeconds(1.05f);
 
         Destroy(this.gameObject);
+        //Destroy(transform.parent.gameObject);
     }
 
     public void HLObjInit(GameObject go)

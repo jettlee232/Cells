@@ -249,14 +249,14 @@ MonoBehaviour:
 
         SetPlayerPosition();
 
-        CloseQuest()'
+        ChangeQuestText("");'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 81.09891
-        y: 136.1978
+        y: 135.0989
         width: 160
         height: 30
     - id: 2
@@ -744,7 +744,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 80
-        y: 303
+        y: 304
         width: 160
         height: 30
     - id: 3
@@ -951,7 +951,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ChangeQuestText("")
+      userScript: ChangeQuestText("");
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1395,8 +1395,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 80
-        y: 302
+        x: 80.98329
+        y: 301.01672
         width: 160
         height: 30
     - id: 4
@@ -1619,7 +1619,11 @@ MonoBehaviour:
 
         ChangeQuestText("");
 
-        ToggleNpcTooltip()'
+        ToggleNpcTooltip();
+
+        SetPlayerPosition();
+
+        ToggleIsMoving()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2223,8 +2227,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 157
-        y: 103
+        x: 163
+        y: 100
         width: 160
         height: 30
     - id: 2
@@ -2279,7 +2283,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 158
-        y: 234
+        y: 233
         width: 160
         height: 30
     - id: 3
@@ -2376,7 +2380,8 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: ToggleGrabATP()
+      userScript: "ToggleIsMoving();\nToggleGrabATP();\nChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00
+        \uC0DD\uC0B0\uD558\uB294 \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\")"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2535,7 +2540,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: ChangeQuestText("");
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2699,7 +2704,7 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "ChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00 \uC0DD\uC0B0\uD558\uB294
-        \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\");\nToggleATP();\nToggleGrabATP()"
+        \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\");\nToggleATP();\nEnableGrabATPComponent();\nToggleGrabATP()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2913,9 +2918,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'ToggleATP();
-
-        ChangeQuestText("")'
+      userScript: ChangeQuestText("");
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2965,7 +2968,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "ChangeQuestText(\"ATP\uB97C \uC870\uD569\uD574\uBCF4\uC790!\")"
+      userScript: "ChangeQuestText(\"ATP\uB97C \uC870\uD569\uD574\uBCF4\uC790!\");\nToggleIsMoving();\nSetActiveATPMixComponents()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3021,13 +3024,17 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: 'ToggleATP();
+
+        SetPlayerPosition();
+
+        ToggleIsMoving()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 80
+        x: 81
         y: 218
         width: 160
         height: 30
@@ -3180,7 +3187,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: CloseQuest()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
