@@ -249,7 +249,7 @@ MonoBehaviour:
 
         SetPlayerPosition();
 
-        ChangeQuestText("");'
+        CloseQuest()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -311,7 +311,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 80
-        y: 218
+        y: 216.9011
         width: 160
         height: 30
     - id: 3
@@ -737,7 +737,7 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "EnableGrabMiniHalfMito();\nChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
-        \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\");\nToggleIsMoving()"
+        \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\");\nToggleIsMoving();\nShowLaserPanel()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -951,7 +951,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ChangeQuestText("");
+      userScript: CloseQuest()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1183,7 +1183,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 160
-        y: 449
+        y: 448
         width: 160
         height: 30
     entryGroups: []
@@ -1460,7 +1460,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 80
+        x: 78.03343
         y: 134
         width: 160
         height: 30
@@ -1617,7 +1617,7 @@ MonoBehaviour:
 
         SetPlayerSpeed(3, 15, 15);
 
-        ChangeQuestText("");
+        CloseQuest();
 
         ToggleNpcTooltip();
 
@@ -1902,7 +1902,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 159
-        y: 92
+        y: 91
         width: 160
         height: 30
     - id: 2
@@ -1958,7 +1958,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 159
-        y: 160
+        y: 159
         width: 160
         height: 30
     - id: 3
@@ -2388,7 +2388,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 158
-        y: 300
+        y: 301
         width: 160
         height: 30
     entryGroups: []
@@ -2540,7 +2540,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ChangeQuestText("");
+      userScript: CloseQuest()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2918,7 +2918,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ChangeQuestText("");
+      userScript: CloseQuest()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2968,7 +2968,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "ChangeQuestText(\"ATP\uB97C \uC870\uD569\uD574\uBCF4\uC790!\");\nToggleIsMoving();\nSetActiveATPMixComponents()"
+      userScript: "ChangeQuestText(\"ATP\uB97C \uC870\uD569\uD574\uBCF4\uC790!\");\nToggleIsMoving();\nSetActiveATPMixComponents();\nShowATPMixRulePanel()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3516,7 +3516,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 160
-        y: 30
+        y: 31
         width: 160
         height: 30
     - id: 1

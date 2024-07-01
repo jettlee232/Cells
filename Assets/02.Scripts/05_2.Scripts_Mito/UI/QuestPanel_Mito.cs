@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-public class QuestPanel_CM : MonoBehaviour
+public class QuestPanel_Mito : MonoBehaviour
 {
     public TextMeshProUGUI tmpText;
     public RectTransform targetRectTransform;
@@ -13,7 +13,7 @@ public class QuestPanel_CM : MonoBehaviour
 
     private Coroutine corou;
 
-    // ëŠ¥ë™ì  UI 
+    // ´Éµ¿Àû UI 
     public Transform playerCam; // Experimental
     private bool lookPlayerFlag = false; // Experimental
 
@@ -39,7 +39,7 @@ public class QuestPanel_CM : MonoBehaviour
             corou = null;
         }
 
-
+        gameObject.SetActive(true);
         ChangeText(newQuest);
         wordEffect.enabled = true;
         tmpText.transform.GetComponent<RectTransform>().localScale = new Vector3(0.01f, 0.01f, 0.01f);
@@ -47,7 +47,7 @@ public class QuestPanel_CM : MonoBehaviour
         targetRectTransform.DOSizeDelta(new Vector2(530, 100), duration);
     }
 
-    public void PanelOpen(string newQuest, float exitTime) // ì¶”ê°€, ìˆ˜ì •í•œ ë¶€ë¶„
+    public void PanelOpen(string newQuest, float exitTime) // Ãß°¡, ¼öÁ¤ÇÑ ºÎºĞ
     {
         if (corou != null)
         {
@@ -89,7 +89,7 @@ public class QuestPanel_CM : MonoBehaviour
     }
 
 
-    // ëŠ¥ë™ì  UI
+    // ´Éµ¿Àû UI
     public void PanelTween(GameObject go) // Experimental
     {
         Transform goPos = go.transform;

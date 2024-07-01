@@ -9,8 +9,12 @@ public class TutorialManager_MitoTuto : MonoBehaviour
 {
     PlayerMoving_Mito playerMoving_Mito;
 
-    public QuestPanel_CM questPanelMito;
+    public QuestPanel_Mito questPanelMito;
     public LocationPanel_CM locationPanelMito;
+
+    public GameObject laserExplainPanel;
+    public GameObject mixExplainPanel;
+    public Transform ExplainPanelPos;
 
     public Transform playerDialoguePos;
 
@@ -83,6 +87,13 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         playerMoving_Mito.flyable = !playerMoving_Mito.flyable;
     }
 
+    public void ShowLaserPanel()
+    {
+        GameObject go = Instantiate(laserExplainPanel);
+        go.transform.SetParent(ExplainPanelPos);
+        go.transform.GetComponent<RectTransform>().localPosition = Vector3.zero;
+    }
+
     public void ToggleMiniHalfMito()
     {
         miniHalfMito.SetActive(!miniHalfMito.activeSelf);
@@ -145,6 +156,13 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         phosphate.SetActive(true);
     }
 
+    public void ShowATPMixRulePanel()
+    {
+        GameObject go = Instantiate(mixExplainPanel);
+        go.transform.SetParent(ExplainPanelPos);
+        go.transform.GetComponent<RectTransform>().localPosition = Vector3.zero;
+    }
+
     public void CloseQuest()
     {
         questPanelMito.PanelClose();
@@ -182,6 +200,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.RegisterFunction("TogglePlayerWall", this, SymbolExtensions.GetMethodInfo(() => TogglePlayerWall()));
         Lua.RegisterFunction("ToggleMapWall", this, SymbolExtensions.GetMethodInfo(() => ToggleMapWall()));
         Lua.RegisterFunction("ToggleFlyable", this, SymbolExtensions.GetMethodInfo(() => ToggleFlyable()));
+        Lua.RegisterFunction("ShowLaserPanel", this, SymbolExtensions.GetMethodInfo(() => ShowLaserPanel()));
         Lua.RegisterFunction("ToggleMiniHalfMito", this, SymbolExtensions.GetMethodInfo(() => ToggleMiniHalfMito()));
         Lua.RegisterFunction("EnableGrabMiniHalfMito", this, SymbolExtensions.GetMethodInfo(() => EnableGrabMiniHalfMito()));
         Lua.RegisterFunction("SliceMito", this, SymbolExtensions.GetMethodInfo(() => SliceMito()));
@@ -190,6 +209,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.RegisterFunction("ToggleGrabATP", this, SymbolExtensions.GetMethodInfo(() => ToggleGrabATP()));
         Lua.RegisterFunction("EnableGrabATPComponent", this, SymbolExtensions.GetMethodInfo(() => EnableGrabATPComponent()));
         Lua.RegisterFunction("SetActiveATPMixComponents", this, SymbolExtensions.GetMethodInfo(() => SetActiveATPMixComponents()));
+        Lua.RegisterFunction("ShowATPMixRulePanel", this, SymbolExtensions.GetMethodInfo(() => ShowATPMixRulePanel()));
         Lua.RegisterFunction("CloseQuest", this, SymbolExtensions.GetMethodInfo(() => CloseQuest()));
         Lua.RegisterFunction("ChangeQuestText", this, SymbolExtensions.GetMethodInfo(() => ChangeQuestText(string.Empty)));
         Lua.RegisterFunction("EndTutorial", this, SymbolExtensions.GetMethodInfo(() => EndTutorial()));
@@ -205,6 +225,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.UnregisterFunction("TogglePlayerWall");
         Lua.UnregisterFunction("ToggleMapWall");
         Lua.UnregisterFunction("ToggleFlyable");
+        Lua.UnregisterFunction("ShowLaserPanel");
         Lua.UnregisterFunction("ToggleMiniHalfMito");
         Lua.UnregisterFunction("EnableGrabMiniHalfMito");
         Lua.UnregisterFunction("SliceMito");
@@ -213,6 +234,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.UnregisterFunction("ToggleGrabATP");
         Lua.UnregisterFunction("EnableGrabATPComponent");
         Lua.UnregisterFunction("SetActiveATPMixComponents");
+        Lua.UnregisterFunction("ShowATPMixRulePanel");
         Lua.UnregisterFunction("CloseQuest");
         Lua.UnregisterFunction("ChangeQuestText");
         Lua.UnregisterFunction("EndTutorial");

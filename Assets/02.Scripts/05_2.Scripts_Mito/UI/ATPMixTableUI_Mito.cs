@@ -14,22 +14,33 @@ public class ATPMixTableUI_Mito : MonoBehaviour
     public TextMeshProUGUI hIonCountText;
     public TextMeshProUGUI hIonPercentageText;
 
+    public Image adpCheckImage;
+    public Image phosphateCheckImage;
+    public Image hIonCheckImage;
+
     private int requiredADP = 1;
     private int requiredPhosphate = 1;
     private int requiredHIonPerATP = 3;
 
     void Start()
     {
-        UpdateInsideUIText();
-        UpdateOutsideUIText();
+        //UpdateInsideUIText();
+        //UpdateOutsideUIText();
     }
 
     void Update()
     {
-        UpdateInsideUIText();
-        UpdateInsideUIImage();
-        UpdateOutsideUIText();
-        UpdateOutsideUIImage();
+        if (atpMixTableInside.gameObject.activeSelf)
+        {
+            UpdateInsideUIText();
+            UpdateInsideUIImage();
+        }
+
+        if (atpMixTableOutside.gameObject.activeSelf)
+        {
+            UpdateOutsideUIText();
+            UpdateOutsideUIImage();
+        }
     }
 
     void UpdateInsideUIText()
@@ -43,11 +54,8 @@ public class ATPMixTableUI_Mito : MonoBehaviour
 
     void UpdateInsideUIImage()
     {
-        adpCheckText.GetComponentInParent<Image>().color =
-            atpMixTableInside.isADP ? Color.green : Color.red;
-
-        phosphateCheckText.GetComponentInParent<Image>().color =
-            atpMixTableInside.isPhosphate ? Color.green : Color.red;
+        adpCheckImage.color = atpMixTableInside.isADP ? Color.green : Color.red;
+        phosphateCheckImage.color = atpMixTableInside.isPhosphate ? Color.green : Color.red;
     }
 
     void UpdateOutsideUIText()
@@ -62,8 +70,7 @@ public class ATPMixTableUI_Mito : MonoBehaviour
 
     void UpdateOutsideUIImage()
     {
-        hIonCountText.GetComponentInParent<Image>().color =
-            atpMixTableOutside.curHIonCount >= requiredHIonPerATP ? Color.green : Color.red;
+        hIonCheckImage.color = atpMixTableOutside.curHIonCount >= requiredHIonPerATP ? Color.green : Color.red;
     }
 
 }

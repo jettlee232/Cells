@@ -9,7 +9,7 @@ public class QuestManager_MitoTuto : MonoBehaviour
 {
     public static QuestManager_MitoTuto Instance { get; private set; }
 
-    public QuestPanel_CM questPanelMito;
+    public QuestPanel_Mito questPanelMito;
     public LocationPanel_CM locationPanelMito;
 
     UnityEngine.XR.InputDevice right;
@@ -85,7 +85,8 @@ public class QuestManager_MitoTuto : MonoBehaviour
     IEnumerator StartQuest(float delay)
     {
         locationPanelMito.PanelOpen("미토콘드리아");
-        questPanelMito.ChangeText("");
+        questPanelMito.PanelClose();
+        //questPanelMito.ChangeText("");
 
         yield return new WaitForSeconds(delay);
         questPanelMito.PanelOpen("NPC에게 말을 걸어보자!");
