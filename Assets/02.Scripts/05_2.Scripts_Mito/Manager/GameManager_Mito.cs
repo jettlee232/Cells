@@ -70,7 +70,7 @@ public class GameManager_Mito : MonoBehaviour
     {
         while (atpCurTime > 0.0f)
         {
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(5.0f);
             atpCurTime -= 0.01f;
         }
     }

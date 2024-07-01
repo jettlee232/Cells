@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 public class TutorialManager_MitoTuto : MonoBehaviour
 {
     PlayerMoving_Mito playerMoving_Mito;
+
+    public QuestPanel_CM questPanelMito;
+    public LocationPanel_CM locationPanelMito;
+
+    public Transform playerDialoguePos;
+
     public GameObject playerWall;
     public GameObject mapWall;
     public GameObject miniHalfMito;
@@ -28,8 +34,8 @@ public class TutorialManager_MitoTuto : MonoBehaviour
 
     public void SetPlayerPosition()
     {
-        playerMoving_Mito.transform.localPosition = new Vector3(12.1f, -0.27f, 0.6f);
-        playerMoving_Mito.transform.localEulerAngles = new Vector3(0, 90.0f, 0);
+        playerMoving_Mito.transform.position = playerDialoguePos.position;
+        playerMoving_Mito.transform.eulerAngles = playerDialoguePos.eulerAngles;
     }
 
     public void ToggleNpcTooltip()
@@ -113,9 +119,14 @@ public class TutorialManager_MitoTuto : MonoBehaviour
 
     }
 
+    public void CloseQuest()
+    {
+        questPanelMito.PanelClose();
+    }
+
     public void ChangeQuestText(string text)
     {
-        QuestManager_MitoTuto.Instance.questText.text = text;
+        questPanelMito.PanelOpen(text);
     }
 
     public void EndTutorial()
@@ -145,6 +156,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.RegisterFunction("LookAtMito", this, SymbolExtensions.GetMethodInfo(() => LookAtMito()));
         Lua.RegisterFunction("ToggleATP", this, SymbolExtensions.GetMethodInfo(() => ToggleATP()));
         Lua.RegisterFunction("ToggleGrabATP", this, SymbolExtensions.GetMethodInfo(() => ToggleGrabATP()));
+        Lua.RegisterFunction("CloseQuest", this, SymbolExtensions.GetMethodInfo(() => CloseQuest()));
         Lua.RegisterFunction("ChangeQuestText", this, SymbolExtensions.GetMethodInfo(() => ChangeQuestText(string.Empty)));
         Lua.RegisterFunction("EndTutorial", this, SymbolExtensions.GetMethodInfo(() => EndTutorial()));
     }
@@ -165,6 +177,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.UnregisterFunction("LookAtMito");
         Lua.UnregisterFunction("ToggleATP");
         Lua.UnregisterFunction("ToggleGrabATP");
+        Lua.UnregisterFunction("CloseQuest");
         Lua.UnregisterFunction("ChangeQuestText");
         Lua.UnregisterFunction("EndTutorial");
     }

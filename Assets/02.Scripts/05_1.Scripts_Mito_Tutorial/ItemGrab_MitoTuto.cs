@@ -7,12 +7,12 @@ public class ItemGrab_MitoTuto : MonoBehaviour
 {
     public Grabber handGrabber;
     public Grabbable item;
-    public RayDescription_MitoTuto rayDescription;
+    //public RayDescription_MitoTuto rayDescription;
 
     void Start()
     {
         handGrabber = GetComponent<Grabber>();
-        rayDescription = FindObjectOfType<RayDescription_MitoTuto>();
+        //rayDescription = FindObjectOfType<RayDescription_MitoTuto>();
     }
 
     void Update()
@@ -56,10 +56,10 @@ public class ItemGrab_MitoTuto : MonoBehaviour
             }
         }
 
-        if (rayDescription != null)
-        {
-            rayDescription.InstantiatePanel(item.gameObject);
-        }
+        //if (rayDescription != null)
+        //{
+        //    rayDescription.InstantiatePanel(item.gameObject);
+        //}
 
     }
 

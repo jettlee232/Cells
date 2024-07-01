@@ -14,16 +14,16 @@ public class ADPMixTableUI_Mito : MonoBehaviour
 
     void Start()
     {
-        UpdateUIText();
+        //UpdateUIText();
     }
 
     void Update()
     {
-        UpdateUIText();
-        UpdateUIImage();
+        //UpdateUIText();
+        //UpdateUIImage();
     }
 
-    void UpdateUIText()
+    public void UpdateUIText()
     {
         string currentAdenine = adpMixTable.isAdenine ? "O" : "X";
         string currentRibose = adpMixTable.isRibose ? "O" : "X";
@@ -36,7 +36,7 @@ public class ADPMixTableUI_Mito : MonoBehaviour
         phosphateCheckText_2.text = currentPhosphate_2;
     }
 
-    void UpdateUIImage()
+    public void UpdateUIImage()
     {
         adenineCheckText.GetComponentInParent<Image>().color =
             adpMixTable.isAdenine ? Color.green : Color.red;

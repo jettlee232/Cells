@@ -9,6 +9,9 @@ public class QuestManager_MitoTuto : MonoBehaviour
 {
     public static QuestManager_MitoTuto Instance { get; private set; }
 
+    public QuestPanel_CM questPanelMito;
+    public LocationPanel_CM locationPanelMito;
+
     UnityEngine.XR.InputDevice right;
     PlayerMoving_Mito playerMoving_Mito;
 
@@ -44,7 +47,7 @@ public class QuestManager_MitoTuto : MonoBehaviour
     {
         playerMoving_Mito = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMoving_Mito>();
 
-        StartCoroutine(StartDelayQuestTextReset(5.0f));
+        StartCoroutine(StartQuest(3.0f));
     }
 
     void Update()
@@ -77,12 +80,13 @@ public class QuestManager_MitoTuto : MonoBehaviour
         wasABtnPressed = isABtnPressed;
     }
 
-    IEnumerator StartDelayQuestTextReset(float delay)
+    IEnumerator StartQuest(float delay)
     {
+        locationPanelMito.PanelOpen("미토콘드리아");
+        questPanelMito.ChangeText("");
+
         yield return new WaitForSeconds(delay);
-        ChangeQuestText("NPC에게 말을 걸어보자!");
-        yield return new WaitForSeconds(delay / 2.0f);
-        ResetQuestText();
+        questPanelMito.PanelOpen("NPC에게 말을 걸어보자!");
     }
 
     public void ResetQuestText()
@@ -97,12 +101,12 @@ public class QuestManager_MitoTuto : MonoBehaviour
 
     public void CheckMyATP()
     {
-        trueCount++;
+        //trueCount++;
 
-        if (trueCount >= 2)
-        {
-            Debug.Log("두 개 이상의 요소가 결합되었습니다!");
+        //if (trueCount >= 2)
+        //{
+            Debug.Log("MyATP 완성");
             DialogueController_MitoTuto.Instance.ActivateDST(12);
-        }
+        //}
     }
 }

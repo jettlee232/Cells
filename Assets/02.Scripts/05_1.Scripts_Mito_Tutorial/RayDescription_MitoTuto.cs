@@ -7,22 +7,23 @@ using UnityEngine.XR;
 
 public class RayDescription_MitoTuto : MonoBehaviour
 {
-    public GameObject explainPanel;
-    public TextMeshProUGUI explainText;
-
-    public GameObject descrptionPanel = null;
-    public GameObject laserDescriptionCanvas;
+    public GameObject descrptionPanel;
     public Transform descriptionPanelSpawnPoint;
-    public string objName;
 
+    public GameObject descCanvasPrefab;
+    private GameObject instDescCanvas;
+    public GameObject currentPanel;
+    public GameObject glowObj;
+
+    public LineRenderer line;
     public BNG.UIPointer uiPointer;
     public bool isGripPressed = false;
     public bool isButtonPressed = false;
     private bool wasButtonPressed;
 
-    UnityEngine.XR.InputDevice right;
+    public bool canMakeRayDescription = true;
 
-    public GameObject glowObj;
+    UnityEngine.XR.InputDevice right;
 
     // 이거 중요!!!!!!!!!!!
     public Dictionary<string, string> objDesc = new Dictionary<string, string>
@@ -38,14 +39,16 @@ public class RayDescription_MitoTuto : MonoBehaviour
         { "Phosphate", "인산염" },
         { "ADP", "아데노신 이인산" },
         { "ATP", "아데노신 삼인산" },
-        { "H_Ion", "수소이온" }
+        { "H_Ion", "수소이온" },
+        { "ATPSynthase", "" }
     };
+
+
     void Start()
     {
+        line = gameObject.GetComponent<LineRenderer>();
         uiPointer = gameObject.GetComponent<BNG.UIPointer>();
         descrptionPanel = null;
-
-        objName = "";
     }
 
     void Update()
@@ -59,24 +62,18 @@ public class RayDescription_MitoTuto : MonoBehaviour
             right.TryGetFeatureValue(CommonUsages.primaryButton, out isButtonPressed);
         }
 
-        if (isButtonPressed == true) // 버튼이 눌리고 있다면
+        if (canMakeRayDescription == true)
         {
-            uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
+            if (isButtonPressed == true) // 버튼이 눌리고 있다면
+            {
+                line.enabled = true; // 레이저 보이게 하기
 
-            CheckRay(transform.position, transform.forward, 10f); // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기           
-        }
-        else // 트리거가 안 눌리고 있다면
-        {
-            uiPointer.HidePointerIfNoObjectsFound = true; // 레이저 안 보이게 하기    
-        }
-
-        if (descrptionPanel != null) // 현재 설명창이 안 만들어진 상태라면
-        {
-            FollowingDescription(descrptionPanel); // 현재 만들어진 설명창이 내 시선을 따라오게 하기
-        }
-        if (isButtonPressed == true && !wasButtonPressed && descrptionPanel != null) // 현재 설명창이 만들어진 상태이고 A버튼이 눌린 상태라면
-        {
-            DestroyDescription(); // 현재 만들어진 설명창을 없애기
+                CheckRay(transform.position, transform.forward, 10f); // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기           
+            }
+            else // 트리거가 안 눌리고 있다면
+            {
+                line.enabled = false; // 레이저 안 보이게 하기    
+            }
         }
 
         wasButtonPressed = isButtonPressed;
@@ -88,29 +85,52 @@ public class RayDescription_MitoTuto : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit rayHit, length))
         {
-            // 오른손 손가락 전방으로 레이저를 쏴서 DescObj라는 Layer를 가진 오브젝트라면...
-            if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("DescObj"))
+            ItemExplain_MitoTuto descObj = rayHit.collider.gameObject.GetComponent<ItemExplain_MitoTuto>();
+
+            if (descObj != null)
             {
-                // 현재 설명창이 가리키는 오브젝트의 이름과 레이저가 맞은 오브젝트의 이름도 다르다면...
-                // (설명창이 닫힌 상태라면 objName에는 아무것도 안 적혀있을거임)
-                if (objName != rayHit.collider.gameObject.name)
+                if (currentPanel != descObj.explainItemPanel)
                 {
-                    objName = rayHit.collider.gameObject.name; // objName에다 레이저에 맞은 오브젝트의 이름을 넣기
+                    instDescCanvas = Instantiate(descCanvasPrefab);
+                    instDescCanvas.transform.position = descObj.transform.position;
+                    //descCanvas.transform.SetParent(descObj.transform);
+                    //descCanvas.transform.position = Vector3.zero;
 
-                    //glowObj = rayHit.collider.gameObject;
-                    var highlightEffect = rayHit.collider.gameObject.GetComponent<HighlightEffect>();
-                    if (highlightEffect != null)
-                    {
-                        highlightEffect.highlighted = true;
-                        rayHit.collider.gameObject.GetComponent<HighLightColorchange_MitoTuto>().GlowStart();
-                    }
+                    currentPanel = descObj.GetComponent<ItemExplain_MitoTuto>().explainItemPanel;
 
-                    InstantiatePanel(rayHit.collider.gameObject); // 패널 만들기
+                    InstantiatePanel_Tween(currentPanel, descObj.gameObject);
                 }
             }
         }
     }
 
+    public void InstantiatePanel_Tween(GameObject panel, GameObject rayhit)
+    {
+        if (descrptionPanel != null)
+        {
+            glowObj.GetComponent<HighLightColorchange_MitoTuto>().GlowEnd();
+            DestroyDescription();
+        }
+
+        descrptionPanel = Instantiate(panel);
+        descrptionPanel.transform.SetParent(instDescCanvas.transform);
+        descrptionPanel.GetComponent<RectTransform>().position = Vector3.zero;
+        descrptionPanel.GetComponent<DescriptionTween_Mito>().HLObjInit(rayhit);
+
+        glowObj = rayhit;
+    }
+    public void DestroyDescription()
+    {
+        Destroy(descrptionPanel);
+        Destroy(instDescCanvas);
+    }
+
+    public void RayStateChange(bool flag)
+    {
+        canMakeRayDescription = flag;
+    }
+
+    /*
     public void InstantiatePanel(GameObject go)
     {
         if (descrptionPanel != null) // 이미 만들어져 있는 패널이 있다면 그 패널은 지우기
@@ -177,4 +197,5 @@ public class RayDescription_MitoTuto : MonoBehaviour
         // 현재 패널이 가리키는 오브젝트의 이름을 저장
         objName = descrptionPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text;
     }
+    */
 }
