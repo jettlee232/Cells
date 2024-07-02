@@ -8,6 +8,9 @@ public class GameManager_Mito : MonoBehaviour
 {
     public static GameManager_Mito Instance { get; private set; }
 
+    PlayerMoving_Mito playerMoving_Mito;
+    public QuestPanel_Mito questPanelMito;
+
     public int atpScore = 0;
     public float atpCurTime = 1.0f;
     public float atpMaxTime = 1.0f;
@@ -30,13 +33,18 @@ public class GameManager_Mito : MonoBehaviour
     {
         // Fixed Timestep을 보정해주는 코드?
         Time.fixedDeltaTime = (Time.timeScale / UnityEngine.XR.XRDevice.refreshRate);
-        BtnOnClickGameStart();
+
+        playerMoving_Mito = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMoving_Mito>();
+
+        StartCoroutine(StartGame(5.0f));
     }
 
-    //void Update()
-    //{
-
-    //}
+    IEnumerator StartGame(float delay)
+    {
+        questPanelMito.PanelOpen("미토콘드리아 속을 탐험하며 ATP를 만들어보자!");
+        yield return new WaitForSeconds(delay);
+        questPanelMito.PanelClose();
+    }
 
     public void IncreaseScore(int amount)
     {

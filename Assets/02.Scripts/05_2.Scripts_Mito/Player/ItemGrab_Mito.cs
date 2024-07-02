@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class ItemGrab_Mito : MonoBehaviour
 {
+    public PlayerMoving_Mito playerMoving_Mito;
     public Grabber rightHandGrabber;
     public Grabbable item;
 
     void Start()
     {
+        playerMoving_Mito = GetComponentInParent<PlayerMoving_Mito>();
         rightHandGrabber = GetComponent<Grabber>();
     }
 
@@ -30,6 +32,7 @@ public class ItemGrab_Mito : MonoBehaviour
             {
                 // 아이템 놓기
                 ItemReleaseEvent(item);
+                playerMoving_Mito.SetPlayerSpeed(15.0f, 20.0f, 20.0f);
             }
 
             // 아이템을 잡았을경우 오른손에는 아이템이 있고, 아이템 변수는 null
@@ -37,6 +40,7 @@ public class ItemGrab_Mito : MonoBehaviour
             {
                 // 아이템 그랩
                 ItemGrabEvent(rightHandGrabber.HeldGrabbable);
+                playerMoving_Mito.SetPlayerSpeed(3.0f, 4.0f, 4.0f);
             }
 
             item = rightHandGrabber.HeldGrabbable;

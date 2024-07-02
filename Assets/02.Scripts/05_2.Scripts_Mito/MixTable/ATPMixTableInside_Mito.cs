@@ -6,6 +6,7 @@ using static Item_Mito;
 
 public class ATPMixTableInside_Mito : MonoBehaviour
 {
+    public ATPSynthaseInActive_Mito synth;
     public ATPMixTableOutside_Mito atpMixTableOutside;
 
     // 각 아이템의 슬롯 참조
@@ -50,10 +51,12 @@ public class ATPMixTableInside_Mito : MonoBehaviour
         {
             RemoveAllItems();
 
-            GameObject atpItem = Instantiate(atpPrefab); // 이때 스케일 조정해야함
+            GameObject atpItem = Instantiate(atpPrefab);
             atpItem.GetComponent<Item_Mito>().SetOriginalScale(atpPrefab.transform.localScale);
             atpSlot.snapZone.GrabGrabbable(atpItem.GetComponent<Grabbable>());
             // ATP 생성 효과 추가
+
+            synth.OnATPCreated();
         }
     }
 

@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7091072740051232785}
   - component: {fileID: 433502366067938219}
   - component: {fileID: 1354478533583866716}
+  - component: {fileID: 6884474115669573937}
   m_Layer: 6
   m_Name: ADP
   m_TagString: Untagged
@@ -326,7 +327,19 @@ MonoBehaviour:
   glowVisibility: 0
   glowBlitDebug: 0
   glowBlendPasses: 1
-  glowPasses: []
+  glowPasses:
+  - offset: 4
+    alpha: 0.1
+    color: {r: 0.64, g: 1, b: 0, a: 1}
+  - offset: 3
+    alpha: 0.2
+    color: {r: 0.64, g: 1, b: 0, a: 1}
+  - offset: 2
+    alpha: 0.3
+    color: {r: 0.64, g: 1, b: 0, a: 1}
+  - offset: 1
+    alpha: 0.4
+    color: {r: 0.64, g: 1, b: 0, a: 1}
   glowMaskMode: 0
   innerGlow: 0
   innerGlowWidth: 1
@@ -375,7 +388,7 @@ MonoBehaviour:
   seeThroughTextureUVSpace: 0
   seeThroughTextureScale: 1
   seeThroughChildrenSortingMode: 0
-  rmsCount: 0
+  rmsCount: 1
   hitFxInitialIntensity: 0
   hitFxMode: 0
   hitFxFadeOutDuration: 0.25
@@ -427,6 +440,22 @@ MonoBehaviour:
   hlEffect: {fileID: 0}
   updownFloat: 0.02
   glowFlag: 0
+--- !u!114 &6884474115669573937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961518064288956368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed3696ecfa111c41b13eb87709a934b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explainItemPanel: {fileID: 7199367458781164161, guid: 5b136ad986b53374abcb331c54b097bc,
+    type: 3}
+  isGrab: 0
+  isDesc: 0
 --- !u!1001 &329393752272026932
 PrefabInstance:
   m_ObjectHideFlags: 0

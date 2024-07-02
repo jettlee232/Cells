@@ -4,16 +4,49 @@ using UnityEngine;
 
 public class ItemSpawner_Mito : MonoBehaviour
 {
+    public InsideMeshChecker_Mito insideMeshChecker;
     public GameObject itemPrefab; // 생성할 아이템의 프리팹
     public Transform itemParent;
-    public int numberOfItems = 30; // 생성할 아이템의 개수
-    public GameObject[] spawnAreas; // 스폰 영역 큐브들
+    public int itemCount = 30; // 생성할 아이템의 개수
+    //public GameObject[] spawnAreas; // 스폰 영역 큐브들
 
     void Start()
     {
         SpawnItems();
     }
 
+    void SpawnItems()
+    {
+        int spawnedItems = 0;
+
+        while (spawnedItems < itemCount)
+        {
+            Vector3 randomPosition = GetRandomPositionWithinColliders();
+
+            if (insideMeshChecker.IsPointInside(randomPosition))
+            {
+                Instantiate(itemPrefab, randomPosition, Quaternion.identity);
+                spawnedItems++;
+            }
+        }
+    }
+
+    Vector3 GetRandomPositionWithinColliders()
+    {
+        MeshCollider[] colliders = insideMeshChecker.meshColliders;
+        MeshCollider randomCollider = colliders[Random.Range(0, colliders.Length)];
+
+        Bounds bounds = randomCollider.bounds;
+        Vector3 randomPosition;
+
+        randomPosition.x = Random.Range(bounds.min.x, bounds.max.x);
+        randomPosition.y = Random.Range(bounds.min.y, bounds.max.y);
+        randomPosition.z = Random.Range(bounds.min.z, bounds.max.z);
+
+        return randomPosition;
+    }
+
+    /* Cube - GPT
     // 아이템을 무작위 위치에 생성하는 메서드
     private void SpawnItems()
     {
@@ -47,6 +80,7 @@ public class ItemSpawner_Mito : MonoBehaviour
 
         return new Vector3(x, y, z);
     }
+    */
 
     /* Test
     public GameObject item;

@@ -37,7 +37,7 @@ public class HighLightColorchange_MitoTuto : MonoBehaviour
     
     IEnumerator Glow() // 추가, 수정한 부분
     {
-        //hlEffect.highlighted = true;
+        hlEffect.highlighted = true;
 
         
         while (glowFlag)

@@ -18,9 +18,10 @@ GameObject:
   - component: {fileID: 4085514511652375061}
   - component: {fileID: 5272465441786470425}
   - component: {fileID: 1542583001165586647}
+  - component: {fileID: 9129222967373326527}
   m_Layer: 6
   m_Name: MyATP
-  m_TagString: Untagged
+  m_TagString: ATP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,7 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a62fdba4d86e914fae6d5a5d0f2323f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueActive: 0
   isATPGrabbed: 0
   isComponentGrabbed: 0
 --- !u!114 &6271936066460036282
@@ -437,10 +437,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed3696ecfa111c41b13eb87709a934b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explainCanvas: {fileID: 0}
   explainItemPanel: {fileID: 6357633978083711654, guid: 311e0b98edf47e84ead32fc8de332bde,
     type: 3}
-  explainShowPos: {fileID: 0}
+  isGrab: 0
+  isDesc: 0
+--- !u!114 &9129222967373326527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362754420201280755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90ed01ac5d94e9468b242b4c38496a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HapticsOnValidPickup: 1
+  HapticsOnValidRemotePickup: 0
+  HapticsOnCollision: 0
+  HapticsOnGrab: 1
+  VibrateFrequency: 0.3
+  VibrateAmplitude: 0.1
+  VibrateDuration: 0.1
 --- !u!1001 &2013348216573030876
 PrefabInstance:
   m_ObjectHideFlags: 0

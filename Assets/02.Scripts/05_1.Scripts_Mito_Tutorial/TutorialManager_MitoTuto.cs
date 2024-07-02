@@ -35,10 +35,12 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     {
         playerMoving_Mito = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMoving_Mito>();
 
-        if (playerMoving_Mito != null )
+        if (playerMoving_Mito != null)
         {
             SetPlayerSpeed(3.0f, 15.0f, 15.0f);
         }
+
+        playerMoving_Mito.StartPlayer(5.0f);
     }
 
     public void SetPlayerPosition()
@@ -67,9 +69,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
 
     public void SetPlayerSpeed(float move, float up, float down)
     {
-        playerMoving_Mito.moveSpeed = move;
-        playerMoving_Mito.upSpeed = up;
-        playerMoving_Mito.downSpeed = down;
+        playerMoving_Mito.SetPlayerSpeed(move, up, down);
     }
 
     public void TogglePlayerWall()
@@ -173,6 +173,11 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         questPanelMito.PanelOpen(text);
     }
 
+    public void DelayCloseQuestText(string text, float delay)
+    {
+        questPanelMito.PanelOpen(text, delay);
+    }
+
     public void EndTutorial()
     {
         Scene scene = SceneManager.GetActiveScene();
@@ -212,6 +217,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.RegisterFunction("ShowATPMixRulePanel", this, SymbolExtensions.GetMethodInfo(() => ShowATPMixRulePanel()));
         Lua.RegisterFunction("CloseQuest", this, SymbolExtensions.GetMethodInfo(() => CloseQuest()));
         Lua.RegisterFunction("ChangeQuestText", this, SymbolExtensions.GetMethodInfo(() => ChangeQuestText(string.Empty)));
+        Lua.RegisterFunction("DelayCloseQuestText", this, SymbolExtensions.GetMethodInfo(() => DelayCloseQuestText(string.Empty, (float)0)));
         Lua.RegisterFunction("EndTutorial", this, SymbolExtensions.GetMethodInfo(() => EndTutorial()));
     }
 
@@ -237,6 +243,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.UnregisterFunction("ShowATPMixRulePanel");
         Lua.UnregisterFunction("CloseQuest");
         Lua.UnregisterFunction("ChangeQuestText");
+        Lua.UnregisterFunction("DelayCloseQuestText");
         Lua.UnregisterFunction("EndTutorial");
     }
     #endregion

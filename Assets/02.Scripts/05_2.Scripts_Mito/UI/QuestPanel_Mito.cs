@@ -55,6 +55,7 @@ public class QuestPanel_Mito : MonoBehaviour
             corou = null;
         }
 
+        gameObject.SetActive(true);
         ChangeText(newQuest);
         wordEffect.enabled = true;
         tmpText.transform.GetComponent<RectTransform>().localScale = new Vector3(0.01f, 0.01f, 0.01f);

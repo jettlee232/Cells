@@ -736,8 +736,8 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "EnableGrabMiniHalfMito();\nChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
-        \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\");\nToggleIsMoving();\nShowLaserPanel()"
+      userScript: "EnableGrabMiniHalfMito();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
+        \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\", 5);\nToggleIsMoving();\nShowLaserPanel();"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -951,7 +951,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: CloseQuest()
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1388,8 +1388,8 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "ToggleIsMoving();\nChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
-        \uC18D\uC744 \uBE44\uD589\uD574\uBCF4\uC790!\");\nToggleNpcTooltip();\nReadyDialogue()"
+      userScript: "ToggleIsMoving();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
+        \uC18D\uC744 \uBE44\uD589\uD574\uBCF4\uC790!\", 5);\nToggleNpcTooltip();\nReadyDialogue()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1616,8 +1616,6 @@ MonoBehaviour:
       userScript: 'ToggleFlyable();
 
         SetPlayerSpeed(3, 15, 15);
-
-        CloseQuest();
 
         ToggleNpcTooltip();
 
@@ -2380,8 +2378,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "ToggleIsMoving();\nToggleGrabATP();\nChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00
-        \uC0DD\uC0B0\uD558\uB294 \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\")"
+      userScript: "ToggleIsMoving();\nToggleGrabATP();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00
+        \uC0DD\uC0B0\uD558\uB294 \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\",
+        5)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2540,7 +2539,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: CloseQuest()
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2703,8 +2702,8 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "ChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00 \uC0DD\uC0B0\uD558\uB294
-        \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\");\nToggleATP();\nEnableGrabATPComponent();\nToggleGrabATP()"
+      userScript: "DelayCloseQuestText(\"\uC5D0\uB108\uC9C0\uC758 \uAD6C\uC131\uC694\uC18C\uB97C
+        \uB9CC\uC838\uBCF4\uC790!\", 5);\nToggleATP();\nEnableGrabATPComponent();\nToggleGrabATP()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2918,7 +2917,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: CloseQuest()
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2968,7 +2967,8 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "ChangeQuestText(\"ATP\uB97C \uC870\uD569\uD574\uBCF4\uC790!\");\nToggleIsMoving();\nSetActiveATPMixComponents();\nShowATPMixRulePanel()"
+      userScript: "DelayCloseQuestText(\"ATP\uB97C \uC870\uD569\uD574\uBCF4\uC790!\",
+        5);\nToggleIsMoving();\nSetActiveATPMixComponents();\nShowATPMixRulePanel()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3187,7 +3187,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: CloseQuest()
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []

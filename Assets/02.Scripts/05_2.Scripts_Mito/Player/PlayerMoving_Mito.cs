@@ -65,8 +65,15 @@ public class PlayerMoving_Mito : MonoBehaviour
             //GetRotateX();
             //CheckFlyable();
             rb.velocity = flyable ? GetUp() + GetDown() + GetMove() : GetMove();
-            ResetRot();
+            //ResetRot();
         }
+    }
+
+    public void SetPlayerSpeed(float move, float up, float down)
+    {
+        moveSpeed = move;
+        upSpeed = up;
+        downSpeed = down;
     }
 
     public void StartPlayer(float delay)
