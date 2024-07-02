@@ -5,10 +5,26 @@ public class BlockDestroy_CM : MonoBehaviour
 {
     public GameObject particle;
 
-    public bool flag = false;
+    private bool flag = true;
+    public bool destroyedByOther = false;
+
+    public void UnDestoryableBySaber()
+    {
+        flag = false;
+    }
+
+    public bool ReturnFlag()
+    {
+        return flag;
+    }
+
+    public void DestroyedByOther()
+    {
+        destroyedByOther = true;
+    }
 
     private void OnDestroy()
     {
-        if (flag) Instantiate(particle, transform.position, transform.rotation);
+        if (destroyedByOther) Instantiate(particle, transform.position, transform.rotation);
     }
 }
