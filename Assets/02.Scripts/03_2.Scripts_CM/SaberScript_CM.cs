@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PixelCrushers.DialogueSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,16 +28,32 @@ public class SaberScript_CM : MonoBehaviour
     public GameObject philicHitEffect;
     public GameObject phobicHitEffect;
 
+    public BNG.Grabbable grabbable;
+
+    [Header("Audio Manager_Singleton")]
+    public AudioMgr_CM audioMgr;
+
     void Start()
     {
         int curSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        if (curSceneIndex == 2 || curSceneIndex == 8) tutoMgr = GameObject.Find("TutorialMgr").GetComponent<TutorialManager_CM>();
-        if (curSceneIndex == 3) gameMgr = GameObject.Find("GameMgr").GetComponent<GameManager_CM>();
+        if (curSceneIndex == 2)
+            tutoMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<TutorialManager_CM>();
+        if (curSceneIndex == 3)
+            gameMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager_CM>();
+
         playerTrns = GameObject.FindGameObjectWithTag("MainCamera").transform;
+
+        audioMgr = AudioMgr_CM.Instance; // Not Yet - After Merging or Something Next Time
 
         prevPos = transform.position;
         StartCoroutine(CheckSpeed());
+
+        if (grabbable != null)
+        {
+            Debug.Log("asds");
+            StartCoroutine(CheckGrab());
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,39 +62,55 @@ public class SaberScript_CM : MonoBehaviour
         {
             if (other.gameObject.tag == rightTagName)
             {
-                if (gameMgr != null)
+                if (other.GetComponent<BlockDestroy_CM>().ReturnFlag() == true)
                 {
-                    gameMgr.Scoreup();
-                }
-                else if (gameMgr == null)
-                {
-                    tutoMgr.CorrectAnswer(other.transform.parent.gameObject);
-                }
+                    other.GetComponent<BlockDestroy_CM>().UnDestoryableBySaber();
+                    other.GetComponent<BlockDestroy_CM>().DestroyedByOther();
 
-                GameObject go = Instantiate(rightAnsTextEffect, other.gameObject.transform.position, Quaternion.identity);
-                Vector3 oppositeDirection = go.transform.position - playerTrns.position;
-                go.transform.rotation = Quaternion.LookRotation(oppositeDirection);
+                    if (gameMgr != null)
+                    {
+                        gameMgr.Scoreup();
+                        gameMgr.BlueFade();
+                    }
+                    else if (gameMgr == null)
+                    {
+                        tutoMgr.CorrectAnswer(other.transform.parent.gameObject);
+                    }
 
-                other.gameObject.transform.GetComponent<BlockDestroy_CM>().flag = true;
-                Destroy(other.transform.parent.gameObject);
+                    GameObject go = Instantiate(rightAnsTextEffect, other.gameObject.transform.position, Quaternion.identity);
+                    Vector3 oppositeDirection = go.transform.position - playerTrns.position;
+                    go.transform.rotation = Quaternion.LookRotation(oppositeDirection);
+
+                    audioMgr.PlaySFXByInt(10); // SFX Code - Test Lately
+
+                    Destroy(other.transform.parent.gameObject);
+                }
             }
             else if (other.gameObject.tag == wrongTagName)
             {
-                if (gameMgr != null)
+                if (other.GetComponent<BlockDestroy_CM>().ReturnFlag() == true)
                 {
-                    gameMgr.ScoreDown();
-                }
-                else if (gameMgr == null)
-                {
-                    tutoMgr.WrongAnswer(other.transform.parent.gameObject);
-                }
+                    other.GetComponent<BlockDestroy_CM>().UnDestoryableBySaber();
+                    other.GetComponent<BlockDestroy_CM>().DestroyedByOther();
 
-                GameObject go = Instantiate(wrongAnsTextEffect, other.gameObject.transform.position, Quaternion.identity);
-                Vector3 oppositeDirection = go.transform.position - playerTrns.position;
-                go.transform.rotation = Quaternion.LookRotation(oppositeDirection);
+                    if (gameMgr != null)
+                    {
+                        gameMgr.ScoreDown();
+                        gameMgr.RedFade();
+                    }
+                    else if (gameMgr == null)
+                    {
+                        tutoMgr.WrongAnswer(other.transform.parent.gameObject);
+                    }
 
-                other.gameObject.transform.GetComponent<BlockDestroy_CM>().flag = true;
-                Destroy(other.transform.parent.gameObject);
+                    GameObject go = Instantiate(wrongAnsTextEffect, other.gameObject.transform.position, Quaternion.identity);
+                    Vector3 oppositeDirection = go.transform.position - playerTrns.position;
+                    go.transform.rotation = Quaternion.LookRotation(oppositeDirection);
+
+                    audioMgr.PlaySFXByInt(11); // SFX Code - Test Lately
+
+                    Destroy(other.transform.parent.gameObject);
+                }
             }
             else if (other.gameObject.name == "RestartBlock")
             {
@@ -102,6 +135,19 @@ public class SaberScript_CM : MonoBehaviour
             else canHit = false;
 
             prevPos = transform.position;
+        }
+    }
+
+    IEnumerator CheckGrab()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            if (grabbable.BeingHeld == true)
+            {
+                tutoMgr.PhosGrabCnt();
+                break;
+            }
         }
     }
 }

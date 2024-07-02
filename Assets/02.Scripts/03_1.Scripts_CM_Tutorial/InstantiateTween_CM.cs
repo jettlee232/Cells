@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InstantiateTween_CM : MonoBehaviour
@@ -10,8 +11,8 @@ public class InstantiateTween_CM : MonoBehaviour
     public float rotSpeed = 360f;
     public float minRotSpeed = 90f;
 
-    public float moveDuration = 2f;
-    private float moveDistance = 3.2f; // 이동 거리
+    public float moveDuration = 2.5f;
+    private float moveDistance = 5f; // 이동 거리
 
     public bool moveTowardsPlayerFlag = true;
     public bool grabbale = true;
@@ -22,6 +23,12 @@ public class InstantiateTween_CM : MonoBehaviour
     public BNG.Grabbable grab;
     public SaberScript_CM saberScript;
 
+    private bool tweenStopFlag = false;
+    private Tween moveTween;
+    private Tween scaleTween;
+    private Tween rotateTween;
+
+
     void Start()
     {
         if (saberScript != null) saberScript.enabled = false;
@@ -30,6 +37,7 @@ public class InstantiateTween_CM : MonoBehaviour
 
     public void GoTween()
     {
+        tweenStopFlag = false;
         if (moveTowardsPlayerFlag == true) MoveTowardsPlayer();
 
         BNG.Grabbable grab = GetComponent<BNG.Grabbable>();
@@ -47,9 +55,9 @@ public class InstantiateTween_CM : MonoBehaviour
         }
 
         transform.localScale = Vector3.one * 0.001f;
-        transform.DOScale(initialScale, 1.5f).SetEase(Ease.OutCubic);
+        scaleTween = transform.DOScale(initialScale, 1.5f).SetEase(Ease.OutCubic);
 
-        transform.DORotate(new Vector3(0f, 360f, 0f), 2f, RotateMode.FastBeyond360)
+        rotateTween = transform.DORotate(new Vector3(0f, 360f, 0f), 2f, RotateMode.FastBeyond360)
             .SetEase(Ease.InOutQuad)
             .OnUpdate(() =>
             {
@@ -74,11 +82,11 @@ public class InstantiateTween_CM : MonoBehaviour
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
             Vector3 targetPositionAlongDirection = transform.position + moveDirection * moveDistance;
 
-            transform.DOMove(targetPositionAlongDirection, moveDuration)
+            moveTween = transform.DOMove(targetPositionAlongDirection, moveDuration)
                 .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
-                    // 이동 완료 후 추가 작업 가능
+
                 });
         }
         else
@@ -87,4 +95,27 @@ public class InstantiateTween_CM : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PlayerArea") && tweenStopFlag == false)
+        {
+            tweenStopFlag = true;
+            moveTween.Kill();
+        }
+    }
+
+    public bool IsThisRemade()
+    {
+        if (moveTween != null && rotateTween != null && scaleTween != null)
+        {
+            Debug.Log("True");
+            return true;
+        }
+        else
+        {
+            Debug.Log("False");
+            return false;
+        }
+
+    }
 }

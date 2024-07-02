@@ -31,7 +31,7 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
     public bool isThisDouble = false;
     public bool isThisPhosStick_Philic = false;
     public bool isThisPhosStick_Phos = false;
-    public bool firstGrab = false;
+    private bool firstGrab = false;
     private bool cantDetach = false;
 
     [Header("Effects")]
@@ -44,7 +44,7 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
 
     void Start()
     {
-        tutoMgr = GameObject.Find("TutorialMgr").GetComponent<TutorialManager_CM>();
+        tutoMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<TutorialManager_CM>();
 
         grabbable = GetComponent<BNG.Grabbable>();
         rb = GetComponent<Rigidbody>();
@@ -175,7 +175,8 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
 
     public void TurnLayerToDefault()
     {
-        gameObject.layer = LayerMask.NameToLayer("Default");
+        //gameObject.layer = LayerMask.NameToLayer("Default");
+        transform.GetComponent<DescObjID_CM>().enabled = false;
     }
 
     public void DescPanelONOff(bool onOrOff)

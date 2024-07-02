@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,14 +17,13 @@ public class AudioMgr_CM : MonoBehaviour
     [Header("SFX List")]
     public AudioClip[] sfxClips;
 
-    // ***������� �̱��� ���� ��ũ��Ʈ
     void Awake()
     {
         if (null == instance)
         {
             instance = this;
 
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject); // Maybe Later?
         }
         else
         {
@@ -34,7 +33,7 @@ public class AudioMgr_CM : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     public static AudioMgr_CM Instance
@@ -48,9 +47,7 @@ public class AudioMgr_CM : MonoBehaviour
             return instance;
         }
     }
-    // ***��������� �̱��� ���� ��ũ��Ʈ
 
-    // ***������� �� �ε�Ǹ� �ڵ� ����ǰ� �ۼ��� ��ũ��Ʈ
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -65,25 +62,21 @@ public class AudioMgr_CM : MonoBehaviour
     {
         audioSrc = GetComponent<AudioSource>();
 
-        audioSrc.volume = PlayerPrefs.GetFloat("Volume", 0.5f); // �̰� PlayerPrefs�� ����, �⺻���� 0.5
-        audioSrc.pitch = PlayerPrefs.GetFloat("Pitch", 1f); // �̰� PlayerPrefs�� ����, �⺻���� 1
+        audioSrc.volume = PlayerPrefs.GetFloat("Volume", 0.5f);
+        audioSrc.pitch = PlayerPrefs.GetFloat("Pitch", 1f);
 
         // Scene�� �ε����� ������Ʈ
         curSceneNum = scene.buildIndex;
 
-        // Scene�� ���� �ٸ� ���� ���
-        // PlayMusicByScene(curSceneNum); // Not Yet
+        //PlayMusicByScene(curSceneNum); // Not Yet
     }
-    // ***������� �� �ε�Ǹ� �ڵ� ����ǰ� �ۼ��� ��ũ��Ʈ
-
-    // ***��ȣ�� ���� �ٸ� ���� ����, �� ȣ��ɶ� ���� ����Ǳ⵵ ��
     public void PlayMusicByScene(int scenenum)
     {
         if (scenenum >= 0 && scenenum < bgmClips.Length)
         {
-            if (audioSrc.isPlaying) audioSrc.Stop(); // ���� ����ǰ� �ִ� ���� ������ ���߰�
+            if (audioSrc.isPlaying) audioSrc.Stop();
 
-            audioSrc.clip = bgmClips[scenenum]; // ���ο� ���� �ҽ����� �ְ� ������
+            audioSrc.clip = bgmClips[scenenum];
             audioSrc.Play();
         }
     }
@@ -93,7 +86,6 @@ public class AudioMgr_CM : MonoBehaviour
     {
         audioSrc.volume = vol;
 
-        // �ؿ� ������ �� ����ó��, ��� �׸��̱� ��
         if (audioSrc.volume < 0f) audioSrc.volume = 0f;
         else if (audioSrc.volume > 1f) audioSrc.volume = 1f;
 
