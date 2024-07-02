@@ -7,6 +7,7 @@ public class InteractableManager_Lobby : MonoBehaviour
     public GameObject[] interactables;
     public GameObject[] portals;
 
+    #region 하이라이트
     public void GlowStart()
     {
         foreach (GameObject inter in interactables)
@@ -22,7 +23,10 @@ public class InteractableManager_Lobby : MonoBehaviour
             inter.GetComponent<Interactables_Lobby>().GlowEnd();
         }
     }
+    #endregion
 
+    #region 3DText
+    /*
     public void HideText(GameObject go)
     {
         foreach (GameObject portal in portals)
@@ -44,4 +48,6 @@ public class InteractableManager_Lobby : MonoBehaviour
     {
         foreach (GameObject portal in portals) { portal.transform.GetChild(0).GetComponent<TextObject_Lobby>().HideText(); }
     }
+    */
+    #endregion
 }

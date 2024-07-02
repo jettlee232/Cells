@@ -46,7 +46,7 @@ public class LaserPointer_Lobby : MonoBehaviour
         else
         {
             uiPointer.HidePointerIfNoObjectsFound = true;
-            InteractableManager.GetComponent<InteractableManager_Lobby>().HideTextAll();
+            //InteractableManager.GetComponent<InteractableManager_Lobby>().HideTextAll();
         }
     }
 
@@ -57,6 +57,7 @@ public class LaserPointer_Lobby : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit rayHit, length))
         {
+            /*
             if (rayHit.collider.gameObject.CompareTag("Interactable"))
             {
                 if (obj != rayHit.collider.gameObject)
@@ -66,6 +67,20 @@ public class LaserPointer_Lobby : MonoBehaviour
                 }
             }
             else if (rayHit.collider.gameObject.CompareTag("NPC"))
+            {
+                if (GameManager_Lobby.instance.firstEnd)
+                {
+                    if (GameManager_Lobby.instance.secondCon)
+                    {
+                        // 두번째 대화 조건 만족
+                        NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST2();
+                    }
+                    else { return; }
+                }
+                else { NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST1(); }
+            }
+            */
+            if (rayHit.collider.gameObject.CompareTag("NPC"))
             {
                 if (GameManager_Lobby.instance.firstEnd)
                 {
