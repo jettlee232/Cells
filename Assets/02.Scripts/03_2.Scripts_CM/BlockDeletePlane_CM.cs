@@ -17,7 +17,7 @@ public class BlockDeletePlane_CM : MonoBehaviour
         }
         */
 
-        if (other.gameObject.GetComponent<BlockDestroy_CM>() != null)
+        if (other.gameObject.layer == LayerMask.NameToLayer("DescObj"))
         {
             Destroy(other.transform.parent.gameObject);
             gameMgr.ScoreDown();

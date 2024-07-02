@@ -18,7 +18,7 @@ public class SaberSSWFBeingHold_CM : MonoBehaviour
     void Start()
     {
         parentObj = transform.parent.gameObject;
-        attachPos = GameObject.Find("SingleAttachPos");
+        attachPos = GameObject.Find("SingleAttachPos"); 
         attachVec = new Vector3(0.8f, -3.4f, 0f);
         attachRot = Quaternion.Euler(0, 180f, -180f);
 
@@ -28,7 +28,7 @@ public class SaberSSWFBeingHold_CM : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == attachPos && parentObj.GetComponent<BNG.Grabbable>().BeingHeld == true)
+        if (other.gameObject == attachPos && parentObj.GetComponent<BNG.Grabbable>().BeingHeld == true) 
         {
             other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().statusFlag = 2;
             other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().bc1.enabled = true;
@@ -43,7 +43,7 @@ public class SaberSSWFBeingHold_CM : MonoBehaviour
             other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().TurnEffect(2, true);
             other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().TurnEffect(3, true);
 
-            parentObj.transform.SetParent(other.gameObject.transform);
+            parentObj.transform.SetParent(other.gameObject.transform); 
 
             parentObj.GetComponent<BNG.Grabbable>().enabled = false;
             parentObj.GetComponent<Rigidbody>().useGravity = false;
@@ -57,12 +57,12 @@ public class SaberSSWFBeingHold_CM : MonoBehaviour
             if (isThisFirstAttach == false)
             {
                 isThisFirstAttach = true;
+                GameObject.Find("TutorialMgr").GetComponent<TutorialManager_CM>().MaketutorialObj_Double();
 
-                TutorialManager_CM tutoMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<TutorialManager_CM>();
-                tutoMgr.MaketutorialObj_Double();
-                tutoMgr.NewFollow(1, 0);
-                // This Code Has BUG
-                //tutoMgr.quest.PanelOpen(FireStoreManager_Test_CM.Instance.ReadCSV("Quest_CM_4"), 3);
+                // 퀘스트 패널 텍스트 변경                
+                GameObject.FindGameObjectWithTag("MainCamera").transform.GetChild(2).GetComponent<QuestPanel_CM>().ChangeText("인지질끼리 양옆으로 연결해보자!");
+                GameObject.FindGameObjectWithTag("MainCamera").transform.GetChild(3).GetComponent<RulePanel_CM>().ChangeText("인지질끼리 양옆으로 연결하는 법");
+                GameObject.FindGameObjectWithTag("MainCamera").transform.GetChild(3).GetComponent<RulePanel_CM>().ChangeImg("f2");
             }
 
             checkFlag = true;

@@ -45,6 +45,7 @@ public class BlockSpawnManager_CM : MonoBehaviour
             {
                 go = Instantiate(blockSS[blockRnd2]);
             }
+            // ���̵��� ������, �ϴ��� ����
             /*
             else 
             {                
@@ -60,11 +61,11 @@ public class BlockSpawnManager_CM : MonoBehaviour
 
             go.transform.position = blockSpawnPos[blockSpawnPosRnd].position;
             go.transform.rotation = Quaternion.identity;
-            go.transform.localScale = new Vector3(0.175f, 0.175f, 0.175f);
-            //go.transform.GetChild(2).gameObject.SetActive(false);
+            go.transform.GetChild(2).gameObject.SetActive(false); // 3D �ؽ�Ʈ ������Ʈ ���߱�
             go.transform.SetParent(spawnedBlockGroup);
         }
 
+        // *** �̰� �� �ִ� �ſ�����? ���߿� �ٽ� �׽�Ʈ ***
         for (int i = 0; i < spawnedBlockGroup.childCount; i++)
         {
             Destroy(spawnedBlockGroup.GetChild(i).gameObject);

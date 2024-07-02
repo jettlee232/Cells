@@ -6,8 +6,11 @@ using UnityEngine;
 public class HighLightColorchange_CM : MonoBehaviour
 {
     public HighlightEffect hlEffect;
+
     public float updownFloat = 0.02f;
+
     public bool glowFlag = false;
+
     private Coroutine glowCoroutine = null;
 
     void Start()
@@ -21,7 +24,6 @@ public class HighLightColorchange_CM : MonoBehaviour
         {
             glowFlag = true;
             glowCoroutine = StartCoroutine(Glow());
-            StartCoroutine(Glow());
         }
     }
 
@@ -34,16 +36,11 @@ public class HighLightColorchange_CM : MonoBehaviour
             glowCoroutine = null;
         }
     }
-    
-    IEnumerator Glow() // 추가, 수정한 부분
-    {
-        hlEffect.highlighted = true;
 
-        /*
+    IEnumerator Glow()
+    {
         while (glowFlag)
         {
-            hlEffect.highlighted = true;
-
             hlEffect.innerGlow -= updownFloat;
             yield return new WaitForSeconds(0.02f);
 
@@ -52,10 +49,7 @@ public class HighLightColorchange_CM : MonoBehaviour
                 updownFloat = -updownFloat;
             }
         }
-        */
-        yield return null;
 
-        hlEffect.highlighted = false;        
         glowCoroutine = null;
-    }    
+    }
 }

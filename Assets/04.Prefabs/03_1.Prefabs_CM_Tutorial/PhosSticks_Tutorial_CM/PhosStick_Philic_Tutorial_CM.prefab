@@ -25,13 +25,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3727902810668822116}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3535534, y: 0.61237246, z: 0.3535534, w: -0.61237246}
-  m_LocalPosition: {x: 0.07, y: -0.15, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 0.05, y: -0.135, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15000002, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4314292680488674081}
-  m_LocalEulerAnglesHint: {x: -60, y: 270, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!114 &5751420368990112394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   handPoseType: 0
   SelectedHandPose: {fileID: 0}
   HandPose: 0
-  LeftHandIsValid: 1
+  LeftHandIsValid: 0
   RightHandIsValid: 1
   HandPosition: {fileID: 0}
   MaxDegreeDifferenceAllowed: 270
@@ -81,13 +81,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4447732046192073216}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.21263108, y: 0.67437977, z: 0.21263108, w: 0.67437977}
-  m_LocalPosition: {x: -0.06, y: -0.15, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.05, y: -0.15, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4314292680488674081}
-  m_LocalEulerAnglesHint: {x: -35, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &3603896922447443762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
   SelectedHandPose: {fileID: 0}
   HandPose: 0
   LeftHandIsValid: 1
-  RightHandIsValid: 1
+  RightHandIsValid: 0
   HandPosition: {fileID: 0}
   MaxDegreeDifferenceAllowed: 270
   IndexBlendMin: 0
@@ -130,8 +130,7 @@ GameObject:
   - component: {fileID: 8202828521067722359}
   - component: {fileID: -8656229965481225389}
   - component: {fileID: 5318977413967269332}
-  - component: {fileID: -4389093874346278069}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PhosStick_Philic_Tutorial_CM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +231,7 @@ MonoBehaviour:
   ParentToHands: 0
   ParentHandModel: 1
   SnapHandModel: 1
-  CanBeDropped: 0
+  CanBeDropped: 1
   CanBeSnappedToSnapZone: 1
   ForceDisableKinematicOnDrop: 0
   InstantMovement: 0
@@ -572,25 +571,9 @@ MonoBehaviour:
   rotSpeed: 360
   minRotSpeed: 90
   moveDuration: 2
-  moveTowardsPlayerFlag: 1
-  grabbale: 1
   leftOrRight: 0
   grab: {fileID: 7237482292272350235}
   saberScript: {fileID: 2925160468503662927}
---- !u!114 &-4389093874346278069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4847302935577068129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2e367f799a071d43bab8ea4eea97dbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  descPanel: {fileID: 2675985660344573138, guid: 6c8a7eb4f7240dd4ab1a5705e63f654e,
-    type: 3}
 --- !u!1 &6815131922516501337
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,4 +740,3 @@ MonoBehaviour:
   wrongTagName: SSBlock
   philicHitEffect: {fileID: 0}
   phobicHitEffect: {fileID: 0}
-  grabbable: {fileID: 7237482292272350235}
