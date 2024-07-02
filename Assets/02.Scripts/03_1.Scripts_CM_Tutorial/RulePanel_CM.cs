@@ -7,22 +7,22 @@ using UnityEngine.UI;
 
 public class RulePanel_CM : MonoBehaviour
 {
-    public RawImage rawImage;    
+    public RawImage rawImage;
     public Texture2D[] imageTextures;
     public TextMeshProUGUI tmpText;
     public RectTransform targetRectTransform;
     public WordEffect1 wordEffect;
-    public float duration = 1.0f; 
+    public float duration = 1.0f;
 
     void Start()
     {
-        rawImage = gameObject.transform.GetChild(0).GetChild(0).GetComponent<RawImage>();
+        if (rawImage == null) rawImage = gameObject.transform.GetChild(0).GetChild(0).GetComponent<RawImage>();
+        if (tmpText == null) tmpText = gameObject.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
+        tmpText.text = "";
 
         wordEffect.enabled = false;
-        tmpText = gameObject.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
-        tmpText.text = "";        
 
-        targetRectTransform = GetComponent<RectTransform>();
+        if (targetRectTransform == null) targetRectTransform = GetComponent<RectTransform>();
         targetRectTransform.sizeDelta = Vector2.zero;
 
         DOTween.Init();
@@ -30,12 +30,11 @@ public class RulePanel_CM : MonoBehaviour
 
     public void PanelOpen(string newRule, string imgName)
     {
+        tmpText.text = "";
         StartCoroutine(ChangeRuleTextAndImageAfterFewSec(newRule, imgName));
 
         rawImage.transform.DOScale(new Vector2(300, 300), duration);
         targetRectTransform.DOSizeDelta(new Vector2(350, 700), duration);
-
-        Debug.Log("Sector1");        
     }
 
     IEnumerator ChangeRuleTextAndImageAfterFewSec(string newRule, string imgName)
@@ -46,13 +45,13 @@ public class RulePanel_CM : MonoBehaviour
     }
 
     public void ChangeText(string newRule)
-    {        
+    {
         tmpText.text = newRule;
-        wordEffect.enabled = true;        
+        wordEffect.enabled = true;
     }
 
     public void ChangeImg(string imgName)
-    {        
+    {
         foreach (Texture2D texture in imageTextures)
         {
             if (texture.name == imgName)
@@ -69,12 +68,12 @@ public class RulePanel_CM : MonoBehaviour
         tmpText.text = "";
         rawImage.transform.DOScale(Vector2.zero, duration);
         targetRectTransform.DOSizeDelta(Vector2.zero, duration);
-        //StartCoroutine(PanelDisabled());
+        StartCoroutine(PanelDisabled());
     }
 
     IEnumerator PanelDisabled()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(duration + 0.5f);
         gameObject.SetActive(false);
     }
 }
