@@ -28,24 +28,27 @@ public class SelectDialogue_StageMap : MonoBehaviour
 
     public void ActivateDST1() // 1번째 트리거 작동 함수
     {
+        UIManager_StageMap.instance.HideNPCPanel();
+        DisableMove_SM();
         if (GameManager_StageMap.instance.GetFirstEnd()) { dialogueSystemTrigger1.startConversationEntryID = 4; }
-        else { DisableMove_SM(); dialogueSystemTrigger1.startConversationEntryID = 0; }
+        else { dialogueSystemTrigger1.startConversationEntryID = 0; }
         dialogueSystemTrigger1.OnUse(); // On Use로 컨버제이션 작동
         GameManager_StageMap.instance.FirstEnd();
     }
 
     public void ActivateDST2() // 2번째 트리거 작동 함수
     {
-        if (UIManager_StageMap.instance.GetUpsideSubtitle()) { UIManager_StageMap.instance.VanishUpsideSubtitle(); }
+        UIManager_StageMap.instance.HideNPCPanel();
+        DisableMove_SM();
+        if (UIManager_StageMap.instance.GetQuest()) { UIManager_StageMap.instance.HideQuest(); }
         dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동
         GameManager_StageMap.instance.SecondEnd();
     }
 
     #region 스크립트에 쓰일 함수
-    //public void fCheckFlyTutorial() { StartCoroutine(CheckFlyTutorial()); }
     public void CheckFlyTutorial_SM()
     {
-        UIManager_StageMap.instance.SetUpsideSubtitle("비행을 하면서 3개의 타겟을 찾아보자!");
+        UIManager_StageMap.instance.SetQuest("비행을 하면서 3개의 타겟을 찾아보자!");
         tutorial.GetComponent<TutorialManager_StageMap>().StartTutorial();
     }
 
@@ -55,8 +58,11 @@ public class SelectDialogue_StageMap : MonoBehaviour
         GameManager_StageMap.instance.DisableMove();
         GameManager_StageMap.instance.RemoveSelect();
     }
-    //public void EnableOrganelle_SM() { UIManager_StageMap.instance.EnableButton(); }
-    public void WaitForNewUI_SM() { GameManager_StageMap.instance.WaitForNewUI(); }
+    public void EnableOrganelle_SM() { UIManager_StageMap.instance.EnanbleOrganelleButton(); }
+    public void Subtitle_Explore_SM() { UIManager_StageMap.instance.SetQuest("동물세포를 탐험해 보자!", 5f); }
+    public void ShowTutorial_SM() { UIManager_StageMap.instance.ShowTutorial(); }
+    public void ShowOrganelle_SM() { UIManager_StageMap.instance.ShowOrganelleUI(); }
+    public void HideOrganelle_SM() { UIManager_StageMap.instance.HideOrganelleUI(); }
     #endregion
 
     #region Register with Lua
@@ -66,17 +72,23 @@ public class SelectDialogue_StageMap : MonoBehaviour
         Lua.RegisterFunction("CheckFlyTutorial_SM", this, SymbolExtensions.GetMethodInfo(() => CheckFlyTutorial_SM()));
         Lua.RegisterFunction("EnableMove_SM", this, SymbolExtensions.GetMethodInfo(() => EnableMove_SM()));
         Lua.RegisterFunction("DisableMove_SM", this, SymbolExtensions.GetMethodInfo(() => DisableMove_SM()));
-        //Lua.RegisterFunction("EnableOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => EnableOrganelle_SM()));
-        Lua.RegisterFunction("WaitForNewUI_SM", this, SymbolExtensions.GetMethodInfo(() => WaitForNewUI_SM()));
+        Lua.RegisterFunction("EnableOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => EnableOrganelle_SM()));
+        Lua.RegisterFunction("Subtitle_Explore_SM", this, SymbolExtensions.GetMethodInfo(() => Subtitle_Explore_SM()));
+        Lua.RegisterFunction("ShowTutorial_SM", this, SymbolExtensions.GetMethodInfo(() => ShowTutorial_SM()));
+        Lua.RegisterFunction("ShowOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => ShowOrganelle_SM()));
+        Lua.RegisterFunction("HideOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => HideOrganelle_SM()));
     }
 
     private void OnDisable()
     {
-        Lua.UnregisterFunction("fCheckFlyTutorial_SM");
+        Lua.UnregisterFunction("CheckFlyTutorial_SM");
         Lua.UnregisterFunction("EnableMove_SM");
         Lua.UnregisterFunction("DisableMove_SM");
-        //Lua.UnregisterFunction("EnableOrganelle_SM");
-        Lua.UnregisterFunction("WaitForNewUI_SM");
+        Lua.UnregisterFunction("EnableOrganelle_SM");
+        Lua.UnregisterFunction("Subtitle_Explore_SM");
+        Lua.UnregisterFunction("ShowTutorial_SM");
+        Lua.UnregisterFunction("ShowOrganelle_SM");
+        Lua.UnregisterFunction("HideOrganelle_SM");
     }
 
     #endregion

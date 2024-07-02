@@ -11,17 +11,21 @@ using HighlightPlus;
 public class LaserPointer_StageMap : MonoBehaviour
 {
     private BNG.UIPointer uiPointer; // 포인터 컴포넌트
-    private bool isTriggerPressed = false; // 트리거가 눌리는지 안 눌리는지
     private bool isButtonPressed = false; // 오른손 A버튼이 눌리는지 안 눌리는지
     public float maxDistance;           // 레이저 최대 길이
+    public GameObject touchEffect;
 
-    private GameObject obj = null;
+    public GameObject obj = null;
     private GameObject descPanel = null;
     private int descObjLayer;
+    private int UILayer;
+    private LayerMask playerLayer;
+    private int playerLayer_1;
+    private int playerLayer_2;
     private GameObject player = null;
     private Camera mainCam = null;
     private GameObject NPC = null;
-    private bool outer = false;
+    private int NPCLayer;
 
     private GameObject glowObj;
     private HighlightEffect highlightEffect;
@@ -34,6 +38,11 @@ public class LaserPointer_StageMap : MonoBehaviour
         descPanel = UIManager_StageMap.instance.GetDesc();
         obj = null;
         descObjLayer = 1 << LayerMask.NameToLayer("DescObj");
+        NPCLayer = 1 << LayerMask.NameToLayer("NPC");
+        UILayer = 1 << LayerMask.NameToLayer("UI");
+        playerLayer_1 = 1 << LayerMask.NameToLayer("Player");
+        playerLayer_2 = 2 << LayerMask.NameToLayer("Hand");
+        playerLayer = (playerLayer_1 | playerLayer_2);
         player = GameManager_StageMap.instance.GetPlayer();
         mainCam = GameManager_StageMap.instance.GetPlayerCam().GetComponent<Camera>();
         NPC = GameManager_StageMap.instance.GetNPC();
@@ -41,24 +50,20 @@ public class LaserPointer_StageMap : MonoBehaviour
 
     void Update()
     {
-        if (!outer)
-        {
-            // 각 bool값 변수들에 트리거 버튼과 A버튼이 눌리는지 안 눌리는지 실시간으로 받기        
-            right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-            right.TryGetFeatureValue(CommonUsages.triggerButton, out isTriggerPressed);
-            right.TryGetFeatureValue(CommonUsages.primaryButton, out isButtonPressed);
+        // 각 bool값 변수들에 A버튼이 눌리는지 안 눌리는지 실시간으로 받기        
+        right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+        right.TryGetFeatureValue(CommonUsages.primaryButton, out isButtonPressed);
 
-            if (isTriggerPressed) // 트리거가 눌리고 있다면
-            {
-                uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
-                if (GameManager_StageMap.instance.GetMovable() && GameManager_StageMap.instance.GetSelectable()) { CheckRay(transform.position, transform.forward, 10f); } // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
-            }
-            else { uiPointer.HidePointerIfNoObjectsFound = true; }
-        }
-        
-        if (descPanel.activeSelf) // 현재 설명창이 만들어진 상태라면
+        if (isButtonPressed) // 트리거가 눌리고 있다면
         {
-            FollowingDescription(UIManager_StageMap.instance.GetDesc()); // 현재 만들어진 설명창이 내 시선을 따라오게 하기
+            uiPointer.HidePointerIfNoObjectsFound = false; // 레이저 보이게 하기
+            CheckRay(transform.position, transform.forward, maxDistance);
+            if (GameManager_StageMap.instance.GetMovable() && GameManager_StageMap.instance.GetSelectable()) { CheckRay(transform.position, transform.forward, 10f); } // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
+        }
+        else { uiPointer.HidePointerIfNoObjectsFound = true; }
+
+        if (UIManager_StageMap.instance.CheckDesc()) // 현재 설명창이 만들어진 상태라면
+        {
             if (!CheckSight()) { DestroyDescription(); }
         }
     }
@@ -67,113 +72,86 @@ public class LaserPointer_StageMap : MonoBehaviour
     {
         Ray ray = new Ray(targetPos, direction.normalized);
 
-        if (Physics.Raycast(ray, out RaycastHit rayHit, length))
+        if (Physics.Raycast(ray, out RaycastHit rayHit_NPC, length * 1.5f, NPCLayer))
         {
-            if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("DescObj"))
+            GameManager_StageMap.instance.WaitForNewUI();
+            Instantiate(touchEffect, rayHit_NPC.point, Quaternion.LookRotation(player.transform.position));
+            Debug.Log(rayHit_NPC.collider.gameObject.name);
+            rayHit_NPC.collider.gameObject.GetComponent<NPCController_StageMap>().SetNPCTalk();
+
+            Vector3 dir = rayHit_NPC.transform.position - player.transform.position;
+            dir.y = 0;
+            Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
+            player.transform.rotation = rotation;
+
+            DestroyDescription();
+        }
+        else
+        {
+            if (Physics.Raycast(ray, out RaycastHit rayHit, length, ~(UILayer | playerLayer)))
             {
-                if (obj != rayHit.collider.gameObject)
+                GameManager_StageMap.instance.WaitForNewUI();
+                Instantiate(touchEffect, rayHit.point, Quaternion.LookRotation(player.transform.position));
+                Debug.Log(rayHit.collider.gameObject.name);
+                if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("Organelle"))
                 {
-                    obj = rayHit.collider.gameObject;
-                    highlightEffect = obj.transform.parent.GetComponent<HighlightEffect>();
-                    if (highlightEffect != null)
+                    if (obj != rayHit.collider.gameObject)
                     {
-                        highlightEffect.highlighted = true;
-                        rayHit.collider.gameObject.GetComponent<HighLightColorchange_StageMap>().GlowStart();
+                        obj = rayHit.collider.gameObject;
+                        highlightEffect = obj.gameObject.GetComponent<HighLightColorchange_StageMap>().GetHl();
+                        if (highlightEffect != null)
+                        {
+                            highlightEffect.highlighted = true;
+                            rayHit.collider.gameObject.GetComponent<HighLightColorchange_StageMap>().GlowStart();
+                        }
+                        InstantiatePanel(obj);
                     }
-                    InstantiatePanel(obj);
                 }
-            }
-            else if (rayHit.collider.gameObject.CompareTag("NPC"))
-            {
-                if (GameManager_StageMap.instance.GetSecondCon())
+                else if (rayHit.collider.gameObject.CompareTag("NPC"))
                 {
-                    // 두번째 대화 조건 만족
-                    NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST2();
+                    if (GameManager_StageMap.instance.GetSecondCon())
+                    {
+                        // 두번째 대화 조건 만족
+                        NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST2();
+                    }
+                    else { NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST1(); }
                 }
-                else { NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST1(); }
             }
         }
     }
 
     public void InstantiatePanel(GameObject go)
     {
-        if (descPanel.activeSelf) { DestroyDescription(); }
-
-        UIManager_StageMap.instance.OnDesc();
-        MakeDescription(go);
+        UIManager_StageMap.instance.OnDesc(go);
         glowObj = go;
-    }
-
-    public void FollowingDescription(GameObject descPanel) // 패널이 플레이어 시선 따라가게 하기
-    {
-        if (descPanel.GetComponent<RectTransform>().localScale.x < 0.00125f)
-        {
-            descPanel.GetComponent<RectTransform>().localScale =
-            new Vector3(descPanel.GetComponent<RectTransform>().localScale.x + 0.0002f,
-            descPanel.GetComponent<RectTransform>().localScale.y + 0.0002f,
-            descPanel.GetComponent<RectTransform>().localScale.z + 0.0002f);
-        }
     }
 
     public void DestroyDescription() // 패널 없애기
     {
         UIManager_StageMap.instance.OffDesc();
+    }
+    public void InitObj()
+    {
         if (glowObj != null)
         {
-            glowObj.transform.parent.GetComponent<HighlightEffect>().highlighted = false;
+            glowObj.gameObject.GetComponent<HighLightColorchange_StageMap>().GetHl().highlighted = false;
             glowObj.GetComponent<HighLightColorchange_StageMap>().GlowEnd();
         }
         obj = null;
         glowObj = null;
-        GameManager_StageMap.instance.WaitForNewUI();
-    }
-
-    public void MakeDescription(GameObject go) // 게임 오브젝트의 이름과 종류에 따라 설명창 텍스트를 수정하기
-    {
-        descPanel.GetComponent<RectTransform>().localScale = Vector3.one * 0.00005f;
-        descPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = go.GetComponent<DescObj_StageMap>().GetName();
-        descPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = go.GetComponent<DescObj_StageMap>().GetDesc();
-        descPanel.transform.GetChild(1).GetChild(0).GetComponent<Button>().onClick.AddListener(() => GameManager_StageMap.instance.MoveScene(go.GetComponent<DescObj_StageMap>().GetSceneName()));
     }
 
     private bool CheckSight()
     {
-        if (!outer)
+        if (obj == null || mainCam == null || obj.transform == null) { DestroyDescription(); return false; }
+        else
         {
-            if (obj == null || mainCam == null || obj.transform == null) { DestroyDescription(); return false; }
-            else
-            {
-                Vector3 viewportPos = mainCam.WorldToViewportPoint(obj.transform.position);
+            Vector3 viewportPos = mainCam.WorldToViewportPoint(obj.transform.position);
 
-                bool isInView = viewportPos.z > 0f && (viewportPos.x > 0f && viewportPos.x < 1f) && (viewportPos.y > 0f && viewportPos.y < 1f);
+            bool isInView = viewportPos.z > 0f && (viewportPos.x > 0f && viewportPos.x < 1f) && (viewportPos.y > 0f && viewportPos.y < 1f);
 
-                Vector3 closest = obj.GetComponent<Collider>().ClosestPoint(player.transform.position);
-                Vector3 vDistance = (closest - player.transform.position);
-                bool isClose = (vDistance.magnitude <= maxDistance) ? true : false;
-
-                if (isInView && isClose) { return true; }
-                else { return false; }
-            }
-        }
-        else { return true; }
-    }
-
-    // 외부에서 (OrganelleEnter_StageMap) 오브젝트를 넣을 때
-    public void SetObj(GameObject obj_out)
-    {
-        // obj_out은 외부 obj라는 뜻이다ㅎㅎ
-        if (obj != obj_out)
-        {
-            obj = obj_out;
-            highlightEffect = obj.transform.parent.GetComponent<HighlightEffect>();
-            if (highlightEffect != null)
-            {
-                highlightEffect.highlighted = true;
-                obj.GetComponent<HighLightColorchange_StageMap>().GlowStart();
-            }
-            InstantiatePanel(obj);
+            if (isInView) { return true; }
+            else { Debug.Log(viewportPos.ToString()); return false; }
         }
     }
-    public void InObj() { outer = true; }
-    public void OutObj() { outer = false; }
 }

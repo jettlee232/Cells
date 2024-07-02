@@ -13,7 +13,11 @@ public class FollowPanel_CM : MonoBehaviour
     {
         DOTween.Init();
 
+<<<<<<< HEAD
         transform.localRotation = Quaternion.Euler(0, 0, 0);
+=======
+        transform.localRotation = Quaternion.Euler(0,0,0);
+>>>>>>> Dev
         transform.localScale = Vector3.zero;
         transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
         Debug.Log(gameObject.name + "s Parent : " + transform.parent.name + " Rot is... " + transform.parent.GetComponent<RectTransform>().localEulerAngles.y);
