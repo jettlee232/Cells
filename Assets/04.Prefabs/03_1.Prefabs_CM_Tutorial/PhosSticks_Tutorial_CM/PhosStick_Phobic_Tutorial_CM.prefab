@@ -81,7 +81,6 @@ MonoBehaviour:
   wrongTagName: WFBlock
   philicHitEffect: {fileID: 0}
   phobicHitEffect: {fileID: 0}
-  grabbable: {fileID: 6092988502220498416}
 --- !u!1 &4497378819372779254
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,13 +106,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4497378819372779254}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.21263108, y: 0.67437977, z: 0.21263108, w: -0.67437977}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 0.11500001, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8196838951613558993}
-  m_LocalEulerAnglesHint: {x: -35, y: 270, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!114 &6376750080769972902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +128,7 @@ MonoBehaviour:
   handPoseType: 0
   SelectedHandPose: {fileID: 0}
   HandPose: 0
-  LeftHandIsValid: 1
+  LeftHandIsValid: 0
   RightHandIsValid: 1
   HandPosition: {fileID: 0}
   MaxDegreeDifferenceAllowed: 270
@@ -248,13 +247,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6587198654885416726}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.21263108, y: 0.67437977, z: 0.21263108, w: 0.67437977}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.085, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8196838951613558993}
-  m_LocalEulerAnglesHint: {x: -35, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &4312576653465397516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,7 +270,7 @@ MonoBehaviour:
   SelectedHandPose: {fileID: 0}
   HandPose: 0
   LeftHandIsValid: 1
-  RightHandIsValid: 1
+  RightHandIsValid: 0
   HandPosition: {fileID: 0}
   MaxDegreeDifferenceAllowed: 270
   IndexBlendMin: 0
@@ -296,9 +295,7 @@ GameObject:
   - component: {fileID: 3762684086243525346}
   - component: {fileID: 6722537841157978120}
   - component: {fileID: 144152617982765114}
-  - component: {fileID: 6294368411609311657}
-  - component: {fileID: -7443228031651508491}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PhosStick_Phobic_Tutorial_CM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -399,7 +396,7 @@ MonoBehaviour:
   ParentToHands: 0
   ParentHandModel: 1
   SnapHandModel: 1
-  CanBeDropped: 0
+  CanBeDropped: 1
   CanBeSnappedToSnapZone: 1
   ForceDisableKinematicOnDrop: 0
   InstantMovement: 0
@@ -724,37 +721,6 @@ MonoBehaviour:
   rotSpeed: 360
   minRotSpeed: 90
   moveDuration: 2
-  moveTowardsPlayerFlag: 1
-  grabbale: 1
   leftOrRight: 1
   grab: {fileID: 6092988502220498416}
   saberScript: {fileID: 4714007370302558743}
---- !u!114 &6294368411609311657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8231359041060643116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85f529a67bab0264db1b2d4dbbbb6bcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hlEffect: {fileID: 0}
-  updownFloat: 0.02
-  glowFlag: 0
---- !u!114 &-7443228031651508491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8231359041060643116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2e367f799a071d43bab8ea4eea97dbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  descPanel: {fileID: 2675985660344573138, guid: 6c8a7eb4f7240dd4ab1a5705e63f654e,
-    type: 3}

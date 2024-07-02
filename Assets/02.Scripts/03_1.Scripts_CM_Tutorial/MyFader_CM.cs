@@ -60,7 +60,6 @@ namespace BNG
                 fadeCanvas = fadeObject.AddComponent<Canvas>();
                 fadeCanvas.renderMode = RenderMode.WorldSpace;
                 fadeCanvas.sortingOrder = 100; // Make sure the canvas renders on top
-                fadeCanvas.worldCamera = Camera.main; // Test
 
                 canvasGroup = fadeObject.AddComponent<CanvasGroup>();
                 canvasGroup.interactable = false;

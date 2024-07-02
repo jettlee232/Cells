@@ -1,14 +1,13 @@
 using System.Collections;
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using PixelCrushers.DialogueSystem;
+using UnityEngine.Networking;
 using UnityEditor;
 using UnityEngine.XR;
 using Language.Lua;
 using UnityEngine.SceneManagement;
-using TMPro;
-using HighlightPlus;
-using PixelCrushers;
+using Unity.VisualScripting;
 
 public class TutorialManager_CM : MonoBehaviour
 {
@@ -30,7 +29,6 @@ public class TutorialManager_CM : MonoBehaviour
     public GameObject tutorialObj_Double;
     public GameObject saberVar;
 
-
     [Header("Narrator Mgr")]
     public NarratorDialogueHub_CM_Tutorial narrator;
     public DialogueSystemController dsc;
@@ -47,8 +45,6 @@ public class TutorialManager_CM : MonoBehaviour
     [Header("Laser")]
     public BNG.UIPointer uIPointer;
     public LineRenderer lineRenderer;
-    public LPAD_CM lpd;
-    //public LaserPointerAndDescription_CM lpd;
 
     [Header("Player Variables")]
     public BNG.MyFader_CM scrFader;
@@ -60,9 +56,7 @@ public class TutorialManager_CM : MonoBehaviour
     public Transform[] eoSpawnPos = new Transform[3];
 
     [Header("Phos Sticks")]
-    private GameObject[] phosStickVar = new GameObject[2];
     public GameObject[] phosSticks;
-    private int phosGrabCnt = 0;
 
     [Header("Make Effect")] // ����Ʈ ����
     public GameObject[] makeEffect;
@@ -70,29 +64,17 @@ public class TutorialManager_CM : MonoBehaviour
     [Header("Panels")]
     public QuestPanel_CM quest;
     public RulePanel_CM rule;
-    public LocationPanel_CM loc;
-    public SpeechBubblePanel_CM spb;
 
     [Header("Grabbale")]
     public BNG.Grabber grab1;
     public BNG.Grabber grab2;
 
-    [Header("3D Texts")]
-    public GameObject[] texts;
-
-    [Header("Follwing Description Prefabs")]
-    public GameObject[] followingPanels;
-    public Transform[] followPanelPos;
-
-
     void Start()
     {
-        audioClipsArr = Resources.LoadAll<AudioClip>("CM_Tuto");
+
+        audioClipsArr = Resources.LoadAll<AudioClip>("");
         isInzizilMakeIt = true;
         quizCanvas.SetActive(false);
-
-        LocPanel("세포막"); // 나중에 수정해야 됨
-        //NewSpeech("아무 말이나"); // 나중에 수정해야 됨
 
         //UILaserOnOff();
 
@@ -100,48 +82,32 @@ public class TutorialManager_CM : MonoBehaviour
         //rule.gameObject.SetActive(false);
     }
 
-    public void LocPanel(string location)
+    public void UILaserOnOff()
     {
-        loc.PanelOpen(location);
-    }
+        lineRenderer.enabled = false;
+        if (uIPointer.enabled == true) uIPointer.enabled = false;
+        else uIPointer.enabled = true;
 
-    public void UILaserOnOff(bool flag)
-    {
-        lineRenderer.enabled = flag;
-        uIPointer.enabled = flag;
+        //Debug.Log("UIPointer is " + uIPointer.enabled);
+        //uIPointer.AutoUpdateUITransforms = !uIPointer.AutoUpdateUITransforms;
     }
 
     public void QuestionByNarrator()
     {
         quest.gameObject.SetActive(false);
-        //rule.gameObject.SetActive(false);
+        rule.gameObject.SetActive(false);
 
         quizCanvas.SetActive(true);
-
-        quizCanvas.transform.GetChild(0).GetChild(1).GetChild(1).Find("Text").GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Quiz_CM_1");
-
-        quizCanvas.transform.GetChild(0).GetChild(1).GetChild(1).Find("O").GetChild(0).GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Quiz_CM_2");
-        quizCanvas.transform.GetChild(0).GetChild(1).GetChild(1).Find("X").GetChild(0).GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Quiz_CM_3");
     }
 
+    // ������ ������ �Ӹ� ����� -> After First Encounter
     public void MaketutorialObj_Tail()
     {
         saberVar = Instantiate(tutorialObj_Tail, spawnPos_Tail.position, Quaternion.identity);
         saberVar.name = tutorialObj_Tail.name;
         MakeEffect(saberVar.transform, 0);
-        AudioMgr_CM.Instance.PlaySFXByInt(9);
+        AudioMgr_CM.Instance.PlaySFXByInt(7);
 
-        for (int i = 0; i < saberVar.transform.childCount; i++)
-        {
-            if (saberVar.transform.GetChild(i).GetComponent<Canvas>() != null)
-            {
-                Transform canvas = saberVar.transform.GetChild(i);
-                canvas.GetChild(0).Find("Title").GetComponent<TextMeshProUGUI>().text =
-                    FireStoreManager_Test_CM.Instance.ReadCSV("Phospholipid_Tail_CM");
-
-                //canvas.GetChild(0).Find("Detail").GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Phospholipid_Tail_CM_D");
-            }
-        }
     }
 
     public void MakeTutorialObj_Head()
@@ -149,64 +115,31 @@ public class TutorialManager_CM : MonoBehaviour
         GameObject go = Instantiate(tutorialObj_Head, spawnPos_Head.position, Quaternion.identity);
         go.name = tutorialObj_Head.name;
         MakeEffect(go.transform, 0);
-        AudioMgr_CM.Instance.PlaySFXByInt(9);
-
-        for (int i = 0; i < go.transform.childCount; i++)
-        {
-            if (go.transform.GetChild(i).GetComponent<Canvas>() != null)
-            {
-                Transform canvas = go.transform.GetChild(i);
-                canvas.GetChild(0).Find("Title").GetComponent<TextMeshProUGUI>().text =
-                    FireStoreManager_Test_CM.Instance.ReadCSV("Phospholipid_Head_CM");
-
-                //canvas.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Phospholipid_Head_CM_D");
-            }
-        }
+        AudioMgr_CM.Instance.PlaySFXByInt(7);
     }
 
-    // -> After Second Conv
+    // ������ ������ �Ӹ� ��ġ�� -> After Second Conv
     public void MakeTutorialObj_Single()
     {
         GameObject go = Instantiate(tutorialObj_Single, spawnPos_Single.position, Quaternion.Euler(0, 0, 0));
         go.name = tutorialObj_Single.name;
         MakeEffect(go.transform, 0);
-        AudioMgr_CM.Instance.PlaySFXByInt(9);
-
-        for (int i = 0; i < go.transform.childCount; i++)
-        {
-            if (go.transform.GetChild(i).GetComponent<Canvas>() != null)
-            {
-                Transform canvas = go.transform.GetChild(i);
-                canvas.GetChild(0).Find("Title").GetComponent<TextMeshProUGUI>().text =
-                    FireStoreManager_Test_CM.Instance.ReadCSV("Phospholipid_Single_CM");
-                //canvas.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Phospholipid_Single_CM_D");
-            }
-        }
+        AudioMgr_CM.Instance.PlaySFXByInt(7);
     }
 
-    // After Third Conv
+    // ������ ������ ���� ����� �ϳ� �� ����� -> After Third Conv
     public void MaketutorialObj_Double()
     {
         GameObject go = Instantiate(tutorialObj_Double, spawnPos_Double.position, Quaternion.Euler(90, 90, 0));
         go.name = tutorialObj_Double.name;
         MakeEffect(go.transform, 0);
-        AudioMgr_CM.Instance.PlaySFXByInt(9);
-
-        for (int i = 0; i < go.transform.childCount; i++)
-        {
-            if (go.transform.GetChild(i).GetComponent<Canvas>() != null)
-            {
-                Transform canvas = go.transform.GetChild(i);
-                canvas.GetChild(0).Find("Title").GetComponent<TextMeshProUGUI>().text =
-                    FireStoreManager_Test_CM.Instance.ReadCSV("Phospholipid_Double_CM");
-                //canvas.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text =  FireStoreManager_Test_CM.Instance.ReadCSV("Phospholipid_Double_CM_D");
-            }
-        }
+        AudioMgr_CM.Instance.PlaySFXByInt(7);
     }
 
-    // -> After Fourth Conv
+    // �׽�Ʈ ���ϵ� �� ��ġ�ϱ� -> After Fourth Conv
     public void MakeTestBlocks(bool philicOrPhobic) // �׽�Ʈ ���ϵ� �� ��ġ�ϱ�
     {
+        Debug.Log(philicOrPhobic);
         correctAnss = new bool[testBlocks.Length];
 
         int x = 0, y = 0;
@@ -237,7 +170,7 @@ public class TutorialManager_CM : MonoBehaviour
             correctAnss[i] = false;
         }
 
-        AudioMgr_CM.Instance.PlaySFXByInt(7);
+        AudioMgr_CM.Instance.PlaySFXByInt(9);
     }
 
     public void DeleteSaber()
@@ -265,7 +198,7 @@ public class TutorialManager_CM : MonoBehaviour
         }
 
 
-        AudioMgr_CM.Instance.PlaySFXByInt(0);
+        AudioMgr_CM.Instance.PlaySFXByInt(8);
     }
 
     public void PlayAudioClip(int i)
@@ -281,10 +214,14 @@ public class TutorialManager_CM : MonoBehaviour
         audioSrc.PlayOneShot(audioClipsArr[i]);
     }
 
+    // (�Ʒÿ�)���̹��� ���� ������ � �������� �˾Ƴ� ����, �����̸� �� ������ �����ϰ� ��� �� �ٽ� ����
     public void CorrectAnswer(GameObject go)
     {
-        StartCoroutine(RightAnswerEffect());
-
+        int rnd = Random.Range(0, 4);
+        if (rnd == 0) PlayAudioClip(7);
+        else if (rnd == 1) PlayAudioClip(14);
+        else if (rnd == 2) PlayAudioClip(18);
+        else if (rnd == 3) PlayAudioClip(28);
 
         int correctAnsCnt = 0;
         for (int i = 0; i < testBlocks.Length; i++) // (�Ʒÿ�)���̹��� ���� ������ � �������� �˾Ƴ���
@@ -301,25 +238,22 @@ public class TutorialManager_CM : MonoBehaviour
             }
         }
 
-        if (correctAnsCnt > 6)
+        if (correctAnsCnt > 6) // ���� ������ 6���� �Ѿ��
         {
+            // ���� �������� �̵�
             isInzizilMakeIt = false;
-            narrator.StartCov_6();
-
-            phosStickVar[0].transform.GetComponent<BNG.Grabbable>().BeingHeld = false;
-            phosStickVar[1].transform.GetComponent<BNG.Grabbable>().BeingHeld = false;
-            phosStickVar[0].transform.GetComponent<BNG.Grabbable>().CanBeDropped = true;
-            phosStickVar[1].transform.GetComponent<BNG.Grabbable>().CanBeDropped = true;
-            phosStickVar[0].transform.GetComponent<BNG.Grabbable>().ParentToHands = true;
-            phosStickVar[1].transform.GetComponent<BNG.Grabbable>().ParentToHands = true;
-            phosStickVar[0].SetActive(false);
-            phosStickVar[1].SetActive(false);
+            narrator.StartCov_6(); // ������ ����
         }
     }
 
+    // (�Ʒÿ�) ���̹��� ���� ������ � �������� �˾Ƴ� ����, �����̸� �� ������ �����ϰ� ��� �� �ٽ� ����
     public void WrongAnswer(GameObject go)
     {
         StartCoroutine(WrondAnswerEffect());
+
+        int rnd = Random.Range(0, 2);
+        if (rnd == 0) PlayAudioClip(34);
+        else if (rnd == 1) PlayAudioClip(35);
 
         for (int i = 0; i < testBlocks.Length; i++)
         {
@@ -327,6 +261,8 @@ public class TutorialManager_CM : MonoBehaviour
             {
                 StartCoroutine(RemakeAfter2Sec(i));
             }
+
+            // ������ ����� ���μ�����
         }
     }
 
@@ -342,7 +278,7 @@ public class TutorialManager_CM : MonoBehaviour
         eoVar[i] = Instantiate(eoObj[i], eoSpawnPos[i].position, Quaternion.identity);
         eoVar[i].name = eoObj[i].name;
         MakeEffect(eoVar[i].transform, 0);
-        AudioMgr_CM.Instance.PlaySFXByInt(7);
+        AudioMgr_CM.Instance.PlaySFXByInt(3);
     }
 
     public void DestroyEyesOnlyObject(double num)
@@ -350,20 +286,18 @@ public class TutorialManager_CM : MonoBehaviour
         int i = (int)num;
         MakeEffect(eoVar[i].transform, 0);
         eoVar[i].SetActive(!eoVar[i].activeSelf);
-
-        AudioMgr_CM.Instance.PlaySFXByInt(0);
     }
 
     public void MakePhosSticks()
     {
-        phosStickVar[0] = Instantiate(phosSticks[0], spawnPos_Tail.position, Quaternion.identity);
-        phosStickVar[0].name = phosSticks[0].name;
-        MakeEffect(phosStickVar[0].transform, 0);
-        phosStickVar[1] = Instantiate(phosSticks[1], spawnPos_Head.position, Quaternion.identity);
-        phosStickVar[1].name = phosSticks[1].name;
-        MakeEffect(phosStickVar[1].transform, 0);
+        GameObject go = Instantiate(phosSticks[0], spawnPos_Tail.position, Quaternion.identity);
+        go.name = phosSticks[0].name;
+        MakeEffect(go.transform, 0);
+        go = Instantiate(phosSticks[1], spawnPos_Head.position, Quaternion.identity);
+        go.name = phosSticks[1].name;
+        MakeEffect(go.transform, 0);
 
-        AudioMgr_CM.Instance.PlaySFXByInt(9);
+        AudioMgr_CM.Instance.PlaySFXByInt(3);
     }
 
     void MakeEffect(Transform pos, int i)
@@ -376,9 +310,9 @@ public class TutorialManager_CM : MonoBehaviour
         StartCoroutine(MoveScene());
     }
 
-    public void MakePlayerMove(bool flag)
+    public void MakePlayerMove()
     {
-        smoothLocomotion.enabled = flag;
+        smoothLocomotion.enabled = !smoothLocomotion.enabled;
     }
 
     public void PlayNarratorAnimation(string animName)
@@ -388,23 +322,21 @@ public class TutorialManager_CM : MonoBehaviour
         anim.Play(animName);
     }
 
-    public void NewQuest(string questContents, double exitTime)
+    public void NewQuest(string questText)
     {
         if (quest.gameObject.activeSelf == false) quest.gameObject.SetActive(true);
-        quest.PanelOpen(FireStoreManager_Test_CM.Instance.ReadCSV(questContents), (float)exitTime); // text quest change
-        PlayClip(8);
+        quest.PanelOpen(questText); // text quest change
     }
 
     public void QuestOver()
     {
-        Debug.Log("Quest Over By  : " + gameObject.name);
         quest.PanelClose();
     }
 
-    public void NewRule(string ruleContents, string imgName)
+    public void NewRule(string newRule, string imgName)
     {
         if (rule.gameObject.activeSelf == false) rule.gameObject.SetActive(true);
-        rule.PanelOpen(FireStoreManager_Test_CM.Instance.ReadCSV(ruleContents), imgName);
+        rule.PanelOpen(newRule, imgName);
     }
 
     public void RuleOver()
@@ -412,13 +344,11 @@ public class TutorialManager_CM : MonoBehaviour
         rule.PanelClose();
     }
 
-    public void EODescPanelMade(double eoObj, double descPanel, string panelConentes, string detailContents)
+    public void EODescPanelMade(double eoObj, double descPanel, string title, string detail)
     {
-        Debug.Log(FireStoreManager_Test_CM.Instance.ReadCSV(panelConentes));
-        Debug.Log(FireStoreManager_Test_CM.Instance.ReadCSV(detailContents));
-
-        eoVar[(int)eoObj].transform.GetChild((int)descPanel).GetComponent<EODescPanelTween_CM>().
-        PanelOpen(FireStoreManager_Test_CM.Instance.ReadCSV(panelConentes), FireStoreManager_Test_CM.Instance.ReadCSV(detailContents));
+        int i = (int)eoObj;
+        int j = (int)descPanel;
+        eoVar[i].transform.GetChild(j).GetComponent<EODescPanelTween_CM>().PanelOpen(title, detail);
     }
 
     public void SkipConv()
@@ -454,138 +384,9 @@ public class TutorialManager_CM : MonoBehaviour
         }
     }
 
-    public void Showing3DTexts(bool thing)
+    public void GrabberTurn()
     {
-        if (!thing)
-        {
-            texts[0].SetActive(true);
-            MakeEffect(texts[0].transform, 0);
-            AudioMgr_CM.Instance.PlaySFXByInt(0);
-        }
-        else
-        {
-            texts[1].SetActive(true);
-            MakeEffect(texts[1].transform, 0);
-            AudioMgr_CM.Instance.PlaySFXByInt(0);
-        }
-    }
 
-    public void CheckHighlightCount()
-    {
-        int cnt = 0;
-
-        if (nextFlag == false)
-        {
-            for (int i = 0; i < texts.Length; i++)
-            {
-                if (texts[i].activeSelf == true)
-                {
-                    if (texts[i].GetComponent<HighlighCount_CM>().enabled == true)
-                    {
-                        if (texts[i].GetComponent<HighlighCount_CM>().ReturnFlag() == false)
-                        {
-                            cnt++;
-                        }
-                    }
-                }
-            }
-
-            if (cnt >= texts.Length)
-            {
-                nextFlag = true;
-                StartCoroutine(StartConvWithDelay());
-            }
-        }
-    }
-
-    public void EnabledHLC()
-    {
-        texts[0].GetComponent<HighlighCount_CM>().enabled = true;
-        texts[1].GetComponent<HighlighCount_CM>().enabled = true;
-    }
-
-    public void HighlightTexts()
-    {
-        StartCoroutine(SmallTextsHighlighted());
-    }
-
-    public void LPDAOnOff(bool flag)
-    {
-        lpd.RayStateChange(flag);
-    }
-
-    public void PhosGrabCnt()
-    {
-        Debug.Log("phosGrabCnt is : " + phosGrabCnt);
-        phosGrabCnt++;
-        if (phosGrabCnt >= 2)
-        {
-            //rule.ChangeText(FireStoreManager_Test_CM.Instance.ReadCSV("Rule_CM_5"));
-            //rule.ChangeImg("f2");
-
-            NewFollow(4, 0);
-        }
-    }
-
-    public void NewSpeech(string speechContents) // Need Convert to Lua
-    {
-        if (spb.gameObject.activeSelf == false) spb.gameObject.SetActive(true);
-        //spb.PanelOpen(speechContents);
-        spb.PanelOpen(speechContents, 3f);
-        //spb.PanelOpen(FireStoreManager_Test_CM.Instance.ReadCSV(speechContents)); // text quest change
-    }
-
-    public void SpeechOver() // Need Convert to Lua
-    {
-        spb.PanelClose();
-    }
-
-    public void NewFollow(double panelIndex, double followPanelIndex)
-    {
-        FollowDelete(followPanelIndex);
-
-        GameObject go = Instantiate(followingPanels[(int)panelIndex]);
-        go.transform.SetParent(followPanelPos[(int)followPanelIndex]);
-        go.transform.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
-
-        AudioMgr_CM.Instance.PlaySFXByInt(13);
-    }
-
-    public void FollowDelete(double followPanelIndex)
-    {
-        for (int i = 0; i < followPanelPos[(int)followPanelIndex].childCount; i++)
-        {
-            FollowPanel_CM var1 = followPanelPos[(int)followPanelIndex].GetChild(i).GetComponent<FollowPanel_CM>();
-            LaserDescriptionTween_CM var2 = followPanelPos[(int)followPanelIndex].GetChild(i).GetComponent<LaserDescriptionTween_CM>();
-
-            if (var1 != null)
-            {
-                var1.ReverseTweenAndDestroy();
-            }
-            else if (var2 != null)
-            {
-                var2.ReverseTweenAndDestroy();
-            }
-        }
-    }
-
-    IEnumerator SmallTextsHighlighted()
-    {
-        for (int i = 0; i < texts.Length; i++) texts[i].GetComponent<HighlightEffect>().highlighted = true;
-
-        yield return new WaitForSeconds(3f);
-
-        for (int i = 0; i < texts.Length; i++) texts[i].GetComponent<HighlightEffect>().highlighted = false;
-    }
-
-    IEnumerator RightAnswerEffect()
-    {
-        scrFader.ChangeFadeImageColor(Color.blue, 12f, 0.33f);
-        scrFader.DoFadeIn();
-
-        yield return new WaitForSeconds(0.75f);
-
-        scrFader.DoFadeOut();
     }
 
     IEnumerator WrondAnswerEffect()
@@ -607,15 +408,10 @@ public class TutorialManager_CM : MonoBehaviour
         go.transform.position = testBlockSpawnpos[i].transform.position;
         go.transform.name = testBlocks[i].transform.name;
 
-        if (i < 6) go.transform.rotation = Quaternion.Euler(0, -45, 0);
-        else go.transform.rotation = Quaternion.Euler(0, 45, 0);
+        if (i < 6) go.transform.rotation = Quaternion.Euler(0, -90, 0);
+        else go.transform.rotation = Quaternion.Euler(0, 90, 0);
     }
 
-    IEnumerator StartConvWithDelay()
-    {
-        yield return new WaitForSeconds(0.5f);
-        narrator.StartCov_7();
-    }
 
     IEnumerator MoveScene()
     {
@@ -642,12 +438,12 @@ public class TutorialManager_CM : MonoBehaviour
         Lua.RegisterFunction("MakePhosSticks", this, SymbolExtensions.GetMethodInfo(() => MakePhosSticks()));
         Lua.RegisterFunction("PlayAudioClip", this, SymbolExtensions.GetMethodInfo(() => PlayAudioClip((double)0)));
         Lua.RegisterFunction("QuestionByNarrator", this, SymbolExtensions.GetMethodInfo(() => QuestionByNarrator()));
-        Lua.RegisterFunction("UILaserOnOff", this, SymbolExtensions.GetMethodInfo(() => UILaserOnOff((bool)false)));
-        Lua.RegisterFunction("MakePlayerMove", this, SymbolExtensions.GetMethodInfo(() => MakePlayerMove((bool)false)));
+        Lua.RegisterFunction("UILaserOnOff", this, SymbolExtensions.GetMethodInfo(() => UILaserOnOff()));
+        Lua.RegisterFunction("MakePlayerMove", this, SymbolExtensions.GetMethodInfo(() => MakePlayerMove()));
         Lua.RegisterFunction("PlayClip", this, SymbolExtensions.GetMethodInfo(() => PlayClip((double)0)));
         Lua.RegisterFunction("FadeOutAndMoveScene", this, SymbolExtensions.GetMethodInfo(() => FadeOutAndMoveScene()));
         Lua.RegisterFunction("PlayNarratorAnimation", this, SymbolExtensions.GetMethodInfo(() => PlayNarratorAnimation((string)null)));
-        Lua.RegisterFunction("NewQuest", this, SymbolExtensions.GetMethodInfo(() => NewQuest((string)null, (double)0)));
+        Lua.RegisterFunction("NewQuest", this, SymbolExtensions.GetMethodInfo(() => NewQuest((string)null)));
         Lua.RegisterFunction("QuestOver", this, SymbolExtensions.GetMethodInfo(() => QuestOver()));
         Lua.RegisterFunction("NewRule", this, SymbolExtensions.GetMethodInfo(() => NewRule((string)null, (string)null)));
         Lua.RegisterFunction("RuleOver", this, SymbolExtensions.GetMethodInfo(() => RuleOver()));
@@ -655,12 +451,6 @@ public class TutorialManager_CM : MonoBehaviour
         Lua.RegisterFunction("SkipConv", this, SymbolExtensions.GetMethodInfo(() => SkipConv()));
         Lua.RegisterFunction("HighlightRemote", this, SymbolExtensions.GetMethodInfo(() => HighlightRemote((double)0)));
         Lua.RegisterFunction("EOObj3DText", this, SymbolExtensions.GetMethodInfo(() => EOObj3DText((double)0)));
-        Lua.RegisterFunction("Showing3DTexts", this, SymbolExtensions.GetMethodInfo(() => Showing3DTexts((bool)false)));
-        Lua.RegisterFunction("EnabledHLC", this, SymbolExtensions.GetMethodInfo(() => EnabledHLC()));
-        Lua.RegisterFunction("HighlightTexts", this, SymbolExtensions.GetMethodInfo(() => HighlightTexts()));
-        Lua.RegisterFunction("LPDAOnOff", this, SymbolExtensions.GetMethodInfo(() => LPDAOnOff((bool)false)));
-        Lua.RegisterFunction("NewFollow", this, SymbolExtensions.GetMethodInfo(() => NewFollow((double)0, (double)0)));
-        Lua.RegisterFunction("FollowDelete", this, SymbolExtensions.GetMethodInfo(() => FollowDelete((double)0)));
     }
 
     private void OnDisable()
@@ -689,12 +479,6 @@ public class TutorialManager_CM : MonoBehaviour
         Lua.UnregisterFunction("SkipConv");
         Lua.UnregisterFunction("HighlightRemote");
         Lua.UnregisterFunction("EOObj3DText");
-        Lua.UnregisterFunction("Showing3DTexts");
-        Lua.UnregisterFunction("EnabledHLC");
-        Lua.UnregisterFunction("HighlightTexts");
-        Lua.UnregisterFunction("LPDAOnOff");
-        Lua.UnregisterFunction("NewFollow");
-        Lua.UnregisterFunction("FollowDelete");
     }
     #endregion
 }
