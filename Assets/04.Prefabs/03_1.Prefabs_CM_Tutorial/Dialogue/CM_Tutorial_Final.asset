@@ -272,17 +272,15 @@ MonoBehaviour:
 
         PlayNarratorAnimation("Reaction");
 
-        MakePlayerMove(false);
+        UILaserOnOff();
 
-        UILaserOnOff(true);
-
-        LPDAOnOff(false)'
+        MakePlayerMove()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 156.65605
+        x: 157.92186
         y: 75.34952
         width: 160
         height: 30
@@ -337,9 +335,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'PlayAudioClip(1);
-
-        MakePlayerMove(false)'
+      userScript: PlayAudioClip(1);
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -406,8 +402,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160.00021
-        y: 163.56422
+        x: 161.26602
+        y: 164.83003
         width: 160
         height: 30
     - id: 4
@@ -469,8 +465,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 158.79936
-        y: 226.61533
+        x: 161.33098
+        y: 225.34952
         width: 160
         height: 30
     - id: 5
@@ -524,12 +520,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'PlayAudioClip(5);
-
-        EODescPanelMade(0, 0, "Panel_CM_1",
-        "Panel_CM_2");
-
-        EODescPanelMade(0, 1, "Panel_CM_3", "Panel_CM_4")'
+      userScript: "PlayAudioClip(5);\nEODescPanelMade(0, 0, \"\uBA38\uB9AC\", \"\uBB3C\uACFC
+        \uCE5C\uD55C \uBA38\uB9AC\");\nEODescPanelMade(0, 1, \"\uAF2C\uB9AC\", \"\uBB3C\uACFC
+        \uCE5C\uD558\uC9C0 \uC54A\uC740 \uBA38\uB9AC\")"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -594,8 +587,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 159.01631
-        y: 368.2608
+        x: 160.28214
+        y: 366.99496
         width: 160
         height: 30
     - id: 7
@@ -704,15 +697,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'NewQuest("Quest_CM_2", 3);
-
-        MaketutorialObj_Tail();
-
-        MakeTutorialObj_Head();
-
-        LPDAOnOff(true);
-
-        SkipConv()'
+      userScript: "NewQuest(\"\uC778\uC9C0\uC9C8\uC744 \uB9CC\uB4E4\uC5B4\uBCF4\uC790!\");\nPlayClip(1);\nMaketutorialObj_Tail();\nMakeTutorialObj_Head();\nSkipConv()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -883,15 +868,15 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'PlayAudioClip(7);
 
-        PlayNarratorAnimation("Reaction");
+        QuestOver();
 
-        LPDAOnOff(false)'
+        PlayNarratorAnimation("Reaction")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 158.63014
+        x: 160
         y: 80
         width: 160
         height: 30
@@ -1006,13 +991,8 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'PlayAudioClip(10);
-
-        IntroduceEyesOnlyObject(1);
-
-        DeleteSaber();
-
-        EOObj3DText(1);'
+      userScript: "PlayAudioClip(10);\nIntroduceEyesOnlyObject(1);\nDeleteSaber();\nEODescPanelMade(1,
+        0, \"\uC778\uC9C0\uC9C8\", \"\uADF8\uB7EC\uD558\uB2E4\");\nEOObj3DText(1)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1072,12 +1052,8 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'PlayAudioClip(12);
-
-        EODescPanelMade(2, 0, "Panel_CM_5",
-        "Panel_CM_6");
-
-        EOObj3DText(2)'
+      userScript: "PlayAudioClip(12);\nEODescPanelMade(2, 0, \"\uC138\uD3EC\uB9C9\",
+        \"\uADF8\uB7EC\uD558\uB2E4\")\nEOObj3DText(2)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1143,8 +1119,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160.8156
-        y: 364.6806
+        x: 162.18544
+        y: 363.31076
         width: 160
         height: 30
     - id: 9
@@ -1261,17 +1237,14 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'PlayAudioClip(11);
 
-        IntroduceEyesOnlyObject(2);
-
-        EODescPanelMade(1,
-        0, "Panel_CM_5", "Panel_CM_6")'
+        IntroduceEyesOnlyObject(2)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 165.02834
-        y: 265.52798
+        x: 163.65846
+        y: 262.78824
         width: 160
         height: 30
     - id: 11
@@ -1317,31 +1290,20 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'NewQuest("Quest_CM_3", 3);
-
-        DeleteSaber();
-
-        MakeTutorialObj_Single();
-
-        PlayClip(1);
-
-        NewFollow(0,
-        0);
-
-        LPDAOnOff(true);
-
-        SkipConv();'
+      userScript: "NewQuest(\"\uC778\uC9C0\uC9C8 \uC774\uC911\uCE35 \uAD6C\uC870\uB97C
+        \uB9CC\uB4E4\uC5B4\uBCF4\uC790\");\r\nPlayClip(0);\r\nNewRule(\"\uC778\uC9C0\uC9C8
+        \uC774\uC911\uCE35 \uAD6C\uC870 \uB9CC\uB4DC\uB294 \uBC95\", \"f1\");\r\nDeleteSaber();\r\nMakeTutorialObj_Single();\r\nPlayClip(1);\r\nSkipConv();"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 161.08505
-        y: 413.58023
+        x: 163.82478
+        y: 414.9501
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 98.82269, y: 57.213097}
     canvasZoom: 0.7300002
   - id: 3
     fields:
@@ -1430,7 +1392,7 @@ MonoBehaviour:
       isGroup: 0
       nodeColor: 
       delaySimStatus: 0
-      falseConditionAction: Block
+      falseConditionAction: 
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 3
@@ -1501,9 +1463,9 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'PlayAudioClip(14);
 
-        LPDAOnOff(false);
+        QuestOver();
 
-        FollowDelete(0)'
+        RuleOver()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1741,17 +1703,15 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'QuestionByNarrator();
 
-        UILaserOnOff(true);
+        UILaserOnOff();
 
-        LPDAOnOff(true);
-
-        SkipConv();'
+        SkipConv()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 166.21951
+        x: 165
         y: 290.2195
         width: 160
         height: 30
@@ -1914,9 +1874,7 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'PlayAudioClip(18);
 
-        UILaserOnOff(false);
-
-        LPDAOnOff(false);
+        UILaserOnOff();
 
         PlayNarratorAnimation("Reaction");
 
@@ -1926,7 +1884,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 154.00154
+        x: 155.64088
         y: 79.68863
         width: 160
         height: 30
@@ -2042,16 +2000,14 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'PlayAudioClip(21);
 
-        MakeTestBlocks(true);
-
-        Showing3DTexts(true)'
+        MakeTestBlocks(true)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 159.97198
-        y: 206.26826
+        y: 204.62892
         width: 160
         height: 30
     - id: 7
@@ -2105,7 +2061,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: PlayAudioClip(22);
+      userScript: 'PlayAudioClip(22);
+
+        MakeTestBlocks(false)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2167,18 +2125,14 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'PlayAudioClip(23);
 
-        HighlightRemote(2);
-
-        MakeTestBlocks(false);
-
-        Showing3DTexts(false)'
+        HighlightRemote(2)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 161.61133
-        y: 285.9076
+        x: 159.97198
+        y: 282.6289
         width: 160
         height: 30
     - id: 9
@@ -2238,8 +2192,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160.61133
-        y: 332.55615
+        x: 158.97198
+        y: 325.99878
         width: 160
         height: 30
     - id: 10
@@ -2265,9 +2219,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: "\uC790 \uADF8\uB7FC, \uCE5C\uC218\uC131 \uBB3C\uC9C8\uACFC \uC18C\uC218\uC131
-          \uBB3C\uC9C8\uC744 \uC778\uC9C0\uC9C8 \uB9C9\uB300\uB85C \uC801\uC808\uD558\uAC8C
-          \uAD6C\uBD84\uD574\uBD10"
+        value: "\uC790 \uADF8\uB7FC, \uBB3C\uACFC \uCE5C\uD55C \uBB3C\uC9C8\uACFC
+          \uBB3C\uACFC \uCE5C\uD558\uC9C0 \uC54A\uC740 \uBB3C\uC9C8\uC744 \uBCF4\uC5EC\uC904\uAC8C."
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -2289,20 +2242,18 @@ MonoBehaviour:
       - originConversationID: 4
         originDialogueID: 10
         destinationConversationID: 4
-        destinationDialogueID: 13
+        destinationDialogueID: 12
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'PlayAudioClip(25);
-
-        MakePhosSticks()'
+      userScript: PlayAudioClip(25)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 155.41461
-        y: 389.21906
+        x: 161.97198
+        y: 364.6289
         width: 160
         height: 30
     - id: 11
@@ -2369,6 +2320,67 @@ MonoBehaviour:
         y: 123.746735
         width: 160
         height: 30
+    - id: 12
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: "\uC778\uC9C0\uC9C8 \uB9C9\uB300\uB85C \uC801\uC808\uD558\uAC8C \uAD6C\uBD84\uD574\uBD10."
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: es
+        value: 
+        type: 4
+        typeString: CustomFieldType_Localization
+      conversationID: 4
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 4
+        originDialogueID: 12
+        destinationConversationID: 4
+        destinationDialogueID: 13
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 'PlayAudioClip(26);
+
+        MakePhosSticks()'
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 161.97198
+        y: 414.6289
+        width: 160
+        height: 30
     - id: 13
       fields:
       - title: Title
@@ -2408,32 +2420,24 @@ MonoBehaviour:
       isGroup: 0
       nodeColor: 
       delaySimStatus: 0
-      falseConditionAction: Passthrough
+      falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'NewQuest("Quest_CM_5", 3);
-
-        MakePlayerMove(true);
-
-        LPDAOnOff(true);
-
-        NewFollow(3,
-        0);
-
-        SkipConv()'
+      userScript: "NewQuest(\"\uCE5C\uC218\uC131 \uBB3C\uC9C8\uACFC \uC18C\uC218\uC131
+        \uBB3C\uC9C8\uC744 \uAD6C\uBD84\uD574\uBCF4\uC790!\");\nSkipConv();\nMakePlayerMove()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 152.13593
-        y: 446.59613
+        x: 161.97198
+        y: 464.6289
         width: 160
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.64000034
+    canvasZoom: 0.6100004
   - id: 6
     fields:
     - title: Title
@@ -2588,9 +2592,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'PlayAudioClip(35);
-
-        LPDAOnOff(false)'
+      userScript: PlayAudioClip(34);
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2641,15 +2643,9 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 6
-        originDialogueID: 2
-        destinationConversationID: 6
-        destinationDialogueID: 3
-        isConnector: 0
-        priority: 2
+      outgoingLinks: []
       conditionsString: 
-      userScript: PlayAudioClip(36);
+      userScript: PlayAudioClip(35);
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2657,61 +2653,6 @@ MonoBehaviour:
         serializedVersion: 2
         x: 166.0702
         y: 133.43785
-        width: 160
-        height: 30
-    - id: 3
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 6
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Passthrough
-      conditionPriority: 2
-      outgoingLinks: []
-      conditionsString: 
-      userScript: 'LPDAOnOff(true);
-
-        SkipConv()'
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 166.0702
-        y: 183.43785
         width: 160
         height: 30
     entryGroups: []
@@ -2871,11 +2812,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'PlayAudioClip(26);
-
-        LPDAOnOff(false);
-
-        FollowDelete(0)'
+      userScript: PlayAudioClip(27);
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2883,6 +2820,306 @@ MonoBehaviour:
         serializedVersion: 2
         x: 161
         y: 78.73683
+        width: 160
+        height: 30
+    - id: 2
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: "\uADF8\uB7FC \uC774\uC81C\uBD80\uD130 \uBCF8\uACA9\uC801\uC778 \uAC8C\uC784
+          \uC2DC\uC791\uC774\uC57C!"
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: es
+        value: 
+        type: 4
+        typeString: CustomFieldType_Localization
+      conversationID: 7
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 7
+        originDialogueID: 2
+        destinationConversationID: 7
+        destinationDialogueID: 3
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: PlayAudioClip(29);
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 161
+        y: 177.42104
+        width: 160
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: "\uCE5C\uC218\uC131 \uBB3C\uC9C8, \uC18C\uC218\uC131 \uBB3C\uC9C8\uC744
+          \uC778\uC9C0\uC9C8 \uB9C9\uB300\uB85C \uC798 \uAD6C\uBD84\uD574\uC918."
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: es
+        value: 
+        type: 4
+        typeString: CustomFieldType_Localization
+      conversationID: 7
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 7
+        originDialogueID: 3
+        destinationConversationID: 7
+        destinationDialogueID: 4
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: PlayAudioClip(30);
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 161.00002
+        y: 226.24455
+        width: 160
+        height: 30
+    - id: 4
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: "\uC798 \uD560 \uC218 \uC788\uACA0\uC9C0?"
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: es
+        value: 
+        type: 4
+        typeString: CustomFieldType_Localization
+      conversationID: 7
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 7
+        originDialogueID: 4
+        destinationConversationID: 7
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: PlayAudioClip(31);
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 161
+        y: 278.73682
+        width: 160
+        height: 30
+    - id: 5
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: "\uC131\uACF5\uD558\uBA74~ \uC138\uD3EC \uC18D\uC73C\uB85C \uD0D0\uD5D8\uD558\uAC8C
+          \uD574\uC904\uAC8C!"
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: es
+        value: 
+        type: 4
+        typeString: CustomFieldType_Localization
+      conversationID: 7
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 7
+        originDialogueID: 5
+        destinationConversationID: 7
+        destinationDialogueID: 6
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: PlayAudioClip(32);
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 161
+        y: 327.42108
+        width: 160
+        height: 30
+    - id: 6
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: "\uD654\uC774\uD305!!"
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: es
+        value: 
+        type: 4
+        typeString: CustomFieldType_Localization
+      conversationID: 7
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 7
+        originDialogueID: 6
+        destinationConversationID: 7
+        destinationDialogueID: 8
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 'PlayAudioClip(33);
+
+        PlayNarratorAnimation("Reaction")'
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 161.26678
+        y: 371.73926
         width: 160
         height: 30
     - id: 7
@@ -2930,68 +3167,7 @@ MonoBehaviour:
       - originConversationID: 7
         originDialogueID: 7
         destinationConversationID: 7
-        destinationDialogueID: 9
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: PlayAudioClip(27);
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 161.05602
-        y: 124.705475
-        width: 160
-        height: 30
-    - id: 9
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: "\uB9C8\uC9C0\uB9C9\uC73C\uB85C \uCE5C\uC218\uC131 \uBB3C\uC9C8, \uC18C\uC218\uC131
-          \uBB3C\uC9C8 \uAE00\uC790\uB97C \uD074\uB9AD\uD574\uC11C \uAC01\uAC01 \uBB34\uC2A8
-          \uD2B9\uC9D5\uC744 \uAC00\uC9C0\uACE0 \uC788\uB294\uC9C0 \uD655\uC778\uD574\uC918!"
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 7
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 7
-        originDialogueID: 9
-        destinationConversationID: 7
-        destinationDialogueID: 10
+        destinationDialogueID: 2
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -3002,73 +3178,10 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 161.05602
-        y: 174.70547
+        y: 124.705475
         width: 160
         height: 30
-    - id: 10
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: "\uAE00\uC790\uBFD0\uB9CC \uC544\uB2C8\uB77C \uAC01 \uBB3C\uC9C8\uC744
-          \uD074\uB9AD\uD558\uBA74 \uC0C1\uC138\uD55C \uC124\uBA85\uC744 \uBCFC \uC218
-          \uC788\uC5B4!"
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 7
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 7
-        originDialogueID: 10
-        destinationConversationID: 7
-        destinationDialogueID: 11
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 'PlayAudioClip(29);
-
-        HighlightTexts()'
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 163.4409
-        y: 228.15942
-        width: 160
-        height: 30
-    - id: 11
+    - id: 8
       fields:
       - title: Title
         value: 
@@ -3103,479 +3216,6 @@ MonoBehaviour:
         type: 4
         typeString: CustomFieldType_Localization
       conversationID: 7
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks: []
-      conditionsString: 
-      userScript: 'NewQuest("Quest_CM_6", 3);
-
-        NewFollow(2, 0);
-
-        EnabledHLC();
-
-        LPDAOnOff(true);
-
-        SkipConv()'
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 165.0034
-        y: 283.916
-        width: 160
-        height: 30
-    entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.64000034
-  - id: 8
-    fields:
-    - title: Title
-      value: "\uAC8C\uC784 \uC2DC\uC791"
-      type: 0
-      typeString: 
-    - title: Description
-      value: 
-      type: 0
-      typeString: 
-    - title: Actor
-      value: 1
-      type: 5
-      typeString: CustomFieldType_Actor
-    - title: Conversant
-      value: 2
-      type: 5
-      typeString: CustomFieldType_Actor
-    overrideSettings:
-      useOverrides: 0
-      overrideSubtitleSettings: 0
-      showNPCSubtitlesDuringLine: 1
-      showNPCSubtitlesWithResponses: 1
-      showPCSubtitlesDuringLine: 0
-      skipPCSubtitleAfterResponseMenu: 0
-      subtitleCharsPerSecond: 30
-      minSubtitleSeconds: 2
-      continueButton: 0
-      overrideSequenceSettings: 0
-      defaultSequence: 
-      defaultPlayerSequence: 
-      defaultResponseMenuSequence: 
-      overrideInputSettings: 0
-      alwaysForceResponseMenu: 1
-      includeInvalidEntries: 0
-      responseTimeout: 0
-      emTagForOldResponses: 0
-      emTagForInvalidResponses: 0
-      cancelSubtitle:
-        key: 27
-        buttonName: 
-      cancelConversation:
-        key: 27
-        buttonName: 
-    nodeColor: 
-    dialogueEntries:
-    - id: 0
-      fields:
-      - title: Title
-        value: START
-        type: 0
-        typeString: 
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: None()
-        type: 0
-        typeString: 
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 8
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: 
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 8
-        originDialogueID: 0
-        destinationConversationID: 8
-        destinationDialogueID: 1
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 160
-        y: 30
-        width: 160
-        height: 30
-    - id: 1
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: "\uADF8\uB7FC \uC774\uC81C\uBD80\uD130 \uBCF8\uACA9\uC801\uC778 \uAC8C\uC784
-          \uC2DC\uC791\uC774\uC57C!"
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 8
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 8
-        originDialogueID: 1
-        destinationConversationID: 8
-        destinationDialogueID: 2
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 'PlayAudioClip(30);
-
-        LPDAOnOff(false);
-
-        FollowDelete(0)'
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 162
-        y: 82
-        width: 160
-        height: 30
-    - id: 2
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: "\uCE5C\uC218\uC131 \uBB3C\uC9C8, \uC18C\uC218\uC131 \uBB3C\uC9C8\uC744
-          \uC778\uC9C0\uC9C8 \uB9C9\uB300\uB85C \uC798 \uAD6C\uBD84\uD574\uC918."
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 8
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 8
-        originDialogueID: 2
-        destinationConversationID: 8
-        destinationDialogueID: 3
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: PlayAudioClip(31)
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 160
-        y: 130
-        width: 160
-        height: 30
-    - id: 3
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: "\uC798 \uD560 \uC218 \uC788\uACA0\uC9C0?"
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 8
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 8
-        originDialogueID: 3
-        destinationConversationID: 8
-        destinationDialogueID: 4
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: PlayAudioClip(32)
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 160
-        y: 180
-        width: 160
-        height: 30
-    - id: 4
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: "\uC131\uACF5\uD558\uBA74~ \uC138\uD3EC \uC18D\uC73C\uB85C \uD0D0\uD5D8\uD558\uAC8C
-          \uD574\uC904\uAC8C!"
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 8
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 8
-        originDialogueID: 4
-        destinationConversationID: 8
-        destinationDialogueID: 5
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: PlayAudioClip(33)
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 160
-        y: 230
-        width: 160
-        height: 30
-    - id: 5
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: "\uD654\uC774\uD305!!"
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 8
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 8
-        originDialogueID: 5
-        destinationConversationID: 8
-        destinationDialogueID: 6
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 'PlayAudioClip(34);
-
-        PlayNarratorAnimation("Reaction")'
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 160
-        y: 280
-        width: 160
-        height: 30
-    - id: 6
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 8
       isRoot: 0
       isGroup: 0
       nodeColor: 
@@ -3590,13 +3230,13 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 330
+        x: 161.26678
+        y: 421.73926
         width: 160
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.8800001
+    canvasZoom: 0.7600002
   syncInfo:
     syncActors: 0
     syncItems: 0

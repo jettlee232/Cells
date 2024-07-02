@@ -8,13 +8,12 @@ public class NarratorDialogueHub_CM_Tutorial : MonoBehaviour
     public DialogueSystemController dsc;
 
     [Header("Dialogue Databases")]
-    public DialogueSystemTrigger dst1;
-    public DialogueSystemTrigger dst2;
-    public DialogueSystemTrigger dst3;
-    public DialogueSystemTrigger dst4;
-    public DialogueSystemTrigger dst5;
-    public DialogueSystemTrigger dst6;
-    public DialogueSystemTrigger dst7;
+    public DialogueSystemTrigger dst1; // 1번째 트리거
+    public DialogueSystemTrigger dst2; // 2번째 트리거
+    public DialogueSystemTrigger dst3; // 3번째 트리거
+    public DialogueSystemTrigger dst4; // 4번째 트리거    
+    public DialogueSystemTrigger dst5; // 5번째 트리거
+    public DialogueSystemTrigger dst6; // 6번째 트리거
 
     public void StartCov_1()
     {
@@ -39,9 +38,6 @@ public class NarratorDialogueHub_CM_Tutorial : MonoBehaviour
 
     public void StartCov_4()
     {
-        AudioMgr_CM.Instance.PlaySFXByInt(1);
-        AudioMgr_CM.Instance.PlaySFXByInt(14);
-
         StopConv();
         dst4.startConversationEntryID = 0;
         dst4.OnUse();
@@ -49,9 +45,6 @@ public class NarratorDialogueHub_CM_Tutorial : MonoBehaviour
 
     public void StartCov_5()
     {
-        AudioMgr_CM.Instance.PlaySFXByInt(1);
-        AudioMgr_CM.Instance.PlaySFXByInt(12);
-
         StopConv();
         dst5.startConversationEntryID = 0;
         dst5.OnUse();
@@ -62,13 +55,6 @@ public class NarratorDialogueHub_CM_Tutorial : MonoBehaviour
         StopConv();
         dst6.startConversationEntryID = 0;
         dst6.OnUse();
-    }
-
-    public void StartCov_7()
-    {
-        StopConv();
-        dst7.startConversationEntryID = 0;
-        dst7.OnUse();
     }
 
     void StopConv()
