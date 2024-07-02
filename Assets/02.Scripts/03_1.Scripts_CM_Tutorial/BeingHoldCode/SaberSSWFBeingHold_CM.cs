@@ -57,12 +57,12 @@ public class SaberSSWFBeingHold_CM : MonoBehaviour
             if (isThisFirstAttach == false)
             {
                 isThisFirstAttach = true;
-                GameObject.Find("TutorialMgr").GetComponent<TutorialManager_CM>().MaketutorialObj_Double();
 
-                // ����Ʈ �г� �ؽ�Ʈ ����                
-                GameObject.FindGameObjectWithTag("MainCamera").transform.GetChild(2).GetComponent<QuestPanel_CM>().ChangeText(FireStoreManager_Test_CM.Instance.ReadCSV("Quest_CM_4"));
-                GameObject.FindGameObjectWithTag("MainCamera").transform.GetChild(3).GetComponent<RulePanel_CM>().ChangeText(FireStoreManager_Test_CM.Instance.ReadCSV("Rule_CM_2"));
-                GameObject.FindGameObjectWithTag("MainCamera").transform.GetChild(3).GetComponent<RulePanel_CM>().ChangeImg("f2");
+                TutorialManager_CM tutoMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<TutorialManager_CM>();
+                tutoMgr.MaketutorialObj_Double();
+                tutoMgr.NewFollow(1, 0);
+                // This Code Has BUG
+                //tutoMgr.quest.PanelOpen(FireStoreManager_Test_CM.Instance.ReadCSV("Quest_CM_4"), 3);
             }
 
             checkFlag = true;
