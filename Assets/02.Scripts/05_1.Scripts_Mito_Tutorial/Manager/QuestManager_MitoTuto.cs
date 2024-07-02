@@ -30,6 +30,8 @@ public class QuestManager_MitoTuto : MonoBehaviour
     public bool isRibose = false;
     public bool isPhosphate = false;
 
+    public GameObject mixEffect;
+
     public GameObject npcToolTip;
 
     private void Awake()

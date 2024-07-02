@@ -10,6 +10,8 @@ public class GameManager_Mito : MonoBehaviour
 
     PlayerMoving_Mito playerMoving_Mito;
     public QuestPanel_Mito questPanelMito;
+    public GameObject resultPanel;
+    public Transform resultPos;
 
     public int atpScore = 0;
     public float atpCurTime = 1.0f;
@@ -35,8 +37,6 @@ public class GameManager_Mito : MonoBehaviour
         Time.fixedDeltaTime = (Time.timeScale / UnityEngine.XR.XRDevice.refreshRate);
 
         playerMoving_Mito = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMoving_Mito>();
-
-        StartCoroutine(StartGame(5.0f));
     }
 
     IEnumerator StartGame(float delay)
@@ -66,7 +66,9 @@ public class GameManager_Mito : MonoBehaviour
 
     public void BtnOnClickGameStart()
     {
+        playerMoving_Mito.isMoving = true;
         StartTimer();
+        StartCoroutine(StartGame(5.0f));
     }
 
     void StartTimer()
@@ -86,5 +88,9 @@ public class GameManager_Mito : MonoBehaviour
     void GameClear()
     {
         Debug.Log("ATP를 목표치만큼 모았습니다.");
+
+        GameObject go = Instantiate(resultPanel);
+        go.transform.SetParent(resultPos);
+        go.transform.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
     }
 }

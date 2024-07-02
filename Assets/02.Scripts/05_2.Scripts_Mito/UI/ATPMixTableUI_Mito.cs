@@ -6,17 +6,17 @@ using UnityEngine.UI;
 
 public class ATPMixTableUI_Mito : MonoBehaviour
 {
-    //public ATPMixTable_Mito atpMixTable;
-    public ATPMixTableInside_Mito atpMixTableInside;
-    public ATPMixTableOutside_Mito atpMixTableOutside;
-    public TextMeshProUGUI adpCheckText;
-    public TextMeshProUGUI phosphateCheckText;
-    public TextMeshProUGUI hIonCountText;
-    public TextMeshProUGUI hIonPercentageText;
+    public ATPMixTableInside_Mito[] atpMixTableInsides;
+    public ATPMixTableOutside_Mito[] atpMixTableOutsides;
 
-    public Image adpCheckImage;
-    public Image phosphateCheckImage;
-    public Image hIonCheckImage;
+    public TextMeshProUGUI[] adpCheckTexts;
+    public TextMeshProUGUI[] phosphateCheckTexts;
+    public TextMeshProUGUI[] hIonCountTexts;
+    public TextMeshProUGUI[] hIonPercentageTexts;
+
+    public Image[] adpCheckImages;
+    public Image[] phosphateCheckImages;
+    public Image[] hIonCheckImages;
 
     private int requiredADP = 1;
     private int requiredPhosphate = 1;
@@ -30,47 +30,58 @@ public class ATPMixTableUI_Mito : MonoBehaviour
 
     void Update()
     {
-        if (atpMixTableInside.gameObject.activeSelf)
+        UpdateAllUIs();
+    }
+
+    void UpdateAllUIs()
+    {
+        for (int i = 0; i < atpMixTableInsides.Length; i++)
         {
-            UpdateInsideUIText();
-            UpdateInsideUIImage();
+            if (atpMixTableInsides[i] != null && atpMixTableInsides[i].gameObject.activeSelf)
+            {
+                UpdateInsideUIText(i);
+                UpdateInsideUIImage(i);
+            }
         }
 
-        if (atpMixTableOutside.gameObject.activeSelf)
+        for (int i = 0; i < atpMixTableOutsides.Length; i++)
         {
-            UpdateOutsideUIText();
-            UpdateOutsideUIImage();
+            if (atpMixTableOutsides[i] != null && atpMixTableOutsides[i].gameObject.activeSelf)
+            {
+                UpdateOutsideUIText(i);
+                UpdateOutsideUIImage(i);
+            }
         }
     }
 
-    void UpdateInsideUIText()
+    void UpdateInsideUIText(int index)
     {
-        string currentADP = atpMixTableInside.isADP ? "O" : "X";
-        string currentPhosphate = atpMixTableInside.isPhosphate ? "O" : "X";
+        string currentADP = atpMixTableInsides[index].isADP ? "O" : "X";
+        string currentPhosphate = atpMixTableInsides[index].isPhosphate ? "O" : "X";
 
-        adpCheckText.text = currentADP;
-        phosphateCheckText.text = currentPhosphate;
+        adpCheckTexts[index].text = currentADP;
+        phosphateCheckTexts[index].text = currentPhosphate;
     }
 
-    void UpdateInsideUIImage()
+    void UpdateInsideUIImage(int index)
     {
-        adpCheckImage.color = atpMixTableInside.isADP ? Color.green : Color.red;
-        phosphateCheckImage.color = atpMixTableInside.isPhosphate ? Color.green : Color.red;
+        adpCheckImages[index].color = atpMixTableInsides[index].isADP ? Color.green : Color.red;
+        phosphateCheckImages[index].color = atpMixTableInsides[index].isPhosphate ? Color.green : Color.red;
     }
 
-    void UpdateOutsideUIText()
+    void UpdateOutsideUIText(int index)
     {
-        int currentHIon = atpMixTableOutside.curHIonCount;
-        float maxHIonCount = atpMixTableOutside.maxHIonCount;
+        int currentHIon = atpMixTableOutsides[index].curHIonCount;
+        float maxHIonCount = atpMixTableOutsides[index].maxHIonCount;
         float hIonPercentage = (currentHIon / maxHIonCount) * 100.0f;
 
-        hIonCountText.text = $"{Mathf.Max(0, requiredHIonPerATP - currentHIon)}";
-        hIonPercentageText.text = $"{hIonPercentage:F1}%";
+        hIonCountTexts[index].text = $"{Mathf.Max(0, requiredHIonPerATP - currentHIon)}";
+        hIonPercentageTexts[index].text = $"{hIonPercentage:F1}%";
     }
 
-    void UpdateOutsideUIImage()
+    void UpdateOutsideUIImage(int index)
     {
-        hIonCheckImage.color = atpMixTableOutside.curHIonCount >= requiredHIonPerATP ? Color.green : Color.red;
+        hIonCheckImages[index].color = atpMixTableOutsides[index].curHIonCount >= requiredHIonPerATP ? Color.green : Color.red;
     }
 
 }

@@ -53,7 +53,7 @@ public class MyATPMix_MitoTuto : MonoBehaviour
                         }
 
                         // 리보스가 자식으로 있을때 인산염과의 충돌 // 나중에
-                        
+
                         break;
                     case "Ribose": // 들고있는 아이템이 리보스
                         if (collider.CompareTag("Ribose")) // 리보스Pos에 닿았을때
@@ -131,14 +131,20 @@ public class MyATPMix_MitoTuto : MonoBehaviour
         ReleaseItem();
         GameObject newItem = Instantiate(itemPrefabs[index], grabItem.transform.position, Quaternion.identity);
 
+        MixEffect(grabItem.transform.position, Quaternion.identity);
         Destroy(grabItem.gameObject);
         Destroy(colItem.transform.root.gameObject);
     }
 
-    private void OnDrawGizmos()
+    private void MixEffect(Vector3 pos, Quaternion rot)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 0.025f);
+        Instantiate(QuestManager_MitoTuto.Instance.mixEffect, pos, rot);
     }
+
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, 0.025f);
+    //}
 
 }
