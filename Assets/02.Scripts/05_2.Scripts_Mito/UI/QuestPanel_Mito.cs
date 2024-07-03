@@ -73,7 +73,9 @@ public class QuestPanel_Mito : MonoBehaviour
     public void PanelClose()
     {
         if (corou != null) StopCoroutine(corou);
-
+        
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
         corou = StartCoroutine(PanelDisabled());
     }
 

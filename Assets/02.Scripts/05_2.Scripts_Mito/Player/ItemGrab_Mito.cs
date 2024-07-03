@@ -63,5 +63,22 @@ public class ItemGrab_Mito : MonoBehaviour
         {
             itemMito.ResetScale();
         }
+
+        CheckAndCreateSnapEffect(item);
+    }
+
+    private void CheckAndCreateSnapEffect(Grabbable releasedItem)
+    {
+        // 놓은 위치의 콜라이더들을 확인
+        Collider[] hitColliders = Physics.OverlapSphere(releasedItem.transform.position, 0.1f);
+
+        foreach (var collider in hitColliders)
+        {
+            if (collider.GetComponent<SnapZone>() != null)
+            {
+                GameManager_Mito.Instance.MakeSnapEffect(releasedItem.transform.position);
+                break;
+            }
+        }
     }
 }

@@ -737,13 +737,13 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "EnableGrabMiniHalfMito();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
-        \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\", 5);\nToggleIsMoving();\nShowLaserPanel();"
+        \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\", 5);\nToggleIsMoving();\nShowLaserPanel();\nVibrateHand()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 80
+        x: 79
         y: 304
         width: 160
         height: 30
@@ -951,7 +951,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: ToggleRayDescription()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1389,7 +1389,7 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "ToggleIsMoving();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
-        \uC18D\uC744 \uBE44\uD589\uD574\uBCF4\uC790!\", 5);\nToggleNpcTooltip();\nReadyDialogue()"
+        \uC18D\uC744 \uBE44\uD589\uD574\uBCF4\uC790!\", 5);\nToggleNpcTooltip();\nReadyDialogue();\nVibrateHand();\nToggleRayDescription()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2380,14 +2380,14 @@ MonoBehaviour:
       conditionsString: 
       userScript: "ToggleIsMoving();\nToggleGrabATP();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00
         \uC0DD\uC0B0\uD558\uB294 \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\",
-        5)"
+        5);\nVibrateHand()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 158
-        y: 301
+        x: 157
+        y: 302
         width: 160
         height: 30
     entryGroups: []
@@ -2539,7 +2539,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: ToggleRayDescription()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2703,7 +2703,7 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "DelayCloseQuestText(\"\uC5D0\uB108\uC9C0\uC758 \uAD6C\uC131\uC694\uC18C\uB97C
-        \uB9CC\uC838\uBCF4\uC790!\", 5);\nToggleATP();\nEnableGrabATPComponent();\nToggleGrabATP()"
+        \uB9CC\uC838\uBCF4\uC790!\", 5);\nToggleATP();\nEnableGrabATPComponent();\nToggleGrabATP();\nVibrateHand();\nToggleRayDescription()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2917,7 +2917,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: ToggleRayDescription()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2968,7 +2968,7 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "DelayCloseQuestText(\"ATP\uB97C \uC870\uD569\uD574\uBCF4\uC790!\",
-        5);\nToggleIsMoving();\nSetActiveATPMixComponents();\nShowATPMixRulePanel()"
+        5);\nToggleIsMoving();\nSetActiveATPMixComponents();\nShowATPMixRulePanel();\nVibrateHand();\nToggleRayDescription()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []

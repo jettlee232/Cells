@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class ATPSynthaseInActive_Mito : MonoBehaviour
 {
-    public InputActionReference InputAction;
     public GameObject atpInsidePanel;
     public GameObject atpOutsidePanel;
     public GameObject friendAtpSynthase;

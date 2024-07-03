@@ -65,6 +65,7 @@ public class RayInteraction_Mito : MonoBehaviour
                 // 나중에 이동시간을 조절하면 될듯?
                 item.transform.localPosition = snapZone.transform.position;
                 item.transform.localEulerAngles = snapZone.transform.localEulerAngles;
+                //GameManager_Mito.Instance.MakeSnapEffect(snapZone.transform.position);
 
                 //snapZone.GrabGrabbable(item);
 

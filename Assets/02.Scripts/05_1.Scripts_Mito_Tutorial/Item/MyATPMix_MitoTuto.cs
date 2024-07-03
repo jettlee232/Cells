@@ -68,7 +68,7 @@ public class MyATPMix_MitoTuto : MonoBehaviour
                             {
                                 Debug.Log("리보스가 인산염의 리보스Pos에 충돌");
                                 //AttachItem(item, collider.transform);
-                                MixItem(item, collider.gameObject, 1);
+                                MixItem(item, collider.gameObject, 0);
                             }
                         }
                         break;

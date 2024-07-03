@@ -13,6 +13,8 @@ public class GameManager_Mito : MonoBehaviour
     public GameObject resultPanel;
     public Transform resultPos;
 
+    public GameObject snapEffect;
+
     public int atpScore = 0;
     public float atpCurTime = 1.0f;
     public float atpMaxTime = 1.0f;
@@ -92,5 +94,10 @@ public class GameManager_Mito : MonoBehaviour
         GameObject go = Instantiate(resultPanel);
         go.transform.SetParent(resultPos);
         go.transform.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+    }
+
+    public void MakeSnapEffect(Vector3 pos)
+    {
+        Instantiate(snapEffect, pos, Quaternion.identity);
     }
 }

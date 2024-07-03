@@ -8,6 +8,7 @@ using BNG;
 public class TutorialManager_MitoTuto : MonoBehaviour
 {
     PlayerMoving_Mito playerMoving_Mito;
+    public RayDescription_MitoTuto rayDescription_MitoTuto;
 
     public QuestPanel_Mito questPanelMito;
     public LocationPanel_CM locationPanelMito;
@@ -54,6 +55,11 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         GameObject npcToolTip = QuestManager_MitoTuto.Instance.npcToolTip.transform.parent.gameObject;
 
         npcToolTip.SetActive(!npcToolTip.activeSelf);
+    }
+
+    public void ToggleRayDescription()
+    {
+        rayDescription_MitoTuto.canMakeRayDescription = !rayDescription_MitoTuto.canMakeRayDescription;
     }
 
     public void ReadyDialogue()
@@ -178,6 +184,11 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         questPanelMito.PanelOpen(text, delay);
     }
 
+    public void VibrateHand()
+    {
+        VibrateManager_Mito.Instance.VibrateBothHands();
+    }
+
     public void EndTutorial()
     {
         Scene scene = SceneManager.GetActiveScene();
@@ -199,6 +210,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     {
         Lua.RegisterFunction("SetPlayerPosition", this, SymbolExtensions.GetMethodInfo(() => SetPlayerPosition()));
         Lua.RegisterFunction("ToggleNpcTooltip", this, SymbolExtensions.GetMethodInfo(() => ToggleNpcTooltip()));
+        Lua.RegisterFunction("ToggleRayDescription", this, SymbolExtensions.GetMethodInfo(() => ToggleRayDescription()));
         Lua.RegisterFunction("ReadyDialogue", this, SymbolExtensions.GetMethodInfo(() => ReadyDialogue()));
         Lua.RegisterFunction("ToggleIsMoving", this, SymbolExtensions.GetMethodInfo(() => ToggleIsMoving()));
         Lua.RegisterFunction("SetPlayerSpeed", this, SymbolExtensions.GetMethodInfo(() => SetPlayerSpeed((float)0, (float)0, (float)0)));
@@ -218,6 +230,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.RegisterFunction("CloseQuest", this, SymbolExtensions.GetMethodInfo(() => CloseQuest()));
         Lua.RegisterFunction("ChangeQuestText", this, SymbolExtensions.GetMethodInfo(() => ChangeQuestText(string.Empty)));
         Lua.RegisterFunction("DelayCloseQuestText", this, SymbolExtensions.GetMethodInfo(() => DelayCloseQuestText(string.Empty, (float)0)));
+        Lua.RegisterFunction("VibrateHand", this, SymbolExtensions.GetMethodInfo(() => VibrateHand()));
         Lua.RegisterFunction("EndTutorial", this, SymbolExtensions.GetMethodInfo(() => EndTutorial()));
     }
 
@@ -225,6 +238,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     {
         Lua.UnregisterFunction("SetPlayerPosition");
         Lua.UnregisterFunction("ToggleNpcTooltip");
+        Lua.UnregisterFunction("ToggleRayDescription");
         Lua.UnregisterFunction("ReadyDialogue");
         Lua.UnregisterFunction("ToggleIsMoving");
         Lua.UnregisterFunction("SetPlayerSpeed");
@@ -244,6 +258,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.UnregisterFunction("CloseQuest");
         Lua.UnregisterFunction("ChangeQuestText");
         Lua.UnregisterFunction("DelayCloseQuestText");
+        Lua.UnregisterFunction("VibrateHand");
         Lua.UnregisterFunction("EndTutorial");
     }
     #endregion

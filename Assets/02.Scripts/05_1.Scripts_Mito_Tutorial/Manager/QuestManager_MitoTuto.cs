@@ -99,6 +99,7 @@ public class QuestManager_MitoTuto : MonoBehaviour
         //questPanelMito.ChangeText("");
 
         yield return new WaitForSeconds(delay);
+        VibrateManager_Mito.Instance.VibrateBothHands();
         questPanelMito.PanelOpen("NPC에게 말을 걸어보자!");
     }
 
