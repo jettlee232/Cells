@@ -35,6 +35,12 @@ public class GameManager_Lobby : MonoBehaviour
 
     public void MoveScene(string sceneName)
     {
+        UIManager_Lobby.instance.FadeOut();
+        StartCoroutine(cMoveScene(sceneName));
+    }
+    IEnumerator cMoveScene(string sceneName)
+    {
+        yield return new WaitForSeconds(0.75f);
         SceneManager.LoadScene(sceneName);
     }
 
@@ -44,6 +50,7 @@ public class GameManager_Lobby : MonoBehaviour
     public void StopPlayer() { movable = false; }
     public void EnableMovePlayer() { movable = true; }
     public bool PlayerMove() { return movable; }
+    public void SetPlayerPos(Vector3 pos) { player.gameObject.transform.position = pos; }
     public GameObject GetNPC() { return NPC; }
     public GameObject GetUIPointer() { return UIPointer; }
     public void GlowAllStart() { interactableManager.GetComponent<InteractableManager_Lobby>().GlowStart(); }
@@ -52,4 +59,7 @@ public class GameManager_Lobby : MonoBehaviour
 
     public bool GetWarpable() { return warpable; }
     public void SetWarpable() { warpable = true; }
+
+    public void SetLobby() { PlayerPrefs.SetInt("Lobby", 1); }
+    public int GetLobby() { return PlayerPrefs.GetInt("Lobby"); }
 }

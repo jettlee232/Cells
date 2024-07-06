@@ -45,8 +45,22 @@ public class HighLightColorchange_Lobby : MonoBehaviour
 
     IEnumerator Glow()
     {
-        while (glowFlag) { yield return new WaitForSeconds(0.02f); }
+        foreach (HighlightEffect effect in hlEffect) { effect.highlighted = true; }
+        
+        while (glowFlag)
+        {
+            foreach (HighlightEffect effect in hlEffect) { effect.highlighted = true; effect.innerGlow -= updownFloat; }
+            yield return new WaitForSeconds(0.02f);
 
+            if (hlEffect[0].innerGlow <= 0 || hlEffect[0].innerGlow >= 1)
+            {
+                updownFloat = -updownFloat;
+            }
+        }
+        
+        yield return null;
+
+        foreach (HighlightEffect effect in hlEffect) { effect.highlighted = false; }
         glowCoroutine = null;
     }
 }

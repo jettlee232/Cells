@@ -233,7 +233,7 @@ public class GameManager_CM : MonoBehaviour
     IEnumerator QuestStart()
     {
         yield return new WaitForSeconds(1f);
-        NewQuest("Quest_CM_7");
+        NewQuest("Quest_CM_6");
         yield return new WaitForSeconds(5f);
         quest.PanelClose();
     }

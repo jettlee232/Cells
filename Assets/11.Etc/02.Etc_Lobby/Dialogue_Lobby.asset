@@ -883,7 +883,8 @@ MonoBehaviour:
         typeString: 
       - title: Dialogue Text
         value: "\uD3EC\uD0C8 \uC606\uC5D0 \uC788\uB294 \uB808\uBC84\uB97C \uB0B4\uB824\uC11C
-          \uBB38\uC744 \uC5F4\uACE0 \uC548\uC73C\uB85C \uB4E4\uC5B4\uAC00\uBA74,"
+          \uBB38\uC744 \uC5F4\uACE0 \uC548\uC73C\uB85C \uB4E4\uC5B4\uAC00\uBA74,
+          \uC6D0\uD558\uB294 \uACF3\uC73C\uB85C \uC774\uB3D9\uD560 \uC218 \uC788\uC5B4!"
         type: 0
         typeString: 
       - title: Sequence
@@ -901,7 +902,7 @@ MonoBehaviour:
       - originConversationID: 2
         originDialogueID: 3
         destinationConversationID: 2
-        destinationDialogueID: 4
+        destinationDialogueID: 5
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -913,61 +914,6 @@ MonoBehaviour:
         serializedVersion: 2
         x: 115.73418
         y: 170.73419
-        width: 160
-        height: 30
-    - id: 4
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: "\uC6D0\uD558\uB294 \uACF3\uC73C\uB85C \uC774\uB3D9\uD560 \uC218 \uC788\uC5B4!"
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: "AudioWait(Lobby/audio_0_\uC6D0\uD558\uB294_\uACF3\uC73C\uB85C_\uC774\uB3D9\uD560_\uC218_\uC788\uC5B4_)"
-        type: 0
-        typeString: 
-      conversationID: 2
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 2
-        originDialogueID: 4
-        destinationConversationID: 2
-        destinationDialogueID: 5
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 114.46835
-        y: 221.99997
         width: 160
         height: 30
     - id: 5

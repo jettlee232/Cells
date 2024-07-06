@@ -6,6 +6,7 @@ public class InteractableManager_Lobby : MonoBehaviour
 {
     public GameObject[] interactables;
     public GameObject[] portals;
+    public GameObject[] lights;
 
     #region 하이라이트
     public void GlowStart()
@@ -49,5 +50,14 @@ public class InteractableManager_Lobby : MonoBehaviour
         foreach (GameObject portal in portals) { portal.transform.GetChild(0).GetComponent<TextObject_Lobby>().HideText(); }
     }
     */
+    #endregion
+
+    #region 활성화된 포탈
+
+    public void SetLight()
+    {
+        foreach (GameObject light in lights) { light.SetActive(true); }
+    }
+
     #endregion
 }

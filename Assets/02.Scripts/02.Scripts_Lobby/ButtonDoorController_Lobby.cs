@@ -103,7 +103,7 @@ public class ButtonDoorController_Lobby : MonoBehaviour
 
     public void HideButtonScript()
     {
-        UIManager_Lobby.instance.HideTutorial();
+        UIManager_Lobby.instance.HidePressTutorial();
         UIManager_Lobby.instance.HideQuest();
     }
 

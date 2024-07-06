@@ -78,7 +78,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
     public void StopPlayer_LB() { GameManager_Lobby.instance.StopPlayer(); }
     public void MovePlayer_LB() { GameManager_Lobby.instance.EnableMovePlayer(); }
 
-    public void Warpable_LB() { GameManager_Lobby.instance.SetWarpable(); }
+    public void Warpable_LB() { GameManager_Lobby.instance.SetWarpable(); GameManager_Lobby.instance.GetInteractable().GetComponent<InteractableManager_Lobby>().SetLight(); }
 
     public void ShowNPCTalk_LB() { UIManager_Lobby.instance.ShowBubble(); }
     public void HideNPCTalk_LB() { UIManager_Lobby.instance.HideBubble(); }

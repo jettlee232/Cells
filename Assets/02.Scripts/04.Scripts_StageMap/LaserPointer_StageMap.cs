@@ -72,22 +72,22 @@ public class LaserPointer_StageMap : MonoBehaviour
     {
         Ray ray = new Ray(targetPos, direction.normalized);
 
-        if (Physics.Raycast(ray, out RaycastHit rayHit_NPC, length * 1.5f, NPCLayer))
-        {
-            GameManager_StageMap.instance.WaitForNewUI();
-            Instantiate(touchEffect, rayHit_NPC.point, Quaternion.LookRotation(player.transform.position));
-            Debug.Log(rayHit_NPC.collider.gameObject.name);
-            rayHit_NPC.collider.gameObject.GetComponent<NPCController_StageMap>().SetNPCTalk();
+        //if (Physics.Raycast(ray, out RaycastHit rayHit_NPC, length * 1.5f, NPCLayer))
+        //{
+        //    GameManager_StageMap.instance.WaitForNewUI();
+        //    Instantiate(touchEffect, rayHit_NPC.point, Quaternion.LookRotation(player.transform.position));
+        //    Debug.Log(rayHit_NPC.collider.gameObject.name);
+        //    rayHit_NPC.collider.gameObject.GetComponent<NPCController_StageMap>().SetNPCTalk();
 
-            Vector3 dir = rayHit_NPC.transform.position - player.transform.position;
-            dir.y = 0;
-            Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
-            player.transform.rotation = rotation;
+        //    Vector3 dir = rayHit_NPC.transform.position - player.transform.position;
+        //    dir.y = 0;
+        //    Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
+        //    player.transform.rotation = rotation;
 
-            DestroyDescription();
-        }
-        else
-        {
+        //    DestroyDescription();
+        //}
+        //else
+        //{
             if (Physics.Raycast(ray, out RaycastHit rayHit, length, ~(UILayer | playerLayer)))
             {
                 GameManager_StageMap.instance.WaitForNewUI();
@@ -117,7 +117,7 @@ public class LaserPointer_StageMap : MonoBehaviour
                     else { NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST1(); }
                 }
             }
-        }
+        //}
     }
 
     public void InstantiatePanel(GameObject go)

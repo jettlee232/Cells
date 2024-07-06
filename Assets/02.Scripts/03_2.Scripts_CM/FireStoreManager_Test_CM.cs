@@ -92,11 +92,11 @@ public class FireStoreManager_Test_CM : MonoBehaviour
             return;
         }
 
-        /*
+        
         foreach (var entry in csvData) // csvData의 모든 키와 값을 출력
         {
             Debug.Log("Key: " + entry.Key + ", Value: " + entry.Value);
         }
-        */
+        
     }
 }

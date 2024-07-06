@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System;
+using static UnityEngine.Rendering.DebugUI;
 
 public class UIManager_StageMap : MonoBehaviour
 {
@@ -27,8 +28,6 @@ public class UIManager_StageMap : MonoBehaviour
     public GameObject Desc_UI;
     private GameObject[] Descs;
     public GameObject QuestPanel;
-    public GameObject NPCTalkPanel;
-    public GameObject NPCTalkButton;
     public GameObject[] TutorialPanels;
     public GameObject OrganelleDescUI;
     public GameObject OptionPanel;
@@ -38,6 +37,8 @@ public class UIManager_StageMap : MonoBehaviour
     public float DescUITimer = 0.2f;
     private int nowTutorial = 0;
     private Nullable<ORGANELLES> nowSelectedOrganelle;
+    private Vector3 tutoSize;
+    private Vector3 organelleExSize;
 
 
     void Awake()
@@ -49,6 +50,8 @@ public class UIManager_StageMap : MonoBehaviour
     void Start()
     {
         InitDesc();
+        InitTutorial();
+        InitOrganelleUI();
         DOTween.Init();
     }
 
@@ -106,48 +109,45 @@ public class UIManager_StageMap : MonoBehaviour
         organelleUI.transform.localRotation = Quaternion.Euler(0, 0, 0);
         organelleUI.transform.localScale = Vector3.zero;
         organelleUI.transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
-        //organelleUI.transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
-        //organelleUI.transform.DORotate(new Vector3(0f, 360f + organelleUI.transform.parent.gameObject.transform.localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
-        organelleUI.transform.DORotate(new Vector3(0f, 360f + GameManager_StageMap.instance.GetPlayer().transform.localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
+        //organelleUI.transform.DORotate(new Vector3(0f, 360f + organelleUI.transform.parent.parent.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
+        //organelleUI.transform.DORotate(new Vector3(0f, 360f + organelleUI.transform.parent.transform.localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
+        //organelleUI.transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
+        organelleUI.transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360).SetRelative(true);
+
+    }
+
+    public void EnanbleOrganelleButton()
+    {
+        foreach (GameObject organelle in Descs)
+        {
+            organelle.transform.GetChild(3).GetComponent<UnityEngine.UI.Button>().interactable = true;
+        }
     }
     #endregion
 
     #region 퀘스트
 
-    public void SetQuest(string str) { QuestPanel.GetComponent<QuestPanel_CM>().PanelOpen(str); }
-    public void SetQuest(string str, float time) { QuestPanel.GetComponent<QuestPanel_CM>().PanelOpen(str, time); }
-    public void ChangeQuest(string str) { QuestPanel.GetComponent<QuestPanel_CM>().ChangeText(str); }
-    public void HideQuest() { QuestPanel.GetComponent<QuestPanel_CM>().PanelClose(); }
+    public void SetQuest(string str) { QuestPanel.GetComponent<QuestPanel_StageMap>().PanelOpen(str); }
+    public void SetQuest(string str, float time) { QuestPanel.GetComponent<QuestPanel_StageMap>().PanelOpen(str, time); }
+    public void ChangeQuest(string str) { QuestPanel.GetComponent<QuestPanel_StageMap>().ChangeText(str); }
+    public void HideQuest() { QuestPanel.GetComponent<QuestPanel_StageMap>().PanelClose(); }
     public bool GetQuest() { return QuestPanel.activeSelf; }
-
-    #endregion
-
-    #region NPC 대화 창
-
-    public void SetNPCPanel(string des, string name, Sprite img, string sceneName)
-    {
-        NPCTalkPanel.SetActive(true);
-        NPCTalkPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = des;
-        NPCTalkPanel.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
-        NPCTalkPanel.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<Image>().sprite = img;
-    }
-    public void OnClickNPCXBtn()
-    {
-        GameManager_StageMap.instance.SetSelectable(true);
-        NPCTalkPanel.SetActive(false);
-        GameManager_StageMap.instance.EnableMove();
-    }
-    public void HideNPCPanel() { NPCTalkPanel.SetActive(false); }
-    public void EnanbleOrganelleButton() { NPCTalkButton.GetComponent<UnityEngine.UI.Button>().interactable = true; }
 
     #endregion
 
     #region 튜토리얼
 
+    public void InitTutorial()
+    {
+        tutoSize = TutorialPanels[0].gameObject.transform.localScale;
+        foreach (GameObject tuto in TutorialPanels) { tuto.SetActive(false); }
+    }
     public void ShowTutorial()
     {
         TutorialPanels[nowTutorial].gameObject.SetActive(true);
         GameManager_StageMap.instance.EnableMove();
+        TutorialPanels[nowTutorial].transform.localScale = Vector3.zero;
+        TutorialPanels[nowTutorial].transform.DOScale(tutoSize, 2f);
     }
 
     public void NextTutorial()
@@ -156,13 +156,20 @@ public class UIManager_StageMap : MonoBehaviour
         {
             TutorialPanels[nowTutorial].SetActive(false);
             nowTutorial++;
-            ShowTutorial();
+            TutorialPanels[nowTutorial].gameObject.SetActive(true);
+            TutorialPanels[nowTutorial].gameObject.transform.DOPunchScale(tutoSize * 0.2f, 0.2f).OnComplete(() => TutorialPanels[nowTutorial].gameObject.transform.localScale = tutoSize);
         }
         else
         {
-            foreach (GameObject panel in TutorialPanels) { panel.SetActive(false); }
+            foreach (GameObject panel in TutorialPanels)
+            {
+                StartCoroutine(hideTuto(panel));
+                panel.transform.DOScale(Vector3.zero, 1f);
+            }
         }
     }
+
+    IEnumerator hideTuto(GameObject tuto) { yield return new WaitForSeconds(1f); tuto.gameObject.SetActive(false); }
 
     #endregion
 
@@ -177,9 +184,23 @@ public class UIManager_StageMap : MonoBehaviour
 
     #endregion
 
-    public void ShowOrganelleUI() { OrganelleDescUI.SetActive(true); }
-    public void HideOrganelleUI() { OrganelleDescUI.SetActive(false); }
+    #region "소기관"
 
+    public void InitOrganelleUI() { organelleExSize = OrganelleDescUI.transform.localScale; OrganelleDescUI.SetActive(false); }
+    public void ShowOrganelleUI()
+    {
+        OrganelleDescUI.SetActive(true);
+        OrganelleDescUI.transform.localScale = Vector3.zero;
+        OrganelleDescUI.transform.DOScale(organelleExSize, 2f);
+    }
+    public void HideOrganelleUI()
+    {
+        StartCoroutine(hideOrganelle());
+        OrganelleDescUI.transform.DOScale(Vector3.zero, 1f);
+    }
+    IEnumerator hideOrganelle() { yield return new WaitForSeconds(1f); OrganelleDescUI.SetActive(false); }
+
+    #endregion
     public void OnClickTitle()
     {
         OffDesc();

@@ -11,6 +11,7 @@ public class LocationPanel_StageMap : MonoBehaviour
     public RectTransform targetRectTransform2;
     public RectTransform targetRectTransform3;
     public WordEffect1 wordEffect;
+    public string name;
     private float duration = 2.0f;
 
     void Start()
@@ -31,6 +32,7 @@ public class LocationPanel_StageMap : MonoBehaviour
         targetRectTransform3.sizeDelta = Vector2.zero;
 
         DOTween.Init();
+        PanelOpen(name);
     }
 
     public void PanelOpen(string newLoc)

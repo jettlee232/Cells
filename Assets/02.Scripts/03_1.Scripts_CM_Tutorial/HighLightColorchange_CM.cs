@@ -34,11 +34,7 @@ public class HighLightColorchange_CM : MonoBehaviour
             glowCoroutine = null;
         }
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> Dev
     IEnumerator Glow() // 추가, 수정한 부분
     {
         hlEffect.highlighted = true;
@@ -59,11 +55,7 @@ public class HighLightColorchange_CM : MonoBehaviour
         */
         yield return null;
 
-<<<<<<< HEAD
         hlEffect.highlighted = false;        
-=======
-        hlEffect.highlighted = false;
->>>>>>> Dev
         glowCoroutine = null;
     }    
 }

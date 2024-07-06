@@ -21,6 +21,9 @@ public class UIManager_Lobby : MonoBehaviour
     public float fadeInTimer = 1f;
     public float fadeOutTimer = 1f;
 
+    private Vector3 alertSize;
+    private Vector3 tutorialSize;
+
     void Awake()
     {
         if (instance == null) { instance = this; }
@@ -29,9 +32,11 @@ public class UIManager_Lobby : MonoBehaviour
 
     void Start()
     {
-        alert_UI.SetActive(false);
-        HideTutorial();
-        StartCoroutine(cStart());
+        InitAlert();
+        InitTutorial();
+        if (GameManager_Lobby.instance.GetLobby() == 0) { StartCoroutine(cStart()); }
+        else { GameManager_Lobby.instance.SetPlayerPos(new Vector3(0f, 1f, 3f)); }
+        DOTween.Init();
     }
 
     public void OnClickTitle()
@@ -46,21 +51,30 @@ public class UIManager_Lobby : MonoBehaviour
         yield return cFade(true);
         GameManager_Lobby.instance.EnableMovePlayer();
         SetQuest("복도 끝으로 이동해보자!");
+        yield return new WaitForSeconds(1f);
         ShowMoveTutorial();
     }
 
     #region 진입 알림
+    public void InitAlert()
+    {
+        alertSize = alert_UI.transform.localScale;
+        alert_UI.SetActive(false);
+    }
     public void SetAlert(GameObject menu)
     {
         lastInteract = menu;
+        alert_UI.transform.localScale = Vector3.zero;
         alert_UI.SetActive(true);
+        alert_UI.transform.DOScale(alertSize, 2f);
     }
 
     public void HideAlert()
     {
-        alert_UI.SetActive(false);
-        lastInteract = null;
+        StartCoroutine(hideAlert());
+        alert_UI.transform.DOScale(Vector3.zero, 1f);
     }
+    IEnumerator hideAlert() { yield return new WaitForSeconds(1f); alert_UI.gameObject.SetActive(false); }
 
     public void OnClickAnimal()
     {
@@ -71,6 +85,7 @@ public class UIManager_Lobby : MonoBehaviour
     {
         HideAlert();
     }
+
     #endregion
 
     #region 페이드인
@@ -115,10 +130,10 @@ public class UIManager_Lobby : MonoBehaviour
 
     #region 퀘스트
 
-    public void SetQuest(string str) { QuestPanel.GetComponent<QuestPanel_CM>().PanelOpen(str); }
-    public void SetQuest(string str, float time) { QuestPanel.GetComponent<QuestPanel_CM>().PanelOpen(str, time); }
-    public void ChangeQuest(string str) { QuestPanel.GetComponent<QuestPanel_CM>().ChangeText(str); }
-    public void HideQuest() { QuestPanel.GetComponent<QuestPanel_CM>().PanelClose(); }
+    public void SetQuest(string str) { QuestPanel.GetComponent<QuestPanel_StageMap>().PanelOpen(str); }
+    public void SetQuest(string str, float time) { QuestPanel.GetComponent<QuestPanel_StageMap>().PanelOpen(str, time); }
+    public void ChangeQuest(string str) { QuestPanel.GetComponent<QuestPanel_StageMap>().ChangeText(str); }
+    public void HideQuest() { QuestPanel.GetComponent<QuestPanel_StageMap>().PanelClose(); }
     public bool GetQuest() { return QuestPanel.activeSelf; }
 
     #endregion
@@ -127,19 +142,43 @@ public class UIManager_Lobby : MonoBehaviour
 
     public void ShowMoveTutorial()
     {
-        TutorialPanels[0].gameObject.SetActive(true);
-        TutorialPanels[1].gameObject.SetActive(false);
+        ShowTutorialTween(TutorialPanels[0]);
         GameManager_Lobby.instance.EnableMovePlayer();
     }
     public void ShowPressTutorial()
     {
-        TutorialPanels[0].gameObject.SetActive(false);
-        TutorialPanels[1].gameObject.SetActive(true);
+        if (TutorialPanels[0].activeSelf) { ChangeTutorialTween(); }
+        else { ShowTutorialTween(TutorialPanels[1]); }
     }
-    public void HideTutorial()
+    public void HideMoveTutorial() { HideTutorialTween(TutorialPanels[0]); }
+    public void HidePressTutorial() { HideTutorialTween(TutorialPanels[1]); }
+
+    public void InitTutorial()
     {
+        tutorialSize = TutorialPanels[0].gameObject.transform.localScale;
         TutorialPanels[0].gameObject.SetActive(false);
         TutorialPanels[1].gameObject.SetActive(false);
+    }
+
+    public void ShowTutorialTween(GameObject tuto)
+    {
+        tuto.transform.localScale = Vector3.zero;
+        tuto.gameObject.SetActive(true);
+        tuto.transform.DOScale(tutorialSize, 2f);
+    }
+
+    public void HideTutorialTween(GameObject tuto)
+    {
+        StartCoroutine(hideTuto(tuto));
+        tuto.transform.DOScale(Vector3.zero, 1f);
+    }
+    IEnumerator hideTuto(GameObject tuto) { yield return new WaitForSeconds(1f); tuto.gameObject.SetActive(false); }
+
+    public void ChangeTutorialTween()
+    {
+        TutorialPanels[1].gameObject.SetActive(true);
+        TutorialPanels[0].gameObject.SetActive(false);
+        TutorialPanels[1].gameObject.transform.DOPunchScale(tutorialSize * 0.2f, 0.2f).OnComplete(() => TutorialPanels[1].gameObject.transform.localScale = tutorialSize);
     }
 
     #endregion

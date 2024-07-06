@@ -14,7 +14,7 @@ public class HighLightColorchange_StageMap : MonoBehaviour
     void Start()
     {
         if (tempHl == null) { hlEffect = GetComponent<HighlightEffect>(); }
-        else { hlEffect = tempHl; Debug.Log("hlEffect = " + hlEffect.gameObject.name); }
+        else { hlEffect = tempHl; }
     }
 
     public HighlightEffect GetHl() { return hlEffect; }

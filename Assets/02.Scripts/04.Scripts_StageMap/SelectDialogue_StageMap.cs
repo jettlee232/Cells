@@ -28,7 +28,6 @@ public class SelectDialogue_StageMap : MonoBehaviour
 
     public void ActivateDST1() // 1번째 트리거 작동 함수
     {
-        UIManager_StageMap.instance.HideNPCPanel();
         DisableMove_SM();
         if (GameManager_StageMap.instance.GetFirstEnd()) { dialogueSystemTrigger1.startConversationEntryID = 4; }
         else { dialogueSystemTrigger1.startConversationEntryID = 0; }
@@ -38,7 +37,6 @@ public class SelectDialogue_StageMap : MonoBehaviour
 
     public void ActivateDST2() // 2번째 트리거 작동 함수
     {
-        UIManager_StageMap.instance.HideNPCPanel();
         DisableMove_SM();
         if (UIManager_StageMap.instance.GetQuest()) { UIManager_StageMap.instance.HideQuest(); }
         dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동

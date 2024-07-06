@@ -37,9 +37,9 @@ public class SaberScript_CM : MonoBehaviour
     {
         int curSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        if (curSceneIndex == 2)
-            tutoMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<TutorialManager_CM>();
         if (curSceneIndex == 3)
+            tutoMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<TutorialManager_CM>();
+        if (curSceneIndex == 4)
             gameMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager_CM>();
 
         playerTrns = GameObject.FindGameObjectWithTag("MainCamera").transform;
@@ -118,7 +118,7 @@ public class SaberScript_CM : MonoBehaviour
             }
             else if (other.gameObject.name == "ExitBlock")
             {
-                if (gameMgr != null) SceneManager.LoadScene(2);
+                if (gameMgr != null) SceneManager.LoadScene(5);
             }
         }
     }

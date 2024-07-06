@@ -16,6 +16,7 @@ public class AudioMgr_CM : MonoBehaviour
 
     [Header("SFX List")]
     public AudioClip[] sfxClips;
+    public float sfxVolume; // New Code - For SFX Volume
 
     void Awake()
     {
@@ -23,7 +24,7 @@ public class AudioMgr_CM : MonoBehaviour
         {
             instance = this;
 
-            //DontDestroyOnLoad(this.gameObject); // Maybe Later?
+            DontDestroyOnLoad(this.gameObject); // Maybe Later?
         }
         else
         {
@@ -65,10 +66,11 @@ public class AudioMgr_CM : MonoBehaviour
         audioSrc.volume = PlayerPrefs.GetFloat("Volume", 0.5f);
         audioSrc.pitch = PlayerPrefs.GetFloat("Pitch", 1f);
 
-        // Scene�� �ε����� ������Ʈ
+        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.5f); // New Code - For SFX Volume
+
         curSceneNum = scene.buildIndex;
 
-        //PlayMusicByScene(curSceneNum); // Not Yet
+        PlayMusicByScene(curSceneNum); // Not Yet
     }
     public void PlayMusicByScene(int scenenum)
     {
@@ -81,7 +83,6 @@ public class AudioMgr_CM : MonoBehaviour
         }
     }
 
-    // ***���� ü����
     public void ControllVolume(float vol)
     {
         audioSrc.volume = vol;
@@ -89,17 +90,25 @@ public class AudioMgr_CM : MonoBehaviour
         if (audioSrc.volume < 0f) audioSrc.volume = 0f;
         else if (audioSrc.volume > 1f) audioSrc.volume = 1f;
 
-        PlayerPrefs.SetFloat("Volume", audioSrc.volume); // �̰� PlayerPrefs�� ����, �⺻���� 0.5
+        PlayerPrefs.SetFloat("Volume", audioSrc.volume);
     }
 
-    // ***�Ͻ� ���� Ȥ�� ���
+    public void ControllSFXVolume(float vol) // New Code - For SFX Volume
+    {
+        sfxVolume = vol;
+
+        if (sfxVolume < 0f) sfxVolume = 0f;
+        else if (sfxVolume > 1f) sfxVolume = 1f;
+
+        PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
+    }
+
     public void PauseOrRestart()
     {
         if (audioSrc.isPlaying) audioSrc.Pause();
         else if (!audioSrc.isPlaying) audioSrc.Play();
     }
 
-    // ***���ο� ���� �ֱ� (���� ���� ����, �ٷ� ������� ���� ����)
     public void LoadingNewMusic(AudioClip newclip, bool gonow)
     {
         audioSrc.clip = newclip;
@@ -107,7 +116,6 @@ public class AudioMgr_CM : MonoBehaviour
         if (gonow) audioSrc.Play();
     }
 
-    // ***���� �ӵ� ����, 0.2������� ���� (up�̸� ����, down�̸� ����)
     public void ControllMusicSpeedByBool(bool upOrDown)
     {
         if (upOrDown == true) audioSrc.pitch += 0.2f;
@@ -116,32 +124,29 @@ public class AudioMgr_CM : MonoBehaviour
         if (audioSrc.pitch > 1f) audioSrc.pitch = 1f;
         else if (audioSrc.pitch < 0f) audioSrc.pitch = 0f;
 
-        PlayerPrefs.SetFloat("Pitch", audioSrc.pitch); // �÷��̾� �������� ���� Pitch �� �����س���
+        PlayerPrefs.SetFloat("Pitch", audioSrc.pitch);
     }
 
-    // ***���� �ӵ� ����, ���ڷ� ����
     public void ControllMusicSpeedByFloat(float speed)
     {
         audioSrc.pitch = speed;
 
-        PlayerPrefs.SetFloat("Pitch", audioSrc.pitch); // �÷��̾� �������� ���� Pitch �� �����س���
+        PlayerPrefs.SetFloat("Pitch", audioSrc.pitch);
     }
 
-    // ***SFX ��� (��ȣ�� ����ϴ� �Ŷ� �ٵ� ��� ���尡 ���� �������� ����ؾ� ��, double�� �ϴ� ������ ���̾�α� �ý��ۿ��� ȣ�� ����...)
     public void PlaySFXByInt(double d)
     {
         int i = (int)d;
-        audioSrc.PlayOneShot(sfxClips[i]);
+        audioSrc.PlayOneShot(sfxClips[i], sfxVolume); // New Code - For SFX Volume
     }
 
-    // ***SFC ��� (string���� ����ϴ� �Ŷ� ���� ���� �̸� ����ؾ� ��)
     public void PlaySFXByString(string name)
     {
         for (int i = 0; i < sfxClips.Length; i++)
         {
             if (sfxClips[i].name == name)
             {
-                audioSrc.PlayOneShot(sfxClips[i]);
+                audioSrc.PlayOneShot(sfxClips[i], sfxVolume); // New Code - For SFX Volume
             }
         }
     }
