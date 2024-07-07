@@ -45,7 +45,7 @@ public class RayInteraction_Mito : MonoBehaviour
     }
 
     // 버그 : 맨 처음에 하는 원거리 스냅이 안됨
-    // Ray로 먼곳에 들고있는 아이템 스냅하기
+    // Ray로 들고있는 아이템 먼곳에 스냅하기
     // 오른손의 Grabber에서 OnReleaseEvent로 호출
     public void RaycastItemSnap()
     {

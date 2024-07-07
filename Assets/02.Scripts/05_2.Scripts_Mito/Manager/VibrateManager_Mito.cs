@@ -28,6 +28,7 @@ public class VibrateManager_Mito : MonoBehaviour
         right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
     }
 
+    // 진동은 이렇게 써야한다
     public void VibrateBothHands()
     {
         HapticCapabilities capabilities;

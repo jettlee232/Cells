@@ -54,6 +54,7 @@ public class MixTableSlot_Mito : MonoBehaviour
         isHandlingEvent = false;
     }
 
+    // 강의 끝나고 지금 생각해보니 조합 슬롯에서는 떼는 이벤트가 없어도 되지 않나?
     // 아이템이 슬롯에서 떨어질때의 이벤트
     void OnItemDetached(Grabbable item)
     {

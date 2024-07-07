@@ -10,24 +10,27 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     PlayerMoving_Mito playerMoving_Mito;
     public RayDescription_MitoTuto rayDescription_MitoTuto;
 
+    // Global UI
     public QuestPanel_Mito questPanelMito;
     public LocationPanel_CM locationPanelMito;
 
-    public GameObject laserExplainPanel;
-    public GameObject mixExplainPanel;
-    public Transform ExplainPanelPos;
+    public GameObject laserExplainPanel; // 레이저로 설명창 띄우는법 패널
+    public GameObject mixExplainPanel; // 조합법 패널
+    public Transform ExplainPanelPos; // 설명패널 위치
 
-    public Transform playerDialoguePos;
+    public Transform playerDialoguePos; // NPC와 대화할때 플레이어 위치
 
-    public GameObject playerWall;
-    public GameObject mapWall;
-    public GameObject miniHalfMito;
-    public GameObject atp;
+    public GameObject playerWall; // 플레이어 근처 투명벽
+    public GameObject mapWall; // 전체맵 투명벽
+    public GameObject miniHalfMito; // 작은 미토콘드리아
+    public GameObject atp; // ATP 모형
 
+    // 반으로 잘라봤어 다이얼로그용 모델링
     public GameObject mitoMap1;
     public GameObject mitoMap2;
     public GameObject mitoMap3;
 
+    // MyATP 조합용 아이템
     public GameObject adeinine;
     public GameObject ribose;
     public GameObject phosphate;

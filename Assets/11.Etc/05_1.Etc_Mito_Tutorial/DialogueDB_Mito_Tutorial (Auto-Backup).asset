@@ -256,7 +256,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 81.09891
-        y: 135.0989
+        y: 136.1978
         width: 160
         height: 30
     - id: 2
@@ -535,7 +535,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 80
-        y: 554
+        y: 557.2967
         width: 160
         height: 30
     entryGroups: []
@@ -736,15 +736,15 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "EnableGrabMiniHalfMito();\nChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
-        \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\");\nToggleIsMoving()"
+      userScript: "EnableGrabMiniHalfMito();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
+        \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\", 5);\nToggleIsMoving();\nShowLaserPanel();\nVibrateHand()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 80
-        y: 304
+        x: 79
+        y: 303
         width: 160
         height: 30
     - id: 3
@@ -951,7 +951,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ChangeQuestText("");
+      userScript: ToggleRayDescription()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1183,7 +1183,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 160
-        y: 449
+        y: 448
         width: 160
         height: 30
     entryGroups: []
@@ -1388,8 +1388,8 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "ToggleIsMoving();\nChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
-        \uC18D\uC744 \uBE44\uD589\uD574\uBCF4\uC790!\");\nToggleNpcTooltip();\nReadyDialogue()"
+      userScript: "ToggleIsMoving();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
+        \uC18D\uC744 \uBE44\uD589\uD574\uBCF4\uC790!\", 5);\nToggleNpcTooltip();\nReadyDialogue();\nVibrateHand();\nToggleRayDescription()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1460,7 +1460,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 80
+        x: 78.03343
         y: 134
         width: 160
         height: 30
@@ -1616,8 +1616,6 @@ MonoBehaviour:
       userScript: 'ToggleFlyable();
 
         SetPlayerSpeed(3, 15, 15);
-
-        ChangeQuestText("");
 
         ToggleNpcTooltip();
 
@@ -1902,7 +1900,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 159
-        y: 92
+        y: 91
         width: 160
         height: 30
     - id: 2
@@ -1958,7 +1956,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 159
-        y: 160
+        y: 158
         width: 160
         height: 30
     - id: 3
@@ -2073,7 +2071,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 0, y: 40}
     canvasZoom: 1
   - id: 7
     fields:
@@ -2380,20 +2378,21 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "ToggleIsMoving();\nToggleGrabATP();\nChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00
-        \uC0DD\uC0B0\uD558\uB294 \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\")"
+      userScript: "ToggleIsMoving();\nToggleGrabATP();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00
+        \uC0DD\uC0B0\uD558\uB294 \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\",
+        5);\nVibrateHand()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 158
-        y: 300
+        x: 157
+        y: 302
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 73, y: 0}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 25.584906, y: 20.433952}
+    canvasZoom: 1.06
   - id: 8
     fields:
     - title: Title
@@ -2540,7 +2539,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ChangeQuestText("");
+      userScript: ToggleRayDescription()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2703,8 +2702,8 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "ChangeQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00 \uC0DD\uC0B0\uD558\uB294
-        \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\");\nToggleATP();\nEnableGrabATPComponent();\nToggleGrabATP()"
+      userScript: "DelayCloseQuestText(\"\uC5D0\uB108\uC9C0\uC758 \uAD6C\uC131\uC694\uC18C\uB97C
+        \uB9CC\uC838\uBCF4\uC790!\", 5);\nToggleATP();\nEnableGrabATPComponent();\nToggleGrabATP();\nVibrateHand();\nToggleRayDescription()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2918,14 +2917,14 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ChangeQuestText("");
+      userScript: ToggleRayDescription()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 81
-        y: 135
+        y: 136
         width: 160
         height: 30
     - id: 2
@@ -2968,7 +2967,8 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: "ChangeQuestText(\"ATP\uB97C \uC870\uD569\uD574\uBCF4\uC790!\");\nToggleIsMoving();\nSetActiveATPMixComponents()"
+      userScript: "DelayCloseQuestText(\"ATP\uB97C \uC870\uD569\uD574\uBCF4\uC790!\",
+        5);\nToggleIsMoving();\nSetActiveATPMixComponents();\nShowATPMixRulePanel();\nVibrateHand();\nToggleRayDescription()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3187,7 +3187,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: CloseQuest()
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3363,7 +3363,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 80
-        y: 386
+        y: 385
         width: 160
         height: 30
     - id: 5
@@ -3516,7 +3516,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 160
-        y: 30
+        y: 31
         width: 160
         height: 30
     - id: 1

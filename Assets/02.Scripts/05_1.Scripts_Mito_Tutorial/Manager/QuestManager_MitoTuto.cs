@@ -9,30 +9,32 @@ public class QuestManager_MitoTuto : MonoBehaviour
 {
     public static QuestManager_MitoTuto Instance { get; private set; }
 
+    // Global UI
     public QuestPanel_Mito questPanelMito;
     public LocationPanel_CM locationPanelMito;
 
     UnityEngine.XR.InputDevice right;
     PlayerMoving_Mito playerMoving_Mito;
 
-    public TextMeshProUGUI questText;
+    //public TextMeshProUGUI questText;
 
     public bool playerInRange = false; // 플레이어가 범위 내에 있는지 확인하는 플래그
     public bool dialogueActive = false; // 대화가 활성화되었는지 확인하는 플래그
-    public bool isDesc = false;
-    public bool isDesc2 = false;
+    public bool isDesc = false; // 중복 호출 방지용 플래그
+    public bool isDesc2 = false; // 중복 호출 방지용 플래그(임시)
 
+    // A버튼 중복 입력 방지용 변수인데 굳이 필요?
     public bool isABtnPressed = false;
     public bool wasABtnPressed = false;
 
-    public bool isATP = false;
-    public bool isAdenine = false;
-    public bool isRibose = false;
-    public bool isPhosphate = false;
+    public bool isATP = false; // ATP 모형 설명확인 + 그랩확인 체크
+    public bool isAdenine = false; // 아데닌 설명확인 + 그랩확인 체크
+    public bool isRibose = false; // 리보스 설명확인 + 그랩확인 체크
+    public bool isPhosphate = false; // 인산염 설명확인 + 그랩확인 체크
 
-    public GameObject mixEffect;
+    public GameObject mixEffect; // 조합효과
 
-    public GameObject npcToolTip;
+    public GameObject npcToolTip; // NPC에 있는 툴팁
 
     private void Awake()
     {
@@ -59,6 +61,7 @@ public class QuestManager_MitoTuto : MonoBehaviour
         right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
         right.TryGetFeatureValue(CommonUsages.primaryButton, out isABtnPressed);
 
+        // NPC 툴팁의 활성화 여부에 따라 변수 토글
         if (npcToolTip.activeSelf)
         {
             playerInRange = true;
@@ -68,21 +71,21 @@ public class QuestManager_MitoTuto : MonoBehaviour
             playerInRange = false;
         }
 
-        if (playerInRange)
+        if (playerInRange) // 플레이어가 범위 안에 있으면
         {
-            if (isABtnPressed && !wasABtnPressed && !dialogueActive)
+            if (isABtnPressed && !wasABtnPressed && !dialogueActive) // 버튼은 빼도 될듯?
             {
-                if (!playerMoving_Mito.flyable)
+                if (!playerMoving_Mito.flyable) // 맨 처음에 NPC와 마주한 상황일때 호출
                 {
                     npcToolTip.SetActive(false);
                     StartCoroutine(PlayDialogueAfterDelay(3));
                 }
-                else
+                else // 비행으로 맵 구경하고 돌아왔을때 호출
                 {
                     npcToolTip.SetActive(false);
                     StartCoroutine(PlayDialogueAfterDelay(7));
                 }
-                dialogueActive = true;
+                dialogueActive = true; // 중복 호출 방지
             }
         }
 
@@ -103,6 +106,7 @@ public class QuestManager_MitoTuto : MonoBehaviour
         questPanelMito.PanelOpen("NPC에게 말을 걸어보자!");
     }
 
+    /*
     public void ResetQuestText()
     {
         questText.text = string.Empty;
@@ -112,6 +116,7 @@ public class QuestManager_MitoTuto : MonoBehaviour
     {
         questText.text = text;
     }
+    */
 
     public void CheckGrabATP()
     {

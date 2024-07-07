@@ -8,8 +8,8 @@ public class MitochondriaMiniHalf_MitoTuto : MonoBehaviour
 {
     public bool dialogueActive = false; // 대화가 활성화되었는지 확인하는 플래그
 
-    public bool isMitoGrabbed = false;
-    public bool isComponentGrabbed = false;
+    public bool isMitoGrabbed = false; // 미토콘드리아 작은 모형이 잡혔는지 여부
+    //public bool isComponentGrabbed = false;
 
     public GameObject[] components;
 
@@ -28,6 +28,7 @@ public class MitochondriaMiniHalf_MitoTuto : MonoBehaviour
         }
     }
 
+    // 자식의 설명패널이 모두 띄워졌는지 확인
     public bool CheckComponentDesc()
     {
         foreach (var component in components)

@@ -30,14 +30,14 @@ public class ItemGrab_MitoTuto : MonoBehaviour
             // 아이템을 놓았을경우 오른손에는 아이템이 없고, 아이템 변수는 item
             if (item != null)
             {
-                // 아이템 놓기
+                // 아이템 놓을때 호출
                 ItemReleaseEvent(item);
             }
 
             // 아이템을 잡았을경우 오른손에는 아이템이 있고, 아이템 변수는 null
             if (handGrabber.HeldGrabbable != null)
             {
-                // 아이템 그랩
+                // 아이템 그랩시 호출
                 ItemGrabEvent(handGrabber.HeldGrabbable);
             }
 

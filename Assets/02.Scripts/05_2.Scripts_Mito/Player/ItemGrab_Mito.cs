@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 오른손의 Grabber에 있는 스크립트
 public class ItemGrab_Mito : MonoBehaviour
 {
     public PlayerMoving_Mito playerMoving_Mito;
@@ -30,7 +31,7 @@ public class ItemGrab_Mito : MonoBehaviour
             // 아이템을 놓았을경우 오른손에는 아이템이 없고, 아이템 변수는 item
             if (item != null)
             {
-                // 아이템 놓기
+                // 아이템 놓을시 호출
                 ItemReleaseEvent(item);
                 playerMoving_Mito.SetPlayerSpeed(15.0f, 20.0f, 20.0f);
             }
@@ -38,7 +39,7 @@ public class ItemGrab_Mito : MonoBehaviour
             // 아이템을 잡았을경우 오른손에는 아이템이 있고, 아이템 변수는 null
             if (rightHandGrabber.HeldGrabbable != null)
             {
-                // 아이템 그랩
+                // 아이템 그랩시 호출
                 ItemGrabEvent(rightHandGrabber.HeldGrabbable);
                 playerMoving_Mito.SetPlayerSpeed(3.0f, 4.0f, 4.0f);
             }
@@ -74,7 +75,7 @@ public class ItemGrab_Mito : MonoBehaviour
 
         foreach (var collider in hitColliders)
         {
-            if (collider.GetComponent<SnapZone>() != null)
+            if (collider.GetComponent<SnapZone>() != null) // SnapZone이 있을때만 이펙트 생성
             {
                 GameManager_Mito.Instance.MakeSnapEffect(releasedItem.transform.position);
                 break;
