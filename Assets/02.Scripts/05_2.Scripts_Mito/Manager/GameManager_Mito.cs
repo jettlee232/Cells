@@ -8,6 +8,13 @@ public class GameManager_Mito : MonoBehaviour
 {
     public static GameManager_Mito Instance { get; private set; }
 
+    PlayerMoving_Mito playerMoving_Mito;
+    public QuestPanel_Mito questPanelMito;
+    public GameObject resultPanel;
+    public Transform resultPos;
+
+    public GameObject snapEffect;
+
     public int atpScore = 0;
     public float atpCurTime = 1.0f;
     public float atpMaxTime = 1.0f;
@@ -30,13 +37,16 @@ public class GameManager_Mito : MonoBehaviour
     {
         // Fixed Timestep을 보정해주는 코드?
         Time.fixedDeltaTime = (Time.timeScale / UnityEngine.XR.XRDevice.refreshRate);
-        BtnOnClickGameStart();
+
+        playerMoving_Mito = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMoving_Mito>();
     }
 
-    //void Update()
-    //{
-
-    //}
+    IEnumerator StartGame(float delay)
+    {
+        questPanelMito.PanelOpen("미토콘드리아 속을 탐험하며 ATP를 만들어보자!");
+        yield return new WaitForSeconds(delay);
+        questPanelMito.PanelClose();
+    }
 
     public void IncreaseScore(int amount)
     {
@@ -58,7 +68,9 @@ public class GameManager_Mito : MonoBehaviour
 
     public void BtnOnClickGameStart()
     {
+        playerMoving_Mito.isMoving = true;
         StartTimer();
+        StartCoroutine(StartGame(5.0f));
     }
 
     void StartTimer()
@@ -70,7 +82,7 @@ public class GameManager_Mito : MonoBehaviour
     {
         while (atpCurTime > 0.0f)
         {
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(5.0f);
             atpCurTime -= 0.01f;
         }
     }
@@ -78,5 +90,14 @@ public class GameManager_Mito : MonoBehaviour
     void GameClear()
     {
         Debug.Log("ATP를 목표치만큼 모았습니다.");
+
+        GameObject go = Instantiate(resultPanel);
+        go.transform.SetParent(resultPos);
+        go.transform.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+    }
+
+    public void MakeSnapEffect(Vector3 pos)
+    {
+        Instantiate(snapEffect, pos, Quaternion.identity);
     }
 }

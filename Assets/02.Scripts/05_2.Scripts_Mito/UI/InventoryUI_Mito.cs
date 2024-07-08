@@ -18,7 +18,8 @@ public class InventoryUI_Mito : MonoBehaviour
 
     private void Update()
     {
-        UpdateItemCounts();
+        if (inventory.gameObject.activeSelf)
+            UpdateItemCounts();
     }
 
     //// 감지된 아이템의 정보를 출력

@@ -5,18 +5,19 @@ using UnityEngine;
 
 public class Item_Mito : MonoBehaviour
 {
-    float moveSpeed = 0.25f;
+    //float moveSpeed = 0.25f;
     float rotSpeed = 180.0f;
-    public float moveDelay = 2.0f;
-    private float destroyTime = 30.0f;
+    //public float moveDelay = 2.0f;
+    //private float destroyTime = 30.0f;
 
     public bool isGrabbed = false; // 플레이어 손에 잡혔는지 여부
     public bool isInventory = false; // 인벤토리에 있는지 여부
 
-    public Vector3 OriginalScale;
+    public Vector3 OriginalScale; // 스케일 백업 변수
 
     Grabbable grabbable;
 
+    // 태그 대신에 enum 타입으로 아이템 종류 구분
     public enum ItemType
     {
         Adenine,
@@ -41,6 +42,7 @@ public class Item_Mito : MonoBehaviour
         { ItemType.FREE, "인벤토리" }
     };
 
+    // 저장한 스케일로 현재 스케일 변경
     public void SetOriginalScale(Vector3 scale)
     {
         OriginalScale = scale;
@@ -52,7 +54,7 @@ public class Item_Mito : MonoBehaviour
         grabbable = GetComponent<Grabbable>();
         if (OriginalScale == Vector3.zero)
         {
-            OriginalScale = transform.localScale;
+            OriginalScale = transform.localScale; // 원본 아이템의 스케일 미리 저장
         }
     }
 
@@ -62,7 +64,7 @@ public class Item_Mito : MonoBehaviour
 
         if (!isGrabbed) ItemRotate();
 
-        if (GetComponent<Rigidbody>().isKinematic)
+        if (GetComponent<Rigidbody>().isKinematic) // 아이템이 잡혔는지 여부를 isKinematic으로 확인
         {
             StartCoroutine(ActiveVesicle(0.5f));
         }
@@ -76,7 +78,9 @@ public class Item_Mito : MonoBehaviour
     // isGrabbed일때는 움직이면 안된다
     // isGrabbed가 false가 되면 한 몇초 뒤에 움직이게 한다
     // 여기서 트윈 사용각?
+    // 보류
 
+    // 아이템이 잡혔는지 여부 확인해서 리턴
     public bool CheckGrab()
     {
         if (grabbable.RemoteGrabbing)
@@ -93,11 +97,13 @@ public class Item_Mito : MonoBehaviour
         }
     }
 
+    // y축으로 회전
     public void ItemRotate()
     {
         transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.World);
     }
 
+    /*
     public void ItemLock()
     {
         if (transform.parent.GetComponent<SnapZone>())
@@ -115,12 +121,14 @@ public class Item_Mito : MonoBehaviour
         }
         return "알 수 없음";
     }
+    */
 
     // 다른 슬롯에 직접 손으로 스냅할때
     // 다른 슬롯에 Ray로 스냅할때
     // Ray로 꺼낼때
     // 3가지 경우에서 순간적으로 스케일이 바뀜
-    // SnapZone의 407번째 줄 HeldItem.ResetScale();를 주석처리하면 해결은 가능
+    // SnapZone의 407번째 줄 HeldItem.ResetScale();를 주석처리하면 해결은 가능?
+    // 근데 자식의 Ring이 문제다
     public void ItemGrabScale(float value)
     {
         StopAllCoroutines();
@@ -147,6 +155,7 @@ public class Item_Mito : MonoBehaviour
         transform.localScale = targetScale;
     }
 
+    // 아이템들의 첫번째 자식인 보호막 SetActive 관련 코루틴
     IEnumerator ActiveVesicle(float delay)
     {
         yield return new WaitForSeconds(delay);

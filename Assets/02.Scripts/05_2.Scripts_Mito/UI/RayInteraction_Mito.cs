@@ -34,6 +34,8 @@ public class RayInteraction_Mito : MonoBehaviour
             //    inventoryUI.ClearCurrentItemText();
             //}
 
+            // 조건 수정 필요
+            // 그립을 꾹 누르고있을때 Ray가 닿아도 스냅됨
             if (GetComponentInParent<HandController>().GripAmount >= 1.0f && !item)
             {
                 if (grabAction)
@@ -42,7 +44,8 @@ public class RayInteraction_Mito : MonoBehaviour
         }
     }
 
-    // Ray로 먼곳에 들고있는 아이템 스냅하기
+    // 버그 : 맨 처음에 하는 원거리 스냅이 안됨
+    // Ray로 들고있는 아이템 먼곳에 스냅하기
     // 오른손의 Grabber에서 OnReleaseEvent로 호출
     public void RaycastItemSnap()
     {
@@ -63,6 +66,7 @@ public class RayInteraction_Mito : MonoBehaviour
                 // 나중에 이동시간을 조절하면 될듯?
                 item.transform.localPosition = snapZone.transform.position;
                 item.transform.localEulerAngles = snapZone.transform.localEulerAngles;
+                //GameManager_Mito.Instance.MakeSnapEffect(snapZone.transform.position);
 
                 //snapZone.GrabGrabbable(item);
 

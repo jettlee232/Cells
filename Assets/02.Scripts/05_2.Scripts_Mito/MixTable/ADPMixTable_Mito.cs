@@ -59,6 +59,7 @@ public class ADPMixTable_Mito : MonoBehaviour
             RemoveAllItems();
 
             GameObject adpItem = Instantiate(adpPrefab);
+            adpItem.GetComponent<Item_Mito>().SetOriginalScale(adpPrefab.transform.localScale);
             adpSlot.snapZone.GrabGrabbable(adpItem.GetComponent<Grabbable>());
         }
     }

@@ -28,18 +28,18 @@ public class ReturnTable_Mito : MonoBehaviour
                 break;
         }
 
-        //CheckATP();
+        CheckATP();
     }
 
     public void CheckATP()
     {
         if (isATP)
         {
-            MakeADP();
+            ReturnATP();
         }
     }
 
-    void MakeADP()
+    void ReturnATP()
     {
         RemoveAllItems();
 

@@ -65,8 +65,15 @@ public class PlayerMoving_Mito : MonoBehaviour
             //GetRotateX();
             //CheckFlyable();
             rb.velocity = flyable ? GetUp() + GetDown() + GetMove() : GetMove();
-            ResetRot();
+            //ResetRot();
         }
+    }
+
+    public void SetPlayerSpeed(float move, float up, float down)
+    {
+        moveSpeed = move;
+        upSpeed = up;
+        downSpeed = down;
     }
 
     public void StartPlayer(float delay)
@@ -85,7 +92,7 @@ public class PlayerMoving_Mito : MonoBehaviour
     {
         oldUp = goUp;
 
-        left.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out goUp);
+        right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out goUp);
 
         if (goUp && !oldUp) { StartCoroutine(cStartUp()); }
         if (!goUp && oldUp) { StartCoroutine(cFinishUp()); }
@@ -135,7 +142,7 @@ public class PlayerMoving_Mito : MonoBehaviour
         if (CheckGround()) { return Vector3.zero; }
         oldDown = goDown;
 
-        right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out goDown);
+        left.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out goDown);
 
         if (goDown && !oldDown) { StartCoroutine(cStartDown()); }
         if (!goDown && oldDown) { StartCoroutine(cFinishDown()); }
