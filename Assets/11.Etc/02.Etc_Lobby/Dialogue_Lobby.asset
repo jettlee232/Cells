@@ -225,7 +225,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/audio_00_\uC548\uB155__\uC5B4\uC11C\uC640_)"
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 1
@@ -280,7 +280,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/audio_01_\uC38C_\uC5B4\uB4DC\uBCA4\uCCD0_\uC5F0\uAD6C\uC18C\uC5D0_\uC628_\uAC78_\uD658\uC601\uD574_)"
         type: 0
         typeString: 
       conversationID: 1
@@ -332,11 +332,11 @@ MonoBehaviour:
         typeString: 
       - title: Dialogue Text
         value: "\uB098\uB294 \uB108\uC758 \uC138\uD3EC \uC18D \uBAA8\uD5D8\uC744
-          \uB3C4\uC640\uC904 OO\uC774\uB77C\uACE0 \uD574."
+          \uB3C4\uC640\uC904 \uCF54\uCF54\uB77C\uACE0 \uD574."
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/audio_02_\uB098\uB294_\uB108\uC758_\uC138\uD3EC_\uC18D_\uBAA8\uD5D8\uC744_\uB3C4\uC640\uC904_\uCF54\uCF54\uB77C\uACE0_\uD574_)"
         type: 0
         typeString: 
       conversationID: 1
@@ -391,7 +391,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/audio_03_\uC815\uB9D0_\uBC18\uAC00\uC6CC_)"
         type: 0
         typeString: 
       conversationID: 1
@@ -447,7 +447,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/audio_04_\uC9C0\uAE08_\uB108\uAC00_\uC788\uB294_\uACF3\uC740_\uC38C_\uC5B4\uB4DC\uBCA4\uCCD0_\uC5F0\uAD6C_\uAE30\uC9C0\uC57C_)"
         type: 0
         typeString: 
       conversationID: 1
@@ -503,7 +503,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/05-06_\uD569\uBCF8)"
         type: 0
         typeString: 
       conversationID: 1
@@ -558,7 +558,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/audio_07_\uD55C_\uBC88_\uCC9C\uCC9C\uD788_\uB458\uB7EC\uBD10_)"
         type: 0
         typeString: 
       conversationID: 1
@@ -609,12 +609,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\uC900\uBE44\uAC00 \uB418\uBA74 \uB2E4\uC2DC \uB0B4\uAC8C \uB9D0\uC744
-          \uAC78\uC5B4\uC918~"
+        value: "\uC900\uBE44\uAC00 \uB418\uBA74 \uB2E4\uC2DC \uB9D0\uC744 \uAC78\uC5B4\uC918~"
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/audio_08_\uC900\uBE44\uAC00_\uB418\uBA74_\uB2E4\uC2DC_\uB9D0\uC744_\uAC78\uC5B4\uC918_)"
         type: 0
         typeString: 
       conversationID: 1
@@ -626,9 +625,15 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'fCheckTutorial()
+      userScript: 'MovePlayer_LB();
 
-'
+        CheckTutorial_LB();
+
+        MovePlayer_LB();
+
+        ShowNPCTalk_LB();
+
+        GlowAllStart_LB()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -770,7 +775,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/audio_09_\uC5B4\uB54C__\uC5EC\uB7EC_\uACF3\uC73C\uB85C_\uC774\uB3D9\uD560_\uC218_\uC788\uC9C0_)"
         type: 0
         typeString: 
       conversationID: 2
@@ -784,7 +789,7 @@ MonoBehaviour:
       - originConversationID: 2
         originDialogueID: 1
         destinationConversationID: 2
-        destinationDialogueID: 2
+        destinationDialogueID: 8
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -826,7 +831,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/audio_12_\uADF8\uB7FC_\uC774\uC81C__\uC900\uBE44\uAC00_\uB41C_\uAC83_\uAC19\uC544\uBCF4\uC774\uB124_)"
         type: 0
         typeString: 
       conversationID: 2
@@ -850,7 +855,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 117
+        x: 115.73419
         y: 122
         width: 160
         height: 30
@@ -877,12 +882,13 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\uD3EC\uD0C8 \uC606\uC5D0 \uC788\uB294 \uBC84\uD2BC\uC744 \uB20C\uB7EC\uC11C
-          \uBB38\uC744 \uC5F4\uACE0"
+        value: "\uD3EC\uD0C8 \uC606\uC5D0 \uC788\uB294 \uB808\uBC84\uB97C \uB0B4\uB824\uC11C
+          \uBB38\uC744 \uC5F4\uACE0 \uC548\uC73C\uB85C \uB4E4\uC5B4\uAC00\uBA74,
+          \uC6D0\uD558\uB294 \uACF3\uC73C\uB85C \uC774\uB3D9\uD560 \uC218 \uC788\uC5B4!"
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/audio_13_\uD3EC\uD0C8_\uC606\uC5D0_\uC788\uB294_\uB808\uBC84\uB97C_\uB0B4\uB824\uC11C_\uBB38\uC744_\uC5F4\uACE0_\uC548\uC73C\uB85C_\uB4E4\uC5B4\uAC00\uBA74__~)"
         type: 0
         typeString: 
       conversationID: 2
@@ -896,62 +902,6 @@ MonoBehaviour:
       - originConversationID: 2
         originDialogueID: 3
         destinationConversationID: 2
-        destinationDialogueID: 4
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 117
-        y: 172
-        width: 160
-        height: 30
-    - id: 4
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: "\uC548\uC73C\uB85C \uB4E4\uC5B4\uAC00\uBA74 \uC6D0\uD558\uB294 \uACF3\uC73C\uB85C
-          \uC774\uB3D9\uD560 \uC218 \uC788\uC5B4!"
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      conversationID: 2
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 2
-        originDialogueID: 4
-        destinationConversationID: 2
         destinationDialogueID: 5
         isConnector: 0
         priority: 2
@@ -962,8 +912,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 117
-        y: 222
+        x: 115.73418
+        y: 170.73419
         width: 160
         height: 30
     - id: 5
@@ -989,12 +939,12 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\uB124\uAC00 \uAC00\uB294 \uACF3\uC740 \uB098\uB3C4 \uC5B4\uB514\uB4E0
-          \uB530\uB77C\uAC08 \uD14C\uB2C8 \uAC71\uC815\uD558\uC9C0 \uB9C8~"
+        value: "\uBAA8\uB974\uB294 \uAC8C \uC788\uC744 \uB54C \uC5B8\uC81C\uB4E0
+          \uB3C4\uC640\uC904 \uCE5C\uAD6C\uAC00 \uC788\uC73C\uB2C8 \uAC71\uC815\uB9D0\uB77C\uACE0!"
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/audio_14_\uBAA8\uB974\uB294_\uAC8C_\uC788\uC744_\uB550_\uC5B8\uC81C\uB4E0_\uB3C4\uC640\uC904_\uCE5C\uAD6C\uAC00_\uC788\uC73C\uB2C8_\uAC71\uC815\uB9D0\uB77C\uACE0_)"
         type: 0
         typeString: 
       conversationID: 2
@@ -1018,8 +968,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 117
-        y: 272
+        x: 129.65823
+        y: 270.7342
         width: 160
         height: 30
     - id: 6
@@ -1045,11 +995,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\uADF8\uB7FC \uB81B\uCE20\uACE0!"
+        value: "\uADF8\uB7FC \uCD9C\uBC1C\uD574\uBCFC\uAE4C?"
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: "AudioWait(Lobby/audio_15_\uADF8\uB7FC__\uCD9C\uBC1C\uD574\uBCFC\uAE4C_)"
         type: 0
         typeString: 
       conversationID: 2
@@ -1061,14 +1011,130 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
+      userScript: 'MovePlayer_LB();
+
+        Warpable_LB();
+
+        MovePlayer_LB()'
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 124.59494
+        y: 333.3924
+        width: 160
+        height: 30
+    - id: 8
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "\uB3D9\uBB3C \uC138\uD3EC, \uC2DD\uBB3C \uC138\uD3EC \uC18D\uC73C\uB85C
+          \uB4E4\uC5B4\uAC08 \uC218\uB3C4 \uC788\uACE0,"
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: "AudioWait(Lobby/audio_10_\uB3D9\uBB3C_\uC138\uD3EC__\uC2DD\uBB3C_\uC138\uD3EC_\uC18D\uC73C\uB85C_\uB4E4\uC5B4\uAC08_\uC218\uB3C4_\uC788\uACE0_)"
+        type: 0
+        typeString: 
+      conversationID: 2
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 2
+        originDialogueID: 8
+        destinationConversationID: 2
+        destinationDialogueID: 9
+        isConnector: 0
+        priority: 2
+      conditionsString: 
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 117
-        y: 322
+        x: 379.0253
+        y: 132.12659
+        width: 160
+        height: 30
+    - id: 9
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "\uB2E4\uB978 \uC138\uD3EC \uD0D0\uD5D8\uAC00 \uCE5C\uAD6C\uB4E4\uC744
+          \uB9CC\uB098\uB7EC \uAC08 \uC218\uB3C4 \uC788\uC5B4!"
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: "AudioWait(Lobby/audio_11_\uB2E4\uB978_\uC138\uD3EC_\uD0D0\uD5D8\uAC00_\uCE5C\uAD6C\uB4E4\uC744_\uB9CC\uB098\uB7EC_\uAC08_\uC218\uB3C4_\uC788\uC5B4_)"
+        type: 0
+        typeString: 
+      conversationID: 2
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 2
+        originDialogueID: 9
+        destinationConversationID: 2
+        destinationDialogueID: 2
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 379.0253
+        y: 182.12659
         width: 160
         height: 30
     entryGroups: []
@@ -1079,11 +1145,11 @@ MonoBehaviour:
     - title: Title
       value: Lobby_3
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Description
       value: 
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Actor
       value: 1
       type: 5
@@ -1269,7 +1335,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: 'fMovePlayer_LB();
+
+        fMovePlayer_LB()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []

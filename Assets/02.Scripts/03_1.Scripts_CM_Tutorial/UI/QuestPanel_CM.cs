@@ -26,7 +26,7 @@ public class QuestPanel_CM : MonoBehaviour
         targetRectTransform.sizeDelta = Vector2.zero;
 
         if (wordEffect == null) wordEffect = gameObject.transform.GetChild(0).GetChild(0).GetComponent<WordEffect1>();
-        wordEffect.enabled = true;
+        wordEffect.enabled = true;  
 
         DOTween.Init();
     }
