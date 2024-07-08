@@ -7,8 +7,10 @@ using static PixelCrushers.DialogueSystem.SequencerShortcuts;
 
 public class PlayerMoving_StageMap: MonoBehaviour
 {
+    [Header("Flyable")]
     public bool flyable = true;
 
+    [Header("Speed")]
     public float startTimer = 0.4f; // 속도가 0일 때부터 최대 속도까지 빨라질 때 걸리는 시간 (정지 -> 이동 관성)
     public float finishTimer = 1f; // 속도가 최대일 때부터 0까지 느려질 때 걸리는 시간 (이동 -> 정지 관성)
     public float moveSpeed = 10f;    // 이동 속도 (전후좌우)
@@ -25,6 +27,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
     private bool pressedB = false;
     private bool oldPressedB = false;
 
+    [Header("Settings")]
     private float groundCheck = 0.02f;
     private float maxSlopeAngle = 45f;
     public Transform dirStandard;   // 여기에 센터아이 앵커
@@ -59,8 +62,12 @@ public class PlayerMoving_StageMap: MonoBehaviour
         left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
         GetRotateY();
         GetRotateX();
-        CheckFlyable();
-        if (GameManager_StageMap.instance.GetMovable()) { rb.velocity = flyable ? GetUp() + GetDown() + GetMove() : GetMove(); }
+        if (GameManager_StageMap.instance.GetMovable())
+        {
+            if (flyable) { rb.velocity = GetUp() + GetDown() + GetMove(); }
+            else { rb.velocity = GetMove(); }
+        }
+        else { rb.velocity = Vector3.zero; }
         ResetRot();
     }
 
@@ -69,7 +76,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
     {
         oldUp = goUp;
 
-        right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out goUp);
+        right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out goUp);
 
         if (goUp && !oldUp) { StartCoroutine(cStartUp()); }
         if (!goUp && oldUp) { StartCoroutine(cFinishUp()); }
@@ -119,7 +126,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
         if (CheckGround()) { return Vector3.zero; }
         oldDown = goDown;
 
-        left.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out goDown);
+        left.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out goDown);
 
         if (goDown && !oldDown) { StartCoroutine(cStartDown()); }
         if (!goDown && oldDown) { StartCoroutine(cFinishDown()); }
@@ -220,6 +227,13 @@ public class PlayerMoving_StageMap: MonoBehaviour
             }
         }
     }
+
+    public void RotateUp() { rotateSpeed += 10f; }
+    public void RotateDown()
+    {
+        if (rotateSpeed > 10f) { rotateSpeed -= 10f; }
+    }
+    public float GetRotateSpeed() { return rotateSpeed; }
     #endregion
 
     #region 기타
@@ -242,15 +256,8 @@ public class PlayerMoving_StageMap: MonoBehaviour
     {
         return Vector3.ProjectOnPlane(dir, slopeHit.normal).normalized;
     }
-    public void StopPlayer() { rb.velocity = Vector3.zero; }
     #endregion
 
-    public void CheckFlyable()
-    {
-        oldPressedB = pressedB;
-
-        right.TryGetFeatureValue(CommonUsages.secondaryButton, out pressedB);
-        if (!flyable && (pressedB && !oldPressedB)) { flyable = true; }
-        else if (flyable && (pressedB && !oldPressedB)) { flyable = false; nowUpSpeed = 0f; nowDownSpeed = 0f; }
-    }
+    public void DisableFly() { flyable = false; }
+    public void EnableFly() { flyable = true; nowUpSpeed = 0f; nowDownSpeed = 0f; }
 }

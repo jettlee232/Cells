@@ -16,69 +16,77 @@ public class SelectDialogue_StageMap : MonoBehaviour
 
     public float length = 5f;
     private GameObject player = null;
+    private GameObject tutorial = null;
     private bool checkFly = false;
 
     private void Start()
     {
         player = GameManager_StageMap.instance.GetPlayer();
+        tutorial = GameManager_StageMap.instance.GetTutorialManager();
         ActivateDST1();
     }
 
     public void ActivateDST1() // 1번째 트리거 작동 함수
     {
+        DisableMove_SM();
         if (GameManager_StageMap.instance.GetFirstEnd()) { dialogueSystemTrigger1.startConversationEntryID = 4; }
         else { dialogueSystemTrigger1.startConversationEntryID = 0; }
         dialogueSystemTrigger1.OnUse(); // On Use로 컨버제이션 작동
-        DisableMove();
         GameManager_StageMap.instance.FirstEnd();
     }
 
     public void ActivateDST2() // 2번째 트리거 작동 함수
     {
+        DisableMove_SM();
+        if (UIManager_StageMap.instance.GetQuest()) { UIManager_StageMap.instance.HideQuest(); }
         dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동
-        DisableMove();
-        GameManager_StageMap.instance.secondEnd = true;
+        GameManager_StageMap.instance.SecondEnd();
     }
 
     #region 스크립트에 쓰일 함수
-    public void fCheckFlyTutorial() { StartCoroutine(CheckFlyTutorial()); }
-    IEnumerator CheckFlyTutorial()
+    public void CheckFlyTutorial_SM()
     {
-        while (true)
-        {
-            right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-            right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out checkFly);
-
-            if (checkFly) { break; }
-            yield return new WaitForSeconds(0.02f);
-        }
-        GameManager_StageMap.instance.secondCon = true;
+        UIManager_StageMap.instance.SetQuest("비행을 하면서 3개의 타겟을 찾아보자!");
+        tutorial.GetComponent<TutorialManager_StageMap>().StartTutorial();
     }
 
-    public void EnableMove() { GameManager_StageMap.instance.EnableMove(); }
-    public void DisableMove()
+    public void EnableMove_SM() { GameManager_StageMap.instance.EnableMove(); }
+    public void DisableMove_SM()
     {
         GameManager_StageMap.instance.DisableMove();
-        GameManager_StageMap.instance.StopPlayer();
         GameManager_StageMap.instance.RemoveSelect();
     }
-    public void EnableOrganelle() { UIManager_StageMap.instance.EnableButton(); }
+    public void EnableOrganelle_SM() { UIManager_StageMap.instance.EnanbleOrganelleButton(); }
+    public void Subtitle_Explore_SM() { UIManager_StageMap.instance.SetQuest("동물세포를 탐험해 보자!", 5f); }
+    public void ShowTutorial_SM() { UIManager_StageMap.instance.ShowTutorial(); }
+    public void ShowOrganelle_SM() { UIManager_StageMap.instance.ShowOrganelleUI(); }
+    public void HideOrganelle_SM() { UIManager_StageMap.instance.HideOrganelleUI(); }
     #endregion
 
     #region Register with Lua
 
     private void OnEnable()
     {
-        Lua.RegisterFunction("fCheckFlyTutorial", this, SymbolExtensions.GetMethodInfo(() => fCheckFlyTutorial()));
-        Lua.RegisterFunction("EnableMove", this, SymbolExtensions.GetMethodInfo(() => EnableMove()));
-        Lua.RegisterFunction("EnableOrganelle", this, SymbolExtensions.GetMethodInfo(() => EnableOrganelle()));
+        Lua.RegisterFunction("CheckFlyTutorial_SM", this, SymbolExtensions.GetMethodInfo(() => CheckFlyTutorial_SM()));
+        Lua.RegisterFunction("EnableMove_SM", this, SymbolExtensions.GetMethodInfo(() => EnableMove_SM()));
+        Lua.RegisterFunction("DisableMove_SM", this, SymbolExtensions.GetMethodInfo(() => DisableMove_SM()));
+        Lua.RegisterFunction("EnableOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => EnableOrganelle_SM()));
+        Lua.RegisterFunction("Subtitle_Explore_SM", this, SymbolExtensions.GetMethodInfo(() => Subtitle_Explore_SM()));
+        Lua.RegisterFunction("ShowTutorial_SM", this, SymbolExtensions.GetMethodInfo(() => ShowTutorial_SM()));
+        Lua.RegisterFunction("ShowOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => ShowOrganelle_SM()));
+        Lua.RegisterFunction("HideOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => HideOrganelle_SM()));
     }
 
     private void OnDisable()
     {
-        Lua.UnregisterFunction("fCheckFlyTutorial");
-        Lua.UnregisterFunction("EnableMove");
-        Lua.UnregisterFunction("EnableOrganelle");
+        Lua.UnregisterFunction("CheckFlyTutorial_SM");
+        Lua.UnregisterFunction("EnableMove_SM");
+        Lua.UnregisterFunction("DisableMove_SM");
+        Lua.UnregisterFunction("EnableOrganelle_SM");
+        Lua.UnregisterFunction("Subtitle_Explore_SM");
+        Lua.UnregisterFunction("ShowTutorial_SM");
+        Lua.UnregisterFunction("ShowOrganelle_SM");
+        Lua.UnregisterFunction("HideOrganelle_SM");
     }
 
     #endregion

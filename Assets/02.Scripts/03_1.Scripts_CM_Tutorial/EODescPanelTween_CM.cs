@@ -6,22 +6,24 @@ using DG.Tweening;
 
 public class EODescPanelTween_CM : MonoBehaviour
 {
-    public GameObject descPanels;
-
     public TextMeshProUGUI tmpText_Title;
     public TextMeshProUGUI tmpText_Detail;
-    public RectTransform targetRectTransform; // Å©±â¸¦ º¯°æÇÒ RectTransform
-    public float duration = 1.0f; // ¾Ö´Ï¸ÞÀÌ¼Ç Áö¼Ó ½Ã°£
+    public RectTransform targetRectTransform;
+    public float duration = 1.0f; // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+
+    private Vector2 initVec;
 
     void Start()
     {
-        tmpText_Title = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        if (tmpText_Title == null) tmpText_Title = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         tmpText_Title.text = "";
-        tmpText_Detail = transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
+
+        if (tmpText_Detail == null) tmpText_Detail = transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
         tmpText_Detail.text = "";
 
-        targetRectTransform = GetComponent<RectTransform>();
-        targetRectTransform.sizeDelta = Vector2.zero;
+        if (targetRectTransform == null) targetRectTransform = GetComponent<RectTransform>();
+        //initVec = targetRectTransform.sizeDelta;
+        targetRectTransform.sizeDelta = Vector3.zero;
 
         DOTween.Init();
     }
@@ -30,6 +32,7 @@ public class EODescPanelTween_CM : MonoBehaviour
     {
         StartCoroutine(ChangeQuestTextAfterFewSec(title, detail));
         targetRectTransform.DOSizeDelta(new Vector2(125, 75), duration);
+        //targetRectTransform.DOSizeDelta(initVec, duration);
     }
 
     IEnumerator ChangeQuestTextAfterFewSec(string title, string detail)
@@ -41,7 +44,7 @@ public class EODescPanelTween_CM : MonoBehaviour
     public void ChangeText(string title, string detail)
     {
         tmpText_Title.text = title;
-        tmpText_Detail.text = detail;
+        //tmpText_Detail.text = detail;
     }
 
 
