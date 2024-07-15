@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,15 @@ public class GameManager_Lobby : MonoBehaviour
     public float moveSpeed = 3f;
     private bool movable = true;
     private bool warpable = false;
+
+    // SYS Code
+    public ButtonDoorController_Lobby buttonDoor;
+
+    // SYS Code
+    public Tooltip[] toolTips;
+
+    // SYS Code
+    public BNG.Lever[] levers;
 
     public bool secondCon { get; set; }
 
@@ -31,6 +41,14 @@ public class GameManager_Lobby : MonoBehaviour
     {
         firstEnd = false;
         secondCon = false;
+
+        // SYS Code
+        if (PlayerPrefs.GetInt("Lobby") == 1)
+        {
+            buttonDoor.DoorOpen();
+            NewTooltip(1, "트리거 키를 눌러 NPC에게 말을 걸어보세요!");
+            PortalShaderControllerEnable(false);
+        }                       
     }
 
     public void MoveScene(string sceneName)
@@ -62,4 +80,37 @@ public class GameManager_Lobby : MonoBehaviour
 
     public void SetLobby() { PlayerPrefs.SetInt("Lobby", 1); }
     public int GetLobby() { return PlayerPrefs.GetInt("Lobby"); }
+
+    // SYS Code
+    public void GlowStartOnlySelected(double start, double end)
+    {
+        interactableManager.GetComponent<InteractableManager_Lobby>().GlowStartOnlySelected((int)start, (int)end);
+    }
+
+    public void GlowEndOnlySelected(double start, double end)
+    {
+        interactableManager.GetComponent<InteractableManager_Lobby>().GlowEndOnlySelected((int)start, (int)end);
+    }
+
+    // SYS Code 
+    public void NewTooltip(int index, string content)
+    {
+        toolTips[index].gameObject.SetActive(true);
+        toolTips[index].TooltipOn(content);
+    }
+
+    public void TooltipOver(int index)
+    {
+        toolTips[index].TooltipOff();
+    }
+
+    // SYS Code
+    public void PortalShaderControllerEnable(bool flag)
+    {       
+        for (int i = 0; i < levers.Length; i++)
+        {
+            if (flag == true) levers[i].enabled = flag; //lever.onLeverChange.AddListener(psc[i].OnLeverChange);
+            else levers[i].enabled = flag; //lever.onLeverChange.RemoveAllListeners();
+        }
+    }
 }

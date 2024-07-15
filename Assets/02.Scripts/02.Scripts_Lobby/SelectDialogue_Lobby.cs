@@ -5,6 +5,8 @@ using PixelCrushers.DialogueSystem;
 using Unity.VisualScripting;
 using UnityEngine.XR;
 using UnityEngine.UIElements;
+using Language.Lua;
+using System;
 
 public class SelectDialogue_Lobby : MonoBehaviour
 {
@@ -88,6 +90,19 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
     public void ShowUpsideSubtitle_LB() { UIManager_Lobby.instance.SetQuest("동물 세포 포탈로 들어가보자!"); }
 
+    // SYS Code
+    public void GlowStartOnlySelected_LB(double start, double end) { GameManager_Lobby.instance.GlowStartOnlySelected(start, end); }
+    public void GlowEndOnlySelected_LB(double start, double end) { GameManager_Lobby.instance.GlowEndOnlySelected(start, end); }
+
+
+    // SYS Code
+    public void NewTooltip_LB(double index, string content) { GameManager_Lobby.instance.NewTooltip((int)index, content); }
+    public void TooltipOver_LB(double index) { GameManager_Lobby.instance.TooltipOver((int)index); }
+
+    // SYS Code
+    public void PortalShaderControllerEnable_LB(bool flag) { GameManager_Lobby.instance.PortalShaderControllerEnable(flag); }
+
+
     #region Register with Lua
 
     private void OnEnable()
@@ -100,6 +115,17 @@ public class SelectDialogue_Lobby : MonoBehaviour
         Lua.RegisterFunction("GlowAllStart_LB", this, SymbolExtensions.GetMethodInfo(() => GlowAllStart_LB()));
         Lua.RegisterFunction("GlowAllEnd_LB", this, SymbolExtensions.GetMethodInfo(() => GlowAllEnd_LB()));
         Lua.RegisterFunction("ShowUpsideSubtitle_LB", this, SymbolExtensions.GetMethodInfo(() => ShowUpsideSubtitle_LB()));
+
+        // SYS Code
+        Lua.RegisterFunction("GlowStartOnlySelected_LB", this, SymbolExtensions.GetMethodInfo(() => GlowStartOnlySelected_LB((double)0, (double)0)));
+        Lua.RegisterFunction("GlowEndOnlySelected_LB", this, SymbolExtensions.GetMethodInfo(() => GlowEndOnlySelected_LB((double)0, (double)0)));
+
+        // SYS Code
+        Lua.RegisterFunction("NewTooltip_LB", this, SymbolExtensions.GetMethodInfo(() => NewTooltip_LB((double)0, (string)null)));
+        Lua.RegisterFunction("TooltipOver_LB", this, SymbolExtensions.GetMethodInfo(() => TooltipOver_LB((double)0)));
+
+        // SYS Code
+        Lua.RegisterFunction("PortalShaderControllerEnable_LB", this, SymbolExtensions.GetMethodInfo(() => PortalShaderControllerEnable_LB((bool)false)));
     }
 
     private void OnDisable()
@@ -112,6 +138,17 @@ public class SelectDialogue_Lobby : MonoBehaviour
         Lua.UnregisterFunction("GlowAllStart_LB");
         Lua.UnregisterFunction("GlowAllEnd_LB");
         Lua.UnregisterFunction("ShowUpsideSubtitle_LB");
+
+        // SYS Code
+        Lua.UnregisterFunction("GlowStartOnlySelected_LB");
+        Lua.UnregisterFunction("GlowEndOnlySelected_LB");
+
+        // SYS Code
+        Lua.UnregisterFunction("NewTooltip_LB");
+        Lua.UnregisterFunction("TooltipOver_LB");
+
+        // SYS Code
+        Lua.UnregisterFunction("PortalShaderControllerEnable_LB");
     }
 
     #endregion
