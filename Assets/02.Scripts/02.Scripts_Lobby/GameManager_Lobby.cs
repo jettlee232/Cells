@@ -1,9 +1,11 @@
+using BNG;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 
 public class GameManager_Lobby : MonoBehaviour
 {
@@ -31,6 +33,18 @@ public class GameManager_Lobby : MonoBehaviour
     public bool firstEnd { get; set; }
     public bool secondEnd { get; set; }
 
+    // SYS Code
+    public int tutoStatus = 0;
+
+    // SYS Code
+    [Header("Warp Effects & ETCs")]
+    public Transform playerWarpPos;
+    public MyFader_CM scrFader;
+    public GameObject warpVFX;
+    public Material skyboxMat;
+    public GameObject map;
+    public GameObject[] disableThings;
+
     void Awake()
     {
         if (instance == null) { instance = this; }
@@ -43,10 +57,17 @@ public class GameManager_Lobby : MonoBehaviour
         secondCon = false;
 
         // SYS Code
-        if (PlayerPrefs.GetInt("Lobby") == 1)
+        warpVFX.SetActive(false);
+        if (PlayerPrefs.GetInt("Lobby") == 0)
+        {
+            NewTooltip(0, "좌측 컨트롤러 조이스틱을 이용하여 움직여보세요!");
+            ShowingTooltipAnim(0, 3);            
+        }
+        else if (PlayerPrefs.GetInt("Lobby") == 1)
         {
             buttonDoor.DoorOpen();
-            NewTooltip(1, "트리거 키를 눌러 NPC에게 말을 걸어보세요!");
+            NewTooltip(1, "A 버튼을 눌러 NPC에게 말을 걸어보세요!");
+            ShowingTooltipAnim(1, 0);
             PortalShaderControllerEnable(false);
         }                       
     }
@@ -60,6 +81,40 @@ public class GameManager_Lobby : MonoBehaviour
     {
         yield return new WaitForSeconds(0.75f);
         SceneManager.LoadScene(sceneName);
+    }
+
+    // SYS Code
+    public void MoveToCMScnene()
+    {
+        StartCoroutine(ScreenFadeInAndWarp());
+        for (int i = 0; i < disableThings.Length; i++) { disableThings[i].SetActive(false); }
+    }
+
+    // SYS Code
+    IEnumerator ScreenFadeInAndWarp()
+    {
+        scrFader.ChangeFadeImageColor(Color.white, 6f, 1f);
+        scrFader.DoFadeIn();
+        RenderSettings.skybox = skyboxMat;
+
+        yield return new WaitForSeconds(1f);
+
+        player.transform.position = playerWarpPos.position;
+        warpVFX.SetActive(true);
+        map.SetActive(false);
+
+        yield return new WaitForSeconds(0.1f);        
+
+        scrFader.DoFadeOut();
+
+        yield return new WaitForSeconds(5f);
+
+        scrFader.ChangeFadeImageColor(Color.white, 6f, 1f);
+        scrFader.DoFadeIn();
+
+        yield return new WaitForSeconds(2f);
+
+        MoveScene("03_0_CM_Cutscenes");
     }
 
     public float GetMoveSpeed() { return moveSpeed; }
@@ -113,4 +168,8 @@ public class GameManager_Lobby : MonoBehaviour
             else levers[i].enabled = flag; //lever.onLeverChange.RemoveAllListeners();
         }
     }
+
+    // SYS Code
+    public void ShowingTooltipAnim(int hand, int anim) { toolTips[hand].ShowingTooltipAnims(anim); }
+    public void UnShowingTooltipAnim(int hand) { toolTips[hand].UnShowingTooltipAnims(); } 
 }

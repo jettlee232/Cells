@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.VFX;
 using UnityEngine.XR;
 using static PixelCrushers.DialogueSystem.SequencerShortcuts;
 
@@ -50,10 +51,34 @@ public class PlayerMoving_StageMap: MonoBehaviour
     UnityEngine.XR.InputDevice right;
     UnityEngine.XR.InputDevice left;
 
+    // SYS Code
+    public int tutorialStatus = 0;
+    private bool isActiveLeftHand = true;
+    private bool isActiveRightHand = true;
+    private bool isActiveTriggerButton = true;
+    private float joystickActiveTime = 0f;
+    private float thresholdTime = 2f;
+
+    // SYS Code
+    [Header("MGRs")]
+    public UIManager_StageMap uiMgr;
+    public TutorialManager_StageMap tutoMgr;
+    public SelectDialogue_StageMap selectDL_SM;
+
+    // SYS Code
+    [Header("Visual Effect")]
+    public VisualEffect speedVFX;
+    public ParticleSystem[] handParticles;
+    private bool vfxTrigger = true;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         groundLayer = 1 << LayerMask.NameToLayer("Ground");
+
+        // SYS Code
+        speedVFX.Stop();
+        for (int i = 0; i < handParticles.Length; i++) handParticles[i].Stop();
     }
 
     void Update()
@@ -80,6 +105,31 @@ public class PlayerMoving_StageMap: MonoBehaviour
 
         if (goUp && !oldUp) { StartCoroutine(cStartUp()); }
         if (!goUp && oldUp) { StartCoroutine(cFinishUp()); }
+
+        // SYS Code - Tutorial
+        if (tutorialStatus == 3)
+        {
+            if (isActiveTriggerButton)
+            {
+                if (goUp)
+                {
+                    joystickActiveTime += Time.deltaTime;
+                    if (joystickActiveTime >= thresholdTime) isActiveTriggerButton = false; // 타이머 중지
+                }
+            }
+            else
+            {
+                uiMgr.NextTutorial();
+                //tutoMgr.TooltipOver(0);
+                tutoMgr.TooltipOver(1);
+                selectDL_SM.CheckFlyTutorial_SM();
+
+                joystickActiveTime = 0;
+                isActiveTriggerButton = false;
+                tutorialStatus++;
+            }
+        }        
+
         return new Vector3(0f, nowUpSpeed, 0f);
     }
     IEnumerator cStartUp()
@@ -130,6 +180,31 @@ public class PlayerMoving_StageMap: MonoBehaviour
 
         if (goDown && !oldDown) { StartCoroutine(cStartDown()); }
         if (!goDown && oldDown) { StartCoroutine(cFinishDown()); }
+
+        // SYS Code - Tutorial
+        if (tutorialStatus == 3)
+        {
+            if (isActiveTriggerButton)
+            {
+                if (goDown)
+                {
+                    joystickActiveTime += Time.deltaTime;
+                    if (joystickActiveTime >= thresholdTime) isActiveTriggerButton = false; // 타이머 중지
+                }
+            }
+            else
+            {
+                uiMgr.NextTutorial();
+                //tutoMgr.TooltipOver(0);
+                tutoMgr.TooltipOver(1);
+                selectDL_SM.CheckFlyTutorial_SM();
+
+                joystickActiveTime = 0;
+                isActiveTriggerButton = false;
+                tutorialStatus++;
+            }
+        }
+
         return new Vector3(0f, - nowDownSpeed, 0f);
     }
     IEnumerator cStartDown()
@@ -173,23 +248,78 @@ public class PlayerMoving_StageMap: MonoBehaviour
     #region 앞뒤양옆
     private Vector3 GetMove()
     {
-        left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+        // SYS Code
+        Vector2 joystickValue; 
+
+        left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);        
         left.TryGetFeatureValue(CommonUsages.primary2DAxis, out XZMove);
+
+        // SYS Code - Speed VFX
+        if (XZMove != Vector2.zero && vfxTrigger == true)
+        {
+            speedVFX.Play();
+            for (int i = 0; i < handParticles.Length; i++) handParticles[i].Play();
+            vfxTrigger = false;
+        }
+        else if (XZMove == Vector2.zero && vfxTrigger == false)
+        {
+            speedVFX.Stop();
+            for (int i = 0; i < handParticles.Length; i++) handParticles[i].Stop();
+            vfxTrigger = true;
+        }
+
+        // SYS Code - Tutorial
+        if (tutorialStatus == 1)
+        {
+            if (isActiveLeftHand)
+            {
+                if (XZMove != Vector2.zero)
+                {
+                    joystickActiveTime += Time.deltaTime;
+                    if (joystickActiveTime >= thresholdTime) isActiveLeftHand = false; // 타이머 중지
+                }
+            }
+            else
+            {
+                uiMgr.NextTutorial();
+                joystickActiveTime = 0;
+                tutorialStatus++;
+            }
+        }
 
         Quaternion guideRot = Quaternion.Euler(0, dirStandard.eulerAngles.y, 0);
         Vector3 moveDir = new Vector3(XZMove.x, 0f, XZMove.y);
         moveDir = guideRot * moveDir;
-        return moveDir * moveSpeed;
+        return moveDir * moveSpeed;        
     }
     #endregion
 
     #region 회전
     private void GetRotateY()
-    {
+    {        
         right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
 
         nowTrans = transform.rotation * Quaternion.Euler(0f, XRotate.x * rotateSpeed * Time.deltaTime, 0f);
         transform.rotation = nowTrans;
+
+        // SYS Code - Tutorial
+        if (tutorialStatus == 2)
+        {
+            if (isActiveRightHand)
+            {
+                if (XRotate != Vector2.zero)
+                {
+                    joystickActiveTime += Time.deltaTime;
+                    if (joystickActiveTime >= (thresholdTime * 2)) isActiveRightHand = false; // 타이머 중지
+                }
+            }
+            else
+            {
+                uiMgr.NextTutorial();
+                joystickActiveTime = 0;
+                tutorialStatus++;
+            }
+        }
     }
 
     private void GetRotateX()
@@ -202,6 +332,25 @@ public class PlayerMoving_StageMap: MonoBehaviour
         newXRotation = Mathf.Clamp(newXRotation, -updownLimit, updownLimit);
         Quaternion newRotation = Quaternion.Euler(newXRotation, currentEulerAngles.y, currentEulerAngles.z);
         trackingSpace.rotation = newRotation;
+
+        // SYS Code - Tutorial
+        if (tutorialStatus == 2)
+        {
+            if (isActiveRightHand)
+            {
+                if (XRotate != Vector2.zero)
+                {
+                    joystickActiveTime += Time.deltaTime;
+                    if (joystickActiveTime >= (thresholdTime * 2)) isActiveRightHand = false; // 타이머 중지
+                }
+            }
+            else
+            {
+                uiMgr.NextTutorial();
+                joystickActiveTime = 0;
+                tutorialStatus++;
+            }
+        }
     }
 
     private void ResetRot()

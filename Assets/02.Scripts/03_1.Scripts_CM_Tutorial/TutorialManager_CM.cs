@@ -34,7 +34,6 @@ public class TutorialManager_CM : MonoBehaviour
     [Header("Narrator Mgr")]
     public NarratorDialogueHub_CM_Tutorial narrator;
     public DialogueSystemController dsc;
-    public bool firstGrab = false;
     public AudioSource audioSrc;
     public AudioClip[] audioClipsArr;
     public string audioFilePath;
@@ -43,6 +42,7 @@ public class TutorialManager_CM : MonoBehaviour
     public GameObject quizCanvas;
     public Animator anim;
     private bool nextFlag = false;
+    public bool allComplete = false;
 
     [Header("Laser")]
     public BNG.UIPointer uIPointer;
@@ -83,7 +83,12 @@ public class TutorialManager_CM : MonoBehaviour
     [Header("Follwing Description Prefabs")]
     public GameObject[] followingPanels;
     public Transform[] followPanelPos;
+    public GameObject followPanelParticlePrefab;
+    private ParticleSystem followPanelParticleSys;
 
+    [Header("Tooltip")]
+    public Tooltip[] tooltips;
+    public GameObject[] worldTooltips;
 
     void Start()
     {
@@ -91,14 +96,23 @@ public class TutorialManager_CM : MonoBehaviour
         isInzizilMakeIt = true;
         quizCanvas.SetActive(false);
 
-        LocPanel("세포막"); // 나중에 수정해야 됨
-        //NewSpeech("아무 말이나"); // 나중에 수정해야 됨
+        LocPanel("세포막"); // 나중에 수정해야 됨               
 
+        InitFollowPanelParticle();
         //UILaserOnOff();
 
         //quest.gameObject.SetActive(false);
         //rule.gameObject.SetActive(false);
     }
+
+    public void InitFollowPanelParticle()
+    {
+        GameObject go = Instantiate(followPanelParticlePrefab);
+        go.transform.position = followPanelPos[0].position;
+        go.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+        followPanelParticleSys = go.GetComponent<ParticleSystem>();
+        followPanelParticleSys.Stop();
+    }    
 
     public void LocPanel(string location)
     {
@@ -113,15 +127,16 @@ public class TutorialManager_CM : MonoBehaviour
 
     public void QuestionByNarrator()
     {
-        quest.gameObject.SetActive(false);
+        //quest.gameObject.SetActive(false);
         //rule.gameObject.SetActive(false);
 
         quizCanvas.SetActive(true);
+        quizCanvas.transform.GetChild(0).GetComponent<InstantiateTween2_CM>().DoingTween();
 
-        quizCanvas.transform.GetChild(0).GetChild(1).GetChild(1).Find("Text").GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Quiz_CM_1");
+        //quizCanvas.transform.GetChild(0).GetChild(1).GetChild(1).Find("Text").GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Quiz_CM_1");
 
-        quizCanvas.transform.GetChild(0).GetChild(1).GetChild(1).Find("O").GetChild(0).GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Quiz_CM_2");
-        quizCanvas.transform.GetChild(0).GetChild(1).GetChild(1).Find("X").GetChild(0).GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Quiz_CM_3");
+        //quizCanvas.transform.GetChild(0).GetChild(1).GetChild(1).Find("O").GetChild(0).GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Quiz_CM_2");
+        //quizCanvas.transform.GetChild(0).GetChild(1).GetChild(1).Find("X").GetChild(0).GetComponent<TextMeshProUGUI>().text = FireStoreManager_Test_CM.Instance.ReadCSV("Quiz_CM_3");
     }
 
     public void MaketutorialObj_Tail()
@@ -133,7 +148,8 @@ public class TutorialManager_CM : MonoBehaviour
 
         for (int i = 0; i < saberVar.transform.childCount; i++)
         {
-            if (saberVar.transform.GetChild(i).GetComponent<Canvas>() != null)
+            // Must Refactoring
+            if (saberVar.transform.GetChild(i).GetComponent<Canvas>() != null && saberVar.transform.GetChild(i).GetComponent<Tooltip_CM>() == null)
             {
                 Transform canvas = saberVar.transform.GetChild(i);
                 canvas.GetChild(0).Find("Title").GetComponent<TextMeshProUGUI>().text =
@@ -198,14 +214,14 @@ public class TutorialManager_CM : MonoBehaviour
             {
                 Transform canvas = go.transform.GetChild(i);
                 canvas.GetChild(0).Find("Title").GetComponent<TextMeshProUGUI>().text =
-                    FireStoreManager_Test_CM.Instance.ReadCSV("Phospholipid_Double_CM");
+                    FireStoreManager_Test_CM.Instance.ReadCSV("Single_EO");
                 //canvas.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text =  FireStoreManager_Test_CM.Instance.ReadCSV("Phospholipid_Double_CM_D");
             }
         }
     }
 
     // -> After Fourth Conv
-    public void MakeTestBlocks(bool philicOrPhobic) // �׽�Ʈ ���ϵ� �� ��ġ�ϱ�
+    public void MakeTestBlocks(bool philicOrPhobic)
     {
         correctAnss = new bool[testBlocks.Length];
 
@@ -287,17 +303,19 @@ public class TutorialManager_CM : MonoBehaviour
 
 
         int correctAnsCnt = 0;
-        for (int i = 0; i < testBlocks.Length; i++) // (�Ʒÿ�)���̹��� ���� ������ � �������� �˾Ƴ���
+        for (int i = 0; i < testBlocks.Length; i++)
         {
-            if (testBlocks[i].name == go.name) // � �������� ã�Ƴ�����
+            if (testBlocks[i].name == go.name)
             {
-                correctAnss[i] = true; // �ش� ���ϰ� ������ ��ȣ�� ĭ�� ���� ó��                
+                correctAnss[i] = true;      
                 StartCoroutine(RemakeAfter2Sec(i));
             }
 
-            if (correctAnss[i] == true) // ���� ���� ���� ���� ���� ����
+            if (correctAnss[i] == true)
             {
                 correctAnsCnt++;
+                TooltipTextChng_Answer(0, correctAnsCnt);
+                TooltipTextChng_Answer(1, correctAnsCnt);
             }
         }
 
@@ -388,10 +406,19 @@ public class TutorialManager_CM : MonoBehaviour
         anim.Play(animName);
     }
 
-    public void NewQuest(string questContents, double exitTime)
+    public void NewQuest(string questContents, double exitTime, bool useFSMorN)
     {
-        if (quest.gameObject.activeSelf == false) quest.gameObject.SetActive(true);
-        quest.PanelOpen(FireStoreManager_Test_CM.Instance.ReadCSV(questContents), (float)exitTime); // text quest change
+        if (quest.transform.GetChild(0).gameObject.activeSelf == false) quest.transform.GetChild(0).gameObject.SetActive(true);
+
+        if (useFSMorN == true)
+        {
+            quest.PanelOpen(FireStoreManager_Test_CM.Instance.ReadCSV(questContents), (float)exitTime); // text quest change
+        }
+        else
+        {
+            quest.PanelOpen(questContents, (float)exitTime); // text quest change
+        }
+        
         PlayClip(8);
     }
 
@@ -493,7 +520,17 @@ public class TutorialManager_CM : MonoBehaviour
             if (cnt >= texts.Length)
             {
                 nextFlag = true;
-                StartCoroutine(StartConvWithDelay());
+                //StartCoroutine(StartConvWithDelay()); // 일단은 주석처리 <- 나중에 아예 지워야 될 것 같음
+
+                worldTooltips[0].SetActive(true);
+                worldTooltips[0].GetComponent<Tooltip>().TooltipOn("우리도 확인해줘!");
+                worldTooltips[1].SetActive(true);
+                worldTooltips[1].GetComponent<Tooltip>().TooltipOn("우리도 확인해줘!");
+                worldTooltips[2].SetActive(true);
+                worldTooltips[2].GetComponent<SpeechBubblePanel_CM>().PanelOpen("충분히 다 확인했으면 나한테 말을 걸어줘!");
+                tooltips[1].TooltipTextChange("A버튼을 NPC에게 쏘면 말을 걸 수 있어요!");
+
+                allComplete = true;
             }
         }
     }
@@ -506,6 +543,9 @@ public class TutorialManager_CM : MonoBehaviour
 
     public void HighlightTexts()
     {
+        tooltips[0].ChangeSprite(0);
+        tooltips[1].ChangeSprite(0);
+
         StartCoroutine(SmallTextsHighlighted());
     }
 
@@ -516,14 +556,22 @@ public class TutorialManager_CM : MonoBehaviour
 
     public void PhosGrabCnt()
     {
-        Debug.Log("phosGrabCnt is : " + phosGrabCnt);
         phosGrabCnt++;
         if (phosGrabCnt >= 2)
         {
-            //rule.ChangeText(FireStoreManager_Test_CM.Instance.ReadCSV("Rule_CM_5"));
-            //rule.ChangeImg("f2");
-
             NewFollow(4, 0);
+
+            TooltipTextChng_Answer(0, 0);          
+            TooltipTextChng_Answer(1, 0);
+
+            tooltips[0].ChangeSprite(1);
+            tooltips[1].ChangeSprite(1);
+
+            tooltips[0].UnShowingTooltipAnims();
+            tooltips[1].UnShowingTooltipAnims();
+
+            if (quest.transform.gameObject.activeSelf == false) quest.transform.gameObject.SetActive(true);
+            NewQuest("중앙에 있는 게임 규칙을 읽어보자!", 3f, false);
         }
     }
 
@@ -548,6 +596,8 @@ public class TutorialManager_CM : MonoBehaviour
         go.transform.SetParent(followPanelPos[(int)followPanelIndex]);
         go.transform.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
 
+        followPanelParticleSys.Play();
+
         AudioMgr_CM.Instance.PlaySFXByInt(13);
     }
 
@@ -568,6 +618,40 @@ public class TutorialManager_CM : MonoBehaviour
             }
         }
     }
+
+    public void NewTooltip(double index, string content)
+    {
+        tooltips[(int)index].gameObject.SetActive(true);
+        tooltips[(int)index].TooltipOn(content);
+    }
+
+    public void TooltipOver(double index)
+    {
+        tooltips[(int)index].TooltipOff();
+    }
+
+    void TooltipTextChng_Answer(double index, int ansCnt)
+    {
+        string content = "정답 개수 : " + ansCnt + " / 7"; 
+
+        tooltips[(int)index].TooltipTextChange(content);
+    }
+
+    public void AllCompleteAndMoveToNextScene()
+    {
+        worldTooltips[0].GetComponent<Tooltip>().TooltipOff();
+        worldTooltips[1].GetComponent<Tooltip>().TooltipOff();
+        worldTooltips[2].GetComponent<SpeechBubblePanel_CM>().PanelClose();
+        tooltips[1].TooltipOff();
+    }
+
+    public void ChangeTooltipSprite(double hand, double spriteIndex)
+    {
+        tooltips[(int)hand].ChangeSprite((int)spriteIndex);
+    }
+
+    public void ShowingTooltipAnim(double hand, double anim) { tooltips[(int)hand].ShowingTooltipAnims((int)anim); }
+    public void UnShowingTooltipAnim(double hand) { tooltips[(int)hand].UnShowingTooltipAnims(); }
 
     IEnumerator SmallTextsHighlighted()
     {
@@ -624,7 +708,7 @@ public class TutorialManager_CM : MonoBehaviour
 
         yield return new WaitForSeconds(0.75f);
 
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 
 
@@ -647,7 +731,7 @@ public class TutorialManager_CM : MonoBehaviour
         Lua.RegisterFunction("PlayClip", this, SymbolExtensions.GetMethodInfo(() => PlayClip((double)0)));
         Lua.RegisterFunction("FadeOutAndMoveScene", this, SymbolExtensions.GetMethodInfo(() => FadeOutAndMoveScene()));
         Lua.RegisterFunction("PlayNarratorAnimation", this, SymbolExtensions.GetMethodInfo(() => PlayNarratorAnimation((string)null)));
-        Lua.RegisterFunction("NewQuest", this, SymbolExtensions.GetMethodInfo(() => NewQuest((string)null, (double)0)));
+        Lua.RegisterFunction("NewQuest", this, SymbolExtensions.GetMethodInfo(() => NewQuest((string)null, (double)0, (bool)false)));
         Lua.RegisterFunction("QuestOver", this, SymbolExtensions.GetMethodInfo(() => QuestOver()));
         Lua.RegisterFunction("NewRule", this, SymbolExtensions.GetMethodInfo(() => NewRule((string)null, (string)null)));
         Lua.RegisterFunction("RuleOver", this, SymbolExtensions.GetMethodInfo(() => RuleOver()));
@@ -661,6 +745,10 @@ public class TutorialManager_CM : MonoBehaviour
         Lua.RegisterFunction("LPDAOnOff", this, SymbolExtensions.GetMethodInfo(() => LPDAOnOff((bool)false)));
         Lua.RegisterFunction("NewFollow", this, SymbolExtensions.GetMethodInfo(() => NewFollow((double)0, (double)0)));
         Lua.RegisterFunction("FollowDelete", this, SymbolExtensions.GetMethodInfo(() => FollowDelete((double)0)));
+        Lua.RegisterFunction("NewTooltip", this, SymbolExtensions.GetMethodInfo(() => NewTooltip((double)0, (string)null)));
+        Lua.RegisterFunction("TooltipOver", this, SymbolExtensions.GetMethodInfo(() => TooltipOver((double)0)));
+        Lua.RegisterFunction("ShowingTooltipAnim", this, SymbolExtensions.GetMethodInfo(() => ShowingTooltipAnim((double)0, (double)0)));
+        Lua.RegisterFunction("UnShowingTooltipAnim", this, SymbolExtensions.GetMethodInfo(() => UnShowingTooltipAnim((double)0)));
     }
 
     private void OnDisable()
@@ -695,6 +783,10 @@ public class TutorialManager_CM : MonoBehaviour
         Lua.UnregisterFunction("LPDAOnOff");
         Lua.UnregisterFunction("NewFollow");
         Lua.UnregisterFunction("FollowDelete");
+        Lua.UnregisterFunction("NewTooltip");
+        Lua.UnregisterFunction("TooltipOver");
+        Lua.UnregisterFunction("ShowingTooltipAnim");
+        Lua.UnregisterFunction("UnShowingTooltipAnim");
     }
     #endregion
 }

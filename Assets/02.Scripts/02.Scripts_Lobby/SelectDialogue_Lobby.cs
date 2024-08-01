@@ -11,6 +11,7 @@ using System;
 public class SelectDialogue_Lobby : MonoBehaviour
 {
     // 우선 아까 생성했던 다이얼로그 시스템 트리거들을 통제할 수 있는 변수 2개를 선언 
+    public DialogueSystemController dsc;
     public DialogueSystemTrigger dialogueSystemTrigger1; // 1번째 트리거
     public DialogueSystemTrigger dialogueSystemTrigger2; // 2번째 트리거
     public GameObject rGrabber;
@@ -40,18 +41,34 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
     public void ActivateDST2() // 2번째 트리거 작동 함수
     {
+        // SYS Code
+        GameManager_Lobby.instance.tutoStatus = 2;
+
+        // SYS Code
+        GameObject go = GameObject.Find("Custom Dialogue UI");
+
         StopPlayer_LB();
         HideNPCTalk_LB();
         GlowAllEnd_LB();
         if (GameManager_Lobby.instance.secondEnd) { dialogueSystemTrigger2.startConversationEntryID = 2; }
-        else { dialogueSystemTrigger2.startConversationEntryID = 0; }
+        else { dialogueSystemTrigger2.startConversationEntryID = -1; }
+
+        dsc.StopAllConversations();
         dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동
-        GameManager_Lobby.instance.secondEnd = true;
+
+        // SYS Code
+        //GameManager_Lobby.instance.secondEnd = true;
     }
 
-    public void CheckTutorial_LB() { StartCoroutine(CheckTutorial()); }
+    // SYS Code
+    public void CheckTutorial_LB() 
+    {        
+        StartCoroutine(CheckTutorial());
+    }
     IEnumerator CheckTutorial()
     {
+        // SYS Code
+        /*
         bool moveForward = false;
         bool moveBackward = false;
         bool moveLeft = false;
@@ -74,14 +91,18 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
             yield return new WaitForSeconds(0.02f);
         }
-        GameManager_Lobby.instance.secondCon = true;
+        */
+        // SYS Code
+        //GameManager_Lobby.instance.secondCon = true;        
+        yield return new WaitForSeconds(1f);
+        GameManager_Lobby.instance.tutoStatus = 1;
     }
 
     public void StopPlayer_LB() { GameManager_Lobby.instance.StopPlayer(); }
     public void MovePlayer_LB() { GameManager_Lobby.instance.EnableMovePlayer(); }
 
     public void Warpable_LB() { GameManager_Lobby.instance.SetWarpable(); GameManager_Lobby.instance.GetInteractable().GetComponent<InteractableManager_Lobby>().SetLight(); }
-
+    
     public void ShowNPCTalk_LB() { UIManager_Lobby.instance.ShowBubble(); }
     public void HideNPCTalk_LB() { UIManager_Lobby.instance.HideBubble(); }
 
@@ -102,6 +123,9 @@ public class SelectDialogue_Lobby : MonoBehaviour
     // SYS Code
     public void PortalShaderControllerEnable_LB(bool flag) { GameManager_Lobby.instance.PortalShaderControllerEnable(flag); }
 
+    // SYS Code
+    public void ShowingTooltipAnim_LB(double hand, double anim) { GameManager_Lobby.instance.ShowingTooltipAnim((int)hand, (int)anim); }
+    public void UnShowingTooltipAnim_LB(double hand) { GameManager_Lobby.instance.UnShowingTooltipAnim((int)hand); }
 
     #region Register with Lua
 
@@ -126,6 +150,8 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
         // SYS Code
         Lua.RegisterFunction("PortalShaderControllerEnable_LB", this, SymbolExtensions.GetMethodInfo(() => PortalShaderControllerEnable_LB((bool)false)));
+        Lua.RegisterFunction("ShowingTooltipAnim_LB", this, SymbolExtensions.GetMethodInfo(() => ShowingTooltipAnim_LB((double)0, (double)0)));
+        Lua.RegisterFunction("UnShowingTooltipAnim_LB", this, SymbolExtensions.GetMethodInfo(() => UnShowingTooltipAnim_LB((double)0)));
     }
 
     private void OnDisable()
@@ -149,6 +175,8 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
         // SYS Code
         Lua.UnregisterFunction("PortalShaderControllerEnable_LB");
+        Lua.UnregisterFunction("ShowingTooltipAnim_LB");
+        Lua.UnregisterFunction("UnShowingTooltipAnim_LB");
     }
 
     #endregion

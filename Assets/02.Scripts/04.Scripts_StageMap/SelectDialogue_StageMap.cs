@@ -5,6 +5,8 @@ using PixelCrushers.DialogueSystem;
 using Unity.VisualScripting;
 using UnityEngine.XR;
 using UnityEngine.UIElements;
+using static Oculus.Interaction.OptionalAttribute;
+using System;
 
 public class SelectDialogue_StageMap : MonoBehaviour
 {
@@ -46,8 +48,15 @@ public class SelectDialogue_StageMap : MonoBehaviour
     #region 스크립트에 쓰일 함수
     public void CheckFlyTutorial_SM()
     {
-        UIManager_StageMap.instance.SetQuest("비행을 하면서 3개의 타겟을 찾아보자!");
+        //UIManager_StageMap.instance.SetQuest("비행을 하면서 3개의 타겟을 찾아보자!");       
+        tutorial.GetComponent<TutorialManager_StageMap>().TooltipSpriteChange(0, 1);
+
+        tutorial.GetComponent<TutorialManager_StageMap>().NewTooltip(0, "비행을 하면서 3개의 타겟을 찾아보자!");
+        tutorial.GetComponent<TutorialManager_StageMap>().UnShowingTooltipAnims(0);
+        tutorial.GetComponent<TutorialManager_StageMap>().UnShowingTooltipAnims(1);
         tutorial.GetComponent<TutorialManager_StageMap>().StartTutorial();
+
+        
     }
 
     public void EnableMove_SM() { GameManager_StageMap.instance.EnableMove(); }
@@ -61,6 +70,34 @@ public class SelectDialogue_StageMap : MonoBehaviour
     public void ShowTutorial_SM() { UIManager_StageMap.instance.ShowTutorial(); }
     public void ShowOrganelle_SM() { UIManager_StageMap.instance.ShowOrganelleUI(); }
     public void HideOrganelle_SM() { UIManager_StageMap.instance.HideOrganelleUI(); }
+
+    // SYS Code
+    public void NewTooltip_SM(double index, string content) { tutorial.GetComponent<TutorialManager_StageMap>().NewTooltip((int)index, content); }
+    public void TooltipOver_SM(double index) { tutorial.GetComponent<TutorialManager_StageMap>().TooltipOver((int)index); }
+
+    // SYS Code
+    public void LaserPointerONOFF_SM(bool flag) { tutorial.GetComponent<TutorialManager_StageMap>().LaserPointerONOFF(flag); }
+
+    // SYS Code
+    public void ShowingTooltipAnims_SM(double hand, double index) { tutorial.GetComponent<TutorialManager_StageMap>().ShowingTooltipAnims((int)hand, (int)index); }
+    public void UnShowingTooltipAnims_SM(double hand) { tutorial.GetComponent<TutorialManager_StageMap>().UnShowingTooltipAnims((int)hand); }
+
+    // SYS Code
+    public void ChangeTutorialStatus_SM(double status) { GameManager_StageMap.instance.ChangeTutorialStatus((int)status); }
+    public void StartAdventure_SM(bool flag) 
+    { 
+        if (flag == true)
+        {
+            tutorial.GetComponent<TutorialManager_StageMap>().tooltips[0].TooltipOff();
+            GameManager_StageMap.instance.StartAdventure();
+        }
+        else
+        {
+
+        }
+    }
+
+
     #endregion
 
     #region Register with Lua
@@ -75,6 +112,15 @@ public class SelectDialogue_StageMap : MonoBehaviour
         Lua.RegisterFunction("ShowTutorial_SM", this, SymbolExtensions.GetMethodInfo(() => ShowTutorial_SM()));
         Lua.RegisterFunction("ShowOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => ShowOrganelle_SM()));
         Lua.RegisterFunction("HideOrganelle_SM", this, SymbolExtensions.GetMethodInfo(() => HideOrganelle_SM()));
+
+        // SYS Code
+        Lua.RegisterFunction("NewTooltip_SM", this, SymbolExtensions.GetMethodInfo(() => NewTooltip_SM((double)0, (string)null)));
+        Lua.RegisterFunction("TooltipOver_SM", this, SymbolExtensions.GetMethodInfo(() => TooltipOver_SM((double)0)));
+        Lua.RegisterFunction("LaserPointerONOFF_SM", this, SymbolExtensions.GetMethodInfo(() => LaserPointerONOFF_SM((bool)false)));
+        Lua.RegisterFunction("ShowingTooltipAnims_SM", this, SymbolExtensions.GetMethodInfo(() => ShowingTooltipAnims_SM((double)0, (double)0)));
+        Lua.RegisterFunction("UnShowingTooltipAnims_SM", this, SymbolExtensions.GetMethodInfo(() => UnShowingTooltipAnims_SM((double)0)));
+        Lua.RegisterFunction("ChangeTutorialStatus_SM", this, SymbolExtensions.GetMethodInfo(() => ChangeTutorialStatus_SM((double)0)));
+        Lua.RegisterFunction("StartAdventure_SM", this, SymbolExtensions.GetMethodInfo(() => StartAdventure_SM((bool)false)));
     }
 
     private void OnDisable()
@@ -87,6 +133,15 @@ public class SelectDialogue_StageMap : MonoBehaviour
         Lua.UnregisterFunction("ShowTutorial_SM");
         Lua.UnregisterFunction("ShowOrganelle_SM");
         Lua.UnregisterFunction("HideOrganelle_SM");
+
+        // SYS Code
+        Lua.UnregisterFunction("NewTooltip_SM");
+        Lua.UnregisterFunction("TooltipOver_SM");
+        Lua.UnregisterFunction("LaserPointerONOFF_SM");
+        Lua.UnregisterFunction("ShowingTooltipAnims_SM");
+        Lua.UnregisterFunction("UnShowingTooltipAnims_SM");
+        Lua.UnregisterFunction("ChangeTutorialStatus_SM");
+        Lua.UnregisterFunction("StartAdventure_SM");
     }
 
     #endregion

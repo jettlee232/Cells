@@ -15,8 +15,7 @@ public class FollowPanel_CM : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         transform.localScale = Vector3.zero;
-        transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
-        Debug.Log(gameObject.name + "s Parent : " + transform.parent.name + " Rot is... " + transform.parent.GetComponent<RectTransform>().localEulerAngles.y);
+        transform.DOScale(new Vector3(1f, 1f, 1f), 1f);        
         transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
 
         if (closeBtn == null)

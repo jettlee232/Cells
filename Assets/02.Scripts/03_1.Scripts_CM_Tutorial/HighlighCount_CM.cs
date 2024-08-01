@@ -8,10 +8,6 @@ public class HighlighCount_CM : MonoBehaviour
     public TutorialManager_CM tutoMgr;
     private bool flag = true;
 
-    void Start()
-    {
-
-    }
 
     public void ChangeFlag()
     {

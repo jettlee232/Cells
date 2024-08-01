@@ -51,7 +51,6 @@ public class SaberScript_CM : MonoBehaviour
 
         if (grabbable != null)
         {
-            Debug.Log("asds");
             StartCoroutine(CheckGrab());
         }
     }
@@ -95,7 +94,7 @@ public class SaberScript_CM : MonoBehaviour
 
                     if (gameMgr != null)
                     {
-                        gameMgr.ScoreDown();
+                        gameMgr.ScoreDown(50);
                         gameMgr.RedFade();
                     }
                     else if (gameMgr == null)
@@ -118,7 +117,7 @@ public class SaberScript_CM : MonoBehaviour
             }
             else if (other.gameObject.name == "ExitBlock")
             {
-                if (gameMgr != null) SceneManager.LoadScene(5);
+                if (gameMgr != null) gameMgr.DoLoadNewScene();
             }
         }
     }
@@ -142,7 +141,7 @@ public class SaberScript_CM : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2.25f);
             if (grabbable.BeingHeld == true)
             {
                 tutoMgr.PhosGrabCnt();

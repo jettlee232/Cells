@@ -16,6 +16,11 @@ public class NarratorDialogueHub_CM_Tutorial : MonoBehaviour
     public DialogueSystemTrigger dst6;
     public DialogueSystemTrigger dst7;
 
+    private void Start()
+    {
+        Invoke("StartCov_1", 3f);
+    }
+
     public void StartCov_1()
     {
         StopConv();
@@ -73,6 +78,6 @@ public class NarratorDialogueHub_CM_Tutorial : MonoBehaviour
 
     void StopConv()
     {
-        dsc.StopAllConversations(); ;
+        dsc.StopAllConversations();
     }
 }
