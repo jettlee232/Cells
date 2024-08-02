@@ -26,7 +26,8 @@ public class UIManager_StageMap : MonoBehaviour
         RER_Enter = 10,
         Nuc_Enter = 11,
         SER_Enter = 12,
-        Cen_Enter = 13
+        Cen_Enter = 13,
+        Lys_Enter = 14
     }
 
     [Header("Settings")]
@@ -188,7 +189,12 @@ public class UIManager_StageMap : MonoBehaviour
     public void SetQuest(string str) { QuestPanel.GetComponent<QuestPanel_StageMap>().PanelOpen(str); }
     public void SetQuest(string str, float time) { QuestPanel.GetComponent<QuestPanel_StageMap>().PanelOpen(str, time); }
     public void ChangeQuest(string str) { QuestPanel.GetComponent<QuestPanel_StageMap>().ChangeText(str); }
-    public void HideQuest() { QuestPanel.GetComponent<QuestPanel_StageMap>().PanelClose(); }
+
+    // SYS Code
+    public void HideQuest() 
+    { 
+        //QuestPanel.GetComponent<QuestPanel_StageMap>().PanelClose(); 
+    }
     public bool GetQuest() { return QuestPanel.activeSelf; }
 
     #endregion

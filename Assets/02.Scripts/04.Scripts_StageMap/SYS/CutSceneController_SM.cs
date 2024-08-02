@@ -2,6 +2,7 @@ using DG.Tweening.Core.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CutSceneController_SM : MonoBehaviour
@@ -39,7 +40,9 @@ public class CutSceneController_SM : MonoBehaviour
         }
 
         Destroy(cutScene);
-        Destroy(blackPanel.gameObject);
+
+        // New
+        blackPanel.gameObject.SetActive(false);
     }
 
     public void LoadFromCM()
@@ -60,5 +63,32 @@ public class CutSceneController_SM : MonoBehaviour
         playerPos.transform.rotation = Quaternion.identity;
 
         StartCoroutine(ChangeBlackPanel());
+    }
+
+    // New
+    public void LoadScene(string cutSceneName)
+    {
+        StartCoroutine(SceneLoading(cutSceneName));
+    }
+
+    IEnumerator SceneLoading(string cutSceneName)
+    {
+        blackPanel.gameObject.SetActive(true);
+
+        float alpha = 0f;
+        while (true)
+        {
+            blackPanel.color = new Color(blackPanel.color.r, blackPanel.color.g, blackPanel.color.b, alpha);
+            yield return null;
+            alpha += 0.01f;
+            if (alpha >= 1f)
+            {
+                break;
+            }
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        SceneManager.LoadScene(cutSceneName);
     }
 }

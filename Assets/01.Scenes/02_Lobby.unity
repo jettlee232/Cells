@@ -2261,6 +2261,17 @@ PrefabInstance:
       propertyPath: m_text
       value: "\uBC84\uD2BC\uC744 \uB20C\uB7EC\uBCF4\uC790!"
       objectReference: {fileID: 0}
+    - target: {fileID: 4122172314774306767, guid: 1fbaa38d2ebe27149ad1ed2761891b4c,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: ebc98607487103949bddd587e2dee02e,
+        type: 2}
+    - target: {fileID: 4122172314774306767, guid: 1fbaa38d2ebe27149ad1ed2761891b4c,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5270712386465265378, guid: 1fbaa38d2ebe27149ad1ed2761891b4c,
         type: 3}
       propertyPath: m_Positions.Array.data[0].x
@@ -7335,6 +7346,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8.526228, y: 0.7454601, z: 8.10892}
   m_Center: {x: -0.0000011920929, y: -0.22725996, z: -0.1478666}
+--- !u!1 &608097197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 608097198}
+  m_Layer: 0
+  m_Name: quiz
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &608097198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608097197}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &609275028
 GameObject:
   m_ObjectHideFlags: 0
@@ -7810,7 +7852,7 @@ PrefabInstance:
     - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: displaySettings.dialogueUI
       value: 
-      objectReference: {fileID: 190722, guid: 366c343ec49b65441ab43e271abbf85d, type: 3}
+      objectReference: {fileID: 190722, guid: 88efb7d0a47023440811b574508835bc, type: 3}
     - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: displaySettings.defaultCanvas
       value: 
@@ -9123,7 +9165,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 13bde2e105ba741c8b2ec78d926aeaca, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e602fe4f60093e84182fee75c9ad67f1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -13941,7 +13983,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a06be4341f13574449562845bef8d388, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be6a0feb7e4c84f4dab8e1daccf432fb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16027,7 +16069,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 43887b14d48694381b7f12eb9dfbdbf3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 12aa84d1335ecb44ea8384f2af230fea, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -18252,6 +18294,23 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7601420553464200523}
     m_Modifications:
+    - target: {fileID: 2065397022307179903, guid: 20cb6eea4845b1d4493fdad3861595ba,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: ebc98607487103949bddd587e2dee02e,
+        type: 2}
+    - target: {fileID: 2065397022307179903, guid: 20cb6eea4845b1d4493fdad3861595ba,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2535687203310930354, guid: ebc98607487103949bddd587e2dee02e,
+        type: 2}
+    - target: {fileID: 2065397022307179903, guid: 20cb6eea4845b1d4493fdad3861595ba,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2608806013982907011, guid: 20cb6eea4845b1d4493fdad3861595ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -38064,3 +38123,4 @@ SceneRoots:
   - {fileID: 1519180503}
   - {fileID: 1507653280}
   - {fileID: 2020806377}
+  - {fileID: 608097198}
