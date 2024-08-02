@@ -16,6 +16,10 @@ public class SpeechBubble_StageMap : MonoBehaviour
     public bool activatedInStart = false;
     public string textContent = "";
 
+    private Tween sizeTween1;
+    private Tween sizeTween2;
+    private bool tweenLock = false;
+
     void Start()
     {
         if (wordEffect == null) wordEffect = gameObject.transform.GetChild(2).GetComponent<WordEffect1>();
@@ -73,13 +77,18 @@ public class SpeechBubble_StageMap : MonoBehaviour
 
     public void PanelClose()
     {
+        tweenLock = true;
+
         wordEffect.enabled = false;
         tmpText.text = "";
         targetRectTransform1.DOSizeDelta(Vector2.zero, duration);
-        targetRectTransform2.DOSizeDelta(Vector2.zero, duration - 1f);
+        targetRectTransform2.DOSizeDelta(Vector2.zero, duration);
+
+        // SYS Code
         StartCoroutine(PanelDisabled());
     }
 
+    // SYS Code
     IEnumerator PanelDisabled()
     {
         yield return new WaitForSeconds(duration + 0.5f);

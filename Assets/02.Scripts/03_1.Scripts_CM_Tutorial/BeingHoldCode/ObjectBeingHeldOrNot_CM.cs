@@ -41,6 +41,10 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
     [Header("Desc Panel")]
     private bool descFlag = false;
     public GameObject[] descPanels;
+    public GameObject[] toolTipPanels;
+
+    [Header("ToolTip")]
+    public Tooltip tooltip;
 
     void Start()
     {
@@ -65,8 +69,6 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
             objSpawnRotate = Quaternion.Euler(180f, 180f, 0);
         }
 
-
-
         if (isthisMainFlag == true)
         {
             bc1.enabled = false;
@@ -79,16 +81,38 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
 
     private void Update()
     {
-        // if (grabbable.BeingHeld == true && isHeld == false) 
         if (grabbable.BeingHeld == true)
         {
-            //isHeld = true;
             rb.isKinematic = false;
 
-            if (isThisTail == true && tutoMgr.firstGrab == false) tutoMgr.firstGrab = true;
-            else if (isThisHead == true && tutoMgr.firstGrab == false) tutoMgr.firstGrab = true;
+            if (isThisTail == true && firstGrab == false)
+            {
+                tutoMgr.TooltipOver(0);
+                firstGrab = true;
+            }
+            else if (isThisHead == true && firstGrab == false)
+            {
+                tutoMgr.TooltipOver(1);
+                firstGrab = true;
+            }
+            else if (isThisDouble == true && firstGrab == false)
+            {
+                tooltip.TooltipOff();
+                firstGrab = true;
+            }
+            else if (isThisPhosStick_Philic == true && firstGrab == false)
+            {
+                tutoMgr.tooltips[0].TooltipTextChange("반대쪽 손도 집어보자!");
+                firstGrab = true;
+            }
+            else if (isThisPhosStick_Phos == true && firstGrab == false)
+            {
+                tutoMgr.tooltips[1].TooltipTextChange("반대쪽 손도 집어보자!");
+                firstGrab = true;
+            }
 
-            DescPanelONOff(false);
+
+            //DescPanelONOff(false);
             TurnEffect(0, true);
         }
         else
@@ -96,6 +120,8 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
             rb.isKinematic = true;
         }
 
+        
+        /*
         if (transform.position.y < revortPos)
         {
             TurnEffect(false);
@@ -106,26 +132,6 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
                 {
                     objRespawnPoint1.position = tutoMgr.spawnPos_Tail.position;
                     objSpawnRotate = Quaternion.identity;
-
-
-                    /*
-                    //if (transform.GetChild(0).GetChild(0).GetComponent<WFHeadBeingHold_CM>() == true) 
-                    {
-                        GameObject go = transform.GetChild(0).GetChild(1).gameObject; 
-
-                        go.GetComponent<WFHeadBeingHold_CM>().checkFlag = false; 
-                        go.transform.SetParent(null); 
-                        
-                        go.GetComponent<SphereCollider>().enabled = true;
-                        go.GetComponent<Rigidbody>().useGravity = true;
-                        go.GetComponent<BNG.Grabbable>().enabled = true;
-                        go.GetComponent<Rigidbody>().isKinematic = true;
-
-                        go.transform.position = go.GetComponent<ObjectBeingHeldOrNot_CM>().objRespawnPoint1.position;
-                        go.transform.rotation = Quaternion.identity;
-                        go.GetComponent<ObjectBeingHeldOrNot_CM>().isHeld = false;
-                    }
-                    */
                 }
                 else if (statusFlag == 2) // double
                 {
@@ -149,11 +155,16 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
 
             //if (statusFlag == 1) statusFlag = 0;
         }
+        */
     }
 
     public void TurnEffect(int i, bool onoff)
     {
         if (isthisMainFlag == true) attachPosLight[i].SetActive(onoff);
+        if (i == 1)
+        {
+            MadeToolTip(0);            
+        }
     }
 
     public void TurnEffect(bool onoff)
@@ -175,7 +186,6 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
 
     public void TurnLayerToDefault()
     {
-        //gameObject.layer = LayerMask.NameToLayer("Default");
         transform.GetComponent<DescObjID_CM>().enabled = false;
     }
 
@@ -198,5 +208,11 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
         }
 
         descFlag = true;
+    }
+
+    public void MadeToolTip(int i)
+    {
+        toolTipPanels[i].SetActive(true);
+        toolTipPanels[i].GetComponent<Tooltip>().TooltipOn("이 부분을 서로 연결시켜봐요!");
     }
 }

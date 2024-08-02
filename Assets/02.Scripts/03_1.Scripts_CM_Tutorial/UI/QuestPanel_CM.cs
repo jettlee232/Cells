@@ -73,7 +73,7 @@ public class QuestPanel_CM : MonoBehaviour
     {
         if (corou != null) StopCoroutine(corou);
 
-        corou = StartCoroutine(PanelDisabled());
+        corou = StartCoroutine(PanelDisabled());        
     }
 
     IEnumerator PanelDisabled()
@@ -81,11 +81,11 @@ public class QuestPanel_CM : MonoBehaviour
         wordEffect.enabled = false;
         tmpText.transform.GetComponent<RectTransform>().DOScale(Vector3.zero, duration);
         targetRectTransform.DOSizeDelta(Vector2.zero, duration);
-        yield return new WaitForSeconds(duration);
-        tmpText.text = "";
-        gameObject.SetActive(false);
 
-        corou = null;
+        yield return new WaitForSeconds(duration);
+
+        tmpText.text = "";
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
 

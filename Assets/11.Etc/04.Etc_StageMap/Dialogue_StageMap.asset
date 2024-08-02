@@ -520,13 +520,15 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 6
+        destinationConversationID: 1
+        destinationDialogueID: 7
+        isConnector: 0
+        priority: 2
       conditionsString: 
-      userScript: 'EnableMove_SM();
-
-        CheckFlyTutorial_SM();
-
-        EnableMove_SM()'
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -536,9 +538,60 @@ MonoBehaviour:
         y: 330
         width: 160
         height: 30
+    - id: 7
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 1
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Passthrough
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: "ChangeTutorialStatus_SM(1);\nEnableMove_SM();\nEnableMove_SM();\nNewTooltip_SM(0,
+        \"\uC870\uC774\uC2A4\uD2F1\uC744 \uC6C0\uC9C1\uC5EC\uC11C \uC55E\uB4A4\uC591\uC606\uC73C\uB85C
+        \uC774\uB3D9\uD574\uBD10!\");\nShowingTooltipAnims_SM(0, 3);\nLaserPointerONOFF_SM(true)"
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 162.43903
+        y: 378.7805
+        width: 160
+        height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.8200002
+    canvasZoom: 0.73000026
   - id: 2
     fields:
     - title: Title
@@ -608,12 +661,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\uC798\uD588\uC5B4! \uC774\uC81C \uBE44\uD589\uC5D0 \uC870\uAE08
-          \uC775\uC219\uD574\uC9C4 \uAC83 \uAC19\uC544 \uBCF4\uC774\uB124~"
+        value: 
         type: 0
         typeString: 
       - title: Sequence
-        value: "AudioWait(StageMap/08-09_\uD569\uBCF8)"
+        value: 
         type: 0
         typeString: 
       conversationID: 2
@@ -627,7 +679,7 @@ MonoBehaviour:
       - originConversationID: 2
         originDialogueID: 0
         destinationConversationID: 2
-        destinationDialogueID: 1
+        destinationDialogueID: 8
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -637,8 +689,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 30
+        x: 103.42107
+        y: 12.894745
         width: 160
         height: 30
     - id: 1
@@ -693,8 +745,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 80
+        x: 445.52625
+        y: 126.05261
         width: 160
         height: 30
     - id: 2
@@ -749,8 +801,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 130
+        x: 445.52625
+        y: 176.05261
         width: 160
         height: 30
     - id: 3
@@ -805,8 +857,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 180
+        x: 445.52625
+        y: 226.05261
         width: 160
         height: 30
     - id: 4
@@ -862,8 +914,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 230
+        x: 445.52625
+        y: 276.05273
         width: 160
         height: 30
     - id: 5
@@ -919,8 +971,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 279
+        x: 445.52625
+        y: 325.0528
         width: 160
         height: 30
     - id: 6
@@ -966,16 +1018,14 @@ MonoBehaviour:
 
         EnableOrganelle_SM();
 
-        Subtitle_Explore_SM();
-
         EnableMove_SM()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 164.87802
-        y: 413.1463
+        x: 625.40454
+        y: 470.48938
         width: 160
         height: 30
     - id: 7
@@ -1031,13 +1081,69 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 347.80484
-        y: 329
+        x: 643.0088
+        y: 379.89148
+        width: 160
+        height: 30
+    - id: 8
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "\uC798\uD588\uC5B4! \uC774\uC81C \uBE44\uD589\uC5D0 \uC870\uAE08
+          \uC775\uC219\uD574\uC9C4 \uAC83 \uAC19\uC544 \uBCF4\uC774\uB124~"
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: "AudioWait(StageMap/08-09_\uD569\uBCF8)"
+        type: 0
+        typeString: 
+      conversationID: 2
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 2
+        originDialogueID: 8
+        destinationConversationID: 2
+        destinationDialogueID: 1
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: StartAdventure_SM(true)
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 259.99994
+        y: 76.05264
         width: 160
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.8200002
+    canvasZoom: 1.0899999
   syncInfo:
     syncActors: 0
     syncItems: 0

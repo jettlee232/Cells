@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System;
 using static UnityEngine.Rendering.DebugUI;
+using Unity.VisualScripting;
 
 public class UIManager_StageMap : MonoBehaviour
 {
@@ -20,13 +21,18 @@ public class UIManager_StageMap : MonoBehaviour
         Rib = 5,
         SER = 6,
         RER = 7,
-        Per = 8
+        Per = 8, 
+        Mito_Enter = 9,
+        RER_Enter = 10,
+        Nuc_Enter = 11,
+        SER_Enter = 12,
+        Cen_Enter = 13
     }
 
     [Header("Settings")]
     public static UIManager_StageMap instance;
     public GameObject Desc_UI;
-    private GameObject[] Descs;
+    public GameObject[] Descs; // SYS Code (private -> public)
     public GameObject QuestPanel;
     public GameObject[] TutorialPanels;
     public GameObject OrganelleDescUI;
@@ -40,6 +46,25 @@ public class UIManager_StageMap : MonoBehaviour
     private Vector3 tutoSize;
     private Vector3 organelleExSize;
 
+    // SYS Code
+    [Header("Tuto Mgr")]
+    public TutorialManager_StageMap tutoMgr;
+
+    // SYS Code
+    [Header("Particle & Transform")]
+    public Transform particle1Trns;
+    public GameObject particle1;
+    public GameObject particle2;
+    private ParticleSystem particle1Sys;
+    private ParticleSystem particle2Sys;
+
+    // SYS Code
+    [Header("ScrFader")]
+    public BNG.MyFader_CM scrFader;
+
+    // SYS Code
+    private Tween panelTween1;
+    private Tween panelTween2;
 
     void Awake()
     {
@@ -53,6 +78,9 @@ public class UIManager_StageMap : MonoBehaviour
         InitTutorial();
         InitOrganelleUI();
         DOTween.Init();
+
+        // SYS Code
+        InitParticle();
     }
 
     #region 소기관 설명창
@@ -72,6 +100,7 @@ public class UIManager_StageMap : MonoBehaviour
         return temp;
     }
 
+    // SYS Code
     public void OnDesc(GameObject go)
     {
         ORGANELLES type = (ORGANELLES)Enum.Parse(typeof(ORGANELLES), go.GetComponent<DescObj_StageMap>().GetType());
@@ -81,39 +110,68 @@ public class UIManager_StageMap : MonoBehaviour
 
         nowSelectedOrganelle = type;
     }
+
+    // SYS Code
     public void OffDesc()
     {
         foreach (GameObject organelleUI in Descs)
         {
             if (organelleUI.gameObject.activeSelf)
             {
-                transform.DOScale(Vector3.zero, 1f);
-                transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
-                StartCoroutine(DestroyAfterRewind(organelleUI.gameObject));
+                panelTween1 = organelleUI.transform.DOScale(Vector3.zero, 1f);
+                panelTween2 = organelleUI.transform.DOLocalRotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360).OnComplete(() => {                                        
+                    organelleUI.SetActive(false);
+
+                    panelTween1 = null;
+                    panelTween2 = null;
+
+                    GameManager_StageMap.instance.GetUIPointer().GetComponent<LaserPointer_StageMap>().InitObj();
+                    nowSelectedOrganelle = null;
+                });
+
+                // Old MSY Code
+                //transform.DOScale(Vector3.zero, 1f);
+                //transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
+                //StartCoroutine(DestroyAfterRewind(organelleUI.gameObject));
+
                 break;
             }
-        }
-        GameManager_StageMap.instance.GetUIPointer().GetComponent<LaserPointer_StageMap>().InitObj();
-        nowSelectedOrganelle = null;
+        }        
     }
+
     private IEnumerator DestroyAfterRewind(GameObject organelle)
     {
         yield return null;
         organelle.SetActive(false);
     }
+
+    // SYS Code
     private IEnumerator ShowDesc(GameObject organelleUI)
     {
         yield return new WaitForSeconds(0.05f);
+
+        // SYS Code
+        if (panelTween2 != null && panelTween2.IsActive()) panelTween1.Complete(); panelTween2.Complete();
+
         organelleUI.SetActive(true);
         organelleUI.transform.localPosition = Vector3.zero;
         organelleUI.transform.localRotation = Quaternion.Euler(0, 0, 0);
         organelleUI.transform.localScale = Vector3.zero;
         organelleUI.transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
+        organelleUI.transform.DOLocalRotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
+
+        // Old MSY Code
+        /*
+        organelleUI.SetActive(true);
+        organelleUI.transform.localPosition = Vector3.zero;
+        organelleUI.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        organelleUI.transform.localScale = Vector3.zero;
+        organelleUI.transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
+        */
         //organelleUI.transform.DORotate(new Vector3(0f, 360f + organelleUI.transform.parent.parent.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
         //organelleUI.transform.DORotate(new Vector3(0f, 360f + organelleUI.transform.parent.transform.localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
         //organelleUI.transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
-        organelleUI.transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360).SetRelative(true);
-
+        //organelleUI.transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360).SetRelative(true);
     }
 
     public void EnanbleOrganelleButton()
@@ -148,6 +206,10 @@ public class UIManager_StageMap : MonoBehaviour
         GameManager_StageMap.instance.EnableMove();
         TutorialPanels[nowTutorial].transform.localScale = Vector3.zero;
         TutorialPanels[nowTutorial].transform.DOScale(tutoSize, 2f);
+
+        // SYS Code
+        particle1Sys.gameObject.transform.position = particle1Trns.position;
+        particle1Sys.Play();
     }
 
     public void NextTutorial()
@@ -158,18 +220,51 @@ public class UIManager_StageMap : MonoBehaviour
             nowTutorial++;
             TutorialPanels[nowTutorial].gameObject.SetActive(true);
             TutorialPanels[nowTutorial].gameObject.transform.DOPunchScale(tutoSize * 0.2f, 0.2f).OnComplete(() => TutorialPanels[nowTutorial].gameObject.transform.localScale = tutoSize);
+
+            // SYS Code
+            if (nowTutorial == 1)
+            {
+                tutoMgr.TooltipOver(0);
+                tutoMgr.NewTooltip(1, "오른쪽 조이스틱을 조작하여 카메라를 회전할 수 있어!");
+                tutoMgr.UnShowingTooltipAnims(0);
+                tutoMgr.ShowingTooltipAnims(1, 3);
+            }
+            else if (nowTutorial == 2)
+            {
+                tutoMgr.NewTooltip(0, "트리거 버튼을 눌러서 하강할 수 있어!");
+                tutoMgr.NewTooltip(1, "트리거 버튼을 눌러서 상승할 수 있어!");
+                tutoMgr.ShowingTooltipAnims(0, 4);
+                tutoMgr.ShowingTooltipAnims(1, 4);
+            }
+            particle1Sys.Play();
         }
         else
         {
             foreach (GameObject panel in TutorialPanels)
             {
-                StartCoroutine(hideTuto(panel));
+                StartCoroutine(hideTuto(panel));    
                 panel.transform.DOScale(Vector3.zero, 1f);
             }
         }
     }
 
     IEnumerator hideTuto(GameObject tuto) { yield return new WaitForSeconds(1f); tuto.gameObject.SetActive(false); }
+
+    // SYS Code
+    void InitParticle()
+    {
+        GameObject go1 = Instantiate(particle1);
+        go1.transform.position = particle1Trns.position;
+        go1.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+        particle1Sys = go1.GetComponent<ParticleSystem>();
+        particle1Sys.Stop();
+
+        GameObject go2 = Instantiate(particle2);
+        go2.transform.position = Desc_UI.transform.position;
+        go2.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+        particle2Sys = go2.GetComponent<ParticleSystem>();
+        particle2Sys.Stop();
+    }
 
     #endregion
 

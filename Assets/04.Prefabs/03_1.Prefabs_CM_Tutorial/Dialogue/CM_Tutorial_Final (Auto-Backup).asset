@@ -274,7 +274,7 @@ MonoBehaviour:
 
         MakePlayerMove(false);
 
-        UILaserOnOff(true);
+        UILaserOnOff(false);
 
         LPDAOnOff(false)'
       onExecute:
@@ -524,12 +524,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'PlayAudioClip(5);
-
-        EODescPanelMade(0, 0, "Panel_CM_1",
-        "Panel_CM_2");
-
-        EODescPanelMade(0, 1, "Panel_CM_3", "Panel_CM_4")'
+      userScript: PlayAudioClip(5)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -704,17 +699,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'NewQuest("Quest_CM_2", 3);
-
-        PlayClip(1);
-
-        MaketutorialObj_Tail();
-
-        MakeTutorialObj_Head();
-
-        LPDAOnOff(true);
-
-        SkipConv()'
+      userScript: "NewQuest(\"Quest_CM_2\", 3, true);\nMaketutorialObj_Tail();\nMakeTutorialObj_Head();\nNewTooltip(0,
+        \"\uC67C\uC190\uC73C\uB85C \uC778\uC9C0\uC9C8 \uAF2C\uB9AC\uB97C \uC7A1\uC544\uBCF4\uC138\uC694\");\nNewTooltip(1,
+        \"\uC624\uB978\uC190\uC73C\uB85C \uC778\uC9C0\uC9C8 \uBA38\uB9AC\uB97C \uC7A1\uC544\uBCF4\uC138\uC694\");\nSkipConv()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -725,8 +712,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 15.609827, y: 0}
-    canvasZoom: 0.7900001
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 1.5099994
   - id: 2
     fields:
     - title: Title
@@ -885,16 +872,14 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'PlayAudioClip(7);
 
-        PlayNarratorAnimation("Reaction");
-
-        LPDAOnOff(false)'
+        PlayNarratorAnimation("Reaction");'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 158.63014
-        y: 80
+        y: 78.63014
         width: 160
         height: 30
     - id: 4
@@ -1012,9 +997,7 @@ MonoBehaviour:
 
         IntroduceEyesOnlyObject(1);
 
-        DeleteSaber();
-
-        EOObj3DText(1);'
+        DeleteSaber()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1074,12 +1057,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'PlayAudioClip(12);
-
-        EODescPanelMade(2, 0, "Panel_CM_5",
-        "Panel_CM_6");
-
-        EOObj3DText(2)'
+      userScript: PlayAudioClip(12)
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1263,10 +1241,7 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'PlayAudioClip(11);
 
-        IntroduceEyesOnlyObject(2);
-
-        EODescPanelMade(1,
-        0, "Panel_CM_5", "Panel_CM_6")'
+        IntroduceEyesOnlyObject(2)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1319,9 +1294,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'NewQuest("Quest_CM_3", 3);
-
-        PlayClip(0);
+      userScript: 'NewQuest("Quest_CM_3", 3, true);
 
         DeleteSaber();
 
@@ -1332,21 +1305,19 @@ MonoBehaviour:
         NewFollow(0,
         0);
 
-        LPDAOnOff(true);
-
-        SkipConv();'
+        SkipConv()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 161.08505
-        y: 413.58023
+        y: 412.07645
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.7300002
+    canvasScrollPosition: {x: 0, y: 120.74884}
+    canvasZoom: 1.3299997
   - id: 3
     fields:
     - title: Title
@@ -1749,7 +1720,7 @@ MonoBehaviour:
 
         LPDAOnOff(true);
 
-        SkipConv()'
+        SkipConv();'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2048,7 +2019,11 @@ MonoBehaviour:
 
         MakeTestBlocks(true);
 
-        Showing3DTexts(true)'
+        Showing3DTexts(true);
+
+        DestroyEyesOnlyObject(1);
+
+        DestroyEyesOnlyObject(2)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2416,22 +2391,16 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'NewQuest("Quest_CM_5", 3);
-
-        MakePlayerMove(true);
-
-        LPDAOnOff(true);
-
-        NewFollow(3,
-        0);
-
-        SkipConv()'
+      userScript: "NewQuest(\"Quest_CM_5\", 3, true);\nMakePlayerMove(true);\nLPDAOnOff(true);\nNewFollow(3,
+        0);\nNewTooltip(0, \"\uC67C\uC190\uC73C\uB85C \uCE5C\uC218\uC131 \uB9C9\uB300\uAE30\uB97C
+        \uC7A1\uC544\uBCF4\uC790!\");\nNewTooltip(1, \"\uC624\uB978\uC190\uC73C\uB85C
+        \uC18C\uC218\uC131 \uB9C9\uB300\uAE30\uB97C \uC7A1\uC544\uBCF4\uC790!\");\nSkipConv()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 152.13593
+        x: 150.57343
         y: 446.59613
         width: 160
         height: 30
@@ -2529,7 +2498,7 @@ MonoBehaviour:
       - originConversationID: 6
         originDialogueID: 0
         destinationConversationID: 6
-        destinationDialogueID: 1
+        destinationDialogueID: 2
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -2541,67 +2510,6 @@ MonoBehaviour:
         serializedVersion: 2
         x: 160
         y: 30
-        width: 160
-        height: 30
-    - id: 1
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: "\uC751 \uC544\uB2C8\uC57C \uBA4D\uCCAD\uC544"
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: es
-        value: 
-        type: 4
-        typeString: CustomFieldType_Localization
-      conversationID: 6
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 6
-        originDialogueID: 1
-        destinationConversationID: 6
-        destinationDialogueID: 2
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 'PlayAudioClip(35);
-
-        LPDAOnOff(false)'
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 163.53856
-        y: 82.17203
         width: 160
         height: 30
     - id: 2
@@ -2879,7 +2787,11 @@ MonoBehaviour:
 
         LPDAOnOff(false);
 
-        FollowDelete(0)'
+        FollowDelete(0);
+
+        TooltipOver(0);
+
+        TooltipOver(1)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3115,15 +3027,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'NewQuest("Quest_CM_6", 3);
-
-        NewFollow(2, 0);
-
-        EnabledHLC();
-
-        LPDAOnOff(true);
-
-        SkipConv()'
+      userScript: "NewQuest(\"Quest_CM_6\", 3, true);\nNewFollow(2, 0);\nEnabledHLC();\nLPDAOnOff(true);\nNewTooltip(1,
+        \"A \uBC84\uD2BC\uC744 \uB20C\uB7EC \uB098\uC624\uB294 \uB808\uC774\uC800\uB97C
+        \uD14D\uC2A4\uD2B8\uC5D0\uB2E4 \uB9DE\uCDB0\uBD10!\");\nSkipConv()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []

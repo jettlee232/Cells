@@ -24,7 +24,7 @@ public class WFHeadBeingHold_CM : MonoBehaviour
         {
             other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().TurnAttachEffect(0);
             other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().statusFlag = 1;
-            other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().DescPanelONOff(false);
+            //other.transform.parent.gameObject.GetComponent<ObjectBeingHeldOrNot_CM>().DescPanelONOff(false);
 
             transform.SetParent(other.gameObject.transform);
 

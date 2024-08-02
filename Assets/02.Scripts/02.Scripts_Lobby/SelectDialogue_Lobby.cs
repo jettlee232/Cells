@@ -5,10 +5,13 @@ using PixelCrushers.DialogueSystem;
 using Unity.VisualScripting;
 using UnityEngine.XR;
 using UnityEngine.UIElements;
+using Language.Lua;
+using System;
 
 public class SelectDialogue_Lobby : MonoBehaviour
 {
     // 우선 아까 생성했던 다이얼로그 시스템 트리거들을 통제할 수 있는 변수 2개를 선언 
+    public DialogueSystemController dsc;
     public DialogueSystemTrigger dialogueSystemTrigger1; // 1번째 트리거
     public DialogueSystemTrigger dialogueSystemTrigger2; // 2번째 트리거
     public GameObject rGrabber;
@@ -38,18 +41,34 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
     public void ActivateDST2() // 2번째 트리거 작동 함수
     {
+        // SYS Code
+        GameManager_Lobby.instance.tutoStatus = 2;
+
+        // SYS Code
+        GameObject go = GameObject.Find("Custom Dialogue UI");
+
         StopPlayer_LB();
         HideNPCTalk_LB();
         GlowAllEnd_LB();
         if (GameManager_Lobby.instance.secondEnd) { dialogueSystemTrigger2.startConversationEntryID = 2; }
-        else { dialogueSystemTrigger2.startConversationEntryID = 0; }
+        else { dialogueSystemTrigger2.startConversationEntryID = -1; }
+
+        dsc.StopAllConversations();
         dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동
-        GameManager_Lobby.instance.secondEnd = true;
+
+        // SYS Code
+        //GameManager_Lobby.instance.secondEnd = true;
     }
 
-    public void CheckTutorial_LB() { StartCoroutine(CheckTutorial()); }
+    // SYS Code
+    public void CheckTutorial_LB() 
+    {        
+        StartCoroutine(CheckTutorial());
+    }
     IEnumerator CheckTutorial()
     {
+        // SYS Code
+        /*
         bool moveForward = false;
         bool moveBackward = false;
         bool moveLeft = false;
@@ -72,14 +91,18 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
             yield return new WaitForSeconds(0.02f);
         }
-        GameManager_Lobby.instance.secondCon = true;
+        */
+        // SYS Code
+        //GameManager_Lobby.instance.secondCon = true;        
+        yield return new WaitForSeconds(1f);
+        GameManager_Lobby.instance.tutoStatus = 1;
     }
 
     public void StopPlayer_LB() { GameManager_Lobby.instance.StopPlayer(); }
     public void MovePlayer_LB() { GameManager_Lobby.instance.EnableMovePlayer(); }
 
     public void Warpable_LB() { GameManager_Lobby.instance.SetWarpable(); GameManager_Lobby.instance.GetInteractable().GetComponent<InteractableManager_Lobby>().SetLight(); }
-
+    
     public void ShowNPCTalk_LB() { UIManager_Lobby.instance.ShowBubble(); }
     public void HideNPCTalk_LB() { UIManager_Lobby.instance.HideBubble(); }
 
@@ -87,6 +110,22 @@ public class SelectDialogue_Lobby : MonoBehaviour
     public void GlowAllEnd_LB() { GameManager_Lobby.instance.GlowAllEnd(); }
 
     public void ShowUpsideSubtitle_LB() { UIManager_Lobby.instance.SetQuest("동물 세포 포탈로 들어가보자!"); }
+
+    // SYS Code
+    public void GlowStartOnlySelected_LB(double start, double end) { GameManager_Lobby.instance.GlowStartOnlySelected(start, end); }
+    public void GlowEndOnlySelected_LB(double start, double end) { GameManager_Lobby.instance.GlowEndOnlySelected(start, end); }
+
+
+    // SYS Code
+    public void NewTooltip_LB(double index, string content) { GameManager_Lobby.instance.NewTooltip((int)index, content); }
+    public void TooltipOver_LB(double index) { GameManager_Lobby.instance.TooltipOver((int)index); }
+
+    // SYS Code
+    public void PortalShaderControllerEnable_LB(bool flag) { GameManager_Lobby.instance.PortalShaderControllerEnable(flag); }
+
+    // SYS Code
+    public void ShowingTooltipAnim_LB(double hand, double anim) { GameManager_Lobby.instance.ShowingTooltipAnim((int)hand, (int)anim); }
+    public void UnShowingTooltipAnim_LB(double hand) { GameManager_Lobby.instance.UnShowingTooltipAnim((int)hand); }
 
     #region Register with Lua
 
@@ -100,6 +139,19 @@ public class SelectDialogue_Lobby : MonoBehaviour
         Lua.RegisterFunction("GlowAllStart_LB", this, SymbolExtensions.GetMethodInfo(() => GlowAllStart_LB()));
         Lua.RegisterFunction("GlowAllEnd_LB", this, SymbolExtensions.GetMethodInfo(() => GlowAllEnd_LB()));
         Lua.RegisterFunction("ShowUpsideSubtitle_LB", this, SymbolExtensions.GetMethodInfo(() => ShowUpsideSubtitle_LB()));
+
+        // SYS Code
+        Lua.RegisterFunction("GlowStartOnlySelected_LB", this, SymbolExtensions.GetMethodInfo(() => GlowStartOnlySelected_LB((double)0, (double)0)));
+        Lua.RegisterFunction("GlowEndOnlySelected_LB", this, SymbolExtensions.GetMethodInfo(() => GlowEndOnlySelected_LB((double)0, (double)0)));
+
+        // SYS Code
+        Lua.RegisterFunction("NewTooltip_LB", this, SymbolExtensions.GetMethodInfo(() => NewTooltip_LB((double)0, (string)null)));
+        Lua.RegisterFunction("TooltipOver_LB", this, SymbolExtensions.GetMethodInfo(() => TooltipOver_LB((double)0)));
+
+        // SYS Code
+        Lua.RegisterFunction("PortalShaderControllerEnable_LB", this, SymbolExtensions.GetMethodInfo(() => PortalShaderControllerEnable_LB((bool)false)));
+        Lua.RegisterFunction("ShowingTooltipAnim_LB", this, SymbolExtensions.GetMethodInfo(() => ShowingTooltipAnim_LB((double)0, (double)0)));
+        Lua.RegisterFunction("UnShowingTooltipAnim_LB", this, SymbolExtensions.GetMethodInfo(() => UnShowingTooltipAnim_LB((double)0)));
     }
 
     private void OnDisable()
@@ -112,6 +164,19 @@ public class SelectDialogue_Lobby : MonoBehaviour
         Lua.UnregisterFunction("GlowAllStart_LB");
         Lua.UnregisterFunction("GlowAllEnd_LB");
         Lua.UnregisterFunction("ShowUpsideSubtitle_LB");
+
+        // SYS Code
+        Lua.UnregisterFunction("GlowStartOnlySelected_LB");
+        Lua.UnregisterFunction("GlowEndOnlySelected_LB");
+
+        // SYS Code
+        Lua.UnregisterFunction("NewTooltip_LB");
+        Lua.UnregisterFunction("TooltipOver_LB");
+
+        // SYS Code
+        Lua.UnregisterFunction("PortalShaderControllerEnable_LB");
+        Lua.UnregisterFunction("ShowingTooltipAnim_LB");
+        Lua.UnregisterFunction("UnShowingTooltipAnim_LB");
     }
 
     #endregion

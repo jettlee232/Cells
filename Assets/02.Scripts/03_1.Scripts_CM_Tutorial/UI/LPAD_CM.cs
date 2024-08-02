@@ -20,7 +20,15 @@ public class LPAD_CM : MonoBehaviour
     public GameObject currentPanel;
     public GameObject glowobj;
 
+    // Latley Update - 240724
+    ParticleSystem particleSys;
+    public GameObject particle;
+    private bool wasBButtonPressed;
+    public int particleFlag = 0;
+
     UnityEngine.XR.InputDevice right;
+
+    TutorialManager_CM tutoMgr;
 
     private bool canMakeRay = true;
 
@@ -29,6 +37,14 @@ public class LPAD_CM : MonoBehaviour
         line = gameObject.GetComponent<LineRenderer>();
         uiPointer = gameObject.GetComponent<BNG.UIPointer>();
         descrptionPanel = null;
+        tutoMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<TutorialManager_CM>();
+
+        // Latley Update - 240724
+        GameObject go = Instantiate(particle);
+        go.transform.position = descriptionPanelSpawnPoint[0].position;
+        go.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+        particleSys = go.GetComponent<ParticleSystem>();
+        particleSys.Stop();
     }
 
     void Update()
@@ -53,6 +69,11 @@ public class LPAD_CM : MonoBehaviour
                 line.enabled = false;
             }
         }
+
+        // Latley Update - 240724
+        if (isButtonPressed && !wasBButtonPressed) particleFlag = 1;
+        if (!isButtonPressed && wasBButtonPressed) particleFlag = 0;
+        wasBButtonPressed = isButtonPressed;
     }
 
     public void CheckRay(Vector3 targetPos, Vector3 direction, float length)
@@ -62,6 +83,7 @@ public class LPAD_CM : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit rayHit, length))
         {
             DescObjID_CM descObj = rayHit.collider.gameObject.GetComponent<DescObjID_CM>();
+            NarratorDialogueHub_CM_Tutorial npc = rayHit.collider.gameObject.GetComponent<NarratorDialogueHub_CM_Tutorial>();
 
             if (descObj != null)
             {
@@ -71,12 +93,20 @@ public class LPAD_CM : MonoBehaviour
                     highlightCount.ChangeFlag();
                 }
 
-                if (currentPanel != descObj.GetComponent<DescObjID_CM>().descPanel)
+
+                if (currentPanel == null || currentPanel != descObj.GetComponent<DescObjID_CM>().descPanel)
                 {
-                    currentPanel = descObj.GetComponent<DescObjID_CM>().descPanel;
+                    currentPanel = descObj.GetComponent<DescObjID_CM>().descPanel;                    
 
                     InstantiatePanel_Tween(descObj.GetComponent<DescObjID_CM>().descPanel, descObj.gameObject);
                 }
+            }
+
+            if (npc != null && tutoMgr.allComplete == true)
+            {
+                tutoMgr.allComplete = false;
+                npc.StartCov_7();
+                tutoMgr.AllCompleteAndMoveToNextScene();
             }
         }
     }
@@ -88,15 +118,27 @@ public class LPAD_CM : MonoBehaviour
         {
             glowobj.GetComponent<HighLightColorchange_CM>().GlowEnd();
             DestroyDescription();
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<TutorialManager_CM>().CheckHighlightCount();
         }
 
-        descrptionPanel = Instantiate(panel);
-        descrptionPanel.transform.SetParent(descriptionPanelSpawnPoint[rayhit.GetComponent<DescObjID_CM>().panelNum]);
-        Debug.Log(rayhit.GetComponent<DescObjID_CM>().panelNum);
-        Debug.Log(descriptionPanelSpawnPoint[rayhit.GetComponent<DescObjID_CM>().panelNum]);
-        descrptionPanel.GetComponent<LaserDescriptionTween_CM>().HLObjInit(rayhit);
+        tutoMgr.FollowDelete(0);
 
+        descrptionPanel = Instantiate(panel);        
+        descrptionPanel.transform.SetParent(descriptionPanelSpawnPoint[rayhit.GetComponent<DescObjID_CM>().panelNum]);
+        descrptionPanel.GetComponent<LaserDescriptionTween_CM>().HLObjInit(rayhit);
+        
         glowobj = rayhit;
+
+        // Latley Update - 240724
+        if (particleFlag == 1)
+        {
+            particleSys.Play();
+            particleFlag = 2;
+        }
+        if (particleFlag == 2 && particleSys.isPlaying == false)
+        {
+            particleSys.Play();
+        }
     }
 
 

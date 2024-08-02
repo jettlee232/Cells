@@ -18,6 +18,10 @@ public class AudioMgr_CM : MonoBehaviour
     public AudioClip[] sfxClips;
     public float sfxVolume; // New Code - For SFX Volume
 
+    [Header("Scene Names")]
+    public string previousSceneName;
+    public string currentSceneName;
+
     void Awake()
     {
         if (null == instance)
@@ -34,7 +38,9 @@ public class AudioMgr_CM : MonoBehaviour
 
     private void Start()
     {
-
+        // 초기화
+        previousSceneName = "None"; // 최초 실행시 이전 씬은 없음
+        currentSceneName = SceneManager.GetActiveScene().name;
     }
 
     public static AudioMgr_CM Instance
@@ -61,6 +67,14 @@ public class AudioMgr_CM : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log("1. curSceneName : " + currentSceneName + " / previousSceneName : " + previousSceneName);
+
+        // 이전 씬 이름 업데이트
+        previousSceneName = currentSceneName;
+
+        // 현재 씬 이름 업데이트
+        currentSceneName = scene.name;
+
         audioSrc = GetComponent<AudioSource>();
 
         audioSrc.volume = PlayerPrefs.GetFloat("Volume", 0.5f);
@@ -71,6 +85,9 @@ public class AudioMgr_CM : MonoBehaviour
         curSceneNum = scene.buildIndex;
 
         PlayMusicByScene(curSceneNum); // Not Yet
+
+        Debug.Log("2. curSceneName : " + currentSceneName + " / previousSceneName : " + previousSceneName);
+        StartCoroutine(ExecuteAfterSceneLoad()); // 코루틴을 통해 약간의 지연 후 명령 실행
     }
     public void PlayMusicByScene(int scenenum)
     {
@@ -113,7 +130,7 @@ public class AudioMgr_CM : MonoBehaviour
     {
         audioSrc.clip = newclip;
 
-        if (gonow) audioSrc.Play();
+        if (gonow) audioSrc.Play();        
     }
 
     public void ControllMusicSpeedByBool(bool upOrDown)
@@ -150,4 +167,44 @@ public class AudioMgr_CM : MonoBehaviour
             }
         }
     }
+
+    // New SYS Code
+    private IEnumerator ExecuteAfterSceneLoad()
+    {
+        Debug.Log("In Coroutine");
+        CutSceneController_SM csc;
+
+        if (currentSceneName == "04_StageMap")
+        {
+            Debug.Log("In 04");
+
+            // GameManager 오브젝트가 준비될 때까지 대기
+            GameObject gameManager = null;
+            while (gameManager == null)
+            {
+                gameManager = GameObject.Find("CutSceneMgr");
+                yield return null; // 매 프레임마다 체크
+            }
+            Debug.Log("Found CSM");
+            csc = gameManager.GetComponent<CutSceneController_SM>();
+            SM_SceneLoadMech(csc); // 특정 조건에 따른 명령 실행
+        }
+    }
+
+    // New SYS Code
+    public void SM_SceneLoadMech(CutSceneController_SM csControl)
+    {
+        if (previousSceneName == "03_2_CM")
+        {
+            // 03_SM에서 04.CM으로 전환 시 실행할 명령
+            Debug.Log("From 03");
+            csControl.LoadFromCM();
+        }
+        else if (previousSceneName == "05_2_Mito")
+        {
+            // 05_MT에서 04.CM으로 전환 시 실행할 명령
+            Debug.Log("From 05");
+            csControl.LoadFromMito();
+        }
+    }    
 }

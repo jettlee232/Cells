@@ -24,7 +24,11 @@ public class ButtonDoorController_Lobby : MonoBehaviour
     private float DPdistance; // 문-플레이어 사이 거리
     private float Ddistance;    // 문이 열릴 때까지 (= 닫힐 때까지) 거리
     private Vector3 BPdistance;   // 버튼-플레이어 사이 벡터
-    
+
+    // SYS Code
+    [Header("Button Tooltip")]
+    public Tooltip tooltip_Button;
+
     private void Start()
     {
         player = GameManager_Lobby.instance.GetPlayer();
@@ -99,6 +103,20 @@ public class ButtonDoorController_Lobby : MonoBehaviour
     {
         UIManager_Lobby.instance.ChangeQuest("버튼을 눌러보자!");
         UIManager_Lobby.instance.ShowPressTutorial();
+
+        // SYS Code
+        Invoke("MakeToolTip", 1f);
+
+        // SYS Code
+        UIManager_Lobby.instance.ShowTutorialParticle(1);
+    }
+
+    // SYS Code
+    void MakeToolTip()
+    {
+        // SYS Code        
+        tooltip_Button.gameObject.SetActive(true);
+        tooltip_Button.TooltipOn("버튼을 눌러보자!");
     }
 
     public void HideButtonScript()

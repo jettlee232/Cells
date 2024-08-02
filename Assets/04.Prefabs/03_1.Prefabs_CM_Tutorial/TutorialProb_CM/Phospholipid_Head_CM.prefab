@@ -114,7 +114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &862228049027495749
 RectTransform:
   m_ObjectHideFlags: 0
@@ -425,7 +425,6 @@ GameObject:
   - component: {fileID: 7255136104692169414}
   - component: {fileID: 8929583664176386436}
   - component: {fileID: 3253497865784475039}
-  - component: {fileID: 3381884892685167436}
   - component: {fileID: 7328343251785281791}
   - component: {fileID: -1099143983393418695}
   - component: {fileID: 6330393038809693610}
@@ -627,7 +626,6 @@ MonoBehaviour:
   isThisDouble: 0
   isThisPhosStick_Philic: 0
   isThisPhosStick_Phos: 0
-  firstGrab: 0
   attachPosLight:
   - {fileID: 0}
   - {fileID: 0}
@@ -635,34 +633,7 @@ MonoBehaviour:
   attachEffect: {fileID: 0}
   descPanels:
   - {fileID: 4866013995695719492}
---- !u!114 &3381884892685167436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6466448083190630604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3efc1186b626b1946862b9f3bac767aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canHit: 0
-  layer:
-    serializedVersion: 2
-    m_Bits: 1
-  tutoMgr: {fileID: 0}
-  gameMgr: {fileID: 0}
-  rightAnsTextEffect: {fileID: 6844986400947902841, guid: c378154a4dadd8145a3711399d4b80cc,
-    type: 3}
-  wrongAnsTextEffect: {fileID: 5128408413571534422, guid: 4bc45db79abf80341812698761783fde,
-    type: 3}
-  playerTrns: {fileID: 0}
-  rightTagName: WFBlock
-  wrongTagName: SSBlock
-  philicHitEffect: {fileID: 0}
-  phobicHitEffect: {fileID: 0}
-  grabbable: {fileID: 0}
+  toolTipPanels: []
 --- !u!114 &7328343251785281791
 MonoBehaviour:
   m_ObjectHideFlags: 0

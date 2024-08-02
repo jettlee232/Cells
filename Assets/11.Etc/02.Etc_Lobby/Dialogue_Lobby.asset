@@ -243,7 +243,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: 'TooltipOver_LB(1);
+
+        UnShowingTooltipAnim_LB(1)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -360,7 +362,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
+        x: 158.68422
         y: 180
         width: 160
         height: 30
@@ -471,7 +473,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
+        x: 158.6842
         y: 280
         width: 160
         height: 30
@@ -623,17 +625,15 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 8
+        destinationConversationID: 1
+        destinationDialogueID: 9
+        isConnector: 0
+        priority: 2
       conditionsString: 
-      userScript: 'MovePlayer_LB();
-
-        CheckTutorial_LB();
-
-        MovePlayer_LB();
-
-        ShowNPCTalk_LB();
-
-        GlowAllStart_LB()'
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -643,9 +643,61 @@ MonoBehaviour:
         y: 430
         width: 160
         height: 30
+    - id: 9
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 1
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Passthrough
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: "MovePlayer_LB();\nCheckTutorial_LB();\nMovePlayer_LB();\nShowNPCTalk_LB();\nGlowStartOnlySelected_LB(0,
+        4);\nNewTooltip_LB(1, \"\uAC01 \uD3EC\uD0C8\uC758 \uC774\uB984\uC744 \uD5A5\uD574
+        A \uBC84\uD2BC\uC744 \uB20C\uB7EC\uBD10\uC694!\");\nShowingTooltipAnim_LB(1,
+        0)"
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 160
+        y: 480
+        width: 160
+        height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.76000017
+    canvasScrollPosition: {x: 5.970154, y: 0}
+    canvasZoom: 0.67000026
   - id: 2
     fields:
     - title: Title
@@ -719,7 +771,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: None()
+        value: 
         type: 0
         typeString: 
       conversationID: 2
@@ -733,7 +785,7 @@ MonoBehaviour:
       - originConversationID: 2
         originDialogueID: 0
         destinationConversationID: 2
-        destinationDialogueID: 1
+        destinationDialogueID: 12
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -743,8 +795,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 117
-        y: 22
+        x: 93.119415
+        y: 4.089554
         width: 160
         height: 30
     - id: 1
@@ -793,14 +845,16 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: 'GlowEndOnlySelected_LB(4, 8);
+
+        TooltipOver_LB(1)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 117
-        y: 72
+        x: 146.85074
+        y: 87.152084
         width: 160
         height: 30
     - id: 2
@@ -855,8 +909,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 115.73419
-        y: 122
+        x: 132.1521
+        y: 256.3283
         width: 160
         height: 30
     - id: 3
@@ -912,8 +966,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 115.73418
-        y: 170.73419
+        x: 129.167
+        y: 303.56995
         width: 160
         height: 30
     - id: 5
@@ -968,8 +1022,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 129.65823
-        y: 270.7342
+        x: 135.62837
+        y: 381.1819
         width: 160
         height: 30
     - id: 6
@@ -1009,20 +1063,22 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 2
+        originDialogueID: 6
+        destinationConversationID: 2
+        destinationDialogueID: 11
+        isConnector: 0
+        priority: 2
       conditionsString: 
-      userScript: 'MovePlayer_LB();
-
-        Warpable_LB();
-
-        MovePlayer_LB()'
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 124.59494
-        y: 333.3924
+        x: 130.56508
+        y: 442.34753
         width: 160
         height: 30
     - id: 8
@@ -1077,8 +1133,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 379.0253
-        y: 132.12659
+        x: 149.1746
+        y: 142.80106
         width: 160
         height: 30
     - id: 9
@@ -1133,13 +1189,120 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 379.0253
-        y: 182.12659
+        x: 147.68208
+        y: 198.5445
+        width: 160
+        height: 30
+    - id: 11
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 2
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: "MovePlayer_LB();\nWarpable_LB();\nMovePlayer_LB();\nGlowStartOnlySelected_LB(4,
+        8);\nPortalShaderControllerEnable_LB(true);\nNewTooltip_LB(1, \"\uB808\uBC84\uB97C
+        \uC7A1\uACE0 \uC544\uB798\uB85C \uB2F9\uACA8\uBD10\uC694!\");\nUnShowingTooltipAnim_LB(1);\nShowingTooltipAnim_LB(1,
+        2)"
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 130.56508
+        y: 493.8401
+        width: 160
+        height: 30
+    - id: 12
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: .
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 2
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 2
+        originDialogueID: 12
+        destinationConversationID: 2
+        destinationDialogueID: 1
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 357.29846
+        y: 39.164185
         width: 160
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.7900001
+    canvasZoom: 0.6700002
   - id: 3
     fields:
     - title: Title
@@ -1348,8 +1511,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 8.502546, y: 10.369419}
-    canvasZoom: 1.1199999
+    canvasScrollPosition: {x: 5.4303827, y: 5.0602207}
+    canvasZoom: 1.0899999
   syncInfo:
     syncActors: 0
     syncItems: 0

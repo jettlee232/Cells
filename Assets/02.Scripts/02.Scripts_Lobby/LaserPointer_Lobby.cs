@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
+using static UnityEngine.ParticleSystem;
 
 public class LaserPointer_Lobby : MonoBehaviour
 {
@@ -21,6 +22,19 @@ public class LaserPointer_Lobby : MonoBehaviour
 
     UnityEngine.XR.InputDevice right; // 오른손 컨트롤러 상태를 받는 변수
 
+    // SYS Code
+    public GameObject descrptionPanel = null;
+    public Transform[] descriptionPanelSpawnPoint;
+    public GameObject currentPanel;
+    public GameObject glowobj;
+
+    // SYS Code
+    [Header("Particle")]
+    public ParticleSystem paricle;
+    private bool wasBButtonPressed;
+    private int particleFlag = 0;
+
+
     void Start()
     {
         uiPointer = gameObject.GetComponent<BNG.UIPointer>(); // UI 컴포넌트 받기
@@ -30,6 +44,9 @@ public class LaserPointer_Lobby : MonoBehaviour
         mainCam = GameManager_Lobby.instance.GetPlayerCam().GetComponent<Camera>();
         NPC = GameManager_Lobby.instance.GetNPC();
         InteractableManager = GameManager_Lobby.instance.GetInteractable();
+
+        // SYS Code        
+        paricle.Stop();        
     }
 
     void Update()
@@ -48,6 +65,11 @@ public class LaserPointer_Lobby : MonoBehaviour
             uiPointer.HidePointerIfNoObjectsFound = true;
             //InteractableManager.GetComponent<InteractableManager_Lobby>().HideTextAll();
         }
+
+        // Latley Update - 240724
+        if (isButtonPressed && !wasBButtonPressed) particleFlag = 1;
+        if (!isButtonPressed && wasBButtonPressed) particleFlag = 0;
+        wasBButtonPressed = isButtonPressed;
     }
 
     public void CheckRay(Vector3 targetPos, Vector3 direction, float length)
@@ -84,15 +106,77 @@ public class LaserPointer_Lobby : MonoBehaviour
             {
                 if (GameManager_Lobby.instance.firstEnd)
                 {
-                    if (GameManager_Lobby.instance.secondCon)
+                    // SYS Code
+                    //if (GameManager_Lobby.instance.secondCon && GameManager_Lobby.instance.tutoStatus == 1)
+                    if (GameManager_Lobby.instance.tutoStatus == 1)
                     {
-                        // 두번째 대화 조건 만족
+                        // 두번째 대화 조건 만족                        
                         NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST2();
                     }
-                    else { return; }
                 }
-                else { NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST1(); }
+                else 
+                { 
+                    if (GameManager_Lobby.instance.tutoStatus == 0) NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST1();
+                }
+            }
+
+            // SYS Code
+            DescObjID_CM descObj = rayHit.collider.gameObject.GetComponent<DescObjID_CM>();
+            if (descObj != null)
+            {
+                Debug.Log("Hit Obj is : " + descObj.gameObject.name);
+                InstantiatePanel(descObj.GetComponent<DescObjID_CM>().descPanel);
             }
         }
+    }
+
+    // SYS Code
+    public void InstantiatePanel(GameObject panel)
+    {
+        if (descrptionPanel != null)
+        {            
+            DestroyDescription();
+        }
+
+        descrptionPanel = Instantiate(panel);
+        descrptionPanel.transform.SetParent(descriptionPanelSpawnPoint[0]);
+
+        // Latley Update - 240724
+        if (particleFlag == 1)
+        {
+            paricle.Stop();
+            paricle.Play();
+            particleFlag = 2;
+        }
+        if (particleFlag == 2 && paricle.isPlaying == false)
+        {
+            paricle.Stop();
+            paricle.Play();
+        }
+    }
+
+    // SYS Code
+    public void InstantiatePanel_Tween(GameObject rayhit)
+    {
+        if (descrptionPanel != null)
+        {
+            //glowobj.GetComponent<HighLightColorchange_CM>().GlowEnd();
+            DestroyDescription();
+        }
+
+        descrptionPanel = Instantiate(rayhit);
+        descrptionPanel.transform.SetParent(descriptionPanelSpawnPoint[rayhit.GetComponent<DescObjID_CM>().panelNum]);
+        /*
+        descrptionPanel.GetComponent<LaserDescriptionTween_CM>().HLObjInit(rayhit);
+
+        glowobj = rayhit;
+        glowobj.GetComponent<LaserDescriptionTween_CM>().HLObjInit(rayhit);
+        */
+    }
+
+    // SYS Code
+    public void DestroyDescription()
+    {
+        Destroy(descrptionPanel);
     }
 }
