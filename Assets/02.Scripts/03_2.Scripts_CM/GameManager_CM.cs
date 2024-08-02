@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static Oculus.Interaction.OptionalAttribute;
 
 public class GameManager_CM : MonoBehaviour
 {
@@ -22,6 +25,7 @@ public class GameManager_CM : MonoBehaviour
     [Header("In-Game Text Contents")]
     public TextMeshProUGUI countdownTimerText;
     public TextMeshProUGUI timerCountText;
+    public GameObject timerPanel;
     public GameObject scorePanel;
     public GameObject comboPanel;
     public TextMeshProUGUI scoreCountText;
@@ -48,19 +52,63 @@ public class GameManager_CM : MonoBehaviour
     public LineRenderer lineRenderer;
     public QuestPanel_CM quest;
 
+    [Header("TutoPanels")]
+    public GameObject[] tutoPanels;
+    private bool tutoFlag = false;
+
+    [Header("ScoreOver1000")]
+    public AudioClip clip1000;
+    public GameObject over1000Panel;
+
+    [Header("Entire Game & Cutscenes")]
+    public GameObject entireGame;
+    public GameObject cutScene;
+
     void Start()
     {
-        GameStart();
+        //GameStart();
+        Invoke("PopupTutoPanel", 3f);
+        Invoke("PopupReadyFlag", 6f);
 
         smoothLocomotion.enabled = false; // Maybe Refactorung Later?
         uiPointer.enabled = false; // Maybe Refactorung Later?
         lineRenderer.enabled = false; // Maybe Refactorung Later?
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(5);
+    }
+
+    public void PopupTutoPanel()
+    {
+        if (tutoFlag == false)
+        {
+            tutoPanels[0].SetActive(true);
+            tutoPanels[1].SetActive(true);
+            tutoPanels[2].SetActive(true);
+            tutoFlag = true;
+        }
+        else
+        {
+            tutoPanels[0].GetComponent<TutorialPanelTween_CM>().ReverseTweenAndDestroy();
+            tutoPanels[1].GetComponent<TutorialPanelTween_CM>().ReverseTweenAndDestroy();
+            tutoPanels[2].GetComponent<TutorialPanelTween_CM>().ReverseTweenAndDestroy();
+            tutoPanels[3].GetComponent<TutorialPanelTween_CM>().ReverseTweenAndDestroy();
+            Invoke("GameStart", 2f);
+        }
+    }
+
+    void PopupReadyFlag()
+    {
+        tutoPanels[3].SetActive(true);
+    }
 
     public void GameStart()
     {
-        Debug.Log("Game Start!");
+        bsMgr.isHardMode = false;
+
+        countdownTimerText.gameObject.SetActive(true);
         StartCoroutine(CountDown());
         StartCoroutine(QuestStart());
 
@@ -74,6 +122,7 @@ public class GameManager_CM : MonoBehaviour
         AudioMgr_CM.Instance.PlaySFXByInt(10);
 
         gameoverPanel.SetActive(false);
+        timerPanel.SetActive(false);
         scorePanel.SetActive(false);
         comboPanel.SetActive(false);
 
@@ -99,7 +148,7 @@ public class GameManager_CM : MonoBehaviour
 
     IEnumerator CountDown()
     {
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
 
         countdownTimerText.gameObject.SetActive(true);
         countdownTimerText.text = "";
@@ -119,9 +168,10 @@ public class GameManager_CM : MonoBehaviour
         countdownTime = 3;
         countdownTimerText.gameObject.SetActive(false);
 
-        timerCountText.gameObject.SetActive(true);
-        scorePanel.gameObject.SetActive(true);
-        comboPanel.gameObject.SetActive(true);
+        //timerCountText.gameObject.SetActive(true);
+        timerPanel.SetActive(true);
+        scorePanel.SetActive(true);
+        comboPanel.SetActive(true);
 
         bsMgr.BlockSpawnStart();
 
@@ -161,15 +211,22 @@ public class GameManager_CM : MonoBehaviour
 
     public void CheckScore()
     {
-        if (curScore >= goalScore) // ��ǥ ������ �����ϸ�
+        if (curScore >= 1000 && bsMgr.isHardMode == false)
+        {
+            StartCoroutine(ScoreOverThousand());
+        }
+        if (curScore >= goalScore)
         {
             isSucces = true;
             GameOver();
         }
     }
 
-    public void ScoreDown() // ���� �� ���� �Լ� - ���� �϶��� ���µ� �ϴ� ���� (�ܺο��� ���� like BlockDestPlane Or SaberWF/CC)
+    public void ScoreDown(int amount) // ���� �� ���� �Լ� - ���� �϶��� ���µ� �ϴ� ���� (�ܺο��� ���� like BlockDestPlane Or SaberWF/CC)
     {
+        curScore -= amount;
+        if (curScore < 0) curScore = 0;
+
         wrongAns++;
         rightAnsStreak = 0;
         scoreMultiply = 1.0f;
@@ -191,10 +248,11 @@ public class GameManager_CM : MonoBehaviour
         isGameStart = false;
 
         bsMgr.BlockSpawnStop();
-
-        timerCountText.gameObject.SetActive(false);
-
+        bsMgr.DestroyAllBlocks();
+        //timerCountText.gameObject.SetActive(false);
+        timerPanel.SetActive(false);
         gameoverPanel.SetActive(true);
+        //over1000Panel.GetComponent<TutorialPanelTween_CM>().ReverseTweenAndDestroy();
 
         // Calculate Clear Time
         float remainingTime = leftTime - curLeftTime;
@@ -218,16 +276,39 @@ public class GameManager_CM : MonoBehaviour
         else
         {
             AudioMgr_CM.Instance.PlaySFXByInt(12);
-            successOrFailTextPrefab[1].SetActive(false);
+            successOrFailTextPrefab[1].SetActive(true);
         }
 
         StartCoroutine(MakeEndEventBlock());
     }
-
+    
     public void NewQuest(string questContents)
     {
-        if (quest.gameObject.activeSelf == false) quest.gameObject.SetActive(true);
+        if (quest.transform.GetChild(0).gameObject.activeSelf == false) quest.transform.GetChild(0).gameObject.SetActive(true);
+
         quest.PanelOpen(FireStoreManager_Test_CM.Instance.ReadCSV(questContents)); // text quest change
+    }
+
+    public void DoLoadNewScene()
+    {
+        StartCoroutine(EndGameAndStartCutScene());
+    }
+
+    public void LoadStageMap()
+    {
+        SceneManager.LoadScene(5);
+    }
+
+
+    IEnumerator EndGameAndStartCutScene()
+    {
+        scrFader.ChangeFadeImageColor(Color.black, 2f, 1f);
+        scrFader.DoFadeIn();
+
+        yield return new WaitForSeconds(3.25f);
+
+        cutScene.SetActive(true);
+        entireGame.SetActive(false);   
     }
 
     IEnumerator QuestStart()
@@ -294,5 +375,24 @@ public class GameManager_CM : MonoBehaviour
         yield return new WaitForSeconds(0.75f);
 
         scrFader.DoFadeOut();
+    }
+
+    IEnumerator ScoreOverThousand()
+    {
+        bsMgr.BlockSpawnStop();
+        bsMgr.DestroyAllBlocks();
+        //AudioMgr_CM.Instance.audioSrc.PlayOneShot(clip1000);
+
+        yield return new WaitForSeconds(7f);
+
+        bsMgr.isHardMode = true;
+        bsMgr.BlockSpawnStart();
+        over1000Panel.SetActive(true);
+        if (over1000Panel.GetComponent<TutorialPanelTween_CM>().ReturnFlag() == true) 
+            over1000Panel.GetComponent<TutorialPanelTween_CM>().StartInstTween();
+
+        yield return new WaitForSeconds(2f);
+
+        over1000Panel.GetComponent<TutorialPanelTween_CM>().ReverseTweenAndDestroy();
     }
 }

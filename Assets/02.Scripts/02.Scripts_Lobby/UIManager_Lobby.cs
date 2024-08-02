@@ -24,6 +24,13 @@ public class UIManager_Lobby : MonoBehaviour
     private Vector3 alertSize;
     private Vector3 tutorialSize;
 
+    // SYS Code
+    public GameObject particles;
+
+    // SYS Code
+    private Tween alertTween;
+
+
     void Awake()
     {
         if (instance == null) { instance = this; }
@@ -61,18 +68,23 @@ public class UIManager_Lobby : MonoBehaviour
         alertSize = alert_UI.transform.localScale;
         alert_UI.SetActive(false);
     }
+
+    // SYS Code
     public void SetAlert(GameObject menu)
-    {
-        lastInteract = menu;
-        alert_UI.transform.localScale = Vector3.zero;
+    {                
         alert_UI.SetActive(true);
-        alert_UI.transform.DOScale(alertSize, 2f);
+        alert_UI.transform.localScale = Vector3.zero;
+        if (alertTween != null && alertTween.IsActive()) alertTween.Kill(); alertTween = null;
+        alertTween = alert_UI.transform.DOScale(alertSize, 2f).OnComplete(() => { alertTween = null; });
     }
 
+
+    // SYS Code
     public void HideAlert()
     {
-        StartCoroutine(hideAlert());
-        alert_UI.transform.DOScale(Vector3.zero, 1f);
+        //StartCoroutine(hideAlert());
+        if (alertTween != null && alertTween.IsActive()) alertTween.Kill(); alertTween = null; // alertTween.Complete();
+        alertTween = alert_UI.transform.DOScale(Vector3.zero, 1f).OnComplete(() => { alertTween = null; }); ;
     }
     IEnumerator hideAlert() { yield return new WaitForSeconds(1f); alert_UI.gameObject.SetActive(false); }
 
@@ -144,11 +156,14 @@ public class UIManager_Lobby : MonoBehaviour
     {
         ShowTutorialTween(TutorialPanels[0]);
         GameManager_Lobby.instance.EnableMovePlayer();
+
+        // SYS Code
+        ShowTutorialParticle(0);
     }
     public void ShowPressTutorial()
     {
         if (TutorialPanels[0].activeSelf) { ChangeTutorialTween(); }
-        else { ShowTutorialTween(TutorialPanels[1]); }
+        else { ShowTutorialTween(TutorialPanels[1]); ShowTutorialParticle(1); }
     }
     public void HideMoveTutorial() { HideTutorialTween(TutorialPanels[0]); }
     public void HidePressTutorial() { HideTutorialTween(TutorialPanels[1]); }
@@ -165,12 +180,22 @@ public class UIManager_Lobby : MonoBehaviour
         tuto.transform.localScale = Vector3.zero;
         tuto.gameObject.SetActive(true);
         tuto.transform.DOScale(tutorialSize, 2f);
+
+        // SYS Code
+        tuto.transform.rotation = Quaternion.identity;
+
+        Transform grandParent = tuto.transform.parent.parent.parent;
+        tuto.transform.DORotateQuaternion(Quaternion.Euler(0f, 180f, 0f), 1f);        
     }
 
     public void HideTutorialTween(GameObject tuto)
     {
         StartCoroutine(hideTuto(tuto));
         tuto.transform.DOScale(Vector3.zero, 1f);
+
+        // SYS Code
+        //tuto.transform.DORotate(new Vector3(0, 0, 0), 1f, RotateMode.FastBeyond360);
+        tuto.transform.DORotateQuaternion(Quaternion.Euler(0f, 0f, 0f), 1f);
     }
     IEnumerator hideTuto(GameObject tuto) { yield return new WaitForSeconds(1f); tuto.gameObject.SetActive(false); }
 
@@ -178,7 +203,17 @@ public class UIManager_Lobby : MonoBehaviour
     {
         TutorialPanels[1].gameObject.SetActive(true);
         TutorialPanels[0].gameObject.SetActive(false);
-        TutorialPanels[1].gameObject.transform.DOPunchScale(tutorialSize * 0.2f, 0.2f).OnComplete(() => TutorialPanels[1].gameObject.transform.localScale = tutorialSize);
+        //SYS Code -> // TutorialPanels[1].gameObject.transform.DOPunchScale(tutorialSize * 0.2f, 0.2f).OnComplete(() => TutorialPanels[1].gameObject.transform.localScale = tutorialSize);
+    }
+
+    // SYS Code
+    public void ShowTutorialParticle(int index)
+    {
+        GameObject go = Instantiate(particles);
+        go.transform.position = TutorialPanels[index].transform.position;
+        go.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+
+        go.GetComponent<ParticleSystem>().Play();
     }
 
     #endregion

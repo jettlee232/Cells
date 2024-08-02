@@ -20,7 +20,8 @@ public class BlockDeletePlane_CM : MonoBehaviour
         if (other.gameObject.GetComponent<BlockDestroy_CM>() != null)
         {
             Destroy(other.transform.parent.gameObject);
-            gameMgr.ScoreDown();
+            gameMgr.ScoreDown(100);
+            gameMgr.RedFade(); // 나중에 수정해야 함
         }
     }
 }

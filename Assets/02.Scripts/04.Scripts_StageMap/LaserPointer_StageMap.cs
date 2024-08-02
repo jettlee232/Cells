@@ -32,6 +32,9 @@ public class LaserPointer_StageMap : MonoBehaviour
 
     UnityEngine.XR.InputDevice right; // 오른손 컨트롤러 상태를 받는 변수
 
+    // SYS Code
+    
+
     void Start()
     {
         uiPointer = gameObject.GetComponent<BNG.UIPointer>(); // UI 컴포넌트 받기
@@ -109,12 +112,15 @@ public class LaserPointer_StageMap : MonoBehaviour
                 }
                 else if (rayHit.collider.gameObject.CompareTag("NPC"))
                 {
-                    if (GameManager_StageMap.instance.GetSecondCon())
+                    // SYS Code
+                    //if (GameManager_StageMap.instance.GetSecondCon())
+                    if (GameManager_StageMap.instance.ReturnTutoEnd() == true)
                     {
                         // 두번째 대화 조건 만족
                         NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST2();
                     }
-                    else { NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST1(); }
+                    // SYS Code
+                    //else { NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST1(); }
                 }
             }
         //}
@@ -128,7 +134,7 @@ public class LaserPointer_StageMap : MonoBehaviour
 
     public void DestroyDescription() // 패널 없애기
     {
-        UIManager_StageMap.instance.OffDesc();
+        UIManager_StageMap.instance.OffDesc();                
     }
     public void InitObj()
     {

@@ -8,8 +8,11 @@ public class InstantiateTween2_CM : MonoBehaviour
 
     void Start()
     {
-        DOTween.Init();
+        DOTween.Init();        
+    }
 
+    public void DoingTween()
+    {
         transform.localScale = Vector3.zero;
 
         transform.DOScale(new Vector3(1f, 1f, 1f), 1f);

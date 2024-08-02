@@ -60,4 +60,23 @@ public class InteractableManager_Lobby : MonoBehaviour
     }
 
     #endregion
+
+    // SYS Code
+    #region SYS
+    public void GlowStartOnlySelected(int start, int end)
+    {
+        for (int i = start; i < end; i++)
+        {
+            interactables[i].GetComponent<Interactables_Lobby>().GlowStart();
+        }
+    }
+
+    public void GlowEndOnlySelected(int start, int end)
+    {
+        for (int i = start; i < end; i++)
+        {
+            interactables[i].GetComponent<Interactables_Lobby>().GlowEnd();
+        }
+    }
+    #endregion
 }

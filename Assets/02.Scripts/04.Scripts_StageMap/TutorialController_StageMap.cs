@@ -8,6 +8,8 @@ public class TutorialController_StageMap : MonoBehaviour
     private GameObject tutorialManager;
     private GameObject effect;
 
+    public GameManager_StageMap gameMgr;
+
     private void Start()
     {
         tutorialManager = gameObject.transform.parent.gameObject;
@@ -23,6 +25,10 @@ public class TutorialController_StageMap : MonoBehaviour
             Vector3 direction = (other.transform.position - transform.position).normalized;
             Instantiate(effect, other.ClosestPointOnBounds(transform.position), Quaternion.LookRotation(direction));
             tutorialManager.GetComponent<TutorialManager_StageMap>().GetAchieved(num);
+
+            // SYS Code
+            tutorialManager.GetComponent<TutorialManager_StageMap>().ReturnGoalAchieve();
+
             this.gameObject.SetActive(false);
         }
     }
