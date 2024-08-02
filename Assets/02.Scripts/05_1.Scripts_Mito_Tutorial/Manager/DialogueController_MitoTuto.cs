@@ -28,4 +28,15 @@ public class DialogueController_MitoTuto : MonoBehaviour
         dialogueSystemTriggers[n - 1].OnUse(); // On Use로 컨버제이션 작동
     }
 
+    public void PauseDST()
+    {
+        //DialogueManager.Pause();
+        DialogueManager.instance.SetDialogueSystemInput(false);
+    }
+
+    public void UnPauseDST()
+    {
+        //DialogueManager.Unpause();
+        DialogueManager.instance.SetDialogueSystemInput(true);
+    }
 }

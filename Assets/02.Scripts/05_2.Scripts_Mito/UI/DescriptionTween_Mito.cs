@@ -21,9 +21,20 @@ public class DescriptionTween_Mito : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         transform.localScale = Vector3.zero;
         transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
-        transform.DORotate(new Vector3(0f, 360f + transform.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
-        transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360).OnComplete(()
-            => lookPlayer = StartCoroutine(LookPlayer()));
+        //transform.DORotate(new Vector3(0f, 360f + transform.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
+        //transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360).OnComplete(()
+        //    => lookPlayer = StartCoroutine(LookPlayer()));
+
+        Transform playerCam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        if (playerCam == null) playerCam = transform.parent;
+
+        Vector3 directionToPlayer = playerCam.position - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(-directionToPlayer);
+
+        transform.DORotate(new Vector3(0f, 360f + lookRotation.eulerAngles.y, 0f), 1f, RotateMode.FastBeyond360).OnComplete(() =>
+        {
+            lookPlayer = StartCoroutine(LookPlayer());
+        });
 
         if (closeBtn == null)
         {
@@ -48,7 +59,8 @@ public class DescriptionTween_Mito : MonoBehaviour
 
     private IEnumerator DestroyAfterRewind()
     {
-        hlObj.GetComponent<HighLightColorchange_MitoTuto>().GlowEnd();
+        if (hlObj != null)
+            hlObj.GetComponent<HighLightColorchange_MitoTuto>().GlowEnd();
 
         yield return new WaitForSeconds(1.05f);
 
@@ -83,6 +95,7 @@ public class DescriptionTween_Mito : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(oppositeDirection);
 
             transform.rotation = lookRotation;
+            //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
     }
 }

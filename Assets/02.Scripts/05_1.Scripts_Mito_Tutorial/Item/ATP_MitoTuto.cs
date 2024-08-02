@@ -16,10 +16,8 @@ public class ATP_MitoTuto : MonoBehaviour
         if (GetComponent<Grabbable>().SelectedHandPose) // 나를 잡은 손이 있으면
         {
             isATPGrabbed = true;
-            GetComponent<HighlightEffect>().highlighted = true;
+            //GetComponent<HighlightEffect>().highlighted = true;
         }
-        //else
-        //    GetComponent<HighlightEffect>().highlighted = false;
 
         //if (isATPGrabbed && QuestManager_MitoTuto.Instance.CheckInteractionATP() && !dialogueActive)
         //{

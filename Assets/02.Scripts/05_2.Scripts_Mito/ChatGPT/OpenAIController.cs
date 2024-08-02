@@ -27,7 +27,7 @@ public class OpenAIController : MonoBehaviour
     {
         messages = new List<ChatMessage>
         {
-            new ChatMessage(ChatMessageRole.System, "너는 미토콘드리아에 대해 설명하는 시스템이야. 초등학생과 중학생이 이해할 수 있도록 친근한 말투로 설명해줘, 만약에 미토콘드리아와 관련된 질문이 아니라면 관련된 질문을 해달라고 하면서 답변을 거부해야해")
+            new ChatMessage(ChatMessageRole.System, "너는 동물세포 내의 미토콘드리아에 대해 설명하는 시스템이야. 초등학생과 중학생이 이해할 수 있도록 친근한 말투로 설명해줘, 만약에 미토콘드리아와 관련된 질문이 아니라면 관련된 질문을 해달라고 하면서 답변을 거부해야해")
         };
 
         inputField.text = "";
@@ -66,7 +66,7 @@ public class OpenAIController : MonoBehaviour
         // 전체 채팅을 openAI 서버에전송하여 다음 메시지(응답)를 가져오도록
         var chatResult = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
         {
-            Model = Model.ChatGPTTurbo,
+            Model = Model.GPT4o_Mini,
             Temperature = 0.1,
             MaxTokens = 200,
             Messages = messages

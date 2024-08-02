@@ -243,9 +243,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'ToggleNpcTooltip();
-
-        ToggleIsMoving();
+      userScript: 'ToggleIsMoving();
 
         SetPlayerPosition();
 
@@ -693,7 +691,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 80
+        x: 79
         y: 134
         width: 160
         height: 30
@@ -737,14 +735,18 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "EnableGrabMiniHalfMito();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
-        \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\", 5);\nToggleIsMoving();\nShowLaserPanel();\nVibrateHand()"
+        \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\", 5);\nToggleIsMoving();\nPlayerHandToolTipOn(0,
+        \"\uC190\uC73C\uB85C \uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544 \uBAA8\uD615\uC744
+        \uC7A1\uC544\uBD10\uC694!\");\nPlayerHandToolTipOn(1, \"\uC190\uC73C\uB85C
+        \uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544 \uBAA8\uD615\uC744 \uC7A1\uC544\uBD10\uC694!\");\nVibrateHand();\nPlayerHandToolTipOffAfterDelay(0,
+        5);\nPlayerHandToolTipOffAfterDelay(1, 5)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 79
-        y: 303
+        y: 301.96906
         width: 160
         height: 30
     - id: 3
@@ -803,8 +805,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 21.649475, y: 7.688136}
+    canvasZoom: 0.97
   - id: 3
     fields:
     - title: Title
@@ -951,14 +953,18 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ToggleRayDescription()
+      userScript: 'SetPlayerPosition();
+
+        ToggleIsMoving();
+
+        ToggleMiniHalfMito()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 114
+        x: 160.89285
+        y: 113.10715
         width: 160
         height: 30
     - id: 2
@@ -1007,14 +1013,14 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: ToggleExplainMiniHalfMito()
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 160
-        y: 195
+        y: 194.10712
         width: 160
         height: 30
     - id: 3
@@ -1064,14 +1070,17 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: 'MitoToolTipOnAfterDelay(0, 0);
+
+        MitoToolTipOnAfterDelay(1,
+        0)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 160
-        y: 282
+        y: 281.10715
         width: 160
         height: 30
     - id: 4
@@ -1120,7 +1129,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: '
+
+        MitoToolTipOnAfterDelay(2, 0)'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1153,12 +1164,13 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: "\uC678\uB9C9\uACFC \uB0B4\uB9C9 \uC0AC\uC774\uC758 \uACF5\uAC04\uC744
-          \u2018\uB9C9\uC0AC\uC774\uACF5\uAC04\u2019\uC774\uB77C\uACE0 \uBD88\uB7EC!"
+        value: "\uADF8\uB9AC\uACE0 \uB0B4\uB9C9 \uC18D\uC740 \uB048\uC801\uD55C \uC561\uCCB4\uB85C
+          \uCC44\uC6CC\uC838\uC788\uB294\uB370, \uC774 \uBD80\uBD84\uC744 \uAE30\uC9C8\uC774\uB77C\uACE0
+          \uBD88\uB7EC"
         type: 0
         typeString: 
       - title: Sequence
-        value: "AudioWait(Mito_Tuto/audio_13_\uC678\uB9C9\uACFC_\uB0B4\uB9C9_\uC0AC\uC774\uC758_\uACF5\uAC04\uC744__\uB9C9\uC0AC\uC774\uACF5\uAC04_\uC774\uB77C\uACE0_\uBD88\uB7EC_)"
+        value: "AudioWait(Mito_Tuto/New/audio_0_\uADF8\uB9AC\uACE0_\uB0B4\uB9C9_\uC18D\uC740_\uB048\uC801\uD55C_\uC561\uCCB4\uB85C_\uCC44\uC6CC\uC838\uC788\uB294\uB370__\uC774_\uBD80\uBD84\uC744_\uAE30~)"
         type: 0
         typeString: 
       conversationID: 3
@@ -1171,8 +1183,66 @@ MonoBehaviour:
       outgoingLinks:
       - originConversationID: 3
         originDialogueID: 5
-        destinationConversationID: 4
-        destinationDialogueID: 0
+        destinationConversationID: 3
+        destinationDialogueID: 6
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 'MitoToolTipOff();
+
+        MitoToolTipOnAfterDelay(3, 0)'
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 482.10718
+        y: 113.17857
+        width: 160
+        height: 30
+    - id: 6
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "\uAE30\uC9C8\uC5D0\uB294 DNA\uC640 \uB9AC\uBCF4\uC19C, \uADF8\uB9AC\uACE0
+          \uD6A8\uC18C\uB4E4\uC774 \uD48D\uBD80\uD558\uAC8C \uC874\uC7AC\uD574"
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: "AudioWait(Mito_Tuto/New/audio_1_\uAE30\uC9C8\uC5D0\uB294_DNA\uC640_\uB9AC\uBCF4\uC19C__\uADF8\uB9AC\uACE0_\uD6A8\uC18C\uB4E4\uC774_\uD48D\uBD80\uD558\uAC8C_\uC874\uC7AC\uD574_)"
+        type: 0
+        typeString: 
+      conversationID: 3
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 3
+        originDialogueID: 6
+        destinationConversationID: 3
+        destinationDialogueID: 7
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -1182,13 +1252,128 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 448
+        x: 479.42865
+        y: 193.53575
+        width: 160
+        height: 30
+    - id: 7
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "\uB098\uC911\uC5D0 \uC9C1\uC811 \uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uB97C
+          \uD0D0\uD5D8\uD558\uBA74\uC11C \uC790\uC138\uD788 \uC54C\uC544\uBD10!"
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: "AudioWait(Mito_Tuto/New/audio_2_\uB098\uC911\uC5D0_\uC9C1\uC811_\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uB97C_\uD0D0\uD5D8\uD558\uBA74\uC11C_\uC790\uC138\uD788_\uC54C\uC544\uBD10_)"
+        type: 0
+        typeString: 
+      conversationID: 3
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 3
+        originDialogueID: 7
+        destinationConversationID: 3
+        destinationDialogueID: 8
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 479.42865
+        y: 278.35712
+        width: 160
+        height: 30
+    - id: 8
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: "\uB9C8\uC9C0\uB9C9\uC73C\uB85C, \uC678\uB9C9\uACFC \uB0B4\uB9C9 \uC0AC\uC774\uC758
+          \uACF5\uAC04\uC744 \u2018\uB9C9\uC0AC\uC774\uACF5\uAC04\u2019\uC774\uB77C\uACE0
+          \uBD88\uB7EC!"
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: "AudioWait(Mito_Tuto/New/audio_3_\uB9C8\uC9C0\uB9C9\uC73C\uB85C__\uC678\uB9C9\uACFC_\uB0B4\uB9C9_\uC0AC\uC774\uC758_\uACF5\uAC04\uC744__\uB9C9\uC0AC\uC774\uACF5\uAC04_\uC774\uB77C\uACE0_\uBD88\uB7EC_)"
+        type: 0
+        typeString: 
+      conversationID: 3
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 3
+        originDialogueID: 8
+        destinationConversationID: 4
+        destinationDialogueID: 0
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: '
+
+        MitoToolTipOnAfterDelay(4, 0)'
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 480.32153
+        y: 363.1786
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 58, y: 0}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 6.571392, y: 0}
+    canvasZoom: 1.1199999
   - id: 4
     fields:
     - title: Title
@@ -1336,7 +1521,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'SetPlayerSpeed(15, 15, 15);
+      userScript: 'SetPlayerSpeed(8, 8, 8);
 
         SliceMito()'
       onExecute:
@@ -1389,13 +1574,15 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "ToggleIsMoving();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544
-        \uC18D\uC744 \uBE44\uD589\uD574\uBCF4\uC790!\", 5);\nToggleNpcTooltip();\nReadyDialogue();\nVibrateHand();\nToggleRayDescription()"
+        \uC18D\uC744 \uBE44\uD589\uD574\uBCF4\uC790!\", 5);\nReadyDialogue();\nVibrateHand();\nToggleRayDescription();\nToggleNpcTooltip();\nToggleIsRotateX();\nPlayerHandToolTipOn(1,
+        \"\uC774\uC81C \uC704\uC544\uB798 \uD68C\uC804\uB3C4 \uAC00\uB2A5\uD574\uC694!\");\nPlayerHandToolTipOffAfterDelay(1,
+        5)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 80.98329
+        x: 81.966576
         y: 301.01672
         width: 160
         height: 30
@@ -1446,11 +1633,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'ToggleMiniHalfMito();
+      userScript: 'ToggleExplainMiniHalfMito();
 
         ToggleFlyable();
-
-        ToggleIsMoving();
 
         TogglePlayerWall();
 
@@ -1465,7 +1650,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 8.792573, y: 3.1760242}
+    canvasScrollPosition: {x: 0, y: 20.501476}
     canvasZoom: 1.0170001
   - id: 5
     fields:
@@ -1615,9 +1800,9 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'ToggleFlyable();
 
-        SetPlayerSpeed(3, 15, 15);
+        SetPlayerSpeed(3, 8, 8);
 
-        ToggleNpcTooltip();
+        ResetPlayerRotate();
 
         SetPlayerPosition();
 
@@ -1684,7 +1869,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 80
-        y: 218
+        y: 217
         width: 160
         height: 30
     - id: 3
@@ -1900,7 +2085,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 159
-        y: 91
+        y: 90
         width: 160
         height: 30
     - id: 2
@@ -2071,7 +2256,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 40}
+    canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 1
   - id: 7
     fields:
@@ -2380,7 +2565,9 @@ MonoBehaviour:
       conditionsString: 
       userScript: "ToggleIsMoving();\nToggleGrabATP();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00
         \uC0DD\uC0B0\uD558\uB294 \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\",
-        5);\nVibrateHand()"
+        5);\nVibrateHand();\nPlayerHandToolTipOn(1, \"\uB808\uC774\uC800\uB97C \uC3D8\uBA74,
+        \uC124\uBA85\uC744 \uBCFC \uC218 \uC788\uC5B4\uC694\");\nPlayerHandToolTipOffAfterDelay(1,
+        5)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2391,7 +2578,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 25.584906, y: 20.433952}
+    canvasScrollPosition: {x: 0, y: 1.6981117}
     canvasZoom: 1.06
   - id: 8
     fields:
@@ -2703,7 +2890,9 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "DelayCloseQuestText(\"\uC5D0\uB108\uC9C0\uC758 \uAD6C\uC131\uC694\uC18C\uB97C
-        \uB9CC\uC838\uBCF4\uC790!\", 5);\nToggleATP();\nEnableGrabATPComponent();\nToggleGrabATP();\nVibrateHand();\nToggleRayDescription()"
+        \uB9CC\uC838\uBCF4\uC790!\", 5);\nToggleATP();\nEnableGrabATPComponent();\nToggleGrabATP();\nVibrateHand();\nToggleRayDescription();\nPlayerHandToolTipOn(1,
+        \"\uB808\uC774\uC800\uB97C \uC3D8\uBA74, \uC124\uBA85\uC744 \uBCFC \uC218
+        \uC788\uC5B4\uC694\");\nPlayerHandToolTipOffAfterDelay(1, 5)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2968,14 +3157,17 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "DelayCloseQuestText(\"ATP\uB97C \uC870\uD569\uD574\uBCF4\uC790!\",
-        5);\nToggleIsMoving();\nSetActiveATPMixComponents();\nShowATPMixRulePanel();\nVibrateHand();\nToggleRayDescription()"
+        5);\nToggleIsMoving();\nSetActiveATPMixComponents();\nShowATPMixRulePanel();\nVibrateHand();\nToggleRayDescription();\nPlayerHandToolTipOn(0,
+        \"ATP \uAD6C\uC131\uC694\uC18C\uB97C \uC7A1\uC544\uC11C \uC5F0\uACB0\uD574\uBD10\uC694\");\nPlayerHandToolTipOn(1,
+        \"ATP \uAD6C\uC131\uC694\uC18C\uB97C \uC7A1\uC544\uC11C \uC5F0\uACB0\uD574\uBD10\uC694\");\nPlayerHandToolTipOffAfterDelay(0,
+        5);\nPlayerHandToolTipOffAfterDelay(1, 5)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 80
-        y: 302
+        y: 301
         width: 160
         height: 30
     - id: 3
@@ -3569,7 +3761,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 22}
+    canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 1
   - id: 12
     fields:

@@ -63,6 +63,7 @@ public class RayDescription_MitoTuto : MonoBehaviour
             right.TryGetFeatureValue(CommonUsages.primaryButton, out isButtonPressed);
         }
 
+        /*
         if (canMakeRayDescription == true)
         {
             if (isButtonPressed == true) // 버튼이 눌리고 있다면
@@ -76,6 +77,20 @@ public class RayDescription_MitoTuto : MonoBehaviour
                 line.enabled = false; // 레이저 안 보이게 하기    
             }
         }
+        */
+
+        if (canMakeRayDescription == true)
+        {
+            line.enabled = true; // 레이저 보이게 하기
+            if (isButtonPressed == true) // 버튼이 눌리고 있다면
+            {
+                CheckRay(transform.position, transform.forward, 10f); // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기           
+            }
+        }
+        else
+        {
+            line.enabled = false; // 레이저 안 보이게 하기    
+        }
 
         wasButtonPressed = isButtonPressed;
     }
@@ -86,7 +101,7 @@ public class RayDescription_MitoTuto : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit rayHit, length))
         {
-            ItemExplain_MitoTuto descObj = rayHit.collider.gameObject.GetComponent<ItemExplain_MitoTuto>();
+            ItemExplain_MitoTuto descObj = rayHit.collider.gameObject.GetComponentInParent<ItemExplain_MitoTuto>();
 
             if (descObj != null)
             {

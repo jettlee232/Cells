@@ -62,7 +62,7 @@ public class QuestManager_MitoTuto : MonoBehaviour
         right.TryGetFeatureValue(CommonUsages.primaryButton, out isABtnPressed);
 
         // NPC 툴팁의 활성화 여부에 따라 변수 토글
-        if (npcToolTip.activeSelf)
+        if (npcToolTip.GetComponent<NPCToolTip_MitoTuto>().checkActive)
         {
             playerInRange = true;
         }
@@ -77,13 +77,15 @@ public class QuestManager_MitoTuto : MonoBehaviour
             {
                 if (!playerMoving_Mito.flyable) // 맨 처음에 NPC와 마주한 상황일때 호출
                 {
-                    npcToolTip.SetActive(false);
-                    StartCoroutine(PlayDialogueAfterDelay(3));
+                    //npcToolTip.SetActive(false);
+                    npcToolTip.GetComponent<Tooltip_Mito>().TooltipOff();
+                    StartCoroutine(PlayDialogueAfterDelay(3, 1.0f));
                 }
                 else // 비행으로 맵 구경하고 돌아왔을때 호출
                 {
-                    npcToolTip.SetActive(false);
-                    StartCoroutine(PlayDialogueAfterDelay(7));
+                    //npcToolTip.SetActive(false);
+                    npcToolTip.GetComponent<Tooltip_Mito>().TooltipOff();
+                    StartCoroutine(PlayDialogueAfterDelay(7, 1.0f));
                 }
                 dialogueActive = true; // 중복 호출 방지
             }
@@ -122,7 +124,7 @@ public class QuestManager_MitoTuto : MonoBehaviour
     {
         if (isATP && !isDesc)
         {
-            StartCoroutine(PlayDialogueAfterDelay(10));
+            StartCoroutine(PlayDialogueAfterDelay(10, 3.0f));
 
             isDesc = true;
         }
@@ -132,15 +134,15 @@ public class QuestManager_MitoTuto : MonoBehaviour
     {
         if (isAdenine && isRibose && isPhosphate && !isDesc2)
         {
-            StartCoroutine(PlayDialogueAfterDelay(11));
+            StartCoroutine(PlayDialogueAfterDelay(11, 3.0f));
 
             isDesc2 = true;
         }
     }
 
-    IEnumerator PlayDialogueAfterDelay(int index)
+    IEnumerator PlayDialogueAfterDelay(int index, float delay)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(delay);
         DialogueController_MitoTuto.Instance.ActivateDST(index);
     }
 

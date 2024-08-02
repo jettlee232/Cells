@@ -70,7 +70,8 @@ public class ItemGrab_MitoTuto : MonoBehaviour
         {
             if (myATPMix != null)
             {
-                myATPMix.CheckOtherItem(item);
+                //myATPMix.CheckOtherItem(item);
+                myATPMix.ReleaseItem();
             }
         }
     }
