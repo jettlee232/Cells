@@ -12,6 +12,8 @@ public class MyATPMix_MitoTuto : MonoBehaviour
     public Vector3 myPos;
     public Vector3 myRot;
 
+    public bool isMixed = false;
+
     public void GrabItem()
     {
         transform.parent.GetComponentInParent<HighlightEffect>().highlighted = true;
@@ -26,10 +28,83 @@ public class MyATPMix_MitoTuto : MonoBehaviour
         GetComponent<HighlightEffect>().highlighted = false;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isMixed) return;
+
+        GameObject item = other.gameObject;
+        if (item != null)
+        {
+            TriggerCheckOtherItem(item);
+        }
+    }
+
+    public void TriggerCheckOtherItem(GameObject item) // 태그를 좀 더 세밀하게
+    {
+        switch (item.tag) // 트리거로 부딪힌 아이템의 태그 검사
+        {
+            case "Adenine": // 부딪힌 아이템이 아데닌Pos
+                if (transform.CompareTag("Ribose")) // 나는 아데닌의 리보스Pos
+                {
+                    if (item.transform.root.CompareTag("Ribose"))
+                    {
+                        Debug.Log("아데닌의 리보스Pos가 리보스의 아데닌Pos와 충돌");
+                        MixItem(item, gameObject, 0);
+                    }
+
+                    if (item.transform.root.CompareTag("Interim"))
+                    {
+                        Debug.Log("아데닌의 리보스Pos가 리보스+인산염의 아데닌Pos와 충돌");
+                        MixItem(item, gameObject, 1);
+                        QuestManager_MitoTuto.Instance.CheckMyATP();
+                    }
+                }
+                
+                break;
+            case "Ribose": // 부딪힌 아이템이 리보스Pos
+                if (transform.root.CompareTag("Phosphate") && item.transform.root.CompareTag("Adenine"))
+                {
+                    Debug.Log("리보스의 아데닌Pos가 아데닌의 리보스Pos와 충돌");
+                    MixItem(item, gameObject, 0);
+                }
+
+                if (transform.root.CompareTag("Adenine") && item.transform.root.CompareTag("Phosphate"))
+                {
+                    Debug.Log("리보스의 아데닌Pos가 인산염의 리보스Pos와 충돌");
+                    MixItem(item, gameObject, 0);
+                }
+                break;
+            case "Phosphate": // 부딪힌 아이템이 인산염Pos
+                if (transform.CompareTag("Ribose")) // 나는 인산염의 리보스Pos
+                {
+                    if (item.transform.root.CompareTag("Ribose"))
+                    {
+                        Debug.Log("인산염의 리보스Pos가 리보스의 인산염Pos와 충돌");
+                        MixItem(item, gameObject, 0);
+                    }
+
+                    if (item.transform.root.CompareTag("Interim"))
+                    {
+                        Debug.Log("인산염의 리보스Pos가 아데닌+리보스의 인산염Pos와 충돌");
+                        MixItem(item, gameObject, 1);
+                        QuestManager_MitoTuto.Instance.CheckMyATP();
+                    }
+                }
+
+                break;
+        }
+        //if (item)
+        //    ReleaseItem();
+
+    }
+
+    /*
     // 플레이어 Grabber에서 아이템을 놓을때 호출
+    // 이었는데 닿을때 즉시 조합으로 변경중
     public void CheckOtherItem(Grabbable item)
     {
         // 버그 : 겹친채로 빠르게 따닥해서 놓으면 2개 생김
+        // 수정하면 버그가 없어지겠지 아마도
         // 놓는 순간 주변의 콜라이더를 체크
         Collider[] colliders = Physics.OverlapSphere(transform.position, 0.025f);
         foreach (Collider collider in colliders)
@@ -119,6 +194,7 @@ public class MyATPMix_MitoTuto : MonoBehaviour
             }
         }
     }
+    */
 
     /*
     private void AttachItem(Grabbable item, Transform targetPos)
@@ -133,13 +209,15 @@ public class MyATPMix_MitoTuto : MonoBehaviour
     */
 
     // 아이템을 붙이는 척, 두개 다 없애고 새로운 아이템 생성
-    private void MixItem(Grabbable grabItem, GameObject colItem, int index)
+    private void MixItem(GameObject grabItem, GameObject colItem, int index)
     {
+        isMixed = true;
+
         ReleaseItem();
         GameObject newItem = Instantiate(itemPrefabs[index], grabItem.transform.position, Quaternion.identity);
 
         MixEffect(grabItem.transform.position, Quaternion.identity);
-        Destroy(grabItem.gameObject);
+        Destroy(grabItem.transform.root.gameObject);
         Destroy(colItem.transform.root.gameObject);
     }
 

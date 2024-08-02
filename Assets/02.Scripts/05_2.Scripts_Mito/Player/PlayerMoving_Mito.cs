@@ -7,6 +7,7 @@ using UnityEngine.XR;
 public class PlayerMoving_Mito : MonoBehaviour
 {
     public bool isMoving = false;
+    public bool isRotateX = false;
 
     public bool flyable = true;
 
@@ -62,7 +63,7 @@ public class PlayerMoving_Mito : MonoBehaviour
         if (isMoving)
         {
             GetRotateY();
-            //GetRotateX();
+            GetRotateX();
             //CheckFlyable();
             rb.velocity = flyable ? GetUp() + GetDown() + GetMove() : GetMove();
             //ResetRot();
@@ -210,17 +211,20 @@ public class PlayerMoving_Mito : MonoBehaviour
 
     private void GetRotateX()
     {
-        right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
+        if (isRotateX)
+        {
+            right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
 
-        Vector3 currentEulerAngles = trackingSpace.rotation.eulerAngles;
-        float newXRotation = currentEulerAngles.x - XRotate.y * rotateSpeed * Time.deltaTime;
-        if (newXRotation > 180f) newXRotation -= 360f;
-        newXRotation = Mathf.Clamp(newXRotation, -updownLimit, updownLimit);
-        Quaternion newRotation = Quaternion.Euler(newXRotation, currentEulerAngles.y, currentEulerAngles.z);
-        trackingSpace.rotation = newRotation;
+            Vector3 currentEulerAngles = trackingSpace.rotation.eulerAngles;
+            float newXRotation = currentEulerAngles.x - XRotate.y * rotateSpeed * Time.deltaTime;
+            if (newXRotation > 180f) newXRotation -= 360f;
+            newXRotation = Mathf.Clamp(newXRotation, -updownLimit, updownLimit);
+            Quaternion newRotation = Quaternion.Euler(newXRotation, currentEulerAngles.y, currentEulerAngles.z);
+            trackingSpace.rotation = newRotation;
+        }
     }
 
-    private void ResetRot()
+    public void ResetRot()
     {
         oldReset = reset;
 
