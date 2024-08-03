@@ -1,3 +1,4 @@
+using PixelCrushers.Wrappers;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -32,6 +33,8 @@ public class QuestManager_MitoTuto : MonoBehaviour
     public bool isRibose = false; // 리보스 설명확인 + 그랩확인 체크
     public bool isPhosphate = false; // 인산염 설명확인 + 그랩확인 체크
 
+    public UIButtonKeyTrigger uiButtonKeyTrigger;
+
     public GameObject mixEffect; // 조합효과
 
     public GameObject npcToolTip; // NPC에 있는 툴팁
@@ -53,6 +56,7 @@ public class QuestManager_MitoTuto : MonoBehaviour
     {
         playerMoving_Mito = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMoving_Mito>();
 
+        StartCoroutine(FindUiButtonKeyTrigger());
         StartCoroutine(StartQuest(4.0f));
     }
 
@@ -150,5 +154,28 @@ public class QuestManager_MitoTuto : MonoBehaviour
     {
         Debug.Log("MyATP 완성");
         DialogueController_MitoTuto.Instance.ActivateDST(12);
+    }
+
+    public void enableUBKT()
+    {
+        uiButtonKeyTrigger.enabled = true;
+    }
+    public void DisableUBKT()
+    {
+        uiButtonKeyTrigger.enabled = false;
+    }   
+
+    private IEnumerator FindUiButtonKeyTrigger()
+    {
+        while (uiButtonKeyTrigger == null)
+        {
+            UIButtonKeyTrigger[] triggers = Resources.FindObjectsOfTypeAll<UIButtonKeyTrigger>();
+            if (triggers.Length > 0)
+            {
+                uiButtonKeyTrigger = triggers[1];
+            }
+
+            yield return null;
+        }
     }
 }

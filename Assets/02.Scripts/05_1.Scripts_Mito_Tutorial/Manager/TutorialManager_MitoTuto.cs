@@ -139,7 +139,11 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     public void ToggleMiniHalfMito()
     {
         miniHalfMito.SetActive(!miniHalfMito.activeSelf);
-        mitoText.SetActive(true);
+    }
+
+    public void ToggleMitoText()
+    {
+        mitoText.SetActive(!mitoText.activeSelf);
     }
 
     public void EnableGrabMiniHalfMito()
@@ -149,13 +153,6 @@ public class TutorialManager_MitoTuto : MonoBehaviour
 
     public void ToggleExplainMiniHalfMito()
     {
-        if (explainMiniHalfMito.transform.parent = null)
-        {
-            mitoText.SetActive(false);
-            explainMiniHalfMito.SetActive(!explainMiniHalfMito.activeSelf);
-            return;
-        }
-
         if (explainMiniHalfMito.transform.parent)
             explainMiniHalfMito.transform.SetParent(null);
 
@@ -195,7 +192,11 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         atp.transform.position = new Vector3(68.25f, 76.75f, 5.0f);
         atp.transform.eulerAngles = new Vector3(0, 330.0f, 0);
         atp.SetActive(!atp.activeSelf);
-        atpText.SetActive(true);
+    }
+
+    public void ToggleATPText()
+    {
+        atpText.SetActive(!atpText.activeSelf);
     }
 
     public void ToggleGrabATP()
@@ -255,6 +256,11 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     public void VibrateHand()
     {
         VibrateManager_Mito.Instance.VibrateBothHands();
+    }
+
+    public void ShortVibrateHand()
+    {
+        VibrateManager_Mito.Instance.ShortVibrateBothHands();
     }
 
     public void PlayerHandToolTipOn(float index, string text)
@@ -355,8 +361,8 @@ public class TutorialManager_MitoTuto : MonoBehaviour
             tooltip.transform.parent.GetComponentInParent<HighlightEffect>().highlighted = true;
             tooltip.transform.parent.GetComponentInParent<HighLightColorchange_MitoTuto>().GlowStart();
         }
-        if (tooltip.GetComponent<BoxCollider>())
-            tooltip.GetComponent<BoxCollider>().enabled = true;
+        if (tooltip.GetComponentInChildren<BoxCollider>())
+            tooltip.GetComponentInChildren<BoxCollider>().enabled = true;
         tooltip.TooltipOn(text);
     }
 
@@ -368,8 +374,8 @@ public class TutorialManager_MitoTuto : MonoBehaviour
             tooltip.transform.parent.GetComponentInParent<HighlightEffect>().highlighted = false;
             tooltip.transform.parent.GetComponentInParent<HighLightColorchange_MitoTuto>().GlowEnd();
         }
-        if (tooltip.GetComponent<BoxCollider>())
-            tooltip.GetComponent<BoxCollider>().enabled = false;
+        if (tooltip.GetComponentInChildren<BoxCollider>())
+            tooltip.GetComponentInChildren<BoxCollider>().enabled = false;
         tooltip.TooltipOff();
     }
 
@@ -405,11 +411,13 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.RegisterFunction("ToggleFlyable", this, SymbolExtensions.GetMethodInfo(() => ToggleFlyable()));
         Lua.RegisterFunction("ShowLaserPanel", this, SymbolExtensions.GetMethodInfo(() => ShowLaserPanel()));
         Lua.RegisterFunction("ToggleMiniHalfMito", this, SymbolExtensions.GetMethodInfo(() => ToggleMiniHalfMito()));
+        Lua.RegisterFunction("ToggleMitoText", this, SymbolExtensions.GetMethodInfo(() => ToggleMitoText()));
         Lua.RegisterFunction("EnableGrabMiniHalfMito", this, SymbolExtensions.GetMethodInfo(() => EnableGrabMiniHalfMito()));
         Lua.RegisterFunction("ToggleExplainMiniHalfMito", this, SymbolExtensions.GetMethodInfo(() => ToggleExplainMiniHalfMito()));
         Lua.RegisterFunction("SliceMito", this, SymbolExtensions.GetMethodInfo(() => SliceMito()));
         Lua.RegisterFunction("LookAtMito", this, SymbolExtensions.GetMethodInfo(() => LookAtMito()));
         Lua.RegisterFunction("ToggleATP", this, SymbolExtensions.GetMethodInfo(() => ToggleATP()));
+        Lua.RegisterFunction("ToggleATPText", this, SymbolExtensions.GetMethodInfo(() => ToggleATPText()));
         Lua.RegisterFunction("ToggleGrabATP", this, SymbolExtensions.GetMethodInfo(() => ToggleGrabATP()));
         Lua.RegisterFunction("EnableGrabATPComponent", this, SymbolExtensions.GetMethodInfo(() => EnableGrabATPComponent()));
         Lua.RegisterFunction("SetActiveATPMixComponents", this, SymbolExtensions.GetMethodInfo(() => SetActiveATPMixComponents()));
@@ -441,11 +449,13 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.UnregisterFunction("ToggleFlyable");
         Lua.UnregisterFunction("ShowLaserPanel");
         Lua.UnregisterFunction("ToggleMiniHalfMito");
+        Lua.UnregisterFunction("ToggleMitoText");
         Lua.UnregisterFunction("EnableGrabMiniHalfMito");
         Lua.UnregisterFunction("ToggleExplainMiniHalfMito");
         Lua.UnregisterFunction("SliceMito");
         Lua.UnregisterFunction("LookAtMito");
         Lua.UnregisterFunction("ToggleATP");
+        Lua.UnregisterFunction("ToggleATPText");
         Lua.UnregisterFunction("ToggleGrabATP");
         Lua.UnregisterFunction("EnableGrabATPComponent");
         Lua.UnregisterFunction("SetActiveATPMixComponents");
