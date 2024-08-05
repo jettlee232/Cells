@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ActivateCam_Homew : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class ActivateCam_Homew : MonoBehaviour
     public void ShowUI()
     {
         tooltip.gameObject.SetActive(true);
-        tooltip.TooltipOn("메뉴에 레이저를 갖다대서 트리거 버튼으로 클릭해보세요!");
+        tooltip.TooltipOn("메뉴에 레이저를 갖다대서\n트리거 버튼으로 클릭해보세요!");
 
         //anim.enabled = false;
 

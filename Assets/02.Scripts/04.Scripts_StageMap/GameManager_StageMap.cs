@@ -54,7 +54,7 @@ public class GameManager_StageMap : MonoBehaviour
         secondCon = true;
 
         // SYS Code
-        //AudioMgr_CM.Instance.audioSrc.PlayOneShot(alertClip); // 내일 테스트하기
+        AudioMgr_CM.Instance.audioSrc.PlayOneShot(alertClip);
         speechBubble.SetActive(true);
         speechBubble.GetComponent<SpeechBubblePanel_CM>().PanelOpen("여기로 돌아와 봐!");
         tutoEnd = true;

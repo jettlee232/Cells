@@ -51,7 +51,7 @@ public class CutSceneController_SM : MonoBehaviour
         entireGame.SetActive(false);        
     }
 
-    public void LoadFromMito()
+    public void LoadFromOtherScene(int spawnPosNum)
     {
         npcDialogueSystem.enabled = false;
         laserPointer.enabled = true;
@@ -59,8 +59,8 @@ public class CutSceneController_SM : MonoBehaviour
         entireGame.SetActive(true);
         cutScene.SetActive(false);
 
-        playerPos.transform.position = spawnPos[0].position;
-        playerPos.transform.rotation = Quaternion.identity;
+        playerPos.transform.position = spawnPos[spawnPosNum].position;
+        playerPos.transform.rotation = spawnPos[spawnPosNum].localRotation;
 
         StartCoroutine(ChangeBlackPanel());
     }
@@ -69,6 +69,7 @@ public class CutSceneController_SM : MonoBehaviour
     public void LoadScene(string cutSceneName)
     {
         StartCoroutine(SceneLoading(cutSceneName));
+        AudioMgr_CM.Instance.AudioFade();
     }
 
     IEnumerator SceneLoading(string cutSceneName)

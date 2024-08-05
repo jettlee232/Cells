@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 47702cafda36bee44b85537a6fc6b995,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -2344,7 +2345,7 @@ MonoBehaviour:
   rightAns: 0
   wrongAns: 0
   curScore: 0
-  goalScore: 100
+  goalScore: 2000
   rightAnsStreak: 0
   scoreMultiply: 1
   curLeftTime: 0
@@ -2383,7 +2384,7 @@ MonoBehaviour:
   - {fileID: 1646390243}
   - {fileID: 521574083}
   - {fileID: 1841554551}
-  clip1000: {fileID: 0}
+  clip1000: {fileID: 8300000, guid: 706bf9df1928c184cb5ef1f71fe92169, type: 3}
   over1000Panel: {fileID: 479114210}
   entireGame: {fileID: 1798643947}
   cutScene: {fileID: 896517244}
@@ -2415,12 +2416,27 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: 1bd3b483c15b0c44d9df2cfc87b8a0af, type: 2}
+    - {fileID: 11400000, guid: 462ef4fa62308c745a498a79493da2bc, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 203304074}
           m_TargetAssemblyTypeName: GameManager_CM, Assembly-CSharp
           m_MethodName: LoadStageMap
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 203304074}
+          m_TargetAssemblyTypeName: GameManager_CM, Assembly-CSharp
+          m_MethodName: DoAudioFade
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4133,10 +4149,11 @@ MonoBehaviour:
   audioSrc: {fileID: 0}
   bgmClips:
   - {fileID: 8300000, guid: 88de96f70c15f6546a175b78e582eacc, type: 3}
-  - {fileID: 8300000, guid: f3b552b26666ab341af380c147fb3bb5, type: 3}
-  - {fileID: 8300000, guid: 0665144601c20284e97e61ef5dc5a776, type: 3}
-  - {fileID: 8300000, guid: 6f35eab4793827244a1b54c2335a93b3, type: 3}
-  - {fileID: 8300000, guid: a8d8bdd14e847cd4cb64432d6fa84350, type: 3}
+  - {fileID: 8300000, guid: 35940a4be53ba9b4aaed7689262f3464, type: 3}
+  - {fileID: 8300000, guid: b30af7a51e4c7fa419b331725cd0a64c, type: 3}
+  - {fileID: 8300000, guid: e3ef27f774bae6c4cb4b062bf2858e89, type: 3}
+  - {fileID: 8300000, guid: 584c8231f00ec0842bd0353a98ae2387, type: 3}
+  - {fileID: 8300000, guid: 584c8231f00ec0842bd0353a98ae2387, type: 3}
   sfxClips:
   - {fileID: 8300000, guid: 732f995175bce6e41a2009ce7de779f1, type: 3}
   - {fileID: 8300000, guid: f3f45b4f5a704624986c87964ef8cb49, type: 3}
@@ -5334,14 +5351,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4561501214709439903, guid: 11d677b4767d5c241ab46cdaa5e58405,
         type: 3}
+      propertyPath: m_text
+      value: "\uC67C\uC190\uC73C\uB85C \uCE5C\uC218\uC131 \uBB3C\uC9C8\uC744\n\uD130\uD2B8\uB824
+        \uC810\uC218\uB97C \uC5BB\uC744 \uC218 \uC788\uC5B4\uC694!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4561501214709439903, guid: 11d677b4767d5c241ab46cdaa5e58405,
+        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: f6ecd7e45391ebf4fb158d4a3b586f91,
         type: 2}
     - target: {fileID: 4561501214709439903, guid: 11d677b4767d5c241ab46cdaa5e58405,
         type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -7800200662609688009, guid: f6ecd7e45391ebf4fb158d4a3b586f91,
+        type: 2}
+    - target: {fileID: 4561501214709439903, guid: 11d677b4767d5c241ab46cdaa5e58405,
+        type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5413296749141817409, guid: 11d677b4767d5c241ab46cdaa5e58405,
         type: 3}
@@ -5432,14 +5461,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7907996462261118055, guid: 11d677b4767d5c241ab46cdaa5e58405,
         type: 3}
+      propertyPath: m_text
+      value: "\uC624\uB978\uC190\uC73C\uB85C \uC18C\uC218\uC131 \uBB3C\uC9C8\uC744\n\uD130\uD2B8\uB824
+        \uC810\uC218\uB97C \uC5BB\uC744 \uC218 \uC788\uC5B4\uC694!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7907996462261118055, guid: 11d677b4767d5c241ab46cdaa5e58405,
+        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: f6ecd7e45391ebf4fb158d4a3b586f91,
         type: 2}
     - target: {fileID: 7907996462261118055, guid: 11d677b4767d5c241ab46cdaa5e58405,
         type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -7800200662609688009, guid: f6ecd7e45391ebf4fb158d4a3b586f91,
+        type: 2}
+    - target: {fileID: 7907996462261118055, guid: 11d677b4767d5c241ab46cdaa5e58405,
+        type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19175,7 +19216,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 800
+  far clip plane: 2000
   field of view: 90
   orthographic: 0
   orthographic size: 5
@@ -24902,6 +24943,7 @@ GameObject:
   - component: {fileID: 1966479919}
   - component: {fileID: 1966479918}
   - component: {fileID: 1966479917}
+  - component: {fileID: 1966479920}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -25038,6 +25080,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!81 &1966479920
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966479915}
+  m_Enabled: 1
 --- !u!1 &1972972484
 GameObject:
   m_ObjectHideFlags: 0

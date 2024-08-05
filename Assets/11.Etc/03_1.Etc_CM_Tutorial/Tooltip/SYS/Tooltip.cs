@@ -27,6 +27,8 @@ public class Tooltip : MonoBehaviour
     public Sprite[] sprites;
 
     // ReSize
+    public bool isThisHandTooltip = false;
+
     private RectTransform canvasSize;
     private Vector3 canvasSize_goal;
     private Vector3 canvasSize_init;
@@ -42,14 +44,17 @@ public class Tooltip : MonoBehaviour
         DOTween.Init();
 
         // ReSize
-        canvasSize = transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<RectTransform>();
-        fontPos = transform.GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetComponent<RectTransform>();
+        if (isThisHandTooltip)
+        {
+            canvasSize = transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<RectTransform>();
+            fontPos = transform.GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetComponent<RectTransform>();
 
-        canvasSize_init = canvasSize.localScale;
-        canvasSize_goal = new Vector3(0.75f, 0.75f, 0.75f);
+            canvasSize_init = canvasSize.localScale;
+            canvasSize_goal = new Vector3(0.75f, 0.75f, 0.75f);
 
-        fontPos_init = fontPos.localPosition;
-        fontPos_goal = Vector3.zero;
+            fontPos_init = fontPos.localPosition;
+            fontPos_goal = Vector3.zero;
+        }
     }
 
     public void TooltipOn(string content)

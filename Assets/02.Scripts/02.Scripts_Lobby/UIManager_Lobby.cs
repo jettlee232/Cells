@@ -160,9 +160,11 @@ public class UIManager_Lobby : MonoBehaviour
         // SYS Code
         ShowTutorialParticle(0);
     }
+
+    // SYS Code
     public void ShowPressTutorial()
     {
-        if (TutorialPanels[0].activeSelf) { ChangeTutorialTween(); }
+        if (TutorialPanels[0].activeSelf) { ChangeTutorialTween(); } // SYS Code
         else { ShowTutorialTween(TutorialPanels[1]); ShowTutorialParticle(1); }
     }
     public void HideMoveTutorial() { HideTutorialTween(TutorialPanels[0]); }
@@ -199,10 +201,14 @@ public class UIManager_Lobby : MonoBehaviour
     }
     IEnumerator hideTuto(GameObject tuto) { yield return new WaitForSeconds(1f); tuto.gameObject.SetActive(false); }
 
+    // SYS Code
     public void ChangeTutorialTween()
     {
-        TutorialPanels[1].gameObject.SetActive(true);
-        TutorialPanels[0].gameObject.SetActive(false);
+        HideMoveTutorial();
+        ShowTutorialTween(TutorialPanels[1]);
+        ShowTutorialParticle(1);
+        //TutorialPanels[1].gameObject.SetActive(true);
+        //TutorialPanels[0].gameObject.SetActive(false);
         //SYS Code -> // TutorialPanels[1].gameObject.transform.DOPunchScale(tutorialSize * 0.2f, 0.2f).OnComplete(() => TutorialPanels[1].gameObject.transform.localScale = tutorialSize);
     }
 

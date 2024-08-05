@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 1c82ac8c108df68438d259b3207ac167,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1034,7 +1035,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &79998577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2092,6 +2093,27 @@ PrefabInstance:
       propertyPath: textContent
       value: "\uCDA9\uBD84\uD788 \uD655\uC778\uD588\uC73C\uBA74 \uB098\uC5D0\uAC8C
         \uB9D0\uC744 \uAC78\uC5B4\uBD10!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247942108196201084, guid: dcbba5021f04a4a4c81bd8133a02533d,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7241852005792339835, guid: dcbba5021f04a4a4c81bd8133a02533d,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829343465225963230, guid: dcbba5021f04a4a4c81bd8133a02533d,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: f6ecd7e45391ebf4fb158d4a3b586f91,
+        type: 2}
+    - target: {fileID: 7829343465225963230, guid: dcbba5021f04a4a4c81bd8133a02533d,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8656808666311875524, guid: dcbba5021f04a4a4c81bd8133a02533d,
         type: 3}
@@ -17508,7 +17530,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 800
+  far clip plane: 2000
   field of view: 90
   orthographic: 0
   orthographic size: 5

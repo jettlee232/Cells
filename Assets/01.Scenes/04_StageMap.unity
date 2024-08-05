@@ -3227,7 +3227,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff97b2564d3ec4ca9bf8f2572b20b651, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b1bd87ea7ea672f469d8a2073d241611, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -10036,7 +10036,7 @@ PrefabInstance:
     - target: {fileID: 5117709272728731509, guid: 2af1d2045149fe743b81bc4d1a6f8406,
         type: 3}
       propertyPath: far clip plane
-      value: 1000
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 5117709272763234209, guid: 2af1d2045149fe743b81bc4d1a6f8406,
         type: 3}
@@ -10819,6 +10819,7 @@ GameObject:
   - component: {fileID: 163199678}
   - component: {fileID: 163199680}
   - component: {fileID: 163199679}
+  - component: {fileID: 163199681}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -10955,6 +10956,14 @@ MonoBehaviour:
   m_TrackingType: 0
   m_UpdateType: 0
   m_UseRelativeTransform: 0
+--- !u!81 &163199681
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163199676}
+  m_Enabled: 1
 --- !u!1 &164344615
 GameObject:
   m_ObjectHideFlags: 0
@@ -44484,6 +44493,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 748107509}
   m_CullTransparentMesh: 1
+--- !u!1 &749214498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 749214499}
+  m_Layer: 12
+  m_Name: SpawnPos1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &749214499
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749214498}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 30, y: -40, z: -120}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 879484736}
+  m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
 --- !u!1 &749822233
 GameObject:
   m_ObjectHideFlags: 0
@@ -52019,6 +52059,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1003911637}
+  - {fileID: 749214499}
   m_Father: {fileID: 671054861}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &880108018
@@ -57798,13 +57839,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1003911636}
   serializedVersion: 2
-  m_LocalRotation: {x: -4.3297806e-17, y: 0.7071068, z: 0.7071068, w: -4.3297806e-17}
+  m_LocalRotation: {x: 0, y: -0.7660445, z: 0, w: 0.64278764}
   m_LocalPosition: {x: 88.99498, y: 2.2227335, z: 77.739975}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 879484736}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -100, z: 0}
 --- !u!1 &1005610092
 GameObject:
   m_ObjectHideFlags: 0
@@ -57861,7 +57902,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1008098491
 RectTransform:
   m_ObjectHideFlags: 0
@@ -67557,6 +67598,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Value
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 2855733707776580491, guid: b446d7d25c1654e40af2628542d68188,
         type: 3}
@@ -83179,7 +83225,7 @@ MonoBehaviour:
   npcDialogueSystem: {fileID: 1416126486}
   spawnPos:
   - {fileID: 1003911637}
-  - {fileID: 0}
+  - {fileID: 749214499}
   laserPointer: {fileID: 1498492037}
 --- !u!4 &1461156361
 Transform:
