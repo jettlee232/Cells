@@ -45,10 +45,10 @@ public class STTManager : MonoBehaviour
 
     private void Start()
     {
-        //foreach (var device in Microphone.devices)
-        //{
-        //    Debug.Log("Microphone device: " + device);
-        //}
+        foreach (var device in Microphone.devices)
+        {
+            Debug.Log("Microphone device: " + device);
+        }
 
         //string desiredMicrophoneName = "Headset Microphone(Oculus Virtual Audio Device)";
         //if (Array.Exists(Microphone.devices, device => device == desiredMicrophoneName))
@@ -59,7 +59,7 @@ public class STTManager : MonoBehaviour
         //{
         //    microphoneID = Microphone.devices[0];
         //}
-        microphoneID = Microphone.devices[1];
+        //microphoneID = Microphone.devices[1];
         //source = GetComponent<AudioSource>();
         fullUrl = url + lang;
 

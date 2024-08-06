@@ -20,7 +20,7 @@ public class OpenAIController : MonoBehaviour
 
     void Start()
     {
-        api = new OpenAIAPI(""); // �������
+        api = new OpenAIAPI(""); // 취급주의
         StartConversation();
         okBtn.onClick.AddListener(() => GetResponse());
     }
@@ -29,7 +29,7 @@ public class OpenAIController : MonoBehaviour
     {
         messages = new List<ChatMessage>
         {
-            new ChatMessage(ChatMessageRole.System, "�ʴ� ������ ���� �����ϴ� �ý����̾�. �ʵ��л� ������ � ���̵� ���� ������ �� �ֵ��� ģ���� ������ �����ϰ� �����ϸ� ����ְ� ���� ������ �����, ���࿡ ������ ���õ� ������ �ƴ϶�� ���õ� ������ �ش޶�� �ϸ鼭 �亯�� �ź���, ��� �亯�� 200��ū �̳��� �����ϰ� ��Ȯ�ϰ� ��������")
+            new ChatMessage(ChatMessageRole.System, "너는 생물에 대해 설명하는 시스템이야. 초등학생이 이해할 수 있도록 친근한 말투로 설명해주고 가능하면 비유를 사용해서 200자 이내로 쉽게 설명해, 만약에 생물과 관련된 질문이 아니라면 답변을 거부해")
         };
 
         inputField.text = "";
@@ -43,10 +43,9 @@ public class OpenAIController : MonoBehaviour
         {
             return;
         }
-        //��ư Disable
+
         okBtn.enabled = false;
 
-        //���� �޼����� inputField��
         ChatMessage userMessage = new ChatMessage();
         userMessage.Role = ChatMessageRole.User;
         userMessage.TextContent = inputField.text;
@@ -56,18 +55,14 @@ public class OpenAIController : MonoBehaviour
         }
         Debug.Log(string.Format("{0} : {1}", userMessage.Role, userMessage.TextContent));
 
-        //list�� �޼��� �߰�
         messages.Add(userMessage);
 
         mainImage.SetActive(false);
 
-        //textField�� userMessageǥ�� 
-        textField.text = string.Format("���: {0}", userMessage.TextContent);
+        textField.text = string.Format("플레이어: {0}", userMessage.TextContent);
 
-        //inputField �ʱ�ȭ
         inputField.text = "";
 
-        // ��ü ä���� openAI �����������Ͽ� ���� �޽���(����)�� ����������
         var chatResult = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
         {
             Model = Model.GPT4o_Mini,
@@ -76,19 +71,15 @@ public class OpenAIController : MonoBehaviour
             Messages = messages
         });
 
-        //���� ��������
         ChatMessage responseMessage = new ChatMessage();
         responseMessage.Role = chatResult.Choices[0].Message.Role;
         responseMessage.TextContent = chatResult.Choices[0].Message.TextContent;
         Debug.Log(string.Format("{0}: {1}", responseMessage.rawRole, responseMessage.TextContent));
 
-        //������ message����Ʈ�� �߰�
         messages.Add(responseMessage);
 
-        //textField�� ���信 ���� Update
-        textField.text = string.Format("���: {0}\n\nAI �����:\n{1}", userMessage.TextContent, responseMessage.TextContent);
+        textField.text = string.Format("플레이어: {0}\n\nAI 도우미:\n{1}", userMessage.TextContent, responseMessage.TextContent);
 
-        //Okbtn�ٽ� Ȱ��ȭ
         okBtn.enabled = true;
     }
 }
