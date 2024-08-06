@@ -23,10 +23,14 @@ public class UIManager_Lys : MonoBehaviour
     public GameObject QuestPanel;
     public GameObject[] TutorialPanels;
     public GameObject OptionPanel;
+    public GameObject BlackPanel;
+    public GameObject tooltip;
 
     [Header("Variables")]
     public float UpsideSubtitleVanishTimer = 1f;
     public float DescUITimer = 0.2f;
+    public float fadeInTimer = 1f;
+    public float fadeOutTimer = 1f;
     private int nowTutorial = 0;
     private Nullable<ENEMY> nowSelectedEnemy;
     private Vector3 tutoSize;
@@ -44,6 +48,8 @@ public class UIManager_Lys : MonoBehaviour
         InitDesc();
         //InitTutorial();
         DOTween.Init();
+        FadeIn();
+        SetQuest("NPC에게 말을 걸어보자!");
     }
 
     #region 노폐물 설명창
@@ -107,8 +113,16 @@ public class UIManager_Lys : MonoBehaviour
 
     #region 퀘스트
 
-    public void SetQuest(string str) { QuestPanel.GetComponent<QuestPanel_Lys>().PanelOpen(str); }
-    public void SetQuest(string str, float time) { QuestPanel.GetComponent<QuestPanel_Lys>().PanelOpen(str, time); }
+    public void SetQuest(string str)
+    {
+        if (QuestPanel.transform.GetChild(0).gameObject.activeSelf == false) QuestPanel.transform.GetChild(0).gameObject.SetActive(true);
+        QuestPanel.GetComponent<QuestPanel_Lys>().PanelOpen(str);
+    }
+    public void SetQuest(string str, float time)
+    {
+        if (QuestPanel.transform.GetChild(0).gameObject.activeSelf == false) QuestPanel.transform.GetChild(0).gameObject.SetActive(true);
+        QuestPanel.GetComponent<QuestPanel_Lys>().PanelOpen(str, time);
+    }
     public void ChangeQuest(string str) { QuestPanel.GetComponent<QuestPanel_Lys>().ChangeText(str); }
     public void HideQuest() { QuestPanel.GetComponent<QuestPanel_Lys>().PanelClose(); }
     public bool GetQuest() { return QuestPanel.activeSelf; }
@@ -162,6 +176,40 @@ public class UIManager_Lys : MonoBehaviour
     }
     public void RotateDown() { GameManager_Lys.instance.GetComponent<PlayerMoving_Lys>().RotateDown(); }
 
+    #endregion
+
+    #region 까만 패널
+
+    public void FadeIn() { StartCoroutine(cFadeIn()); }
+    IEnumerator cFadeIn()
+    {
+        float timer = 0f;
+
+        Color blackColor = new Color(0f, 0f, 0f, 1f);
+        Color transparentColor = new Color(0f, 0f, 0f, 0f);
+
+        BlackPanel.gameObject.SetActive(true);
+
+        BlackPanel.GetComponent<Image>().color = blackColor;
+        while (true)
+        {
+            if (BlackPanel.GetComponent<Image>().color.a <= 0.00001f) { BlackPanel.GetComponent<Image>().color = transparentColor; break; }
+            timer += Time.deltaTime;
+            BlackPanel.GetComponent<Image>().color = Color.Lerp(blackColor, transparentColor, timer / fadeInTimer);
+            yield return null;
+        }
+        BlackPanel.gameObject.SetActive(false);
+    }
+
+    public GameObject GetBlackPanel() { return BlackPanel; }
+    public float GetFadeOutTimer() { return fadeOutTimer; }
+
+    #endregion
+
+    #region 툴팁
+    public void ShowTalkToolTip() { tooltip.GetComponent<Tooltip>().TooltipOn("A키를 눌러 NPC에게 말을 걸자!"); }
+    public void ShowShootToolTip() { tooltip.GetComponent<Tooltip>().TooltipOn("트리거 키를 눌러 발포하자!"); }
+    public void HideToolTip() { tooltip.GetComponent<Tooltip>().TooltipOff(); }
     #endregion
 
     public void OnClickTitle()

@@ -8,6 +8,7 @@ public class TutorialManager_Lys : MonoBehaviour
     [Header("±âº» ¼¼ÆÃ")]
     private GameObject NPC;
     private GameObject player;
+    public GameObject grabber;
     public Transform playerPos;
     public GameObject UIPointer;
     public GameObject gun;
@@ -27,6 +28,10 @@ public class TutorialManager_Lys : MonoBehaviour
     public int tuto2Goal = 5;
     public float respawnTimer = 1f;
     public GameObject respawnEffect;
+
+    [Header("¼³¸í¿ë ÃÑ")]
+    public GameObject Gun;
+    public GameObject Rocket;
 
     private int killDP = 0;
     private int killCD = 0;
@@ -56,13 +61,34 @@ public class TutorialManager_Lys : MonoBehaviour
     }
     public void UseGun()
     {
+        UIPointer.GetComponent<LaserPointer_Lys>().enabled = false;
+        UIPointer.GetComponent<UIPointer>().HidePointerIfNoObjectsFound = true;
+        UIPointer.GetComponent<UIPointer>().enabled = false;
+        UIPointer.GetComponent<LineRenderer>().enabled = false;
+        grabber.GetComponent<Grabber>().ForceGrab = false;
         if (rocket.activeSelf) { rocket.SetActive(false); }
         gun.SetActive(true);
+        grabber.GetComponent<Grabber>().ForceGrab = true;
     }
     public void UseRocket()
     {
+        UIPointer.GetComponent<LaserPointer_Lys>().enabled = false;
+        UIPointer.GetComponent<UIPointer>().HidePointerIfNoObjectsFound = true;
+        UIPointer.GetComponent<UIPointer>().enabled = false;
+        UIPointer.GetComponent<LineRenderer>().enabled = false;
+        grabber.GetComponent<Grabber>().ForceGrab = false;
         if (gun.activeSelf) { gun.SetActive(false); }
         rocket.SetActive(true);
+        grabber.GetComponent<Grabber>().ForceGrab = true;
+    }
+    public void DropWeapon()
+    {
+        UIPointer.GetComponent<LineRenderer>().enabled = true;
+        UIPointer.GetComponent<UIPointer>().enabled = true;
+        UIPointer.GetComponent<LaserPointer_Lys>().enabled = true;
+        grabber.GetComponent<Grabber>().ForceGrab = false;
+        if (rocket.activeSelf) { rocket.SetActive(false); }
+        if (gun.activeSelf) { gun.SetActive(false); }
     }
     #endregion
 
@@ -186,5 +212,14 @@ public class TutorialManager_Lys : MonoBehaviour
         HideAllEnemies();
         InitEnemyCount();
     }
+    #endregion
+
+    #region ºù±Ûºù±Û ÃÑ
+
+    public void ShowGun() { Gun.SetActive(true); }
+    public void HideGun() { Gun.SetActive(false); }
+    public void ShowRocket() { Rocket.SetActive(true); }
+    public void HideRocket() { Rocket.SetActive(false); }
+
     #endregion
 }

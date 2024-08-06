@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.XR;
 
 public class GameManager_Lys : MonoBehaviour
@@ -17,6 +18,7 @@ public class GameManager_Lys : MonoBehaviour
     public GameObject NPC;
     public GameObject TutorialManager;
     public GameObject ToolTip;
+    public GameObject[] DieEffect;   // CD°¡ 0, DP°¡ 1, ES°¡ 2
     public float rotateSpeed = 30f;
     public float GunSpeed = 30f;
     public float RocketSpeed = 15f;
@@ -78,6 +80,7 @@ public class GameManager_Lys : MonoBehaviour
     #region ÃÑ, ·ÎÄÏ·±Ã³ ÅºÈ¯
     public float GetGunBulletSpeed() { return GunSpeed; }
     public float GetRocketBulletSpeed() { return RocketSpeed; }
+    public GameObject GetHittedEffect(int num) { return DieEffect[num]; }
     #endregion
 
     #region ÅøÆÁ
@@ -91,6 +94,31 @@ public class GameManager_Lys : MonoBehaviour
 
     public void MoveScene(string sceneName)
     {
+        StartCoroutine(cMoveScene(sceneName));
+    }
+
+    IEnumerator cMoveScene(string sceneName)
+    {
+        float timer = 0f;
+
+        Color blackColor = new Color(0f, 0f, 0f, 1f);
+        Color transparentColor = new Color(0f, 0f, 0f, 0f);
+
+        GameObject BlackPanel = UIManager_Lys.instance.GetBlackPanel();
+        float fadeOutTimer = UIManager_Lys.instance.GetFadeOutTimer();
+
+        BlackPanel.gameObject.SetActive(true);
+
+        BlackPanel.GetComponent<Image>().color = transparentColor;
+        while (true)
+        {
+            if (BlackPanel.GetComponent<Image>().color.a >= 0.99999f) { BlackPanel.GetComponent<Image>().color = blackColor; break; }
+            timer += Time.deltaTime;
+            BlackPanel.GetComponent<Image>().color = Color.Lerp(transparentColor, blackColor, timer / fadeOutTimer);
+            yield return null;
+        }
+        yield return new WaitForSeconds(0.75f);
+
         SceneManager.LoadScene(sceneName);
     }
 }

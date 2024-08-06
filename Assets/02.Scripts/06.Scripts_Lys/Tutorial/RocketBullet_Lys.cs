@@ -29,7 +29,7 @@ public class RocketBullet_Lys : MonoBehaviour
                     coll.gameObject.GetComponent<EnemyController_Lys>().Die();
                 }
             }
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 }

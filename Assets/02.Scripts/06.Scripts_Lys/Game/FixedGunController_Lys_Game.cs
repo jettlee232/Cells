@@ -14,7 +14,6 @@ public class FixedGunController_Lys_Game : MonoBehaviour
     public GameObject BulletPrefab;
     public Material lineMaterial;
     public GameObject shootEffect;
-    public GameObject hitEffect;
     //public GameObject shootSound;
 
     private Ray ray;
