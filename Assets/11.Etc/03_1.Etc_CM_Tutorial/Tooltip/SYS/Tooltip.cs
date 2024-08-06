@@ -26,11 +26,35 @@ public class Tooltip : MonoBehaviour
     public Image imgSprite;
     public Sprite[] sprites;
 
+    // ReSize
+    public bool isThisHandTooltip = false;
+
+    private RectTransform canvasSize;
+    private Vector3 canvasSize_goal;
+    private Vector3 canvasSize_init;
+
+    private RectTransform fontPos;
+    private Vector3 fontPos_goal;
+    private Vector3 fontPos_init;
+
     void Start()
     {
         if (playerTrns == null) playerTrns = GameObject.FindGameObjectWithTag("MainCamera").transform;
 
         DOTween.Init();
+
+        // ReSize
+        if (isThisHandTooltip)
+        {
+            canvasSize = transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<RectTransform>();
+            fontPos = transform.GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetComponent<RectTransform>();
+
+            canvasSize_init = canvasSize.localScale;
+            canvasSize_goal = new Vector3(0.75f, 0.75f, 0.75f);
+
+            fontPos_init = fontPos.localPosition;
+            fontPos_goal = Vector3.zero;
+        }
     }
 
     public void TooltipOn(string content)
@@ -109,5 +133,21 @@ public class Tooltip : MonoBehaviour
     public void ChangeSprite(int index)
     {
         imgSprite.sprite = sprites[index];
+        ReSizeCanvas(index); // ReSize
+    }
+
+    // ReSize
+    void ReSizeCanvas(int index)
+    {
+        if (index == 0)
+        {
+            canvasSize.localScale = canvasSize_init;
+            fontPos.localPosition = fontPos_init;
+        }
+        else
+        {
+            canvasSize.localScale = canvasSize_goal;
+            fontPos.localPosition = fontPos_goal;
+        }
     }
 }
