@@ -27,10 +27,10 @@ public class RocketBullet_Lys_Game : MonoBehaviour
             {
                 foreach (Collider coll in colls)
                 {
-                    coll.gameObject.GetComponent<EnemyCommon_Lys_Game>().Die();
+                    coll.gameObject.GetComponent<EnemyCommon_Lys_Game>().Killed();
                 }
             }
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 }

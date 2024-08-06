@@ -1,3 +1,4 @@
+using BNG;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class WeaponController_Lys : MonoBehaviour
     public bool Gun = true;     // true 이면 총, false 이면 로켓런처
     public GameObject gun;
     public GameObject rocket;
+    public GameObject grabber;
+    public GameObject changeEffect;
 
     private void Start()
     {
@@ -27,7 +30,11 @@ public class WeaponController_Lys : MonoBehaviour
 
         if (AValue && !oldAValue)
         {
-            if (GameManager_Lys_Game.instance.ToolTip.activeSelf) { GameManager_Lys_Game.instance.HideToolTip(); }
+            if (GameManager_Lys_Game.instance.ToolTip.activeSelf)
+            {
+                GameManager_Lys_Game.instance.HideToolTip();
+                GameManager_Lys_Game.instance.ShowGunToolTip();
+            }
             if (Gun) { UseRocket(); }
             else { UseGun(); }
         }
@@ -37,15 +44,21 @@ public class WeaponController_Lys : MonoBehaviour
 
     void UseGun()
     {
+        Instantiate(changeEffect, rocket.transform.parent.transform.GetChild(0).transform.position, rocket.transform.rotation);
+        grabber.GetComponent<Grabber>().ForceGrab = false;
         rocket.SetActive(false);
         gun.SetActive(true);
+        grabber.GetComponent<Grabber>().ForceGrab = true;
         Gun = true;
     }
     
     void UseRocket()
     {
+        Instantiate(changeEffect, gun.transform.parent.transform.GetChild(0).transform.position, gun.transform.rotation);
+        grabber.GetComponent<Grabber>().ForceGrab = false;
         gun.SetActive(false);
         rocket.SetActive(true);
+        grabber.GetComponent<Grabber>().ForceGrab = true;
         Gun = false;
     }
 }

@@ -17,7 +17,7 @@ public class GunBullet_Lys : MonoBehaviour
         {
             Instantiate(HitEffect, this.transform.position, Quaternion.identity);
             other.gameObject.GetComponent<EnemyController_Lys>().Die();
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 }

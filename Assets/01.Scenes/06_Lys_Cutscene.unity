@@ -20,25 +20,25 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 1, g: 1, b: 1, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e2ea2bd0259f8864e936e2906fba3a0f, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
-  m_DefaultReflectionMode: 0
+  m_DefaultReflectionMode: 1
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 1.0009937, g: 0.5098578, b: 0.06563892, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9683,6 +9683,7 @@ GameObject:
   - component: {fileID: 731079822}
   - component: {fileID: 731079821}
   - component: {fileID: 731079820}
+  - component: {fileID: 731079824}
   m_Layer: 0
   m_Name: Salmonela_Lys
   m_TagString: Untagged
@@ -9698,9 +9699,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731079818}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0.00000019470718}
-  m_LocalPosition: {x: -9.9503, y: 0.026311, z: 0.24646}
-  m_LocalScale: {x: 1.5922, y: 1.5922, z: 1.5922}
+  m_LocalRotation: {x: -6.123234e-17, y: -0, z: 1, w: 0.00000019470718}
+  m_LocalPosition: {x: -9.950308, y: 0.02631089, z: 0.24646011}
+  m_LocalScale: {x: 1.5922, y: 1.5922003, z: 1.5922003}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 241513156}
@@ -9886,6 +9887,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731079818}
   m_Mesh: {fileID: 50925363616432993, guid: 8563ff8af53e746b499e09bd1d4ee115, type: 3}
+--- !u!114 &731079824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731079818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5269702894d92d4dbe8d21d26b6fb51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 50
 --- !u!1 &733253046
 GameObject:
   m_ObjectHideFlags: 0
@@ -14675,6 +14689,66 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VFX_Dust
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Name
+      value: Spawn Cylinder Radius
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Name
+      value: Spawn Cylinder Height
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Name
+      value: Size
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Value
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Value
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Value
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: b446d7d25c1654e40af2628542d68188,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Overridden
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2855733707776580491, guid: b446d7d25c1654e40af2628542d68188,
         type: 3}

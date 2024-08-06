@@ -9,15 +9,24 @@ public class HighLightColorchange_Lys : MonoBehaviour
     public HighlightEffect hlEffect;
     public float updownFloat = 0.02f;
     public bool glowFlag = false;
+    public bool multi = false;
+    public HighlightEffect[] multiHls;
     private Coroutine glowCoroutine = null;
 
     void Start()
     {
-        if (tempHl == null) { hlEffect = GetComponent<HighlightEffect>(); }
-        else { hlEffect = tempHl; }
+        if (!multi)
+        {
+            if (tempHl == null) { hlEffect = GetComponent<HighlightEffect>(); }
+            else { hlEffect = tempHl; }
+        }
     }
 
-    public HighlightEffect GetHl() { return hlEffect; }
+    public HighlightEffect GetHl()
+    {
+        if (!multi) { return hlEffect; }
+        else { return multiHls[0]; }
+    }
 
     public void GlowStart()
     {
@@ -41,11 +50,23 @@ public class HighLightColorchange_Lys : MonoBehaviour
 
     IEnumerator Glow() // 추가, 수정한 부분
     {
-        hlEffect.highlighted = true;
+        if (!multi)
+        {
+            hlEffect.highlighted = true;
 
-        yield return null;
+            yield return null;
 
-        hlEffect.highlighted = false;
-        glowCoroutine = null;
+            hlEffect.highlighted = false;
+            glowCoroutine = null;
+        }
+        else
+        {
+            foreach (HighlightEffect hl in multiHls) { hl.highlighted = true; }
+
+            yield return null;
+
+            foreach (HighlightEffect hl in multiHls) { hl.highlighted = false; }
+            glowCoroutine = null;
+        }
     }
 }

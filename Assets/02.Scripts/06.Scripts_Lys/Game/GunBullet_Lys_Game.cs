@@ -16,8 +16,8 @@ public class GunBullet_Lys_Game : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             Instantiate(HitEffect, this.transform.position, Quaternion.identity);
-            other.gameObject.GetComponent<EnemyCommon_Lys_Game>().Die();
-            Destroy(this);
+            other.gameObject.GetComponent<EnemyCommon_Lys_Game>().Hitted();
+            Destroy(this.gameObject);
         }
     }
 }
