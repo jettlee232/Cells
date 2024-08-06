@@ -7,6 +7,8 @@ public class SpawnManager_Lys : MonoBehaviour
     public GameObject[] Enemy;
     public float curTime = 0f;
     public float coolTime = 2f;
+    public int minCoolTime = 1;
+    public int maxCoolTime = 2;
 
     void Start()
     {
@@ -36,7 +38,7 @@ public class SpawnManager_Lys : MonoBehaviour
 
     public void RandomCoolTime()
     {
-        int rnd = Random.Range(1, 2);
+        int rnd = Random.Range(minCoolTime, maxCoolTime + 1);
         coolTime = rnd;
     }
 }

@@ -12,6 +12,10 @@ public class EnemyMove_Lys : MonoBehaviour
     private float frequency = 1f; // 코사인 그래프의 주파수 (진동의 빈도)
     private Vector3 startPoint = Vector3.zero;
     private float EPDistance;
+    public GameObject HP;
+    float minScale = 0.8f;
+    float maxScale = 1.5f;
+    float maxDistance = 60f;
 
     void Start()
     {
@@ -68,6 +72,11 @@ public class EnemyMove_Lys : MonoBehaviour
             Vector3 newPosition = startPoint + direction * linearPosition;
             transform.position = newPosition;
 
+            float nowDistance = Vector3.Distance(gameObject.transform.position, player.transform.position);
+            float scaleRatio = Mathf.Clamp(1 - (distance / maxDistance), minScale, maxScale);
+            HP.transform.localScale = new Vector3(scaleRatio, scaleRatio, scaleRatio);
+            HP.transform.LookAt(player.transform);
+
             if (Vector3.Distance(newPosition, player.transform.position) <= EPDistance) { break; }
 
             yield return null;
@@ -102,6 +111,11 @@ public class EnemyMove_Lys : MonoBehaviour
             Vector3 newPosition = startPoint + direction * linearPosition;
             newPosition.x += sineOffset;
             transform.position = newPosition;
+
+            float nowDistance = Vector3.Distance(gameObject.transform.position, player.transform.position);
+            float scaleRatio = Mathf.Clamp(1 - (distance / maxDistance), minScale, maxScale);
+            HP.transform.localScale = new Vector3(scaleRatio, scaleRatio, scaleRatio);
+            HP.transform.LookAt(player.transform);
 
             if (Vector3.Distance(newPosition, player.transform.position) <= EPDistance) { break; }
 
@@ -138,6 +152,11 @@ public class EnemyMove_Lys : MonoBehaviour
             newPosition.y += sineOffset;
             transform.position = newPosition;
 
+            float nowDistance = Vector3.Distance(gameObject.transform.position, player.transform.position);
+            float scaleRatio = Mathf.Clamp(1 - (distance / maxDistance), minScale, maxScale);
+            HP.transform.localScale = new Vector3(scaleRatio, scaleRatio, scaleRatio);
+            HP.transform.LookAt(player.transform);
+
             if (Vector3.Distance(newPosition, player.transform.position) <= EPDistance) { break; }
 
             yield return null;
@@ -149,4 +168,6 @@ public class EnemyMove_Lys : MonoBehaviour
 
         //transform.position = player.transform.position;
     }
+
+    public GameObject GetHP() { return HP; }
 }

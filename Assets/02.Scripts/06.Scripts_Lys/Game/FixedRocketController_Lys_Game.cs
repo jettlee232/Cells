@@ -13,7 +13,6 @@ public class FixedRocketController_Lys_Game : MonoBehaviour
     [Header("Effects")]
     public Material lineMaterial;
     public GameObject shootEffect;
-    public GameObject hitEffect;
     public GameObject BulletPrefab;
     //public GameObject shootSound;
 

@@ -6,12 +6,24 @@ public class EnemyController_Lys : MonoBehaviour
 {
     TutorialManager_Lys tutorialManager;
     string type;
-    public GameObject dieEffect;
+    private GameObject dieEffect;
 
     private void Start()
     {
         tutorialManager = GameManager_Lys.instance.GetTutorialManager().GetComponent<TutorialManager_Lys>();
         type = gameObject.GetComponent<EnemyType_Lys>().GetType();
+        switch (type)
+        {
+            case "CD":
+                dieEffect = GameManager_Lys.instance.GetHittedEffect(0);
+                break;
+            case "DP":
+                dieEffect = GameManager_Lys.instance.GetHittedEffect(1);
+                break;
+            case "ES":
+                dieEffect = GameManager_Lys.instance.GetHittedEffect(2);
+                break;
+        }
     }
 
     public void Die()

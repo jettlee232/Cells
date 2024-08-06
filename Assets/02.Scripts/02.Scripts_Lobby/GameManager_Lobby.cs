@@ -112,6 +112,8 @@ public class GameManager_Lobby : MonoBehaviour
         scrFader.ChangeFadeImageColor(Color.white, 6f, 1f);
         scrFader.DoFadeIn();
 
+        AudioMgr_CM.Instance.AudioFade();
+
         yield return new WaitForSeconds(2f);
 
         MoveScene("03_0_CM_Cutscenes");

@@ -215,7 +215,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
+        x: 160.58824
         y: 30
         width: 160
         height: 30
@@ -345,8 +345,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 157.99442
-        y: 124.28569
+        x: 158.55307
+        y: 124.844345
         width: 160
         height: 30
     - id: 3
@@ -701,19 +701,20 @@ MonoBehaviour:
       conditionsString: 
       userScript: "NewQuest(\"Quest_CM_2\", 3, true);\nMaketutorialObj_Tail();\nMakeTutorialObj_Head();\nNewTooltip(0,
         \"\uC67C\uC190\uC73C\uB85C \uC778\uC9C0\uC9C8 \uAF2C\uB9AC\uB97C \uC7A1\uC544\uBCF4\uC138\uC694\");\nNewTooltip(1,
-        \"\uC624\uB978\uC190\uC73C\uB85C \uC778\uC9C0\uC9C8 \uBA38\uB9AC\uB97C \uC7A1\uC544\uBCF4\uC138\uC694\");\nSkipConv()"
+        \"\uC624\uB978\uC190\uC73C\uB85C \uC778\uC9C0\uC9C8 \uBA38\uB9AC\uB97C \uC7A1\uC544\uBCF4\uC138\uC694\");\nShowingTooltipAnim(0,
+        2);\nShowingTooltipAnim(1, 2);\nSkipConv()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 161.71066
+        x: 162.551
         y: 418.42355
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1.5099994
+    canvasScrollPosition: {x: 0, y: 171.42851}
+    canvasZoom: 1.1900007
   - id: 2
     fields:
     - title: Title
@@ -872,13 +873,13 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'PlayAudioClip(7);
 
-        PlayNarratorAnimation("Reaction");'
+        PlayNarratorAnimation("Reaction")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 158.63014
+        x: 157.86092
         y: 78.63014
         width: 160
         height: 30
@@ -1123,7 +1124,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160.8156
+        x: 159.98915
         y: 364.6806
         width: 160
         height: 30
@@ -1316,8 +1317,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 120.74884}
-    canvasZoom: 1.3299997
+    canvasScrollPosition: {x: 0, y: 176.13635}
+    canvasZoom: 0.8800001
   - id: 3
     fields:
     - title: Title
@@ -2394,7 +2395,8 @@ MonoBehaviour:
       userScript: "NewQuest(\"Quest_CM_5\", 3, true);\nMakePlayerMove(true);\nLPDAOnOff(true);\nNewFollow(3,
         0);\nNewTooltip(0, \"\uC67C\uC190\uC73C\uB85C \uCE5C\uC218\uC131 \uB9C9\uB300\uAE30\uB97C
         \uC7A1\uC544\uBCF4\uC790!\");\nNewTooltip(1, \"\uC624\uB978\uC190\uC73C\uB85C
-        \uC18C\uC218\uC131 \uB9C9\uB300\uAE30\uB97C \uC7A1\uC544\uBCF4\uC790!\");\nSkipConv()"
+        \uC18C\uC218\uC131 \uB9C9\uB300\uAE30\uB97C \uC7A1\uC544\uBCF4\uC790!\");\nUnShowingTooltipAnim(0);\nUnShowingTooltipAnim(1);\nShowingTooltipAnim(0,
+        2);\nShowingTooltipAnim(1, 2);\nSkipConv()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2789,6 +2791,10 @@ MonoBehaviour:
 
         FollowDelete(0);
 
+        UnShowingTooltipAnim(0);
+
+        UnShowingTooltipAnim(1);
+
         TooltipOver(0);
 
         TooltipOver(1)'
@@ -3029,7 +3035,8 @@ MonoBehaviour:
       conditionsString: 
       userScript: "NewQuest(\"Quest_CM_6\", 3, true);\nNewFollow(2, 0);\nEnabledHLC();\nLPDAOnOff(true);\nNewTooltip(1,
         \"A \uBC84\uD2BC\uC744 \uB20C\uB7EC \uB098\uC624\uB294 \uB808\uC774\uC800\uB97C
-        \uD14D\uC2A4\uD2B8\uC5D0\uB2E4 \uB9DE\uCDB0\uBD10!\");\nSkipConv()"
+        \uD14D\uC2A4\uD2B8\uC5D0\uB2E4 \uB9DE\uCDB0\uBD10!\");\nShowingTooltipAnim(1,
+        0);\nSkipConv()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3200,6 +3207,8 @@ MonoBehaviour:
       userScript: 'PlayAudioClip(30);
 
         LPDAOnOff(false);
+
+        UnShowingTooltipAnim(1);
 
         FollowDelete(0)'
       onExecute:
@@ -3501,7 +3510,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 160
-        y: 330
+        y: 328.86365
         width: 160
         height: 30
     entryGroups: []
