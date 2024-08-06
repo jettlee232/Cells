@@ -3780,6 +3780,7 @@ GameObject:
   - component: {fileID: 267408069}
   - component: {fileID: 267408071}
   - component: {fileID: 267408070}
+  - component: {fileID: 267408072}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -3916,6 +3917,14 @@ MonoBehaviour:
   m_TrackingType: 0
   m_UpdateType: 0
   m_UseRelativeTransform: 0
+--- !u!81 &267408072
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267408067}
+  m_Enabled: 1
 --- !u!1 &273018064
 GameObject:
   m_ObjectHideFlags: 0
@@ -6633,6 +6642,7 @@ GameObject:
   - component: {fileID: 484589879}
   - component: {fileID: 484589881}
   - component: {fileID: 484589880}
+  - component: {fileID: 484589882}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -6769,6 +6779,14 @@ MonoBehaviour:
   m_TrackingType: 0
   m_UpdateType: 0
   m_UseRelativeTransform: 0
+--- !u!81 &484589882
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484589877}
+  m_Enabled: 1
 --- !u!1 &500439866
 GameObject:
   m_ObjectHideFlags: 0
@@ -14610,81 +14628,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1545928114}
     m_Modifications:
-    - target: {fileID: 2855733707776580489, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Name
-      value: Size
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Name
-      value: Spawn Cylinder Radius
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Name
-      value: Spawn Cylinder Height
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Value
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Value
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Value
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Value
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2855733707776580488, guid: b446d7d25c1654e40af2628542d68188,
         type: 3}
       propertyPath: m_Name
@@ -14828,6 +14771,81 @@ PrefabInstance:
     - target: {fileID: 2855733707776580491, guid: b446d7d25c1654e40af2628542d68188,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580489, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Name
+      value: Size
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Name
+      value: Spawn Cylinder Radius
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Name
+      value: Spawn Cylinder Height
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Value
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Value
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Value
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Value
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Overridden
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -20991,6 +21009,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1535635301}
+  - component: {fileID: 1535635302}
   m_Layer: 0
   m_Name: XRCameras
   m_TagString: Untagged
@@ -21016,6 +21035,14 @@ Transform:
   - {fileID: 1201691816}
   m_Father: {fileID: 1822647692}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1535635302
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535635300}
+  m_Enabled: 1
 --- !u!1 &1537232227
 GameObject:
   m_ObjectHideFlags: 0
@@ -26483,6 +26510,7 @@ GameObject:
   - component: {fileID: 1889761369}
   - component: {fileID: 1889761371}
   - component: {fileID: 1889761370}
+  - component: {fileID: 1889761372}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -26619,6 +26647,14 @@ MonoBehaviour:
   m_TrackingType: 0
   m_UpdateType: 0
   m_UseRelativeTransform: 0
+--- !u!81 &1889761372
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889761367}
+  m_Enabled: 1
 --- !u!1 &1894351097
 GameObject:
   m_ObjectHideFlags: 0

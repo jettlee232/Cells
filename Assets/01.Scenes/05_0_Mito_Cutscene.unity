@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.3
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18858032, g: 0.053826723, b: 0.103654936, a: 0.3}
+  m_IndirectSpecularColor: {r: 0.18859914, g: 0.0538498, b: 0.10371611, a: 0.3}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -500,7 +500,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.121678054, y: 0.081767075, z: 0.11378688}
@@ -611,6 +611,7 @@ GameObject:
   - component: {fileID: 41224934}
   - component: {fileID: 41224933}
   - component: {fileID: 41224932}
+  - component: {fileID: 41224935}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -747,6 +748,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!81 &41224935
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41224930}
+  m_Enabled: 1
 --- !u!1 &43450797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1563,7 +1572,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.363083
   m_Center: {x: 0.20905863, y: -0.029397003, z: 0.44055647}
@@ -3106,7 +3115,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 3.0720243
   m_Center: {x: 0.0000910759, y: 0.0013222698, z: -0.000022888495}
@@ -3211,7 +3220,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 3.0720243
   m_Center: {x: 0.00006055832, y: 0.0013184551, z: -0.000007629706}
@@ -4577,7 +4586,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 1.8231949
   m_Center: {x: -0.000002384186, y: 0.00000059604656, z: -1.4388492e-13}
@@ -4682,7 +4691,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.121662796, y: 0.081767075, z: 0.11378688}
@@ -5102,7 +5111,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.12160176, y: 0.08177375, z: 0.11378116}
@@ -5207,7 +5216,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 3.0720243
   m_Center: {x: -0.000011920929, y: 0.0012726787, z: 0.000022887873}
@@ -9152,7 +9161,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.121735275, y: 0.08179759, z: 0.113756366}
@@ -10497,7 +10506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &398141861
 Transform:
   m_ObjectHideFlags: 0
@@ -10821,7 +10830,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.12181538, y: 0.08176898, z: 0.11378879}
@@ -14655,7 +14664,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.121784866, y: 0.08176326, z: 0.11378879}
@@ -15521,7 +15530,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.121662796, y: 0.08181285, z: 0.113743015}
@@ -20372,7 +20381,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.363083
   m_Center: {x: 0.20895182, y: -0.02938246, z: 0.44054502}
@@ -20434,6 +20443,71 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 179762500}
     m_Modifications:
+    - target: {fileID: 2855733707776580489, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Name
+      value: Size
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Name
+      value: Spawn Cylinder Radius
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Name
+      value: Spawn Cylinder Height
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Value
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Value
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Value
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 294780424023040113, guid: 354cf4fa899a60c469520316dba7f2f1,
         type: 3}
       propertyPath: m_Name
@@ -20503,71 +20577,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580489, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Name
-      value: Size
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Name
-      value: Spawn Cylinder Radius
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Name
-      value: Spawn Cylinder Height
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Value
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Value
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Value
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855733707776580490, guid: 07572b7a6baf95a489d8ee447281dc9e,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Overridden
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20675,6 +20684,7 @@ GameObject:
   - component: {fileID: 709092358}
   - component: {fileID: 709092360}
   - component: {fileID: 709092359}
+  - component: {fileID: 709092361}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -20811,6 +20821,14 @@ MonoBehaviour:
   m_TrackingType: 0
   m_UpdateType: 0
   m_UseRelativeTransform: 0
+--- !u!81 &709092361
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709092356}
+  m_Enabled: 1
 --- !u!1 &711530996
 GameObject:
   m_ObjectHideFlags: 0
@@ -21116,7 +21134,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.363083
   m_Center: {x: 0.20903574, y: -0.029399626, z: 0.4405622}
@@ -21221,7 +21239,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 3.0720243
   m_Center: {x: -0.00009202957, y: 0.0013108257, z: -0.0000152591}
@@ -24138,7 +24156,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.121662796, y: 0.08178233, z: 0.11377353}
@@ -26287,7 +26305,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.12181538, y: 0.08178996, z: 0.11376209}
@@ -26566,7 +26584,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.363083
   m_Center: {x: 0.2089213, y: -0.029399626, z: 0.4405622}
@@ -26739,7 +26757,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 11.833976
   m_Center: {x: -0.097209975, y: 0.008983581, z: 0.1349645}
@@ -26844,7 +26862,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.12163228, y: 0.081774704, z: 0.11378116}
@@ -28016,7 +28034,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 1.8231949
   m_Center: {x: -0.0000042915344, y: 0.00000059604656, z: -1.4388492e-13}
@@ -28165,7 +28183,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.363083
   m_Center: {x: 0.2091044, y: -0.029391997, z: 0.44055265}
@@ -28564,7 +28582,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 3.0720243
   m_Center: {x: -0.000046253204, y: 0.0012879375, z: 0.000011443781}
@@ -28667,6 +28685,7 @@ GameObject:
   - component: {fileID: 951411978}
   - component: {fileID: 951411977}
   - component: {fileID: 951411976}
+  - component: {fileID: 951411979}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -28802,6 +28821,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!81 &951411979
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951411974}
+  m_Enabled: 1
 --- !u!1 &956160226
 GameObject:
   m_ObjectHideFlags: 0
@@ -29330,7 +29357,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 11.515118
   m_Center: {x: -0.01206637, y: -0.10436491, z: 0.07116417}
@@ -29435,7 +29462,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 11.079643
   m_Center: {x: 0.0018358239, y: 0.09875441, z: 0.06916761}
@@ -33152,7 +33179,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 11.833976
   m_Center: {x: -0.097209975, y: 0.008983581, z: 0.1349645}
@@ -33408,7 +33435,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 3.0720243
   m_Center: {x: -0.00009202957, y: 0.0013165477, z: -0.0000152591}
@@ -33685,7 +33712,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 11.795542
   m_Center: {x: 0.040834922, y: 0.090672486, z: 0.13709594}
@@ -34216,7 +34243,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.121678054, y: 0.08177089, z: 0.11378879}
@@ -43032,7 +43059,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 11.079643
   m_Center: {x: 0.0018358239, y: 0.09875441, z: 0.06916761}
@@ -47307,7 +47334,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.121735275, y: 0.08178233, z: 0.11377353}
@@ -47570,7 +47597,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.12175435, y: 0.08176326, z: 0.11379642}
@@ -47675,7 +47702,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 3.0720243
   m_Center: {x: 0.000022411346, y: 0.0013260845, z: -0.000022888495}
@@ -47780,7 +47807,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.363083
   m_Center: {x: 0.20898233, y: -0.029376738, z: 0.44054502}
@@ -48933,7 +48960,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 1.8231949
   m_Center: {x: -0.00000041723274, y: 0.00000059604656, z: -1.4388492e-13}
@@ -49113,7 +49140,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.121678054, y: 0.08180522, z: 0.113750644}
@@ -49496,7 +49523,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 1.8231949
   m_Center: {x: 0.0000014305112, y: 0.00000059604656, z: -1.4388492e-13}
@@ -49870,7 +49897,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 3.0720243
   m_Center: {x: 0.000121593475, y: 0.0012993816, z: 0.0000019070379}
@@ -50726,7 +50753,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.121784866, y: 0.081774704, z: 0.11378879}
@@ -51967,7 +51994,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 11.515118
   m_Center: {x: -0.01206637, y: -0.10436491, z: 0.07116417}
@@ -52072,7 +52099,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 3.0720243
   m_Center: {x: -0.000008106232, y: 0.0013337139, z: -0.000030517887}
@@ -53562,7 +53589,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.121678054, y: 0.08177089, z: 0.11378498}
@@ -53665,7 +53692,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -54254,7 +54281,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.12175435, y: 0.08178233, z: 0.11377353}
@@ -57241,7 +57268,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1779964
   m_Center: {x: -0.12160176, y: 0.08178996, z: 0.11376304}
@@ -57346,7 +57373,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 11.795542
   m_Center: {x: 0.040834922, y: 0.090672486, z: 0.13709594}
@@ -62220,7 +62247,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.1027677
   m_Center: {x: -0.0000004768374, y: 0.00000059604656, z: -1.4210856e-13}
@@ -62604,7 +62631,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 1.8231949
   m_Center: {x: 0.0000033378599, y: 0.00000059604656, z: -1.4388492e-13}
@@ -63382,7 +63409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2074821439
 Transform:
   m_ObjectHideFlags: 0
@@ -65336,7 +65363,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2.363083
   m_Center: {x: 0.2089213, y: -0.029384367, z: 0.44054407}

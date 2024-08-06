@@ -357,7 +357,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
     {
         oldReset = reset;
 
-        left.TryGetFeatureValue(CommonUsages.secondaryButton, out reset);
+        left.TryGetFeatureValue(CommonUsages.primaryButton, out reset);
 
         if (!oldReset && reset) { yPressedTime = Time.time; }
         else if (oldReset && !reset)

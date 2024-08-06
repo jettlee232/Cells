@@ -17,6 +17,10 @@ public class CutSceneController_SM : MonoBehaviour
     public Transform[] spawnPos;
     public LaserPointer_StageMap laserPointer;
 
+    [Header("Interactable")]
+    public Button[] interactableBtns;
+    public void LoadInteractable() { for (int i = 0; i < interactableBtns.Length; i++) interactableBtns[i].interactable = true; }
+
     public void EndCutSceneLoadGame()
     {
         cutScene.SetActive(false);
@@ -63,6 +67,8 @@ public class CutSceneController_SM : MonoBehaviour
         playerPos.transform.rotation = spawnPos[spawnPosNum].localRotation;
 
         StartCoroutine(ChangeBlackPanel());
+
+        LoadInteractable();
     }
 
     // New
