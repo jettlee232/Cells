@@ -77,7 +77,7 @@ public class GameManager_CM : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(5);
+        if (Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("04_StageMap");
     }
 
     public void PopupTutoPanel()
@@ -295,20 +295,19 @@ public class GameManager_CM : MonoBehaviour
     }
 
     public void LoadStageMap()
-    {
+    {        
         SceneManager.LoadScene(5);
     }
-
 
     IEnumerator EndGameAndStartCutScene()
     {
         scrFader.ChangeFadeImageColor(Color.black, 2f, 1f);
         scrFader.DoFadeIn();
-
+        
         yield return new WaitForSeconds(3.25f);
-
+       
         cutScene.SetActive(true);
-        entireGame.SetActive(false);   
+        entireGame.SetActive(false);           
     }
 
     IEnumerator QuestStart()
@@ -319,6 +318,11 @@ public class GameManager_CM : MonoBehaviour
         quest.PanelClose();
     }
 
+    // SYS Code
+    public void DoAudioFade()
+    {
+        AudioMgr_CM.Instance.AudioFade();
+    }
 
     IEnumerator MakeEndEventBlock()
     {
@@ -381,7 +385,7 @@ public class GameManager_CM : MonoBehaviour
     {
         bsMgr.BlockSpawnStop();
         bsMgr.DestroyAllBlocks();
-        //AudioMgr_CM.Instance.audioSrc.PlayOneShot(clip1000);
+        AudioMgr_CM.Instance.audioSrc.PlayOneShot(clip1000);
 
         yield return new WaitForSeconds(7f);
 

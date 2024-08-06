@@ -18,6 +18,10 @@ public class PortalShaderController_Lobby : MonoBehaviour
     // SYS Code
     public Tooltip rightHand;
 
+    // SYS Code
+    public AudioClip portalSFX;
+    private bool portalLock = true;
+
     void Start()
     {
         instanceMaterial = new Material(originalMaterial);
@@ -41,11 +45,11 @@ public class PortalShaderController_Lobby : MonoBehaviour
             if (value == 100 && capsuleVisible == true)
             {
                 if (rightHand.gameObject.activeSelf == true) rightHand.TooltipOff(); // 버그 위험성 있는 파트임 (툴팁이 다 안 꺼진 상태에서 이거 하면 위험)
-                StartCoroutine(CapsuleDissolve(true));
+                if (portalLock == true) StartCoroutine(CapsuleDissolve(true));
             }
             if (value == 0 && capsuleVisible == false)
             {
-                StartCoroutine(CapsuleDissolve(false));
+                if (portalLock == true) StartCoroutine(CapsuleDissolve(false));
             }
         }
 
@@ -65,8 +69,9 @@ public class PortalShaderController_Lobby : MonoBehaviour
     // SYS Code
     IEnumerator CapsuleDissolve(bool flag)
     {
-        // True = Minus (-), False = Plus (+)
-
+        // True = Minus (-), False = Plus (+)        
+        portalLock = false;
+        AudioMgr_CM.Instance.audioSrc.PlayOneShot(portalSFX);
         if (flag == true)
         {
             Debug.Log("======Dissolve Is 100 -> 0======");
@@ -104,5 +109,6 @@ public class PortalShaderController_Lobby : MonoBehaviour
                 yield return new WaitForSeconds(0.01f);
             }
         }
+        portalLock = true;
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class AudioMgr_CM : MonoBehaviour
@@ -21,6 +23,9 @@ public class AudioMgr_CM : MonoBehaviour
     [Header("Scene Names")]
     public string previousSceneName;
     public string currentSceneName;
+
+    private bool flag_audioFade = false;
+    private float audioVol_origin;
 
     void Awake()
     {
@@ -67,28 +72,29 @@ public class AudioMgr_CM : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("1. curSceneName : " + currentSceneName + " / previousSceneName : " + previousSceneName);
-
-        // 이전 씬 이름 업데이트
-        previousSceneName = currentSceneName;
-
-        // 현재 씬 이름 업데이트
-        currentSceneName = scene.name;
+        flag_audioFade = false;
 
         audioSrc = GetComponent<AudioSource>();
-
         audioSrc.volume = PlayerPrefs.GetFloat("Volume", 0.5f);
         audioSrc.pitch = PlayerPrefs.GetFloat("Pitch", 1f);
 
-        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.5f); // New Code - For SFX Volume
+        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.5f); // New Code - For SFX Volume        
 
+        // 이전 씬 이름 업데이트
+        previousSceneName = currentSceneName;        
+        
+        // 현재 씬 이름 업데이트
+        currentSceneName = scene.name;
+       
         curSceneNum = scene.buildIndex;
 
-        PlayMusicByScene(curSceneNum); // Not Yet
+        bool musicOnGoingFlag = CheckPrevSceneForUnSelectMusic();
+        if (musicOnGoingFlag == true) PlayMuysicByScene(currentSceneName); // PlayMusicByScene(curSceneNum)
 
-        Debug.Log("2. curSceneName : " + currentSceneName + " / previousSceneName : " + previousSceneName);
         StartCoroutine(ExecuteAfterSceneLoad()); // 코루틴을 통해 약간의 지연 후 명령 실행
     }
+
+    // New SYS Code - Not Using Anymore
     public void PlayMusicByScene(int scenenum)
     {
         if (scenenum >= 0 && scenenum < bgmClips.Length)
@@ -100,6 +106,65 @@ public class AudioMgr_CM : MonoBehaviour
         }
     }
 
+    // New SYS Code
+    public void PlayMuysicByScene(string scenename)
+    {
+        switch (scenename)
+        {
+            case "02_0_Lobby_Cutscenes1":
+            case "02_0_Lobby_Cutscenes2":
+            case "02_Lobby":
+                if (audioSrc.isPlaying) audioSrc.Stop();
+                audioSrc.clip = bgmClips[1];
+                audioSrc.Play();
+                break;
+            case "03_0_CM_Cutscenes":
+            case "03_1_CM_Tutorial":
+            case "03_2_CM":
+                if (audioSrc.isPlaying) audioSrc.Stop();
+                audioSrc.clip = bgmClips[2];
+                audioSrc.Play();
+                break;
+            case "04_StageMap":
+                if (audioSrc.isPlaying) audioSrc.Stop();
+                audioSrc.clip = bgmClips[3];
+                audioSrc.Play();
+                break;
+            case "05_1_Mito_Tutorial":
+            case "05_2_Mito":
+                if (audioSrc.isPlaying) audioSrc.Stop();
+                audioSrc.clip = bgmClips[4];
+                audioSrc.Play();
+                break;
+            case "06_Lys":
+            case "06_Lys_Cutscene":
+            case "06_Lys_Tutorial":
+                if (audioSrc.isPlaying) audioSrc.Stop();
+                audioSrc.clip = bgmClips[5];
+                audioSrc.Play();
+                break;
+            default:
+                Debug.Log("No Scene Name");
+                break;
+        }
+    }
+
+    // New SYS Code
+    bool CheckPrevSceneForUnSelectMusic()
+    {
+        if (currentSceneName == "02_Lobby" && previousSceneName == "02_0_Lobby_Cutscenes1") return false;
+        else if (currentSceneName == "02_0_Lobby_Cutscenes2" && previousSceneName == "02_Lobby") return false;
+        else if (currentSceneName == "02_Lobby" && previousSceneName == "02_0_Lobby_Cutscenes2") return false;
+        else if (currentSceneName == "03_1_CM_Tutorial" && previousSceneName == "03_0_CM_Cutscenes") return false;
+        else if (currentSceneName == "03_2_CM" && previousSceneName == "03_1_CM_Tutorial") return false;
+        else if (currentSceneName == "03_1_CM_Tutorial" && previousSceneName == "03_0_CM_Cutscenes") return false;
+        else if (currentSceneName == "05_2_Mito" && previousSceneName == "05_1_Mito_Tutorial") return false;
+        else if (currentSceneName == "06_Lys_Tutorial" && previousSceneName == "06_Lys_Cutscene") return false;
+        else if (currentSceneName == "06_Lys" && previousSceneName == "06_Lys_Tutorial") return false;
+
+        return true;
+    }
+
     public void ControllVolume(float vol)
     {
         audioSrc.volume = vol;
@@ -108,6 +173,7 @@ public class AudioMgr_CM : MonoBehaviour
         else if (audioSrc.volume > 1f) audioSrc.volume = 1f;
 
         PlayerPrefs.SetFloat("Volume", audioSrc.volume);
+        audioVol_origin = audioSrc.volume;
     }
 
     public void ControllSFXVolume(float vol) // New Code - For SFX Volume
@@ -171,13 +237,10 @@ public class AudioMgr_CM : MonoBehaviour
     // New SYS Code
     private IEnumerator ExecuteAfterSceneLoad()
     {
-        Debug.Log("In Coroutine");
         CutSceneController_SM csc;
 
         if (currentSceneName == "04_StageMap")
         {
-            Debug.Log("In 04");
-
             // GameManager 오브젝트가 준비될 때까지 대기
             GameObject gameManager = null;
             while (gameManager == null)
@@ -185,7 +248,6 @@ public class AudioMgr_CM : MonoBehaviour
                 gameManager = GameObject.Find("CutSceneMgr");
                 yield return null; // 매 프레임마다 체크
             }
-            Debug.Log("Found CSM");
             csc = gameManager.GetComponent<CutSceneController_SM>();
             SM_SceneLoadMech(csc); // 특정 조건에 따른 명령 실행
         }
@@ -196,15 +258,34 @@ public class AudioMgr_CM : MonoBehaviour
     {
         if (previousSceneName == "03_2_CM")
         {
-            // 03_SM에서 04.CM으로 전환 시 실행할 명령
-            Debug.Log("From 03");
-            csControl.LoadFromCM();
+            csControl.LoadFromCM();            
         }
-        else if (previousSceneName == "05_2_Mito")
+        else if (previousSceneName == "05_2_Mito" || previousSceneName == "05_1_Mito_Tutorial")
         {
-            // 05_MT에서 04.CM으로 전환 시 실행할 명령
-            Debug.Log("From 05");
-            csControl.LoadFromMito();
+            csControl.LoadFromOtherScene(0);
         }
-    }    
+        else if (previousSceneName == "06_Lys" || previousSceneName == "06_Lys_Cutscene" || previousSceneName == "06_Lys_Tutorial")
+        {
+            csControl.LoadFromOtherScene(1);
+        }
+    }
+
+    // New SYS Code
+    public void AudioFade()
+    {
+        StartCoroutine(AudioFadeCoroutine());
+    }
+
+    // New SYS Code
+    private IEnumerator AudioFadeCoroutine()
+    {
+        audioVol_origin = audioSrc.volume;
+        flag_audioFade = true;
+        while (flag_audioFade)
+        {            
+            audioSrc.volume -= 0.01f;
+            yield return new WaitForSeconds(0.01f);
+        }
+        audioSrc.volume = audioVol_origin;
+    }
 }
