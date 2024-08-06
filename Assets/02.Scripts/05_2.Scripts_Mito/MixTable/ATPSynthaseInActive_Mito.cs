@@ -9,6 +9,8 @@ public class ATPSynthaseInActive_Mito : MonoBehaviour
     public GameObject atpOutsidePanel;
     public GameObject friendAtpSynthase;
 
+    public GameObject text;
+
     public void ShowUIPanel(ATPMixTablePos_Mito.PosType posType)
     {
         HideAllUIPanels();
@@ -44,6 +46,8 @@ public class ATPSynthaseInActive_Mito : MonoBehaviour
     public void OnATPCreated()
     {
         friendAtpSynthase.SetActive(true);
+        text.SetActive(false);
+        gameObject.transform.GetChild(0).SetParent(transform.parent);
         gameObject.SetActive(false);
     }
 }

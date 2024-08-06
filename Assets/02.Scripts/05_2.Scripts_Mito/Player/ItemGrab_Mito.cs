@@ -33,7 +33,7 @@ public class ItemGrab_Mito : MonoBehaviour
             {
                 // 아이템 놓을시 호출
                 ItemReleaseEvent(item);
-                playerMoving_Mito.SetPlayerSpeed(15.0f, 20.0f, 20.0f);
+                playerMoving_Mito.SetPlayerSpeed(6.0f, 8.0f, 8.0f);
             }
 
             // 아이템을 잡았을경우 오른손에는 아이템이 있고, 아이템 변수는 null
@@ -53,7 +53,7 @@ public class ItemGrab_Mito : MonoBehaviour
         Item_Mito itemMito = item.GetComponent<Item_Mito>();
         if (itemMito != null)
         {
-            itemMito.ItemGrabScale(0.25f);
+            itemMito.ItemGrabScale(0.05f);
         }
     }
 

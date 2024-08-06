@@ -20,19 +20,13 @@ public class ItemSpawnerInCube_Mito : MonoBehaviour
         for (int i = 0; i < itemCount; i++)
         {
             Vector3 spawnPosition = GetRandomSpawnPosition();
-            Instantiate(itemPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(itemPrefab, spawnPosition, Quaternion.identity, itemParent);
         }
     }
 
     // 스폰 영역 큐브들 내의 무작위 위치를 반환하는 메서드
     private Vector3 GetRandomSpawnPosition()
     {
-        if (spawnAreas.Length == 0)
-        {
-            Debug.LogWarning("No spawn areas assigned.");
-            return Vector3.zero;
-        }
-
         // 랜덤으로 하나의 큐브를 선택
         GameObject selectedCube = spawnAreas[Random.Range(0, spawnAreas.Length)];
 

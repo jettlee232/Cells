@@ -1,4 +1,3 @@
-using BNG;
 using HighlightPlus;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +18,12 @@ public class MyATPMix_MitoTuto : MonoBehaviour
         transform.parent.GetComponentInParent<HighlightEffect>().highlighted = true;
         transform.parent.GetComponentInParent<HighLightColorchange_MitoTuto>().GlowStart();
         GetComponent<HighlightEffect>().highlighted = true;
+
+        if (transform.root.CompareTag("Interim"))
+        {
+            transform.root.GetComponentInChildren<HighlightEffect>().highlighted = true;
+            transform.root.GetComponentInChildren<HighLightColorchange_MitoTuto>().GlowStart();
+        }
     }
 
     public void ReleaseItem()
@@ -26,6 +31,12 @@ public class MyATPMix_MitoTuto : MonoBehaviour
         transform.parent.GetComponentInParent<HighlightEffect>().highlighted = false;
         transform.parent.GetComponentInParent<HighLightColorchange_MitoTuto>().GlowEnd();
         GetComponent<HighlightEffect>().highlighted = false;
+
+        if (transform.root.CompareTag("Interim"))
+        {
+            transform.root.GetComponentInChildren<HighlightEffect>().highlighted = false;
+            transform.root.GetComponentInChildren<HighLightColorchange_MitoTuto>().GlowEnd();
+        }
     }
 
     private void OnTriggerEnter(Collider other)

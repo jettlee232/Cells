@@ -36,6 +36,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     public Transform mitoPos; // 미토콘드리아 초기 위치
     public GameObject atp; // ATP 모형
     public GameObject atpText; // 아데노신 삼인산 3D 텍스트
+    public Transform atpPos; // ATP 초기 위치
 
     // 반으로 잘라봤어 다이얼로그용 모델링
     public GameObject mitoMap1;
@@ -148,7 +149,13 @@ public class TutorialManager_MitoTuto : MonoBehaviour
 
     public void EnableGrabMiniHalfMito()
     {
-        miniHalfMito.GetComponent<CapsuleCollider>().enabled = true;
+        //miniHalfMito.GetComponent<CapsuleCollider>().enabled = true;
+
+        Collider[] colliders = miniHalfMito.GetComponents<BoxCollider>();
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = true;
+        }
     }
 
     public void ToggleExplainMiniHalfMito()
@@ -189,8 +196,8 @@ public class TutorialManager_MitoTuto : MonoBehaviour
 
     public void ToggleATP()
     {
-        atp.transform.position = new Vector3(68.25f, 76.75f, 5.0f);
-        atp.transform.eulerAngles = new Vector3(0, 330.0f, 0);
+        atp.transform.position = atpPos.position;
+        atp.transform.eulerAngles = atpPos.eulerAngles;
         atp.SetActive(!atp.activeSelf);
     }
 
@@ -202,15 +209,23 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     public void ToggleGrabATP()
     {
         SphereCollider sphereCollider = atp.GetComponent<SphereCollider>();
+        Grabbable grabbable = atp.GetComponent<Grabbable>();
+
         if (sphereCollider != null)
         {
             sphereCollider.enabled = !sphereCollider.enabled;
+            grabbable.enabled = !grabbable.enabled;
         }
+
         atp.transform.GetChild(0).gameObject.SetActive(!atp.transform.GetChild(0).gameObject.activeSelf);
     }
 
     public void EnableGrabATPComponent()
     {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(atp.transform.DOMove(atpPos.position, 2.5f).SetEase(Ease.InOutQuad));
+        sequence.Join(atp.transform.DORotateQuaternion(atpPos.rotation, 2.5f).SetEase(Ease.InOutQuad));
+
         Collider[] childColliders = atp.GetComponentsInChildren<Collider>(true);
         foreach (Collider collider in childColliders)
         {
@@ -307,19 +322,19 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         switch (index)
         {
             case 0:
-                StartCoroutine(DelayToolTipOn(mitoToolTips[0], text, delay, true));
+                StartCoroutine(DelayToolTipOn(mitoToolTips[0], text, delay, false));
                 break;
             case 1:
-                StartCoroutine(DelayToolTipOn(mitoToolTips[1], text, delay, true));
+                StartCoroutine(DelayToolTipOn(mitoToolTips[1], text, delay, false));
                 break;
             case 2:
-                StartCoroutine(DelayToolTipOn(mitoToolTips[2], text, delay, true));
+                StartCoroutine(DelayToolTipOn(mitoToolTips[2], text, delay, false));
                 break;
             case 3:
-                StartCoroutine(DelayToolTipOn(mitoToolTips[3], text, delay, true));
+                StartCoroutine(DelayToolTipOn(mitoToolTips[3], text, delay, false));
                 break;
             case 4:
-                StartCoroutine(DelayToolTipOn(mitoToolTips[4], text, delay, true));
+                StartCoroutine(DelayToolTipOn(mitoToolTips[4], text, delay, false));
                 break;
         }
     }
@@ -328,7 +343,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     {
         foreach (Tooltip_Mito mitoToolTip in mitoToolTips)
         {
-            StartCoroutine(DelayToolTipOff(mitoToolTip, 0, true));
+            StartCoroutine(DelayToolTipOff(mitoToolTip, 0, false));
         }
 
         /*
@@ -386,13 +401,24 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         int curScene = scene.buildIndex;
         int nextScene = curScene + 1;
 
-        StartCoroutine(LoadNextScene(nextScene));
+        StartCoroutine(LoadIndexScene(nextScene));
     }
 
-    IEnumerator LoadNextScene(int index)
+    public void BackToTheStageMap()
+    {
+        StartCoroutine(LoadIndexScene("04_StageMap"));
+    }
+
+    IEnumerator LoadIndexScene(int index)
     {
         yield return new WaitForSeconds(3.0f);
         SceneManager.LoadScene(index);
+    }
+
+    IEnumerator LoadIndexScene(string sceneName)
+    {
+        yield return new WaitForSeconds(3.0f);
+        SceneManager.LoadScene(sceneName);
     }
 
     #region Register with Lua

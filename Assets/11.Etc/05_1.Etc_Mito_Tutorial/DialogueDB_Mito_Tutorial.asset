@@ -1812,7 +1812,9 @@ MonoBehaviour:
 
         ResetPlayerRotate();
 
-        ToggleIsMoving()'
+        ToggleIsMoving();
+
+        ToggleRayDescription()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2573,16 +2575,17 @@ MonoBehaviour:
       conditionsString: 
       userScript: "ToggleIsMoving();\nToggleGrabATP();\nDelayCloseQuestText(\"\uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544\uAC00
         \uC0DD\uC0B0\uD558\uB294 \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\",
-        5);\nVibrateHand();\nPlayerHandToolTipOn(1, \"\uB808\uC774\uC800\uB97C \uC3D8\uBA74,
-        \uC124\uBA85\uC744 \uBCFC \uC218 \uC788\uC5B4\uC694\");\nPlayerHandToolTipOffAfterDelay(1,
-        5)"
+        5);\nVibrateHand();\nPlayerHandToolTipOn(0, \"\uC190\uC73C\uB85C \uC544\uB370\uB178\uC2E0
+        \uC0BC\uC778\uC0B0 \uBAA8\uD615\uC744 \uC7A1\uC544\uBD10\uC694!\");\nPlayerHandToolTipOn(1,
+        \"\uB808\uC774\uC800\uB97C \uC3D8\uBA74, \uC124\uBA85\uC744 \uBCFC \uC218
+        \uC788\uC5B4\uC694\");\nToggleRayDescription()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 157
-        y: 302
+        y: 302.94342
         width: 160
         height: 30
     entryGroups: []
@@ -2846,7 +2849,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ToggleATP()
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2898,9 +2901,10 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "DelayCloseQuestText(\"\uC5D0\uB108\uC9C0\uC758 \uAD6C\uC131\uC694\uC18C\uB97C
-        \uB9CC\uC838\uBCF4\uC790!\", 5);\nToggleATP();\nEnableGrabATPComponent();\nToggleGrabATP();\nVibrateHand();\nToggleRayDescription();\nPlayerHandToolTipOn(1,
-        \"\uB808\uC774\uC800\uB97C \uC3D8\uBA74, \uC124\uBA85\uC744 \uBCFC \uC218
-        \uC788\uC5B4\uC694\");\nPlayerHandToolTipOffAfterDelay(1, 5)"
+        \uB9CC\uC838\uBCF4\uC790!\", 5);\nEnableGrabATPComponent();\nToggleGrabATP();\nVibrateHand();\nToggleRayDescription();\nPlayerHandToolTipOn(0,
+        \"\uC190\uC73C\uB85C \uC5D0\uB108\uC9C0\uC758 \uAD6C\uC131\uC694\uC18C\uB97C
+        \uC7A1\uC544\uBD10\uC694!\");\nPlayerHandToolTipOn(1, \"\uB808\uC774\uC800\uB97C
+        \uC3D8\uBA74, \uC124\uBA85\uC744 \uBCFC \uC218 \uC788\uC5B4\uC694\")"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3168,7 +3172,7 @@ MonoBehaviour:
         5);\nToggleIsMoving();\nSetActiveATPMixComponents();\nShowATPMixRulePanel();\nVibrateHand();\nToggleRayDescription();\nPlayerHandToolTipOn(0,
         \"ATP \uAD6C\uC131\uC694\uC18C\uB97C \uC7A1\uC544\uC11C \uC5F0\uACB0\uD574\uBD10\uC694\");\nPlayerHandToolTipOn(1,
         \"ATP \uAD6C\uC131\uC694\uC18C\uB97C \uC7A1\uC544\uC11C \uC5F0\uACB0\uD574\uBD10\uC694\");\nPlayerHandToolTipOffAfterDelay(0,
-        5);\nPlayerHandToolTipOffAfterDelay(1, 5)"
+        5);\nPlayerHandToolTipOffAfterDelay(1, 5);\nToggleATPText()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3563,7 +3567,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 80
-        y: 385
+        y: 384
         width: 160
         height: 30
     - id: 5

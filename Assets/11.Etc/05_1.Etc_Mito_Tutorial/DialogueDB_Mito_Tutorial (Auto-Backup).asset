@@ -537,7 +537,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 28.989014}
+    canvasScrollPosition: {x: 6.5934143, y: 26.373611}
     canvasZoom: 0.9100001
   - id: 2
     fields:
@@ -685,7 +685,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ToggleMiniHalfMito()
+      userScript: 'ToggleMiniHalfMito();
+
+        ToggleMitoText()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -738,8 +740,7 @@ MonoBehaviour:
         \uBAA8\uD615\uC744 \uC0B4\uD3B4\uBCF4\uC790!\", 5);\nToggleIsMoving();\nPlayerHandToolTipOn(0,
         \"\uC190\uC73C\uB85C \uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544 \uBAA8\uD615\uC744
         \uC7A1\uC544\uBD10\uC694!\");\nPlayerHandToolTipOn(1, \"\uC190\uC73C\uB85C
-        \uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544 \uBAA8\uD615\uC744 \uC7A1\uC544\uBD10\uC694!\");\nVibrateHand();\nPlayerHandToolTipOffAfterDelay(0,
-        5);\nPlayerHandToolTipOffAfterDelay(1, 5)"
+        \uBBF8\uD1A0\uCF58\uB4DC\uB9AC\uC544 \uBAA8\uD615\uC744 \uC7A1\uC544\uBD10\uC694!\");\nVibrateHand();"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -805,7 +806,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 21.649475, y: 7.688136}
+    canvasScrollPosition: {x: 18.556671, y: 0}
     canvasZoom: 0.97
   - id: 3
     fields:
@@ -913,11 +914,11 @@ MonoBehaviour:
       - title: Title
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Description
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Actor
         value: 2
         type: 5
@@ -929,15 +930,15 @@ MonoBehaviour:
       - title: Menu Text
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Dialogue Text
         value: "\uC798\uD588\uC5B4!"
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Sequence
         value: "AudioWait(Mito_Tuto/audio_09_\uC798\uD588\uC5B4_)"
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       conversationID: 3
       isRoot: 0
       isGroup: 0
@@ -957,14 +958,16 @@ MonoBehaviour:
 
         ToggleIsMoving();
 
-        ToggleMiniHalfMito()'
+        ToggleMiniHalfMito();
+
+        ToggleExplainMiniHalfMito()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 160.89285
-        y: 113.10715
+        y: 112.214294
         width: 160
         height: 30
     - id: 2
@@ -1013,7 +1016,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ToggleExplainMiniHalfMito()
+      userScript: ToggleRayDescription();
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1070,10 +1073,10 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'MitoToolTipOnAfterDelay(0, 0);
-
-        MitoToolTipOnAfterDelay(1,
-        0)'
+      userScript: "MitoToolTipOnAfterDelay(0, \"\uC678\uB9C9\", 0);\nMitoToolTipOnAfterDelay(1,
+        \"\uB0B4\uB9C9\", 0);\nPlayerHandToolTipOn(1, \"\uD234\uD301\uC5D0 \uB808\uC774\uC800\uB97C
+        \uC3D8\uBA74 \uC124\uBA85\uC774 \uB098\uC640\uC694!\");\nPlayerHandToolTipOffAfterDelay(1,
+        5);\nVibrateHand()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1129,9 +1132,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: '
-
-        MitoToolTipOnAfterDelay(2, 0)'
+      userScript: "MitoToolTipOnAfterDelay(2, \"\uC8FC\uB984\", 0)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1188,9 +1189,8 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'MitoToolTipOff();
-
-        MitoToolTipOnAfterDelay(3, 0)'
+      userScript: "MitoToolTipOff();\nMitoToolTipOnAfterDelay(3, \"\uAE30\uC9C8\",
+        0)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1253,7 +1253,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 479.42865
-        y: 193.53575
+        y: 192.6429
         width: 160
         height: 30
     - id: 7
@@ -1359,21 +1359,20 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: '
-
-        MitoToolTipOnAfterDelay(4, 0)'
+      userScript: "MitoToolTipOnAfterDelay(4, \"\uB9C9\uC0AC\uC774\uACF5\uAC04\",
+        0)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 480.32153
-        y: 363.1786
+        y: 362.28574
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 6.571392, y: 0}
-    canvasZoom: 1.1199999
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 0.97
   - id: 4
     fields:
     - title: Title
@@ -1529,7 +1528,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 80
+        x: 79.01671
         y: 218
         width: 160
         height: 30
@@ -1633,20 +1632,24 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 'ToggleExplainMiniHalfMito();
+      userScript: 'ToggleRayDescription();
+
+        ToggleMitoText();
+
+        ToggleExplainMiniHalfMito();
 
         ToggleFlyable();
 
         TogglePlayerWall();
 
-        LookAtMito();'
+        LookAtMito()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 78.03343
-        y: 134
+        y: 133.01672
         width: 160
         height: 30
     entryGroups: []
@@ -1800,13 +1803,18 @@ MonoBehaviour:
       conditionsString: 
       userScript: 'ToggleFlyable();
 
-        SetPlayerSpeed(3, 8, 8);
+        ToggleIsRotateX();
 
-        ResetPlayerRotate();
+        SetPlayerSpeed(3,
+        8, 8);
 
         SetPlayerPosition();
 
-        ToggleIsMoving()'
+        ResetPlayerRotate();
+
+        ToggleIsMoving();
+
+        ToggleRayDescription()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2085,7 +2093,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 159
-        y: 90
+        y: 89
         width: 160
         height: 30
     - id: 2
@@ -2404,7 +2412,9 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: ToggleATP()
+      userScript: 'ToggleATP();
+
+        ToggleATPText()'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2567,14 +2577,14 @@ MonoBehaviour:
         \uC0DD\uC0B0\uD558\uB294 \uC5D0\uB108\uC9C0\uB97C \uB9CC\uC838\uBCF4\uC790!\",
         5);\nVibrateHand();\nPlayerHandToolTipOn(1, \"\uB808\uC774\uC800\uB97C \uC3D8\uBA74,
         \uC124\uBA85\uC744 \uBCFC \uC218 \uC788\uC5B4\uC694\");\nPlayerHandToolTipOffAfterDelay(1,
-        5)"
+        5);\nToggleRayDescription()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 157
-        y: 302
+        y: 302.94342
         width: 160
         height: 30
     entryGroups: []
@@ -3160,7 +3170,7 @@ MonoBehaviour:
         5);\nToggleIsMoving();\nSetActiveATPMixComponents();\nShowATPMixRulePanel();\nVibrateHand();\nToggleRayDescription();\nPlayerHandToolTipOn(0,
         \"ATP \uAD6C\uC131\uC694\uC18C\uB97C \uC7A1\uC544\uC11C \uC5F0\uACB0\uD574\uBD10\uC694\");\nPlayerHandToolTipOn(1,
         \"ATP \uAD6C\uC131\uC694\uC18C\uB97C \uC7A1\uC544\uC11C \uC5F0\uACB0\uD574\uBD10\uC694\");\nPlayerHandToolTipOffAfterDelay(0,
-        5);\nPlayerHandToolTipOffAfterDelay(1, 5)"
+        5);\nPlayerHandToolTipOffAfterDelay(1, 5);\nToggleATPText()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []

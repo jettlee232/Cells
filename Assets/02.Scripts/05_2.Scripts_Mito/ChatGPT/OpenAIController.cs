@@ -13,12 +13,14 @@ public class OpenAIController : MonoBehaviour
     public TMP_InputField inputField;
     public Button okBtn;
 
+    public GameObject mainImage;
+
     private OpenAIAPI api;
     private List<ChatMessage> messages;
 
     void Start()
     {
-        api = new OpenAIAPI(""); // Ãë±ÞÁÖÀÇ
+        api = new OpenAIAPI(""); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         StartConversation();
         okBtn.onClick.AddListener(() => GetResponse());
     }
@@ -27,11 +29,11 @@ public class OpenAIController : MonoBehaviour
     {
         messages = new List<ChatMessage>
         {
-            new ChatMessage(ChatMessageRole.System, "³Ê´Â µ¿¹°¼¼Æ÷ ³»ÀÇ ¹ÌÅäÄÜµå¸®¾Æ¿¡ ´ëÇØ ¼³¸íÇÏ´Â ½Ã½ºÅÛÀÌ¾ß. ÃÊµîÇÐ»ý°ú ÁßÇÐ»ýÀÌ ÀÌÇØÇÒ ¼ö ÀÖµµ·Ï Ä£±ÙÇÑ ¸»Åõ·Î ¼³¸íÇØÁà, ¸¸¾à¿¡ ¹ÌÅäÄÜµå¸®¾Æ¿Í °ü·ÃµÈ Áú¹®ÀÌ ¾Æ´Ï¶ó¸é °ü·ÃµÈ Áú¹®À» ÇØ´Þ¶ó°í ÇÏ¸é¼­ ´äº¯À» °ÅºÎÇØ¾ßÇØ")
+            new ChatMessage(ChatMessageRole.System, "ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½. ï¿½Êµï¿½ï¿½Ð»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¸° ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ Ä£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½à¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´Þ¶ï¿½ï¿½ ï¿½Ï¸é¼­ ï¿½äº¯ï¿½ï¿½ ï¿½Åºï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½äº¯ï¿½ï¿½ 200ï¿½ï¿½Å« ï¿½Ì³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½È®ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
         };
 
         inputField.text = "";
-        string startString = "´ç½ÅÀÇ Áú¹®À» ±â´Ù¸®°í ÀÖ½À´Ï´Ù!";
+        string startString = "";
         textField.text = startString;
         Debug.Log(startString);
     }
@@ -41,10 +43,10 @@ public class OpenAIController : MonoBehaviour
         {
             return;
         }
-        //¹öÆ° Disable
+        //ï¿½ï¿½Æ° Disable
         okBtn.enabled = false;
 
-        //À¯Àú ¸Þ¼¼Áö¿¡ inputField¸¦
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ inputFieldï¿½ï¿½
         ChatMessage userMessage = new ChatMessage();
         userMessage.Role = ChatMessageRole.User;
         userMessage.TextContent = inputField.text;
@@ -54,16 +56,18 @@ public class OpenAIController : MonoBehaviour
         }
         Debug.Log(string.Format("{0} : {1}", userMessage.Role, userMessage.TextContent));
 
-        //list¿¡ ¸Þ¼¼Áö Ãß°¡
+        //listï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         messages.Add(userMessage);
 
-        //textField¿¡ userMessageÇ¥½Ã 
-        textField.text = string.Format("You: {0}", userMessage.TextContent);
+        mainImage.SetActive(false);
 
-        //inputField ÃÊ±âÈ­
+        //textFieldï¿½ï¿½ userMessageÇ¥ï¿½ï¿½ 
+        textField.text = string.Format("ï¿½ï¿½ï¿½: {0}", userMessage.TextContent);
+
+        //inputField ï¿½Ê±ï¿½È­
         inputField.text = "";
 
-        // ÀüÃ¼ Ã¤ÆÃÀ» openAI ¼­¹ö¿¡Àü¼ÛÇÏ¿© ´ÙÀ½ ¸Þ½ÃÁö(ÀÀ´ä)¸¦ °¡Á®¿Àµµ·Ï
+        // ï¿½ï¿½Ã¼ Ã¤ï¿½ï¿½ï¿½ï¿½ openAI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         var chatResult = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
         {
             Model = Model.GPT4o_Mini,
@@ -72,19 +76,19 @@ public class OpenAIController : MonoBehaviour
             Messages = messages
         });
 
-        //ÀÀ´ä °¡Á®¿À±â
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         ChatMessage responseMessage = new ChatMessage();
         responseMessage.Role = chatResult.Choices[0].Message.Role;
         responseMessage.TextContent = chatResult.Choices[0].Message.TextContent;
         Debug.Log(string.Format("{0}: {1}", responseMessage.rawRole, responseMessage.TextContent));
 
-        //ÀÀ´äÀ» message¸®½ºÆ®¿¡ Ãß°¡
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ messageï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½
         messages.Add(responseMessage);
 
-        //textField¸¦ ÀÀ´ä¿¡ µû¶ó Update
-        textField.text = string.Format("You: {0}\n\nChatGPT:\n{1}", userMessage.TextContent, responseMessage.TextContent);
+        //textFieldï¿½ï¿½ ï¿½ï¿½ï¿½ä¿¡ ï¿½ï¿½ï¿½ï¿½ Update
+        textField.text = string.Format("ï¿½ï¿½ï¿½: {0}\n\nAI ï¿½ï¿½ï¿½ï¿½ï¿½:\n{1}", userMessage.TextContent, responseMessage.TextContent);
 
-        //Okbtn´Ù½Ã È°¼ºÈ­
+        //Okbtnï¿½Ù½ï¿½ È°ï¿½ï¿½È­
         okBtn.enabled = true;
     }
 }
