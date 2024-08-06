@@ -23,8 +23,6 @@ public class NPCToolTip_MitoTuto : MonoBehaviour
         //bubblePanelMito = GetComponent<SpeechBubblePanel_CM>();
         //tooltip.TooltipOff();
         StartCoroutine(StartTooltip());
-
-        Debug.Log(Camera.main.transform.name);
     }
 
     void Update()

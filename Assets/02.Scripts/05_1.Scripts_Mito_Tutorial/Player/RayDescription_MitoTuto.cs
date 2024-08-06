@@ -112,7 +112,7 @@ public class RayDescription_MitoTuto : MonoBehaviour
                     //descCanvas.transform.SetParent(descObj.transform);
                     //descCanvas.transform.position = Vector3.zero;
 
-                    currentPanel = descObj.GetComponent<ItemExplain_MitoTuto>().explainItemPanel;
+                    currentPanel = descObj.explainItemPanel;
                     descObj.isDesc = true;
 
                     InstantiatePanel_Tween(currentPanel, descObj.gameObject);

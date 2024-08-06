@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager_Mito : MonoBehaviour
@@ -84,6 +85,12 @@ public class GameManager_Mito : MonoBehaviour
         {
             yield return new WaitForSeconds(5.0f);
             atpCurTime -= 0.01f;
+
+            if (atpCurTime <= 0)
+            {
+                GameFail();
+                yield break; // 코루틴 종료
+            }
         }
     }
 
@@ -91,13 +98,49 @@ public class GameManager_Mito : MonoBehaviour
     {
         Debug.Log("ATP를 목표치만큼 모았습니다.");
 
-        GameObject go = Instantiate(resultPanel);
-        go.transform.SetParent(resultPos);
-        go.transform.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+        GameObject go = Instantiate(resultPanel, resultPos);
+        Result_Mito resultPanelScript = go.GetComponent<Result_Mito>();
+        resultPanelScript.SetupPanel(true, atpCount, atpGoal, atpCurTime, atpScore);
+
+        playerMoving_Mito.isMoving = false;
+        playerMoving_Mito.flyable = false;
+    }
+
+    void GameFail()
+    {
+        Debug.Log("제한시간이 종료되었습니다.");
+
+        GameObject go = Instantiate(resultPanel, resultPos);
+        Result_Mito resultPanelScript = go.GetComponent<Result_Mito>();
+        resultPanelScript.SetupPanel(false, atpCount, atpGoal, atpCurTime, atpScore);
+
+        playerMoving_Mito.isMoving = false;
+        playerMoving_Mito.flyable = false;
     }
 
     public void MakeSnapEffect(Vector3 pos)
     {
         Instantiate(snapEffect, pos, Quaternion.identity);
+    }
+
+    public void BackToTheStageMap()
+    {
+        StartCoroutine(LoadIndexScene("04_StageMap"));
+    }
+
+    public void RestartMito()
+    {
+        atpScore = 0;
+        atpCurTime = atpMaxTime;
+        atpCount = 0;
+        playerMoving_Mito.flyable = true;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    IEnumerator LoadIndexScene(string sceneName)
+    {
+        yield return new WaitForSeconds(3.0f);
+        SceneManager.LoadScene(sceneName);
     }
 }

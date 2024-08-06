@@ -15,12 +15,12 @@ public class ItemExplain_MitoTuto : MonoBehaviour
 
     private void Start()
     {
-        grab ??= GetComponent<Grabbable>();
+        grab = GetComponent<Grabbable>();
     }
 
     private void Update()
     {
-        if (grab && grab.SelectedHandPose)
+        if (grab != null && grab.SelectedHandPose)
             isGrab = true;
 
         // 원래는 아이템마다 갖고있는 변수를 퀘스트매니저(QM)로 쏘는 방식으로 할까 했는데

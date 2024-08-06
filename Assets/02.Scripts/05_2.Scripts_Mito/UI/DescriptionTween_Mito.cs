@@ -17,6 +17,8 @@ public class DescriptionTween_Mito : MonoBehaviour
     {
         DOTween.Init();
 
+        Quaternion parentRotation = transform.parent ? transform.parent.localRotation : Quaternion.identity;
+
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         transform.localScale = Vector3.zero;
@@ -25,6 +27,13 @@ public class DescriptionTween_Mito : MonoBehaviour
         //transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360).OnComplete(()
         //    => lookPlayer = StartCoroutine(LookPlayer()));
 
+        //transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360).OnComplete(() =>
+        //{
+        //    transform.localRotation = Quaternion.Euler(0, 0, 0);
+        //    lookPlayer = StartCoroutine(LookPlayer());
+        //});
+
+        /*
         Transform playerCam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         if (playerCam == null) playerCam = transform.parent;
 
@@ -34,6 +43,13 @@ public class DescriptionTween_Mito : MonoBehaviour
         transform.DORotate(new Vector3(0f, 360f + lookRotation.eulerAngles.y, 0f), 1f, RotateMode.FastBeyond360).OnComplete(() =>
         {
             lookPlayer = StartCoroutine(LookPlayer());
+        });
+        */
+
+        // 한 바퀴 돌고 부모의 각도만큼 더 돌고 정확히 원래 각도로 돌아가기
+        transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360).OnComplete(() =>
+        {
+            transform.localRotation = parentRotation; // 부모의 로컬 회전 각도로 설정
         });
 
         if (closeBtn == null)
@@ -49,7 +65,7 @@ public class DescriptionTween_Mito : MonoBehaviour
 
     public void ReverseTweenAndDestroy() // Button으로 호출하는 거
     {
-        StopCoroutine(lookPlayer);
+        //StopCoroutine(lookPlayer);
         rayDesc.currentPanel = null;
 
         transform.DOScale(Vector3.zero, 1f);
@@ -89,7 +105,8 @@ public class DescriptionTween_Mito : MonoBehaviour
 
         while (true)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return null;
+            //yield return new WaitForSeconds(0.1f);
             Vector3 directionToPlayer = playerCam.position - transform.position;
             Vector3 oppositeDirection = -directionToPlayer;
             Quaternion lookRotation = Quaternion.LookRotation(oppositeDirection);

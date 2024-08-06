@@ -13,12 +13,14 @@ public class OpenAIController : MonoBehaviour
     public TMP_InputField inputField;
     public Button okBtn;
 
+    public GameObject mainImage;
+
     private OpenAIAPI api;
     private List<ChatMessage> messages;
 
     void Start()
     {
-        api = new OpenAIAPI(""); // Ãë±ŞÁÖÀÇ
+        api = new OpenAIAPI(""); // ì·¨ê¸‰ì£¼ì˜
         StartConversation();
         okBtn.onClick.AddListener(() => GetResponse());
     }
@@ -27,11 +29,11 @@ public class OpenAIController : MonoBehaviour
     {
         messages = new List<ChatMessage>
         {
-            new ChatMessage(ChatMessageRole.System, "³Ê´Â µ¿¹°¼¼Æ÷ ³»ÀÇ ¹ÌÅäÄÜµå¸®¾Æ¿¡ ´ëÇØ ¼³¸íÇÏ´Â ½Ã½ºÅÛÀÌ¾ß. ÃÊµîÇĞ»ı°ú ÁßÇĞ»ıÀÌ ÀÌÇØÇÒ ¼ö ÀÖµµ·Ï Ä£±ÙÇÑ ¸»Åõ·Î ¼³¸íÇØÁà, ¸¸¾à¿¡ ¹ÌÅäÄÜµå¸®¾Æ¿Í °ü·ÃµÈ Áú¹®ÀÌ ¾Æ´Ï¶ó¸é °ü·ÃµÈ Áú¹®À» ÇØ´Ş¶ó°í ÇÏ¸é¼­ ´äº¯À» °ÅºÎÇØ¾ßÇØ")
+            new ChatMessage(ChatMessageRole.System, "ë„ˆëŠ” ìƒë¬¼ì— ëŒ€í•´ ì„¤ëª…í•˜ëŠ” ì‹œìŠ¤í…œì´ì•¼. ì´ˆë“±í•™ìƒì´ ì´í•´í•  ìˆ˜ ìˆë„ë¡ ì¹œê·¼í•œ ë§íˆ¬ë¡œ ì„¤ëª…í•´ì£¼ê³  ê°€ëŠ¥í•˜ë©´ ë¹„ìœ ë¥¼ ì‚¬ìš©í•´ì„œ 200ì ì´ë‚´ë¡œ ì‰½ê²Œ ì„¤ëª…í•´, ë§Œì•½ì— ìƒë¬¼ê³¼ ê´€ë ¨ëœ ì§ˆë¬¸ì´ ì•„ë‹ˆë¼ë©´ ë‹µë³€ì„ ê±°ë¶€í•´")
         };
 
         inputField.text = "";
-        string startString = "´ç½ÅÀÇ Áú¹®À» ±â´Ù¸®°í ÀÖ½À´Ï´Ù!";
+        string startString = "";
         textField.text = startString;
         Debug.Log(startString);
     }
@@ -41,10 +43,9 @@ public class OpenAIController : MonoBehaviour
         {
             return;
         }
-        //¹öÆ° Disable
+
         okBtn.enabled = false;
 
-        //À¯Àú ¸Ş¼¼Áö¿¡ inputField¸¦
         ChatMessage userMessage = new ChatMessage();
         userMessage.Role = ChatMessageRole.User;
         userMessage.TextContent = inputField.text;
@@ -54,16 +55,14 @@ public class OpenAIController : MonoBehaviour
         }
         Debug.Log(string.Format("{0} : {1}", userMessage.Role, userMessage.TextContent));
 
-        //list¿¡ ¸Ş¼¼Áö Ãß°¡
         messages.Add(userMessage);
 
-        //textField¿¡ userMessageÇ¥½Ã 
-        textField.text = string.Format("You: {0}", userMessage.TextContent);
+        mainImage.SetActive(false);
 
-        //inputField ÃÊ±âÈ­
+        textField.text = string.Format("í”Œë ˆì´ì–´: {0}", userMessage.TextContent);
+
         inputField.text = "";
 
-        // ÀüÃ¼ Ã¤ÆÃÀ» openAI ¼­¹ö¿¡Àü¼ÛÇÏ¿© ´ÙÀ½ ¸Ş½ÃÁö(ÀÀ´ä)¸¦ °¡Á®¿Àµµ·Ï
         var chatResult = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
         {
             Model = Model.GPT4o_Mini,
@@ -72,19 +71,15 @@ public class OpenAIController : MonoBehaviour
             Messages = messages
         });
 
-        //ÀÀ´ä °¡Á®¿À±â
         ChatMessage responseMessage = new ChatMessage();
         responseMessage.Role = chatResult.Choices[0].Message.Role;
         responseMessage.TextContent = chatResult.Choices[0].Message.TextContent;
         Debug.Log(string.Format("{0}: {1}", responseMessage.rawRole, responseMessage.TextContent));
 
-        //ÀÀ´äÀ» message¸®½ºÆ®¿¡ Ãß°¡
         messages.Add(responseMessage);
 
-        //textField¸¦ ÀÀ´ä¿¡ µû¶ó Update
-        textField.text = string.Format("You: {0}\n\nChatGPT:\n{1}", userMessage.TextContent, responseMessage.TextContent);
+        textField.text = string.Format("í”Œë ˆì´ì–´: {0}\n\nAI ë„ìš°ë¯¸:\n{1}", userMessage.TextContent, responseMessage.TextContent);
 
-        //Okbtn´Ù½Ã È°¼ºÈ­
         okBtn.enabled = true;
     }
 }

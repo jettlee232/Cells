@@ -36,6 +36,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     public Transform mitoPos; // 미토콘드리아 초기 위치
     public GameObject atp; // ATP 모형
     public GameObject atpText; // 아데노신 삼인산 3D 텍스트
+    public Transform atpPos; // ATP 초기 위치
 
     // 반으로 잘라봤어 다이얼로그용 모델링
     public GameObject mitoMap1;
@@ -139,23 +140,26 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     public void ToggleMiniHalfMito()
     {
         miniHalfMito.SetActive(!miniHalfMito.activeSelf);
-        mitoText.SetActive(true);
+    }
+
+    public void ToggleMitoText()
+    {
+        mitoText.SetActive(!mitoText.activeSelf);
     }
 
     public void EnableGrabMiniHalfMito()
     {
-        miniHalfMito.GetComponent<CapsuleCollider>().enabled = true;
+        //miniHalfMito.GetComponent<CapsuleCollider>().enabled = true;
+
+        Collider[] colliders = miniHalfMito.GetComponents<BoxCollider>();
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = true;
+        }
     }
 
     public void ToggleExplainMiniHalfMito()
     {
-        if (explainMiniHalfMito.transform.parent = null)
-        {
-            mitoText.SetActive(false);
-            explainMiniHalfMito.SetActive(!explainMiniHalfMito.activeSelf);
-            return;
-        }
-
         if (explainMiniHalfMito.transform.parent)
             explainMiniHalfMito.transform.SetParent(null);
 
@@ -192,24 +196,36 @@ public class TutorialManager_MitoTuto : MonoBehaviour
 
     public void ToggleATP()
     {
-        atp.transform.position = new Vector3(68.25f, 76.75f, 5.0f);
-        atp.transform.eulerAngles = new Vector3(0, 330.0f, 0);
+        atp.transform.position = atpPos.position;
+        atp.transform.eulerAngles = atpPos.eulerAngles;
         atp.SetActive(!atp.activeSelf);
-        atpText.SetActive(true);
+    }
+
+    public void ToggleATPText()
+    {
+        atpText.SetActive(!atpText.activeSelf);
     }
 
     public void ToggleGrabATP()
     {
         SphereCollider sphereCollider = atp.GetComponent<SphereCollider>();
+        Grabbable grabbable = atp.GetComponent<Grabbable>();
+
         if (sphereCollider != null)
         {
             sphereCollider.enabled = !sphereCollider.enabled;
+            grabbable.enabled = !grabbable.enabled;
         }
+
         atp.transform.GetChild(0).gameObject.SetActive(!atp.transform.GetChild(0).gameObject.activeSelf);
     }
 
     public void EnableGrabATPComponent()
     {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(atp.transform.DOMove(atpPos.position, 2.5f).SetEase(Ease.InOutQuad));
+        sequence.Join(atp.transform.DORotateQuaternion(atpPos.rotation, 2.5f).SetEase(Ease.InOutQuad));
+
         Collider[] childColliders = atp.GetComponentsInChildren<Collider>(true);
         foreach (Collider collider in childColliders)
         {
@@ -257,6 +273,11 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         VibrateManager_Mito.Instance.VibrateBothHands();
     }
 
+    public void ShortVibrateHand()
+    {
+        VibrateManager_Mito.Instance.ShortVibrateBothHands();
+    }
+
     public void PlayerHandToolTipOn(float index, string text)
     {
         switch (index)
@@ -301,19 +322,19 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         switch (index)
         {
             case 0:
-                StartCoroutine(DelayToolTipOn(mitoToolTips[0], text, delay, true));
+                StartCoroutine(DelayToolTipOn(mitoToolTips[0], text, delay, false));
                 break;
             case 1:
-                StartCoroutine(DelayToolTipOn(mitoToolTips[1], text, delay, true));
+                StartCoroutine(DelayToolTipOn(mitoToolTips[1], text, delay, false));
                 break;
             case 2:
-                StartCoroutine(DelayToolTipOn(mitoToolTips[2], text, delay, true));
+                StartCoroutine(DelayToolTipOn(mitoToolTips[2], text, delay, false));
                 break;
             case 3:
-                StartCoroutine(DelayToolTipOn(mitoToolTips[3], text, delay, true));
+                StartCoroutine(DelayToolTipOn(mitoToolTips[3], text, delay, false));
                 break;
             case 4:
-                StartCoroutine(DelayToolTipOn(mitoToolTips[4], text, delay, true));
+                StartCoroutine(DelayToolTipOn(mitoToolTips[4], text, delay, false));
                 break;
         }
     }
@@ -322,7 +343,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
     {
         foreach (Tooltip_Mito mitoToolTip in mitoToolTips)
         {
-            StartCoroutine(DelayToolTipOff(mitoToolTip, 0, true));
+            StartCoroutine(DelayToolTipOff(mitoToolTip, 0, false));
         }
 
         /*
@@ -355,8 +376,8 @@ public class TutorialManager_MitoTuto : MonoBehaviour
             tooltip.transform.parent.GetComponentInParent<HighlightEffect>().highlighted = true;
             tooltip.transform.parent.GetComponentInParent<HighLightColorchange_MitoTuto>().GlowStart();
         }
-        if (tooltip.GetComponent<BoxCollider>())
-            tooltip.GetComponent<BoxCollider>().enabled = true;
+        if (tooltip.GetComponentInChildren<BoxCollider>())
+            tooltip.GetComponentInChildren<BoxCollider>().enabled = true;
         tooltip.TooltipOn(text);
     }
 
@@ -368,8 +389,8 @@ public class TutorialManager_MitoTuto : MonoBehaviour
             tooltip.transform.parent.GetComponentInParent<HighlightEffect>().highlighted = false;
             tooltip.transform.parent.GetComponentInParent<HighLightColorchange_MitoTuto>().GlowEnd();
         }
-        if (tooltip.GetComponent<BoxCollider>())
-            tooltip.GetComponent<BoxCollider>().enabled = false;
+        if (tooltip.GetComponentInChildren<BoxCollider>())
+            tooltip.GetComponentInChildren<BoxCollider>().enabled = false;
         tooltip.TooltipOff();
     }
 
@@ -380,13 +401,24 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         int curScene = scene.buildIndex;
         int nextScene = curScene + 1;
 
-        StartCoroutine(LoadNextScene(nextScene));
+        StartCoroutine(LoadIndexScene(nextScene));
     }
 
-    IEnumerator LoadNextScene(int index)
+    public void BackToTheStageMap()
+    {
+        StartCoroutine(LoadIndexScene("04_StageMap"));
+    }
+
+    IEnumerator LoadIndexScene(int index)
     {
         yield return new WaitForSeconds(3.0f);
         SceneManager.LoadScene(index);
+    }
+
+    IEnumerator LoadIndexScene(string sceneName)
+    {
+        yield return new WaitForSeconds(3.0f);
+        SceneManager.LoadScene(sceneName);
     }
 
     #region Register with Lua
@@ -405,11 +437,13 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.RegisterFunction("ToggleFlyable", this, SymbolExtensions.GetMethodInfo(() => ToggleFlyable()));
         Lua.RegisterFunction("ShowLaserPanel", this, SymbolExtensions.GetMethodInfo(() => ShowLaserPanel()));
         Lua.RegisterFunction("ToggleMiniHalfMito", this, SymbolExtensions.GetMethodInfo(() => ToggleMiniHalfMito()));
+        Lua.RegisterFunction("ToggleMitoText", this, SymbolExtensions.GetMethodInfo(() => ToggleMitoText()));
         Lua.RegisterFunction("EnableGrabMiniHalfMito", this, SymbolExtensions.GetMethodInfo(() => EnableGrabMiniHalfMito()));
         Lua.RegisterFunction("ToggleExplainMiniHalfMito", this, SymbolExtensions.GetMethodInfo(() => ToggleExplainMiniHalfMito()));
         Lua.RegisterFunction("SliceMito", this, SymbolExtensions.GetMethodInfo(() => SliceMito()));
         Lua.RegisterFunction("LookAtMito", this, SymbolExtensions.GetMethodInfo(() => LookAtMito()));
         Lua.RegisterFunction("ToggleATP", this, SymbolExtensions.GetMethodInfo(() => ToggleATP()));
+        Lua.RegisterFunction("ToggleATPText", this, SymbolExtensions.GetMethodInfo(() => ToggleATPText()));
         Lua.RegisterFunction("ToggleGrabATP", this, SymbolExtensions.GetMethodInfo(() => ToggleGrabATP()));
         Lua.RegisterFunction("EnableGrabATPComponent", this, SymbolExtensions.GetMethodInfo(() => EnableGrabATPComponent()));
         Lua.RegisterFunction("SetActiveATPMixComponents", this, SymbolExtensions.GetMethodInfo(() => SetActiveATPMixComponents()));
@@ -441,11 +475,13 @@ public class TutorialManager_MitoTuto : MonoBehaviour
         Lua.UnregisterFunction("ToggleFlyable");
         Lua.UnregisterFunction("ShowLaserPanel");
         Lua.UnregisterFunction("ToggleMiniHalfMito");
+        Lua.UnregisterFunction("ToggleMitoText");
         Lua.UnregisterFunction("EnableGrabMiniHalfMito");
         Lua.UnregisterFunction("ToggleExplainMiniHalfMito");
         Lua.UnregisterFunction("SliceMito");
         Lua.UnregisterFunction("LookAtMito");
         Lua.UnregisterFunction("ToggleATP");
+        Lua.UnregisterFunction("ToggleATPText");
         Lua.UnregisterFunction("ToggleGrabATP");
         Lua.UnregisterFunction("EnableGrabATPComponent");
         Lua.UnregisterFunction("SetActiveATPMixComponents");

@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class STTManager : MonoBehaviour
 {
@@ -15,17 +17,19 @@ public class STTManager : MonoBehaviour
 
     public string microphoneID = null;
     public AudioClip recording = null;
-    public AudioSource source = null;
+    //public AudioSource source = null;
 
     private int recordingLengthSec = 15;
+    float floatRecordingLengthSec = 15.0f;
     private int recordingHZ = 22050;
 
     public string lang = "Kor";    // 언어 코드 ( Kor, Jpn, Eng, Chn )
     public string url = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=";
     string fullUrl;
 
-    public TMPro.TextMeshProUGUI resultText;
-    public TMPro.TextMeshProUGUI recordText;
+    //public TextMeshProUGUI resultText;
+    public TMP_InputField inputField;
+    public TextMeshProUGUI recordText;
 
     #region API 정보 취급주의
     // API 정보
@@ -33,22 +37,52 @@ public class STTManager : MonoBehaviour
     private string clientSecret = "VkXw2QeXWqte8ztAkUameyIGFK3CW7sNnC21e1I5";
     #endregion
 
+    public GameObject startButton;
+    public GameObject stopButton;
+
+    public Image timerImage;
+    private Coroutine timerCoroutine;
+
     private void Start()
     {
-        microphoneID = Microphone.devices[0];
-        source = GetComponent<AudioSource>();
+        foreach (var device in Microphone.devices)
+        {
+            Debug.Log("Microphone device: " + device);
+        }
+
+        //string desiredMicrophoneName = "Headset Microphone(Oculus Virtual Audio Device)";
+        //if (Array.Exists(Microphone.devices, device => device == desiredMicrophoneName))
+        //{
+        //    microphoneID = desiredMicrophoneName;
+        //}
+        //else
+        //{
+        //    microphoneID = Microphone.devices[0];
+        //}
+        //microphoneID = Microphone.devices[1];
+        //source = GetComponent<AudioSource>();
         fullUrl = url + lang;
+
+        startButton.SetActive(true);
+        stopButton.SetActive(false);
+
+        if (recordText != null)
+            recordText.gameObject.SetActive(false);
+
+        timerImage.fillAmount = 0;
     }
 
     private void Update()
     {
-        if (Microphone.IsRecording(microphoneID))
-            recordText.gameObject.SetActive(true);
-        else
-            recordText.gameObject.SetActive(false);
+        if (recordText != null)
+        {
+            if (Microphone.IsRecording(microphoneID))
+                recordText.gameObject.SetActive(true);
+            else
+                recordText.gameObject.SetActive(false);
+        }
     }
 
-    // 버튼을 OnPointerDown 할 때 호출
     public void StartRecording()
     {
         if (Microphone.IsRecording(microphoneID))
@@ -58,9 +92,35 @@ public class STTManager : MonoBehaviour
 
         Debug.Log("start recording");
         recording = Microphone.Start(microphoneID, false, recordingLengthSec, recordingHZ);
+
+        startButton.SetActive(false);
+        stopButton.SetActive(true);
+
+        StartCoroutine(StopRecordingAfterDelay(floatRecordingLengthSec));
+        timerCoroutine = StartCoroutine(UpdateTimer(floatRecordingLengthSec));
     }
 
-    // 버튼을 OnPointerUp 할 때 호출
+    private IEnumerator StopRecordingAfterDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+        StopRecording();
+    }
+
+    private IEnumerator UpdateTimer(float duration)
+    {
+        float timeElapsed = 0f;
+
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+            timerImage.fillAmount = timeElapsed / duration;
+            yield return null;
+        }
+
+        // 타이머가 끝나면 fillAmount를 1로 설정 (만약 중간에 StopRecording이 호출되지 않았다면)
+        timerImage.fillAmount = 1f;
+    }
+
     public void StopRecording()
     {
         Debug.Log("스탑 레코딩 버튼은 눌림");
@@ -90,6 +150,15 @@ public class STTManager : MonoBehaviour
 
             // AudioSource에 녹음된 Clip 재생
             //source.clip = recording;
+
+            startButton.SetActive(true);
+            stopButton.SetActive(false);
+
+            if (timerCoroutine != null)
+            {
+                StopCoroutine(timerCoroutine);
+            }
+            timerImage.fillAmount = 0;
         }
     }
 
@@ -138,9 +207,16 @@ public class STTManager : MonoBehaviour
 
             Debug.Log(voiceRecognize.text);
 
+            /*
             if (resultText != null)
             {
                 resultText.text = voiceRecognize.text;
+            }
+            */
+
+            if (inputField != null)
+            {
+                inputField.text = voiceRecognize.text;
             }
         }
     }

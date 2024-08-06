@@ -10,6 +10,8 @@ public class Item_Mito : MonoBehaviour
     //public float moveDelay = 2.0f;
     //private float destroyTime = 30.0f;
 
+    public GameObject itemText;
+
     public bool isGrabbed = false; // 플레이어 손에 잡혔는지 여부
     public bool isInventory = false; // 인벤토리에 있는지 여부
 
@@ -51,6 +53,7 @@ public class Item_Mito : MonoBehaviour
 
     void Start()
     {
+        itemText = transform.GetChild(3).gameObject;
         grabbable = GetComponent<Grabbable>();
         if (OriginalScale == Vector3.zero)
         {
@@ -62,8 +65,15 @@ public class Item_Mito : MonoBehaviour
     {
         isGrabbed = CheckGrab();
 
-        if (!isGrabbed) ItemRotate();
+        if (isGrabbed)
+            itemText.gameObject.SetActive(false);
+        else
+        {
+            itemText.gameObject.SetActive(true);
+            ItemRotate();
+        }
 
+        /* 상시 보호막으로 변경
         if (GetComponent<Rigidbody>().isKinematic) // 아이템이 잡혔는지 여부를 isKinematic으로 확인
         {
             StartCoroutine(ActiveVesicle(0.5f));
@@ -71,6 +81,12 @@ public class Item_Mito : MonoBehaviour
         else
         {
             StartCoroutine(DeActiveVesicle(2.0f));
+        }
+        */
+
+        if (GetComponentInParent<SnapZone>())
+        {
+            itemText.gameObject.SetActive(false);
         }
     }
 
@@ -100,7 +116,7 @@ public class Item_Mito : MonoBehaviour
     // y축으로 회전
     public void ItemRotate()
     {
-        transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.World);
+        transform.GetChild(1).Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.World);
     }
 
     /*
@@ -137,7 +153,7 @@ public class Item_Mito : MonoBehaviour
 
     public void ResetScale()
     {
-        StartCoroutine(ScaleOverTime(OriginalScale, 2.0f));  // 2초 동안 원래 크기로 돌아옴
+        StartCoroutine(ScaleOverTime(OriginalScale, 2.5f));  // 2.5초 동안 원래 크기로 돌아옴
     }
 
     private IEnumerator ScaleOverTime(Vector3 targetScale, float duration)

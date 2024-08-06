@@ -41,6 +41,18 @@ public class VibrateManager_Mito : MonoBehaviour
                 right.SendHapticImpulse(0, 0.5f, 1.0f);
     }
 
+    public void ShortVibrateBothHands()
+    {
+        HapticCapabilities capabilities;
+        if (left.TryGetHapticCapabilities(out capabilities))
+            if (capabilities.supportsImpulse)
+                left.SendHapticImpulse(0, 0.25f, 0.5f);
+
+        if (right.TryGetHapticCapabilities(out capabilities))
+            if (capabilities.supportsImpulse)
+                right.SendHapticImpulse(0, 0.25f, 0.5f);
+    }
+
     /* Oculus
     public void VibrateBothHands()
     {
