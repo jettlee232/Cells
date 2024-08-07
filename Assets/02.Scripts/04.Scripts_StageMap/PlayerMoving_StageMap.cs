@@ -67,7 +67,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
 
     // SYS Code
     [Header("Visual Effect")]
-    public VisualEffect speedVFX;
+    //public VisualEffect speedVFX;
     public ParticleSystem[] handParticles;
     private bool vfxTrigger = true;
 
@@ -77,7 +77,7 @@ public class PlayerMoving_StageMap: MonoBehaviour
         groundLayer = 1 << LayerMask.NameToLayer("Ground");
 
         // SYS Code
-        speedVFX.Stop();
+        //speedVFX.Stop();
         for (int i = 0; i < handParticles.Length; i++) handParticles[i].Stop();
     }
 
@@ -257,13 +257,13 @@ public class PlayerMoving_StageMap: MonoBehaviour
         // SYS Code - Speed VFX
         if (XZMove != Vector2.zero && vfxTrigger == true)
         {
-            speedVFX.Play();
+            //speedVFX.Play();
             for (int i = 0; i < handParticles.Length; i++) handParticles[i].Play();
             vfxTrigger = false;
         }
         else if (XZMove == Vector2.zero && vfxTrigger == false)
         {
-            speedVFX.Stop();
+            //speedVFX.Stop();
             for (int i = 0; i < handParticles.Length; i++) handParticles[i].Stop();
             vfxTrigger = true;
         }

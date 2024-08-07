@@ -36,14 +36,16 @@ public class GameManager_Lobby : MonoBehaviour
     // SYS Code
     public int tutoStatus = 0;
 
-    // SYS Code
+    // SYS Code    
     [Header("Warp Effects & ETCs")]
-    public Transform playerWarpPos;
     public MyFader_CM scrFader;
+    /*
+    public Transform playerWarpPos;
     public GameObject warpVFX;
     public Material skyboxMat;
     public GameObject map;
     public GameObject[] disableThings;
+    */
 
     void Awake()
     {
@@ -57,7 +59,7 @@ public class GameManager_Lobby : MonoBehaviour
         secondCon = false;
 
         // SYS Code
-        warpVFX.SetActive(false);
+        //warpVFX.SetActive(false);
         if (PlayerPrefs.GetInt("Lobby") == 0)
         {
             NewTooltip(0, "좌측 컨트롤러 조이스틱을 이용하여 움직여보세요!");
@@ -87,18 +89,21 @@ public class GameManager_Lobby : MonoBehaviour
     public void MoveToCMScnene()
     {
         StartCoroutine(ScreenFadeInAndWarp());
-        for (int i = 0; i < disableThings.Length; i++) { disableThings[i].SetActive(false); }
+        //for (int i = 0; i < disableThings.Length; i++) { disableThings[i].SetActive(false); }
     }
 
-    // SYS Code
+    // SYS Code    
     IEnumerator ScreenFadeInAndWarp()
     {
         scrFader.ChangeFadeImageColor(Color.white, 6f, 1f);
         scrFader.DoFadeIn();
-        RenderSettings.skybox = skyboxMat;
+        //RenderSettings.skybox = skyboxMat;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
+        AudioMgr_CM.Instance.AudioFade();
+        MoveScene("03_0_CM_Cutscenes");
+        /*
         player.transform.position = playerWarpPos.position;
         warpVFX.SetActive(true);
         map.SetActive(false);
@@ -117,7 +122,9 @@ public class GameManager_Lobby : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         MoveScene("03_0_CM_Cutscenes");
+        */
     }
+
 
     public float GetMoveSpeed() { return moveSpeed; }
     public GameObject GetPlayerCam() { return playerCam; }
