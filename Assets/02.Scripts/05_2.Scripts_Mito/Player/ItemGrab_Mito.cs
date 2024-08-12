@@ -62,10 +62,16 @@ public class ItemGrab_Mito : MonoBehaviour
         Item_Mito itemMito = item.GetComponent<Item_Mito>();
         if (itemMito != null)
         {
-            itemMito.ResetScale();
+            StartCoroutine(DelayedResetScale(itemMito, 0.1f));
         }
 
         CheckAndCreateSnapEffect(item);
+    }
+
+    private IEnumerator DelayedResetScale(Item_Mito itemMito, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        itemMito.ResetScale();
     }
 
     private void CheckAndCreateSnapEffect(Grabbable releasedItem)
@@ -75,7 +81,7 @@ public class ItemGrab_Mito : MonoBehaviour
 
         foreach (var collider in hitColliders)
         {
-            if (collider.GetComponent<SnapZone>() != null) // SnapZone이 있을때만 이펙트 생성
+            if (collider.GetComponent<SnapZone>() != null && !collider.GetComponent<SnapZone>().HeldItem) // SnapZone이 있을때만 이펙트 생성
             {
                 GameManager_Mito.Instance.MakeSnapEffect(releasedItem.transform.position);
                 break;

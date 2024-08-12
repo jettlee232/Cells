@@ -23,6 +23,7 @@ public class Inventory_Mito : MonoBehaviour
 
     public void AddItem(Grabbable item)
     {
+        Debug.Log("애드아이템");
         if (item.GetComponent<Item_Mito>().isInventory) return;
 
         // 우선 아이템이 들어오면 꺼놓음
@@ -117,9 +118,10 @@ public class Inventory_Mito : MonoBehaviour
 
     private IEnumerator RemoveAndSnapRemainingItems(List<Grabbable> items, InventorySlot_Mito slot, Grabbable itemToRemove)
     {
-        // 리스트에서 제거되는걸 확실하게 기다렸다가 실행
-        yield return items.Remove(itemToRemove);
-        yield return itemToRemove.GetComponent<Item_Mito>().isInventory = false;
+        items.Remove(itemToRemove);  // 아이템 제거
+        itemToRemove.GetComponent<Item_Mito>().isInventory = false;
+
+        yield return null;
 
         if (items.Count > 0)
         {
