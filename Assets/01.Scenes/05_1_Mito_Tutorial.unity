@@ -13896,6 +13896,80 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 1942141272}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1316523282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1316523285}
+  - component: {fileID: 1316523284}
+  - component: {fileID: 1316523283}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1316523283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316523282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98ba066fd33ded4aa6474529973e6fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  SelectedHand: 1
+  LeftPointerTransform: {fileID: 0}
+  RightPointerTransform: {fileID: 1984305693}
+  ControllerInput: 01000000
+  UIInputAction: {fileID: 0}
+  AddPhysicsRaycaster: 0
+  PhysicsRaycasterEventMask:
+    serializedVersion: 2
+    m_Bits: 0
+  RightThumbstickScroll: 1
+  PressingObject: {fileID: 0}
+  DraggingObject: {fileID: 0}
+  ReleasingObject: {fileID: 0}
+--- !u!114 &1316523284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316523282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &1316523285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316523282}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1321567325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20224,6 +20298,12 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 350, y: 100, z: 25}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1984305693 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1765546623450899079, guid: 2af1d2045149fe743b81bc4d1a6f8406,
+    type: 3}
+  m_PrefabInstance: {fileID: 1942141272}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1995341757
 GameObject:
   m_ObjectHideFlags: 0
@@ -64288,3 +64368,4 @@ SceneRoots:
   - {fileID: 549580552}
   - {fileID: 1684055556}
   - {fileID: 616468146}
+  - {fileID: 1316523285}
