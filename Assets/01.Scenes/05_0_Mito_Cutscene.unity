@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.3
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0.3}
+  m_IndirectSpecularColor: {r: 0.1885573, g: 0.053765286, b: 0.10365435, a: 0.3}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -49806,6 +49806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1568045487}
   - component: {fileID: 1568045486}
+  - component: {fileID: 1568045488}
   m_Layer: 0
   m_Name: CutsceneManager_MitoCutscene
   m_TagString: Untagged
@@ -49842,6 +49843,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1568045488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568045485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f61ea927f7e7a49b6e22e8e8f32de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playableDirector: {fileID: 179762501}
+  moveTime: 12
 --- !u!1 &1571826543
 GameObject:
   m_ObjectHideFlags: 0

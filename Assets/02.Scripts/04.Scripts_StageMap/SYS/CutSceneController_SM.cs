@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CutSceneController_SM : MonoBehaviour
-{    
+{
     public GameObject entireGame;
     public GameObject cutScene;
     public Image blackPanel;
@@ -19,13 +19,15 @@ public class CutSceneController_SM : MonoBehaviour
 
     [Header("Interactable")]
     public Button[] interactableBtns;
+    public CutSceneSkip_SM cutSceneSkipScript;
+
     public void LoadInteractable() { for (int i = 0; i < interactableBtns.Length; i++) interactableBtns[i].interactable = true; }
 
     public void EndCutSceneLoadGame()
     {
         cutScene.SetActive(false);
         entireGame.SetActive(true);
-        
+
         StartCoroutine(ChangeBlackPanel());
     }
 
@@ -38,9 +40,9 @@ public class CutSceneController_SM : MonoBehaviour
             yield return null;
             alpha -= 0.01f;
             if (alpha <= 0f)
-            {                
+            {
                 break;
-            }                
+            }
         }
 
         Destroy(cutScene);
@@ -51,8 +53,21 @@ public class CutSceneController_SM : MonoBehaviour
 
     public void LoadFromCM()
     {
+        cutSceneSkipScript.enabled = true;
+
         cutScene.SetActive(true);
-        entireGame.SetActive(false);        
+        entireGame.SetActive(false);
+    }
+
+    public void LoadFromCM_ForPresentation()
+    {
+        cutSceneSkipScript.enabled = true;
+
+        npcDialogueSystem.enabled = false;
+        laserPointer.enabled = true;
+
+        cutScene.SetActive(true);
+        entireGame.SetActive(false);
     }
 
     public void LoadFromOtherScene(int spawnPosNum)
@@ -67,8 +82,6 @@ public class CutSceneController_SM : MonoBehaviour
         playerPos.transform.rotation = spawnPos[spawnPosNum].localRotation;
 
         StartCoroutine(ChangeBlackPanel());
-
-        LoadInteractable();
     }
 
     // New

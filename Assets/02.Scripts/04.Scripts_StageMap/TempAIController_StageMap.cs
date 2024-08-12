@@ -11,6 +11,11 @@ public class TempAIController_StageMap : MonoBehaviour
 
     public GameObject ToggleObject;
 
+    private bool triggered_menu = false;
+    private bool oldTriggered_menu = false;
+
+    public GameObject MenuObject;
+
     void Update()
     {
         left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
@@ -24,5 +29,16 @@ public class TempAIController_StageMap : MonoBehaviour
         }
 
         oldTriggered = triggered;
+
+
+        left.TryGetFeatureValue(UnityEngine.XR.CommonUsages.menuButton, out triggered_menu);
+
+        if (triggered_menu && !oldTriggered_menu)
+        {
+            if (!MenuObject.activeSelf) { MenuObject.SetActive(true); }
+            else { MenuObject.SetActive(false); }
+        }
+
+        oldTriggered_menu = triggered_menu;
     }
 }

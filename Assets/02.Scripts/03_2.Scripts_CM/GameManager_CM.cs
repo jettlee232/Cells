@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Oculus.Interaction.OptionalAttribute;
@@ -62,6 +63,7 @@ public class GameManager_CM : MonoBehaviour
     [Header("Entire Game & Cutscenes")]
     public GameObject entireGame;
     public GameObject cutScene;
+    public CutSceneSkip_SM cutSceneSkip;
 
     void Start()
     {
@@ -72,6 +74,8 @@ public class GameManager_CM : MonoBehaviour
         smoothLocomotion.enabled = false; // Maybe Refactorung Later?
         uiPointer.enabled = false; // Maybe Refactorung Later?
         lineRenderer.enabled = false; // Maybe Refactorung Later?
+
+        cutSceneSkip.enabled = false;
     }
 
     private void Update()
@@ -112,8 +116,12 @@ public class GameManager_CM : MonoBehaviour
         StartCoroutine(QuestStart());
 
         smoothLocomotion.enabled = false; // Maybe Refactorung Later?
-        uiPointer.enabled = false; // Maybe Refactorung Later?
-        lineRenderer.enabled = false; // Maybe Refactorung Later?
+        //uiPointer.enabled = false; // Maybe Refactorung Later?
+        //lineRenderer.enabled = false; // Maybe Refactorung Later?
+        // Use Later
+
+        uiPointer.enabled = true; // Maybe Refactorung Later?
+        lineRenderer.enabled = true; // Maybe Refactorung Later?
     }
 
     public void GameRestart()
@@ -280,7 +288,7 @@ public class GameManager_CM : MonoBehaviour
 
         StartCoroutine(MakeEndEventBlock());
     }
-    
+
     public void NewQuest(string questContents)
     {
         if (quest.transform.GetChild(0).gameObject.activeSelf == false) quest.transform.GetChild(0).gameObject.SetActive(true);
@@ -294,7 +302,7 @@ public class GameManager_CM : MonoBehaviour
     }
 
     public void LoadStageMap()
-    {        
+    {
         SceneManager.LoadScene(5);
     }
 
@@ -302,11 +310,13 @@ public class GameManager_CM : MonoBehaviour
     {
         scrFader.ChangeFadeImageColor(Color.black, 2f, 1f);
         scrFader.DoFadeIn();
-        
+
         yield return new WaitForSeconds(3.25f);
-       
+
         cutScene.SetActive(true);
-        entireGame.SetActive(false);           
+        entireGame.SetActive(false);
+
+        cutSceneSkip.enabled = true;
     }
 
     IEnumerator QuestStart()
@@ -391,7 +401,7 @@ public class GameManager_CM : MonoBehaviour
         bsMgr.isHardMode = true;
         bsMgr.BlockSpawnStart();
         over1000Panel.SetActive(true);
-        if (over1000Panel.GetComponent<TutorialPanelTween_CM>().ReturnFlag() == true) 
+        if (over1000Panel.GetComponent<TutorialPanelTween_CM>().ReturnFlag() == true)
             over1000Panel.GetComponent<TutorialPanelTween_CM>().StartInstTween();
 
         yield return new WaitForSeconds(2f);
