@@ -260,7 +260,8 @@ public class AudioMgr_CM : MonoBehaviour
     {
         if (previousSceneName == "03_2_CM")
         {
-            csControl.LoadFromCM();            
+            //csControl.LoadFromCM();            
+            csControl.LoadFromCM_ForPresentation();
         }
         else if (previousSceneName == "05_2_Mito" || previousSceneName == "05_1_Mito_Tutorial" || previousSceneName == "05_0_Mito_Cutscene")
         {
@@ -269,6 +270,10 @@ public class AudioMgr_CM : MonoBehaviour
         else if (previousSceneName == "06_Lys" || previousSceneName == "06_Lys_Cutscene" || previousSceneName == "06_Lys_Tutorial")
         {
             csControl.LoadFromOtherScene(1);
+        }
+        else
+        {
+            csControl.LoadFromCM_ForPresentation();
         }
     }
 
