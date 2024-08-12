@@ -68,6 +68,8 @@ public class CutSceneController_SM : MonoBehaviour
 
         cutScene.SetActive(true);
         entireGame.SetActive(false);
+
+        LoadInteractable();
     }
 
     public void LoadFromOtherScene(int spawnPosNum)
@@ -82,6 +84,8 @@ public class CutSceneController_SM : MonoBehaviour
         playerPos.transform.rotation = spawnPos[spawnPosNum].localRotation;
 
         StartCoroutine(ChangeBlackPanel());
+
+        LoadInteractable();
     }
 
     // New

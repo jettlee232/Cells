@@ -82,7 +82,8 @@ public class MitochondriaMiniHalf_MitoTuto : MonoBehaviour
         while (true)
         {
             // 10초가 지났는지 확인
-            if (Time.time - grabTime >= 10f)
+            // SYS Code - 10초에서 2초로 변경
+            if (Time.time - grabTime >= 2f)
             {
                 isGrabFinish = true;
                 yield break;
