@@ -75,7 +75,7 @@ public class AudioMgr_CM : MonoBehaviour
         flag_audioFade = false;
 
         audioSrc = GetComponent<AudioSource>();
-        audioSrc.volume = PlayerPrefs.GetFloat("Volume", 0.5f);
+        audioSrc.volume = PlayerPrefs.GetFloat("Volume", 0.2f);
         audioSrc.pitch = PlayerPrefs.GetFloat("Pitch", 1f);
 
         sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.5f); // New Code - For SFX Volume        
@@ -125,6 +125,7 @@ public class AudioMgr_CM : MonoBehaviour
                 audioSrc.clip = bgmClips[2];
                 audioSrc.Play();
                 break;
+            case "04_0_StageMap_CutScene":
             case "04_StageMap":
                 if (audioSrc.isPlaying) audioSrc.Stop();
                 audioSrc.clip = bgmClips[3];
@@ -159,6 +160,7 @@ public class AudioMgr_CM : MonoBehaviour
         else if (currentSceneName == "03_1_CM_Tutorial" && previousSceneName == "03_0_CM_Cutscenes") return false;
         else if (currentSceneName == "03_2_CM" && previousSceneName == "03_1_CM_Tutorial") return false;
         else if (currentSceneName == "03_1_CM_Tutorial" && previousSceneName == "03_0_CM_Cutscenes") return false;
+        else if (currentSceneName == "04_StageMap" && previousSceneName == "04_0_StageMap_CutScene") return false;
         else if (currentSceneName == "05_1_Mito_Tutorial" && previousSceneName == "05_0_Mito_Cutscene") return false;
         else if (currentSceneName == "05_2_Mito" && previousSceneName == "05_1_Mito_Tutorial") return false;
         else if (currentSceneName == "06_Lys_Tutorial" && previousSceneName == "06_Lys_Cutscene") return false;
@@ -239,7 +241,8 @@ public class AudioMgr_CM : MonoBehaviour
     // New SYS Code
     private IEnumerator ExecuteAfterSceneLoad()
     {
-        CutSceneController_SM csc;
+        GameManager_StageMap gameMgr_SM;
+        //CutSceneController_SM csc;
 
         if (currentSceneName == "04_StageMap")
         {
@@ -247,33 +250,32 @@ public class AudioMgr_CM : MonoBehaviour
             GameObject gameManager = null;
             while (gameManager == null)
             {
-                gameManager = GameObject.Find("CutSceneMgr");
+                gameManager = GameObject.Find("GameManager");
                 yield return null; // 매 프레임마다 체크
             }
-            csc = gameManager.GetComponent<CutSceneController_SM>();
-            SM_SceneLoadMech(csc); // 특정 조건에 따른 명령 실행
+            gameMgr_SM = gameManager.GetComponent<GameManager_StageMap>();
+            SM_SceneLoadMech(gameMgr_SM); // 특정 조건에 따른 명령 실행
         }
     }
 
     // New SYS Code
-    public void SM_SceneLoadMech(CutSceneController_SM csControl)
+    public void SM_SceneLoadMech(GameManager_StageMap gameMgr_SM)
     {
-        if (previousSceneName == "03_2_CM")
+        if (previousSceneName == "04_0_StageMap_CutScene")
         {
-            //csControl.LoadFromCM();            
-            csControl.LoadFromCM_ForPresentation();
+            gameMgr_SM.LoadFromCM();                        
         }
         else if (previousSceneName == "05_2_Mito" || previousSceneName == "05_1_Mito_Tutorial" || previousSceneName == "05_0_Mito_Cutscene")
-        {
-            csControl.LoadFromOtherScene(0);
+        {           
+            gameMgr_SM.LoadFromOtherScene(0);
         }
         else if (previousSceneName == "06_Lys" || previousSceneName == "06_Lys_Cutscene" || previousSceneName == "06_Lys_Tutorial")
         {
-            csControl.LoadFromOtherScene(1);
+            gameMgr_SM.LoadFromOtherScene(1);
         }
         else
         {
-            csControl.LoadFromCM_ForPresentation();
+            gameMgr_SM.LoadFromCM_ForPresentation();
         }
     }
 

@@ -22,6 +22,7 @@ public class BlockDeletePlane_CM : MonoBehaviour
             Destroy(other.transform.parent.gameObject);
             gameMgr.ScoreDown(100);
             gameMgr.RedFade(); // 나중에 수정해야 함
+            AudioMgr_CM.Instance.PlaySFXByInt(11);
         }
     }
 }

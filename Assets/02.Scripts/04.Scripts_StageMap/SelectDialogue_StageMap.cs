@@ -25,7 +25,7 @@ public class SelectDialogue_StageMap : MonoBehaviour
     {
         player = GameManager_StageMap.instance.GetPlayer();
         tutorial = GameManager_StageMap.instance.GetTutorialManager();
-        ActivateDST1();
+        //ActivateDST1();
     }
 
     public void ActivateDST1() // 1번째 트리거 작동 함수

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR;
+using UnityEngine.UI;
 
 public class GameManager_StageMap : MonoBehaviour
 {
@@ -27,12 +28,21 @@ public class GameManager_StageMap : MonoBehaviour
     private bool selectable = true;
 
     // SYS Code
-    [Header("SYS's Variable")]
+    [Header("ETC Variable")]
     public PlayerMoving_StageMap playerMove;    
     public AudioClip alertClip;
     public GameObject speechBubble;
     public SpeechBubblePanel_CM npcSpeechBubble;
-    private bool tutoEnd = false; 
+    private bool tutoEnd = false;
+
+    // SYS Code
+    [Header("Player & NPC")]
+    public SelectDialogue_StageMap npcDialogueSystem;
+    public Transform[] spawnPos;
+    public BNG.MyFader_CM scrFader;
+
+    [Header("Buttons")]
+    public Button[] interactableBtns;
 
     void Awake()
     {
@@ -95,4 +105,41 @@ public class GameManager_StageMap : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    // SYS Code
+#region LoadMech
+    public void LoadFromCM() { npcDialogueSystem.ActivateDST1(); }
+
+    public void LoadFromCM_ForPresentation() 
+    {
+        npcDialogueSystem.enabled = false;
+        LoadInteractable();        
+    }
+
+    public void LoadFromOtherScene(int spawnPosNum)
+    {        
+        Transform playerPos = player.transform;       
+        playerPos.position = spawnPos[spawnPosNum].position;
+        playerPos.rotation = spawnPos[spawnPosNum].localRotation;
+
+        LoadFromCM_ForPresentation();
+    }
+    #endregion
+
+    public void LoadScene(string cutSceneName)
+    {
+        AudioMgr_CM.Instance.AudioFade();
+        StartCoroutine(SceneLoading(cutSceneName));        
+    }
+
+    IEnumerator SceneLoading(string cutSceneName)
+    {
+        scrFader.ChangeFadeImageColor(Color.black, 2f, 1f);
+        scrFader.DoFadeIn();
+
+        yield return new WaitForSeconds(1f);
+
+        SceneManager.LoadScene(cutSceneName);
+    }
+    public void LoadInteractable() { for (int i = 0; i < interactableBtns.Length; i++) interactableBtns[i].interactable = true; }
 }

@@ -80,7 +80,7 @@ public class GameManager_CM : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("04_StageMap");
+        if (Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("04_0_StageMap_CutScene");
     }
 
     public void PopupTutoPanel()
@@ -303,7 +303,7 @@ public class GameManager_CM : MonoBehaviour
 
     public void LoadStageMap()
     {
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene("04_0_StageMap_CutScene");
     }
 
     IEnumerator EndGameAndStartCutScene()
