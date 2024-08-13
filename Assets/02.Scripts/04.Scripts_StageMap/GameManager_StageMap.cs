@@ -40,6 +40,7 @@ public class GameManager_StageMap : MonoBehaviour
     public SelectDialogue_StageMap npcDialogueSystem;
     public Transform[] spawnPos;
     public BNG.MyFader_CM scrFader;
+    public LaserPointer_StageMap laserPointer;
 
     [Header("Buttons")]
     public Button[] interactableBtns;
@@ -113,7 +114,8 @@ public class GameManager_StageMap : MonoBehaviour
     public void LoadFromCM_ForPresentation() 
     {
         npcDialogueSystem.enabled = false;
-        LoadInteractable();        
+        laserPointer.enabled = true;
+        LoadInteractable();
     }
 
     public void LoadFromOtherScene(int spawnPosNum)
