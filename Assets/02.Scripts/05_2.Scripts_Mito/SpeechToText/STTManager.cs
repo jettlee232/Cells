@@ -41,6 +41,7 @@ public class STTManager : MonoBehaviour
     public GameObject stopButton;
 
     public Image timerImage;
+    private Coroutine stopRecordingCoroutine;
     private Coroutine timerCoroutine;
 
     private void Start()
@@ -96,7 +97,7 @@ public class STTManager : MonoBehaviour
         startButton.SetActive(false);
         stopButton.SetActive(true);
 
-        StartCoroutine(StopRecordingAfterDelay(floatRecordingLengthSec));
+        stopRecordingCoroutine = StartCoroutine(StopRecordingAfterDelay(floatRecordingLengthSec));
         timerCoroutine = StartCoroutine(UpdateTimer(floatRecordingLengthSec));
     }
 
@@ -129,37 +130,43 @@ public class STTManager : MonoBehaviour
             Debug.Log("리턴");
             return;
         }
-        else
+
+        Microphone.End(microphoneID);
+
+        Debug.Log("stop recording");
+        if (recording == null)
         {
-            Microphone.End(microphoneID);
-
-            Debug.Log("stop recording");
-            if (recording == null)
-            {
-                Debug.LogError("nothing recorded");
-                return;
-            }
-
-            // AudioClip을 byte array로 변환
-            byte[] byteData = WavUtility.FromAudioClip(recording);
-            //byte[] byteData = ConvertAudioClipToByteArray(recording);
-
-            // 녹음된 AudioClip을 API 서버로 전송
-            if (byteData != null)
-                StartCoroutine(PostVoice(fullUrl, byteData));
-
-            // AudioSource에 녹음된 Clip 재생
-            //source.clip = recording;
-
-            startButton.SetActive(true);
-            stopButton.SetActive(false);
-
-            if (timerCoroutine != null)
-            {
-                StopCoroutine(timerCoroutine);
-            }
-            timerImage.fillAmount = 0;
+            Debug.LogError("nothing recorded");
+            return;
         }
+
+        if (stopRecordingCoroutine != null)
+        {
+            StopCoroutine(stopRecordingCoroutine);
+            stopRecordingCoroutine = null;
+        }
+
+        if (timerCoroutine != null)
+        {
+            StopCoroutine(timerCoroutine);
+            timerCoroutine = null;
+        }
+
+        timerImage.fillAmount = 0;
+
+        // AudioClip을 byte array로 변환
+        byte[] byteData = WavUtility.FromAudioClip(recording);
+        //byte[] byteData = ConvertAudioClipToByteArray(recording);
+
+        // 녹음된 AudioClip을 API 서버로 전송
+        if (byteData != null)
+            StartCoroutine(PostVoice(fullUrl, byteData));
+
+        // AudioSource에 녹음된 Clip 재생
+        //source.clip = recording;
+
+        startButton.SetActive(true);
+        stopButton.SetActive(false);
     }
 
     /*

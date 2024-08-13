@@ -153,7 +153,11 @@ public class Item_Mito : MonoBehaviour
 
     public void ResetScale()
     {
-        StartCoroutine(ScaleOverTime(OriginalScale, 2.5f));  // 2.5초 동안 원래 크기로 돌아옴
+        if (!isInventory)
+        {
+            Debug.Log("아이템 크기 원래대로");
+            StartCoroutine(ScaleOverTime(OriginalScale, 2.5f));  // 2.5초 동안 원래 크기로 돌아옴
+        }
     }
 
     private IEnumerator ScaleOverTime(Vector3 targetScale, float duration)

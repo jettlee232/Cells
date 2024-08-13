@@ -28,6 +28,8 @@ public class InventorySlot_Mito : MonoBehaviour
 
         isHandlingEvent = true;
 
+        Debug.Log($"OnItemSnapped called for item: {item.name} in slot: {slotType}");
+
         // 아이템을 일치하는 슬롯에 넣을때
         if (item.GetComponent<Item_Mito>().type == slotType)
         {
