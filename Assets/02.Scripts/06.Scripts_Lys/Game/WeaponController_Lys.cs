@@ -51,7 +51,7 @@ public class WeaponController_Lys : MonoBehaviour
         grabber.GetComponent<Grabber>().ForceGrab = true;
         Gun = true;
     }
-    
+
     void UseRocket()
     {
         Instantiate(changeEffect, gun.transform.parent.transform.GetChild(0).transform.position, gun.transform.rotation);
@@ -60,5 +60,28 @@ public class WeaponController_Lys : MonoBehaviour
         rocket.SetActive(true);
         grabber.GetComponent<Grabber>().ForceGrab = true;
         Gun = false;
+    }
+
+    public void HideWeapon()
+    {
+        Instantiate(changeEffect, gun.transform.parent.transform.GetChild(0).transform.position, gun.transform.rotation);
+        grabber.GetComponent<Grabber>().ForceGrab = false;
+        if (gun.activeSelf) { gun.SetActive(false); }
+        if (rocket.activeSelf) { rocket.SetActive(false); }
+    }
+
+    public void ShowWeapon()
+    {
+        Instantiate(changeEffect, gun.transform.parent.transform.GetChild(0).transform.position, gun.transform.rotation);
+        if (Gun)
+        {
+            gun.SetActive(true);
+            grabber.GetComponent<Grabber>().ForceGrab = true;
+        }
+        else
+        {
+            rocket.SetActive(true);
+            grabber.GetComponent<Grabber>().ForceGrab = true;
+        }
     }
 }

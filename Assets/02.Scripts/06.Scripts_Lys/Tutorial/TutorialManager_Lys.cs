@@ -175,6 +175,7 @@ public class TutorialManager_Lys : MonoBehaviour
     IEnumerator cTutorial1()
     {
         GameManager_Lys.instance.HideLine();
+        UIPointer.transform.GetChild(0).gameObject.SetActive(false);
         UseGun();
         ShowAllEnemies();
         while (true)

@@ -6927,15 +6927,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 605252754}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83ec32b7b5bd9cc48922059a024c25f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b19ab1d473e0df429e5c038c97bab2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 20
-  touchEffect: {fileID: 542740372791937734, guid: a164092803922f84d92d63d2ac11b80a,
-    type: 3}
-  obj: {fileID: 0}
+  HideWeapon: 1
+  aiUI: {fileID: 1590316904}
+  mapUI: {fileID: 1010731665}
 --- !u!136 &605252760
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18189,6 +18188,12 @@ PrefabInstance:
 --- !u!4 &1590316903 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3564086005987757063, guid: 03b9263998848714f8a3b83f2a55ec12,
+    type: 3}
+  m_PrefabInstance: {fileID: 1590316902}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1590316904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1155598287862804582, guid: 03b9263998848714f8a3b83f2a55ec12,
     type: 3}
   m_PrefabInstance: {fileID: 1590316902}
   m_PrefabAsset: {fileID: 0}
