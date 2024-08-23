@@ -275,7 +275,8 @@ public class AudioMgr_CM : MonoBehaviour
         }
         else
         {
-            gameMgr_SM.LoadFromCM_ForPresentation();
+            //gameMgr_SM.LoadFromCM_ForPresentation();
+            gameMgr_SM.LoadFromCM();
         }
     }
 

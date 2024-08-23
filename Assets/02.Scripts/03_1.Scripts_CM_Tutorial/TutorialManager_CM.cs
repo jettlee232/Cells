@@ -84,7 +84,7 @@ public class TutorialManager_CM : MonoBehaviour
     public GameObject[] followingPanels;
     public Transform[] followPanelPos;
     public GameObject followPanelParticlePrefab;
-    private ParticleSystem followPanelParticleSys;
+    public ParticleSystem followPanelParticleSys;
 
     [Header("Tooltip")]
     public Tooltip[] tooltips;
@@ -597,8 +597,6 @@ public class TutorialManager_CM : MonoBehaviour
         go.transform.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
 
         followPanelParticleSys.Play();
-
-        AudioMgr_CM.Instance.PlaySFXByInt(13);
     }
 
     public void FollowDelete(double followPanelIndex)

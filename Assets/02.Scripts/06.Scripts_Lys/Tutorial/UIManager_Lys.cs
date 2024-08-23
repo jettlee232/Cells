@@ -36,6 +36,10 @@ public class UIManager_Lys : MonoBehaviour
     private Vector3 tutoSize;
     private Vector3 DescSize;
 
+    // SYS Code
+    public ParticleSystem handPanelParticle;
+    private bool isDescClosing = false;
+
 
     void Awake()
     {
@@ -50,6 +54,9 @@ public class UIManager_Lys : MonoBehaviour
         DOTween.Init();
         FadeIn();
         SetQuest("NPC에게 말을 걸어보자!");
+
+        // SYS Code
+        handPanelParticle.Stop();
     }
 
     #region 노폐물 설명창
@@ -77,21 +84,35 @@ public class UIManager_Lys : MonoBehaviour
         StartCoroutine(ShowDesc(Descs[(int)type].gameObject));
 
         nowSelectedEnemy = type;
+
+        AudioMgr_CM.Instance.PlaySFXByInt(4);
+        handPanelParticle.Play();
     }
     public void OffDesc()
     {
-        foreach (GameObject enemyUI in Descs)
+        if (isDescClosing == false)
         {
-            if (enemyUI.gameObject.activeSelf)
+            foreach (GameObject enemyUI in Descs)
             {
-                transform.DOScale(Vector3.zero, 1f);
-                transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
-                StartCoroutine(DestroyAfterRewind(enemyUI.gameObject));
-                break;
+                if (enemyUI.gameObject.activeSelf)
+                {
+                    // SYS Code
+                    isDescClosing = true;
+                    enemyUI.transform.DOScale(Vector3.zero, 1f);
+                    enemyUI.transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360).OnComplete(() =>
+                    {
+                        enemyUI.SetActive(false);
+                        isDescClosing = false;
+                    });
+                    //StartCoroutine(DestroyAfterRewind(enemyUI.gameObject));
+                    break;
+                }
             }
-        }
-        GameManager_Lys.instance.GetUIPointer().GetComponent<LaserPointer_Lys>().InitObj();
-        nowSelectedEnemy = null;
+            GameManager_Lys.instance.GetUIPointer().GetComponent<LaserPointer_Lys>().InitObj();
+            nowSelectedEnemy = null;
+
+            AudioMgr_CM.Instance.PlaySFXByInt(16);
+        }        
     }
     private IEnumerator DestroyAfterRewind(GameObject enemy)
     {

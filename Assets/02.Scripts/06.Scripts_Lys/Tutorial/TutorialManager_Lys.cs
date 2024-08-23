@@ -145,7 +145,7 @@ public class TutorialManager_Lys : MonoBehaviour
         killES = 0;
         killAll = 0;
     }
-    
+
     public void plusDP() { killDP++; killAll++; }
     public void plusCD() { killCD++; killAll++; }
     public void plusEs() { killES++; killAll++; }

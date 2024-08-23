@@ -15,7 +15,7 @@ public class FollowPanel_CM : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         transform.localScale = Vector3.zero;
-        transform.DOScale(new Vector3(1f, 1f, 1f), 1f);        
+        transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
         transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
 
         if (closeBtn == null)
@@ -25,6 +25,8 @@ public class FollowPanel_CM : MonoBehaviour
             closeBtn = go.GetComponent<Button>();
         }
         closeBtn.onClick.AddListener(ReverseTweenAndDestroy);
+
+        AudioMgr_CM.Instance.PlaySFXByInt(4); // SSS
     }
 
     public void ReverseTweenAndDestroy() // Button으로 호출하는 거
@@ -32,6 +34,8 @@ public class FollowPanel_CM : MonoBehaviour
         transform.DOScale(Vector3.zero, 1f);
         transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
         StartCoroutine(DestroyAfterRewind());
+
+        AudioMgr_CM.Instance.PlaySFXByInt(16); // SSS
     }
 
     private IEnumerator DestroyAfterRewind()

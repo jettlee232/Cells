@@ -21,7 +21,7 @@ public class UIManager_StageMap : MonoBehaviour
         Rib = 5,
         SER = 6,
         RER = 7,
-        Per = 8, 
+        Per = 8,
         Mito_Enter = 9,
         RER_Enter = 10,
         Nuc_Enter = 11,
@@ -120,7 +120,7 @@ public class UIManager_StageMap : MonoBehaviour
             if (organelleUI.gameObject.activeSelf)
             {
                 panelTween1 = organelleUI.transform.DOScale(Vector3.zero, 1f);
-                panelTween2 = organelleUI.transform.DOLocalRotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360).OnComplete(() => {                                        
+                panelTween2 = organelleUI.transform.DOLocalRotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360).OnComplete(() => {
                     organelleUI.SetActive(false);
 
                     panelTween1 = null;
@@ -137,7 +137,7 @@ public class UIManager_StageMap : MonoBehaviour
 
                 break;
             }
-        }        
+        }
     }
 
     private IEnumerator DestroyAfterRewind(GameObject organelle)
@@ -191,8 +191,8 @@ public class UIManager_StageMap : MonoBehaviour
     public void ChangeQuest(string str) { QuestPanel.GetComponent<QuestPanel_StageMap>().ChangeText(str); }
 
     // SYS Code
-    public void HideQuest() 
-    { 
+    public void HideQuest()
+    {
         //QuestPanel.GetComponent<QuestPanel_StageMap>().PanelClose(); 
     }
     public bool GetQuest() { return QuestPanel.activeSelf; }
@@ -216,6 +216,8 @@ public class UIManager_StageMap : MonoBehaviour
         // SYS Code
         particle1Sys.gameObject.transform.position = particle1Trns.position;
         particle1Sys.Play();
+
+        AudioMgr_CM.Instance.PlaySFXByInt(4); // SSS
     }
 
     public void NextTutorial()
@@ -226,6 +228,9 @@ public class UIManager_StageMap : MonoBehaviour
             nowTutorial++;
             TutorialPanels[nowTutorial].gameObject.SetActive(true);
             TutorialPanels[nowTutorial].gameObject.transform.DOPunchScale(tutoSize * 0.2f, 0.2f).OnComplete(() => TutorialPanels[nowTutorial].gameObject.transform.localScale = tutoSize);
+
+            AudioMgr_CM.Instance.PlaySFXByInt(16); // SSS
+            AudioMgr_CM.Instance.PlaySFXByInt(4); // SSS
 
             // SYS Code
             if (nowTutorial == 1)
@@ -248,7 +253,7 @@ public class UIManager_StageMap : MonoBehaviour
         {
             foreach (GameObject panel in TutorialPanels)
             {
-                StartCoroutine(hideTuto(panel));    
+                StartCoroutine(hideTuto(panel));
                 panel.transform.DOScale(Vector3.zero, 1f);
             }
         }

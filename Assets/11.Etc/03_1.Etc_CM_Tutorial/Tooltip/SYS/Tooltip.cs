@@ -55,6 +55,8 @@ public class Tooltip : MonoBehaviour
             fontPos_init = fontPos.localPosition;
             fontPos_goal = Vector3.zero;
         }
+
+        AudioMgr_CM.Instance.PlaySFXByInt(4);
     }
 
     public void TooltipOn(string content)
