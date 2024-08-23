@@ -7,6 +7,7 @@ using UnityEngine.XR;
 using UnityEngine.UIElements;
 using Language.Lua;
 using System;
+using DG.Tweening;
 
 public class SelectDialogue_Lobby : MonoBehaviour
 {
@@ -25,9 +26,35 @@ public class SelectDialogue_Lobby : MonoBehaviour
     private Vector2 rMove = Vector2.zero;
     private GameObject player = null;
 
+    // SYS Code
+    [Header("Dialogue Bubble")]
+    public RectTransform dialogueBubble;
+    private DG.Tweening.Tween sizeTween = null;
+
     private void Start()
     {
         player = GameManager_Lobby.instance.GetPlayer();
+    }
+
+    // SYS Code
+    public void DialogueCanvasSize_LB(bool flag)
+    {
+        if (flag == true) // true면 커지기
+        {
+            if (sizeTween != null) sizeTween.Kill(); // 이미 다른 트윈이 실행 중이었다면 실행 중이었던 트윈을 중단하기
+
+            sizeTween = dialogueBubble.transform.DOScale(new Vector3(0.003f, 0.003f, 0.003f), 1f).OnComplete(() => {
+                sizeTween = null;
+            });
+        }
+        else // false면 작아지기
+        {
+            if (sizeTween != null) sizeTween.Kill(); // 이미 다른 트윈이 실행 중이었다면 실행 중이었던 트윈을 중단하기
+
+            sizeTween = dialogueBubble.transform.DOScale(Vector3.zero, 1f).OnComplete(() => {
+                sizeTween = null;
+            });
+        }
     }
 
     public void ActivateDST1() // 1번째 트리거 작동 함수
@@ -37,6 +64,9 @@ public class SelectDialogue_Lobby : MonoBehaviour
         dialogueSystemTrigger1.startConversationEntryID = 0; // 1번째 트리거의 컨버제이션 진입 번호를 0번으로 변경 (이거 안해도 되기는 한데, 안하면 나중에 컨버제이션 재활용이 불가)
         dialogueSystemTrigger1.OnUse(); // On Use로 컨버제이션 작동
         GameManager_Lobby.instance.firstEnd = true;
+
+        // SYS Code
+        DialogueCanvasSize_LB(true);
     }
 
     public void ActivateDST2() // 2번째 트리거 작동 함수
@@ -57,7 +87,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
         dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동
 
         // SYS Code
-        //GameManager_Lobby.instance.secondEnd = true;
+        DialogueCanvasSize_LB(true);
     }
 
     // SYS Code
@@ -152,6 +182,9 @@ public class SelectDialogue_Lobby : MonoBehaviour
         Lua.RegisterFunction("PortalShaderControllerEnable_LB", this, SymbolExtensions.GetMethodInfo(() => PortalShaderControllerEnable_LB((bool)false)));
         Lua.RegisterFunction("ShowingTooltipAnim_LB", this, SymbolExtensions.GetMethodInfo(() => ShowingTooltipAnim_LB((double)0, (double)0)));
         Lua.RegisterFunction("UnShowingTooltipAnim_LB", this, SymbolExtensions.GetMethodInfo(() => UnShowingTooltipAnim_LB((double)0)));
+
+        // SYS Code
+        Lua.RegisterFunction("DialogueCanvasSize_LB", this, SymbolExtensions.GetMethodInfo(() => DialogueCanvasSize_LB((bool)false)));
     }
 
     private void OnDisable()
@@ -177,6 +210,9 @@ public class SelectDialogue_Lobby : MonoBehaviour
         Lua.UnregisterFunction("PortalShaderControllerEnable_LB");
         Lua.UnregisterFunction("ShowingTooltipAnim_LB");
         Lua.UnregisterFunction("UnShowingTooltipAnim_LB");
+
+        // SYS Code
+        Lua.UnregisterFunction("DialogueCanvasSize_LB");
     }
 
     #endregion

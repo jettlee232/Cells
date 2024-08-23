@@ -21,7 +21,7 @@ public class LaserDescriptionTween_Home : MonoBehaviour
 
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
-        transform.localScale = Vector3.zero;        
+        transform.localScale = Vector3.zero;
         transform.DOScale(new Vector3(.5f, .5f, .5f), 1f);
         transform.DOLocalRotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
         //transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().eulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
@@ -38,6 +38,8 @@ public class LaserDescriptionTween_Home : MonoBehaviour
 
         // Latley Update - 240726
         lpLobby = GameObject.Find("RightHandPointer").GetComponent<LaserPointer_Lobby>();
+
+        AudioMgr_CM.Instance.PlaySFXByInt(4); // SSS
     }
 
     public void ReverseTweenAndDestroy()
@@ -47,6 +49,8 @@ public class LaserDescriptionTween_Home : MonoBehaviour
         transform.DOScale(Vector3.zero, 1f);
         transform.DOLocalRotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
         StartCoroutine(DestroyAfterRewind()); // 나중에 삭제해야 됨
+
+        AudioMgr_CM.Instance.PlaySFXByInt(16); // SSS
     }
 
     private IEnumerator DestroyAfterRewind()
@@ -54,7 +58,7 @@ public class LaserDescriptionTween_Home : MonoBehaviour
         if (hlObj != null) hlObj.GetComponent<HighLightColorchange_CM>().GlowEnd(); // Update - 240701 am 0204
 
         yield return new WaitForSeconds(1.05f);
-        
+
         Destroy(this.gameObject);
     }
 

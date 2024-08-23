@@ -28,6 +28,9 @@ public class LaserPointer_Lys : MonoBehaviour
 
     UnityEngine.XR.InputDevice right; // 오른손 컨트롤러 상태를 받는 변수
 
+    // SYS Code
+    private bool isSoundPlaying = false;
+
     void Start()
     {
         uiPointer = gameObject.GetComponent<BNG.UIPointer>(); // UI 컴포넌트 받기
@@ -50,12 +53,16 @@ public class LaserPointer_Lys : MonoBehaviour
             CheckRay(transform.position, transform.forward, maxDistance);
             if (GameManager_Lys.instance.GetMovable() && GameManager_Lys.instance.GetSelectable()) { CheckRay(transform.position, transform.forward, 10f); } // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
         }
-        else { uiPointer.HidePointerIfNoObjectsFound = true; }
+        else // SYS Code
+        {
+            uiPointer.HidePointerIfNoObjectsFound = true;
+            isSoundPlaying = false; // SYS Code
+        }
 
         if (UIManager_Lys.instance.CheckDesc()) // 현재 설명창이 만들어진 상태라면
         {
             if (!CheckSight()) { DestroyDescription(); }
-        }
+        }        
     }
 
     public void CheckRay(Vector3 targetPos, Vector3 direction, float length)
@@ -78,7 +85,8 @@ public class LaserPointer_Lys : MonoBehaviour
                         highlightEffect.highlighted = true;
                         rayHit.collider.gameObject.GetComponent<HighLightColorchange_Lys>().GlowStart();
                     }
-                    InstantiatePanel(obj);
+                    // SYS Code
+                    if (isSoundPlaying == false) InstantiatePanel(obj);
                 }
             }
             else if (rayHit.collider.gameObject.CompareTag("NPC") && GameManager_Lys.instance.GetTalkable())
@@ -91,8 +99,11 @@ public class LaserPointer_Lys : MonoBehaviour
 
     public void InstantiatePanel(GameObject go)
     {
+        // SYS Code
+        isSoundPlaying = true;        
+
         UIManager_Lys.instance.OnDesc(go);
-        glowObj = go;
+        glowObj = go;        
     }
 
     public void DestroyDescription() // 패널 없애기

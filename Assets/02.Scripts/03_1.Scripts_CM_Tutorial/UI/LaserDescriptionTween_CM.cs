@@ -33,8 +33,10 @@ public class LaserDescriptionTween_CM : MonoBehaviour
         }
         closeBtn.onClick.AddListener(ReverseTweenAndDestroy);
         Debug.Log(closeBtn.onClick);
-        
+
         lpad = GameObject.Find("RightHandPointer").GetComponent<LPAD_CM>();
+
+        AudioMgr_CM.Instance.PlaySFXByInt(4); // SSS
     }
 
     public void ReverseTweenAndDestroy()
@@ -44,6 +46,8 @@ public class LaserDescriptionTween_CM : MonoBehaviour
         transform.DOScale(Vector3.zero, 1f);
         transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
         StartCoroutine(DestroyAfterRewind()); // 나중에 삭제해야 됨
+
+        AudioMgr_CM.Instance.PlaySFXByInt(16); // SSS
     }
 
     private IEnumerator DestroyAfterRewind()
@@ -53,7 +57,7 @@ public class LaserDescriptionTween_CM : MonoBehaviour
         yield return new WaitForSeconds(1.05f);
 
         GameObject.FindGameObjectWithTag("GameController").GetComponent<TutorialManager_CM>().CheckHighlightCount();
-        Destroy(this.gameObject);        
+        Destroy(this.gameObject);
     }
 
     public void HLObjInit(GameObject go)

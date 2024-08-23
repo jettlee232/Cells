@@ -24,7 +24,7 @@ public class LPAD_CM : MonoBehaviour
     ParticleSystem particleSys;
     public GameObject particle;
     private bool wasBButtonPressed;
-    public int particleFlag = 0;
+    private bool isSoundPlaying = false;
 
     UnityEngine.XR.InputDevice right;
 
@@ -71,9 +71,9 @@ public class LPAD_CM : MonoBehaviour
         }
 
         // Latley Update - 240724
-        if (isButtonPressed && !wasBButtonPressed) particleFlag = 1;
-        if (!isButtonPressed && wasBButtonPressed) particleFlag = 0;
         wasBButtonPressed = isButtonPressed;
+
+        if (isButtonPressed == false) isSoundPlaying = false;
     }
 
     public void CheckRay(Vector3 targetPos, Vector3 direction, float length)
@@ -96,9 +96,9 @@ public class LPAD_CM : MonoBehaviour
 
                 if (currentPanel == null || currentPanel != descObj.GetComponent<DescObjID_CM>().descPanel)
                 {
-                    currentPanel = descObj.GetComponent<DescObjID_CM>().descPanel;                    
+                    currentPanel = descObj.GetComponent<DescObjID_CM>().descPanel;
 
-                    InstantiatePanel_Tween(descObj.GetComponent<DescObjID_CM>().descPanel, descObj.gameObject);
+                    if (isSoundPlaying == false) InstantiatePanel_Tween(descObj.GetComponent<DescObjID_CM>().descPanel, descObj.gameObject);
                 }
             }
 
@@ -114,6 +114,9 @@ public class LPAD_CM : MonoBehaviour
     // NEW
     public void InstantiatePanel_Tween(GameObject panel, GameObject rayhit)
     {
+        isSoundPlaying = true;
+        tutoMgr.followPanelParticleSys.Play();
+
         if (descrptionPanel != null)
         {
             glowobj.GetComponent<HighLightColorchange_CM>().GlowEnd();
@@ -123,22 +126,11 @@ public class LPAD_CM : MonoBehaviour
 
         tutoMgr.FollowDelete(0);
 
-        descrptionPanel = Instantiate(panel);        
+        descrptionPanel = Instantiate(panel);
         descrptionPanel.transform.SetParent(descriptionPanelSpawnPoint[rayhit.GetComponent<DescObjID_CM>().panelNum]);
         descrptionPanel.GetComponent<LaserDescriptionTween_CM>().HLObjInit(rayhit);
-        
-        glowobj = rayhit;
 
-        // Latley Update - 240724
-        if (particleFlag == 1)
-        {
-            particleSys.Play();
-            particleFlag = 2;
-        }
-        if (particleFlag == 2 && particleSys.isPlaying == false)
-        {
-            particleSys.Play();
-        }
+        glowobj = rayhit;
     }
 
 

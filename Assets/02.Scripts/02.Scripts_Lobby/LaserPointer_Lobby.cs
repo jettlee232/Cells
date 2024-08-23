@@ -30,10 +30,10 @@ public class LaserPointer_Lobby : MonoBehaviour
 
     // SYS Code
     [Header("Particle")]
-    public ParticleSystem paricle;
-    private bool wasBButtonPressed;
-    private int particleFlag = 0;
+    public ParticleSystem handPanelParticle;
+    private bool wasBButtonPressed;    
 
+    private bool isSoundPlaying = false;
 
     void Start()
     {
@@ -46,7 +46,7 @@ public class LaserPointer_Lobby : MonoBehaviour
         InteractableManager = GameManager_Lobby.instance.GetInteractable();
 
         // SYS Code        
-        paricle.Stop();        
+        handPanelParticle.Stop();
     }
 
     void Update()
@@ -67,9 +67,9 @@ public class LaserPointer_Lobby : MonoBehaviour
         }
 
         // Latley Update - 240724
-        if (isButtonPressed && !wasBButtonPressed) particleFlag = 1;
-        if (!isButtonPressed && wasBButtonPressed) particleFlag = 0;
         wasBButtonPressed = isButtonPressed;
+
+        if (isButtonPressed == false) isSoundPlaying = false;
     }
 
     public void CheckRay(Vector3 targetPos, Vector3 direction, float length)
@@ -114,8 +114,8 @@ public class LaserPointer_Lobby : MonoBehaviour
                         NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST2();
                     }
                 }
-                else 
-                { 
+                else
+                {
                     if (GameManager_Lobby.instance.tutoStatus == 0) NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST1();
                 }
             }
@@ -124,8 +124,10 @@ public class LaserPointer_Lobby : MonoBehaviour
             DescObjID_CM descObj = rayHit.collider.gameObject.GetComponent<DescObjID_CM>();
             if (descObj != null)
             {
-                Debug.Log("Hit Obj is : " + descObj.gameObject.name);
-                InstantiatePanel(descObj.GetComponent<DescObjID_CM>().descPanel);
+                if (isSoundPlaying == false)
+                {
+                    InstantiatePanel(descObj.GetComponent<DescObjID_CM>().descPanel);
+                }
             }
         }
     }
@@ -133,8 +135,11 @@ public class LaserPointer_Lobby : MonoBehaviour
     // SYS Code
     public void InstantiatePanel(GameObject panel)
     {
+        isSoundPlaying = true;
+        handPanelParticle.Play();
+
         if (descrptionPanel != null)
-        {            
+        {
             DestroyDescription();
         }
 
@@ -142,6 +147,8 @@ public class LaserPointer_Lobby : MonoBehaviour
         descrptionPanel.transform.SetParent(descriptionPanelSpawnPoint[0]);
 
         // Latley Update - 240724
+        
+        /*
         if (particleFlag == 1)
         {
             paricle.Stop();
@@ -153,6 +160,7 @@ public class LaserPointer_Lobby : MonoBehaviour
             paricle.Stop();
             paricle.Play();
         }
+        */
     }
 
     // SYS Code

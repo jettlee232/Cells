@@ -33,7 +33,8 @@ public class LaserPointer_StageMap : MonoBehaviour
     UnityEngine.XR.InputDevice right; // 오른손 컨트롤러 상태를 받는 변수
 
     // SYS Code
-    
+    private bool isSoundPlaying = false;
+    public ParticleSystem handPanelParticle;
 
     void Start()
     {
@@ -49,6 +50,9 @@ public class LaserPointer_StageMap : MonoBehaviour
         player = GameManager_StageMap.instance.GetPlayer();
         mainCam = GameManager_StageMap.instance.GetPlayerCam().GetComponent<Camera>();
         NPC = GameManager_StageMap.instance.GetNPC();
+
+        // SYS Code
+        handPanelParticle.Stop();
     }
 
     void Update()
@@ -63,7 +67,7 @@ public class LaserPointer_StageMap : MonoBehaviour
             CheckRay(transform.position, transform.forward, maxDistance);
             if (GameManager_StageMap.instance.GetMovable() && GameManager_StageMap.instance.GetSelectable()) { CheckRay(transform.position, transform.forward, 10f); } // 현재 레이저에 맞은 오브젝트가 뭔지 검사하기
         }
-        else { uiPointer.HidePointerIfNoObjectsFound = true; }
+        else { uiPointer.HidePointerIfNoObjectsFound = true; isSoundPlaying = false; }
 
         if (UIManager_StageMap.instance.CheckDesc()) // 현재 설명창이 만들어진 상태라면
         {
@@ -91,50 +95,55 @@ public class LaserPointer_StageMap : MonoBehaviour
         //}
         //else
         //{
-            if (Physics.Raycast(ray, out RaycastHit rayHit, length, ~(UILayer | playerLayer)))
+        if (Physics.Raycast(ray, out RaycastHit rayHit, length, ~(UILayer | playerLayer)))
+        {
+            GameManager_StageMap.instance.WaitForNewUI();
+            Instantiate(touchEffect, rayHit.point, Quaternion.LookRotation(player.transform.position));
+            Debug.Log(rayHit.collider.gameObject.name);
+            if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("Organelle"))
             {
-                GameManager_StageMap.instance.WaitForNewUI();
-                Instantiate(touchEffect, rayHit.point, Quaternion.LookRotation(player.transform.position));
-                Debug.Log(rayHit.collider.gameObject.name);
-                if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("Organelle"))
+                if (obj != rayHit.collider.gameObject)
                 {
-                    if (obj != rayHit.collider.gameObject)
+                    obj = rayHit.collider.gameObject;
+                    highlightEffect = obj.gameObject.GetComponent<HighLightColorchange_StageMap>().GetHl();
+                    if (highlightEffect != null)
                     {
-                        obj = rayHit.collider.gameObject;
-                        highlightEffect = obj.gameObject.GetComponent<HighLightColorchange_StageMap>().GetHl();
-                        if (highlightEffect != null)
-                        {
-                            highlightEffect.highlighted = true;
-                            rayHit.collider.gameObject.GetComponent<HighLightColorchange_StageMap>().GlowStart();
-                        }
-                        InstantiatePanel(obj);
+                        highlightEffect.highlighted = true;
+                        rayHit.collider.gameObject.GetComponent<HighLightColorchange_StageMap>().GlowStart();
                     }
-                }
-                else if (rayHit.collider.gameObject.CompareTag("NPC"))
-                {
-                    // SYS Code
-                    //if (GameManager_StageMap.instance.GetSecondCon())
-                    if (GameManager_StageMap.instance.ReturnTutoEnd() == true)
-                    {
-                        // 두번째 대화 조건 만족
-                        NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST2();
-                    }
-                    // SYS Code
-                    //else { NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST1(); }
+                    if (isSoundPlaying == false) InstantiatePanel(obj);
                 }
             }
+            else if (rayHit.collider.gameObject.CompareTag("NPC"))
+            {
+                // SYS Code
+                //if (GameManager_StageMap.instance.GetSecondCon())
+                if (GameManager_StageMap.instance.ReturnTutoEnd() == true)
+                {
+                    // 두번째 대화 조건 만족
+                    NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST2();
+                }
+                // SYS Code
+                //else { NPC.GetComponent<SelectDialogue_StageMap>().ActivateDST1(); }
+            }
+        }
         //}
     }
 
     public void InstantiatePanel(GameObject go)
     {
+        isSoundPlaying = true;
+        handPanelParticle.Play();
+
         UIManager_StageMap.instance.OnDesc(go);
         glowObj = go;
+        AudioMgr_CM.Instance.PlaySFXByInt(4); // SSS
     }
 
     public void DestroyDescription() // 패널 없애기
     {
-        UIManager_StageMap.instance.OffDesc();                
+        UIManager_StageMap.instance.OffDesc();
+        AudioMgr_CM.Instance.PlaySFXByInt(16); // SSS
     }
     public void InitObj()
     {

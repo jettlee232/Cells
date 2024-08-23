@@ -71,7 +71,7 @@ public class UIManager_Lobby : MonoBehaviour
 
     // SYS Code
     public void SetAlert(GameObject menu)
-    {                
+    {
         alert_UI.SetActive(true);
         alert_UI.transform.localScale = Vector3.zero;
         if (alertTween != null && alertTween.IsActive()) alertTween.Kill(); alertTween = null;
@@ -167,7 +167,11 @@ public class UIManager_Lobby : MonoBehaviour
         if (TutorialPanels[0].activeSelf) { ChangeTutorialTween(); } // SYS Code
         else { ShowTutorialTween(TutorialPanels[1]); ShowTutorialParticle(1); }
     }
-    public void HideMoveTutorial() { HideTutorialTween(TutorialPanels[0]); }
+    public void HideMoveTutorial()
+    {
+        HideTutorialTween(TutorialPanels[0]);
+        if (PlayerPrefs.GetInt("Lobby") == 0) AudioMgr_CM.Instance.PlaySFXByInt(16); // SSS
+    }
     public void HidePressTutorial() { HideTutorialTween(TutorialPanels[1]); }
 
     public void InitTutorial()
@@ -187,7 +191,9 @@ public class UIManager_Lobby : MonoBehaviour
         tuto.transform.rotation = Quaternion.identity;
 
         Transform grandParent = tuto.transform.parent.parent.parent;
-        tuto.transform.DORotateQuaternion(Quaternion.Euler(0f, 180f, 0f), 1f);        
+        tuto.transform.DORotateQuaternion(Quaternion.Euler(0f, 180f, 0f), 1f);
+
+        if (PlayerPrefs.GetInt("Lobby") == 0) AudioMgr_CM.Instance.PlaySFXByInt(4); // SSS               
     }
 
     public void HideTutorialTween(GameObject tuto)
