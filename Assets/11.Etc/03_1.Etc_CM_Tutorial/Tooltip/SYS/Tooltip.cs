@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MoreMountains.Feedbacks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,6 +38,20 @@ public class Tooltip : MonoBehaviour
     private Vector3 fontPos_goal;
     private Vector3 fontPos_init;
 
+    // AlwaysOnTop
+    [Header("Always On Top")]
+    public bool isThisHandtoolTip = false;
+    public Transform pointA;
+    public Transform pointB;
+    public Transform handTransform;
+    private float overHandPos = 0.175f;
+    public bool leftOrRight = false;
+    private Quaternion yAxisRotation;
+
+    // Feel
+    [Header("FEEL")]
+    public MMF_Player feedback;    
+
     void Start()
     {
         if (playerTrns == null) playerTrns = GameObject.FindGameObjectWithTag("MainCamera").transform;
@@ -57,11 +72,14 @@ public class Tooltip : MonoBehaviour
         }
 
         AudioMgr_CM.Instance.PlaySFXByInt(4);
+
+        if (leftOrRight == false) yAxisRotation = Quaternion.Euler(0f, 5f, -5f);
+        else yAxisRotation = Quaternion.Euler(0f, -5f, 5f);    
     }
 
     public void TooltipOn(string content)
     {
-        if(particle != null)
+        if (particle != null)
         {
             particle.SetActive(true); // SYS Code - Update Date : 240724
             particle.GetComponent<ParticleSystem>().Play();
@@ -70,30 +88,41 @@ public class Tooltip : MonoBehaviour
 
         txt.text = content;
 
-        line.startWidth = 0f;
-        DOTween.To(() => line.startWidth, x => line.startWidth = x, 0.005f, 1f);
-        DOTween.To(() => line.endWidth, x => line.endWidth = x, 0f, 1f);
+        //line.startWidth = 0f;
+        //DOTween.To(() => line.startWidth, x => line.startWidth = x, 0.005f, 1f);
+        //DOTween.To(() => line.endWidth, x => line.endWidth = x, 0f, 1f);
 
         panelRectTrns.localRotation = Quaternion.Euler(0, 0, 0);
         panelRectTrns.localScale = Vector3.zero;
         panelRectTrns.DOScale(goalScale, 1f);
+
+        feedback?.PlayFeedbacks();
     }
 
     public void TooltipOff()
     {
-        DOTween.To(() => line.startWidth, x => line.startWidth = x, 0f, 1f);
-        DOTween.To(() => line.endWidth, x => line.endWidth = x, 0f, 1f);
+        //DOTween.To(() => line.startWidth, x => line.startWidth = x, 0f, 1f);
+        //DOTween.To(() => line.endWidth, x => line.endWidth = x, 0f, 1f);
         panelRectTrns.DOScale(new Vector3(0f, 0f, 0f), 1f).OnComplete(SetActiveFalse);
+
+        feedback?.PlayFeedbacks();
     }
 
     public void TooltipTextChange(string newContent)
     {
+        feedback?.PlayFeedbacks();
+
         txt.text = newContent;
     }
 
-    void Update()
+    void LateUpdate()
     {
-        LookingPlayer();
+        if (isThisHandtoolTip) 
+        { 
+            AlwaysOnTop(); 
+            LookingPlayer2(); 
+        }
+        else LookingPlayer();        
     }
 
     void LookingPlayer()
@@ -111,6 +140,23 @@ public class Tooltip : MonoBehaviour
         lookRotation = Quaternion.LookRotation(oppositeDirection);
 
         panelRectTrns.rotation = lookRotation;        
+    }
+
+    void LookingPlayer2()
+    {
+        directionToPlayer = playerTrns.position - pointB.position;
+        oppositeDirection = -directionToPlayer;
+        lookRotation = Quaternion.LookRotation(oppositeDirection);
+
+        pointB.rotation = lookRotation * yAxisRotation;
+    }
+
+    void AlwaysOnTop()
+    {
+        pointA.transform.position = handTransform.position;
+
+        pointB.transform.position = new Vector3(handTransform.position.x, handTransform.position.y + overHandPos,
+            handTransform.position.z);
     }
 
     void SetActiveFalse()
@@ -134,8 +180,8 @@ public class Tooltip : MonoBehaviour
 
     public void ChangeSprite(int index)
     {
-        imgSprite.sprite = sprites[index];
-        ReSizeCanvas(index); // ReSize
+        //imgSprite.sprite = sprites[index];
+        //ReSizeCanvas(index); // ReSize
     }
 
     // ReSize
