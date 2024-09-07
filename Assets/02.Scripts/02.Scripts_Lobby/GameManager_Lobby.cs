@@ -159,8 +159,16 @@ public class GameManager_Lobby : MonoBehaviour
     // SYS Code 
     public void NewTooltip(int index, string content)
     {
-        toolTips[index].gameObject.SetActive(true);
-        toolTips[index].TooltipOn(content);
+        // Update - 20240903
+        if (toolTips[index].gameObject.activeSelf == true)
+        {
+            toolTips[index].TooltipTextChange(content);
+        }
+        else
+        {
+            toolTips[index].gameObject.SetActive(true);
+            toolTips[index].TooltipOn(content);
+        }        
     }
 
     public void TooltipOver(int index)

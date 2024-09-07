@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 using Language.Lua;
 using System;
 using DG.Tweening;
+using MoreMountains.Feedbacks;
+using static Oculus.Interaction.OptionalAttribute;
 
 public class SelectDialogue_Lobby : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
     public DialogueSystemController dsc;
     public DialogueSystemTrigger dialogueSystemTrigger1; // 1번째 트리거
     public DialogueSystemTrigger dialogueSystemTrigger2; // 2번째 트리거
+    public DialogueSystemTrigger dialogueSystemTrigger3; // 3번째 트리거
     public GameObject rGrabber;
     public GameObject lGrabber;
 
@@ -27,13 +30,18 @@ public class SelectDialogue_Lobby : MonoBehaviour
     private GameObject player = null;
 
     // SYS Code
-    [Header("Dialogue Bubble")]
-    public RectTransform dialogueBubble;
+    [Header("AIChat Dummy & StarWatch")]
+    public Transform aiChatDummy;
     private DG.Tweening.Tween sizeTween = null;
+    public MMF_Player feedback_aiDummyCanv1;
+    public MMF_Player feedback_aiDummyCanv2;
+    public MMF_Player feedback_starWatchText;
+    private int feedbackCnt = 0;
+    public MMF_Player fb_speechBubble;
 
     private void Start()
     {
-        player = GameManager_Lobby.instance.GetPlayer();
+        player = GameManager_Lobby.instance.GetPlayer();        
     }
 
     // SYS Code
@@ -41,19 +49,79 @@ public class SelectDialogue_Lobby : MonoBehaviour
     {
         if (flag == true) // true면 커지기
         {
-            if (sizeTween != null) sizeTween.Kill(); // 이미 다른 트윈이 실행 중이었다면 실행 중이었던 트윈을 중단하기
+            if (feedbackCnt != 0)
+            {
+                if (feedbackCnt == 1)
+                {
+                    feedback_aiDummyCanv1.SetDirection(MMFeedbacks.Directions.TopToBottom);
+                    feedback_aiDummyCanv1.PlayFeedbacks();
 
-            sizeTween = dialogueBubble.transform.DOScale(new Vector3(0.003f, 0.003f, 0.003f), 1f).OnComplete(() => {
-                sizeTween = null;
-            });
+                    feedbackCnt = 2;
+                }
+                else if (feedbackCnt == 2)
+                {
+                    feedback_aiDummyCanv1.StopFeedbacks(false);
+                    feedback_aiDummyCanv1.SetDirection(MMFeedbacks.Directions.BottomToTop);
+                    feedback_aiDummyCanv1.PlayFeedbacks();
+
+                    feedback_aiDummyCanv2.SetDirection(MMFeedbacks.Directions.TopToBottom);
+                    feedback_aiDummyCanv2.PlayFeedbacks();
+
+                    feedbackCnt = 3;
+                }
+                else if (feedbackCnt == 3)
+                {
+                    feedback_aiDummyCanv2.StopFeedbacks(false);
+                    feedback_aiDummyCanv2.SetDirection(MMFeedbacks.Directions.BottomToTop);
+                    feedback_aiDummyCanv2.PlayFeedbacks();
+                }
+            }
+            else
+            {
+                if (sizeTween != null) sizeTween.Kill(); // 이미 다른 트윈이 실행 중이었다면 실행 중이었던 트윈을 중단하기
+
+                sizeTween = aiChatDummy.transform.DOScale(new Vector3(2f, 2f, 2f), 1f).OnComplete(() => {
+                    sizeTween = null;
+                });
+
+                feedbackCnt = 1;
+            }
         }
         else // false면 작아지기
         {
             if (sizeTween != null) sizeTween.Kill(); // 이미 다른 트윈이 실행 중이었다면 실행 중이었던 트윈을 중단하기
 
-            sizeTween = dialogueBubble.transform.DOScale(Vector3.zero, 1f).OnComplete(() => {
+            sizeTween = aiChatDummy.transform.DOScale(Vector3.zero, 1f).OnComplete(() => {
                 sizeTween = null;
             });
+        }
+    }
+
+    public void SpeechBubble_LB(bool flag)
+    {
+        if (flag == true)
+        {
+            fb_speechBubble.SetDirection(MMFeedbacks.Directions.TopToBottom);
+            fb_speechBubble.PlayFeedbacks();
+        }
+        else
+        {
+            fb_speechBubble.SetDirection(MMFeedbacks.Directions.BottomToTop);
+            fb_speechBubble.PlayFeedbacks();
+        }
+    }
+
+    public void TextFeel_LB(bool flag)
+    {
+        if (flag == true)
+        {
+            feedback_starWatchText.SetDirection(MMFeedbacks.Directions.TopToBottom);
+            feedback_starWatchText.PlayFeedbacks();
+        }
+        else
+        {
+            feedback_starWatchText.SetDirection(MMFeedbacks.Directions.BottomToTop);
+            feedback_starWatchText.PlayFeedbacks();
         }
     }
 
@@ -64,9 +132,6 @@ public class SelectDialogue_Lobby : MonoBehaviour
         dialogueSystemTrigger1.startConversationEntryID = 0; // 1번째 트리거의 컨버제이션 진입 번호를 0번으로 변경 (이거 안해도 되기는 한데, 안하면 나중에 컨버제이션 재활용이 불가)
         dialogueSystemTrigger1.OnUse(); // On Use로 컨버제이션 작동
         GameManager_Lobby.instance.firstEnd = true;
-
-        // SYS Code
-        DialogueCanvasSize_LB(true);
     }
 
     public void ActivateDST2() // 2번째 트리거 작동 함수
@@ -85,9 +150,14 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
         dsc.StopAllConversations();
         dialogueSystemTrigger2.OnUse(); // On Use로 컨버제이션 작동
+    }
 
-        // SYS Code
-        DialogueCanvasSize_LB(true);
+    public void ActivateDST3()
+    {
+        StopPlayer_LB();
+        dialogueSystemTrigger3.startConversationEntryID = 1;
+        dsc.StopAllConversations();
+        dialogueSystemTrigger3.OnUse(); // On Use로 컨버제이션 작동
     }
 
     // SYS Code
@@ -185,6 +255,8 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
         // SYS Code
         Lua.RegisterFunction("DialogueCanvasSize_LB", this, SymbolExtensions.GetMethodInfo(() => DialogueCanvasSize_LB((bool)false)));
+        Lua.RegisterFunction("TextFeel_LB", this, SymbolExtensions.GetMethodInfo(() => TextFeel_LB((bool)false)));
+        Lua.RegisterFunction("SpeechBubble_LB", this, SymbolExtensions.GetMethodInfo(() => SpeechBubble_LB((bool)false)));
     }
 
     private void OnDisable()
@@ -213,6 +285,8 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
         // SYS Code
         Lua.UnregisterFunction("DialogueCanvasSize_LB");
+        Lua.UnregisterFunction("TextFeel_LB");
+        Lua.UnregisterFunction("SpeechBubble_LB");
     }
 
     #endregion

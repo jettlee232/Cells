@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using HighlightPlus;
+using MoreMountains.Feedbacks;
 
 public class LaserDescriptionTween_Home : MonoBehaviour
 {
@@ -15,15 +16,22 @@ public class LaserDescriptionTween_Home : MonoBehaviour
     [Header("LaserPointer_Lobby")] // Latley Update - 240701 pm 0118
     public LaserPointer_Lobby lpLobby; // Latley Update - 240726    
 
+    [Header("Rotation")]
+    public Vector3 first;
+    public Vector3 later = new Vector3(0f, 360f, 0f);
+
+    [Header("Feedback")]
+    public MMF_Player feedback1;
+
     void Start()
     {
         DOTween.Init();
 
         transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.Euler(0, 0, 0);
+        transform.localRotation = Quaternion.Euler(first);
         transform.localScale = Vector3.zero;
         transform.DOScale(new Vector3(.5f, .5f, .5f), 1f);
-        transform.DOLocalRotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
+        transform.DOLocalRotate(later, 1f, RotateMode.FastBeyond360).OnComplete(ActivateFeedback1);
         //transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().eulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
         //transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360).OnComplete(() => StartCoroutine(LookPlayer()));
 
@@ -37,7 +45,8 @@ public class LaserDescriptionTween_Home : MonoBehaviour
         Debug.Log(closeBtn.onClick);
 
         // Latley Update - 240726
-        lpLobby = GameObject.Find("RightHandPointer").GetComponent<LaserPointer_Lobby>();
+        lpLobby = GameObject.FindGameObjectWithTag("Inventory").GetComponent<LaserPointer_Lobby>();
+        // Temporary Tagging = Inventory
 
         AudioMgr_CM.Instance.PlaySFXByInt(4); // SSS
     }
@@ -45,6 +54,7 @@ public class LaserDescriptionTween_Home : MonoBehaviour
     public void ReverseTweenAndDestroy()
     {
         if (lpLobby != null) lpLobby.currentPanel = null; // Latley Update - 240701 pm 0118 & 240726
+        lpLobby.watchParticle2.Stop();
 
         transform.DOScale(Vector3.zero, 1f);
         transform.DOLocalRotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
@@ -90,5 +100,10 @@ public class LaserDescriptionTween_Home : MonoBehaviour
 
             transform.rotation = lookRotation;
         }
+    }
+
+    void ActivateFeedback1()
+    {
+        feedback1?.PlayFeedbacks();
     }
 }

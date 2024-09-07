@@ -14,7 +14,7 @@ public class PanelLookPlayer_StageMap : MonoBehaviour
 
     private void Start()
     {
-        if (playerTrns == null) playerTrns = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        if (playerTrns == null) playerTrns = GameObject.FindGameObjectWithTag("MainCamera").transform;  
     }
 
     void Update()

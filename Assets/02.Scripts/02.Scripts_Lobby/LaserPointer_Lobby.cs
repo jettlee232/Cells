@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
-using static UnityEngine.ParticleSystem;
+using DG.Tweening;
 
 public class LaserPointer_Lobby : MonoBehaviour
 {
@@ -31,9 +31,16 @@ public class LaserPointer_Lobby : MonoBehaviour
     // SYS Code
     [Header("Particle")]
     public ParticleSystem handPanelParticle;
-    private bool wasBButtonPressed;    
+    public ParticleSystem watchParticle2;
+    private bool wasBButtonPressed;
 
     private bool isSoundPlaying = false;
+
+    [Header("Explain Canvas Tween")]
+    public Transform explainCanvas;
+    public Transform firstPos;
+    public Transform lastPos;
+    private Tween moveTween;
 
     void Start()
     {
@@ -47,6 +54,7 @@ public class LaserPointer_Lobby : MonoBehaviour
 
         // SYS Code        
         handPanelParticle.Stop();
+        watchParticle2.Stop();
     }
 
     void Update()
@@ -112,7 +120,13 @@ public class LaserPointer_Lobby : MonoBehaviour
                     {
                         // 두번째 대화 조건 만족                        
                         NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST2();
+                    }                    
+                    else if (GameManager_Lobby.instance.tutoStatus == 2)
+                    {
+                        // 세번째 대화 조건 만족 - 임시임, 나중에 지워야 함
+                        NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST3();
                     }
+                    
                 }
                 else
                 {
@@ -137,6 +151,7 @@ public class LaserPointer_Lobby : MonoBehaviour
     {
         isSoundPlaying = true;
         handPanelParticle.Play();
+        watchParticle2.Play();
 
         if (descrptionPanel != null)
         {
@@ -146,8 +161,12 @@ public class LaserPointer_Lobby : MonoBehaviour
         descrptionPanel = Instantiate(panel);
         descrptionPanel.transform.SetParent(descriptionPanelSpawnPoint[0]);
 
+        // SYS Code - Explain Canvas Move Tween
+        explainCanvas.position = firstPos.position;
+        moveTween = explainCanvas.DOLocalMove(lastPos.position, 1f).OnComplete(KillMoveTween);
+
         // Latley Update - 240724
-        
+
         /*
         if (particleFlag == 1)
         {
@@ -173,18 +192,16 @@ public class LaserPointer_Lobby : MonoBehaviour
         }
 
         descrptionPanel = Instantiate(rayhit);
-        descrptionPanel.transform.SetParent(descriptionPanelSpawnPoint[rayhit.GetComponent<DescObjID_CM>().panelNum]);
-        /*
-        descrptionPanel.GetComponent<LaserDescriptionTween_CM>().HLObjInit(rayhit);
-
-        glowobj = rayhit;
-        glowobj.GetComponent<LaserDescriptionTween_CM>().HLObjInit(rayhit);
-        */
+        descrptionPanel.transform.SetParent(descriptionPanelSpawnPoint[rayhit.GetComponent<DescObjID_CM>().panelNum]);        
     }
 
     // SYS Code
     public void DestroyDescription()
     {
+        KillMoveTween();
         Destroy(descrptionPanel);
     }
+
+    // SYS Code
+    void KillMoveTween() { moveTween.Kill(); moveTween = null; }
 }
