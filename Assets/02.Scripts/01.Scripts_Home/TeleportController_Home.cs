@@ -8,17 +8,68 @@ public class TeleportController_Home : MonoBehaviour
     public GameObject offSwitch;
     public GameObject onSwitch;
 
+    public PlayerMoving_Lobby lobby;
+    public PlayerMoving_StageMap stageMap;
+    public PlayerMoving_Mito mito;
+    public PlayerMoving_Lys lys;
+
     void Start()
     {
         offSwitch = transform.Find("Switch_Off").gameObject;
         onSwitch = transform.Find("Switch_On").gameObject;
+
+        lobby = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMoving_Lobby>();
+        stageMap = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMoving_StageMap>();
+        mito = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMoving_Mito>();
+        lys = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMoving_Lys>();
     }
 
     void Update()
     {
         if (onSwitch.activeSelf)
+        {
             fixedTeleport.SetActive(true);
+
+            SetMoving(true);
+        }
         else
+        {
             fixedTeleport.SetActive(false);
+
+            SetMoving(false);
+        }
+    }
+
+    public void SetMoving(bool flag)
+    {
+        if (flag)
+        {
+            if (lobby != null)
+                GameManager_Lobby.instance.StopPlayer();
+
+            if (stageMap != null)
+                GameManager_StageMap.instance.DisableMove();
+
+            if (mito != null)
+                mito.isMoving = false;
+
+            if (lys != null)
+                GameManager_Lys.instance.DisableMove();
+        }
+        else
+        {
+            if (lobby != null)
+                GameManager_Lobby.instance.EnableMovePlayer();
+
+            if (stageMap != null)
+                GameManager_StageMap.instance.EnableMove();
+
+            if (mito != null)
+                mito.isMoving = true;
+
+            if (lys != null)
+                GameManager_Lys.instance.EnableMove();
+        }
+        
     }
 }

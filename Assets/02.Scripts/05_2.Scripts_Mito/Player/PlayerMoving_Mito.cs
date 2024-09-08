@@ -60,10 +60,11 @@ public class PlayerMoving_Mito : MonoBehaviour
         right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
         left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
 
+        GetRotateY();
+        GetRotateX();
+
         if (isMoving)
         {
-            GetRotateY();
-            GetRotateX();
             //CheckFlyable();
             rb.velocity = flyable ? GetUp() + GetDown() + GetMove() : GetMove();
             //ResetRot();

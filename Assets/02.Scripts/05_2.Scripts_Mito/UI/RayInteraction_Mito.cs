@@ -65,7 +65,7 @@ public class RayInteraction_Mito : MonoBehaviour
                 // 아이템을 놓고 MaxDropTime 안에 SnapZone 근처에 있으면
                 // 자동으로 스냅되는 기능이 프레임워크에 있었다.
                 // 나중에 이동시간을 조절하면 될듯?
-                Debug.Log($"원거리스냅: {item.name} in slot: {inventorySlot_Mito.slotType}");
+                //Debug.Log($"원거리스냅: {item.name} in slot: {inventorySlot_Mito.slotType}");
 
                 item.transform.localPosition = snapZone.transform.position;
                 item.transform.localEulerAngles = snapZone.transform.localEulerAngles;
