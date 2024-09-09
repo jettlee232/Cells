@@ -1189,8 +1189,7 @@ RectTransform:
   - {fileID: 6067168007308295018}
   - {fileID: 931974139390420790}
   - {fileID: 2678631119291354028}
-  - {fileID: 1894299306489999854}
-  - {fileID: 4929929875790318579}
+  - {fileID: 4062860816407302611}
   - {fileID: 4631310977608358133}
   - {fileID: 5055761499774136429}
   m_Father: {fileID: 3351142922901200140}
@@ -1783,7 +1782,7 @@ GameObject:
   - component: {fileID: 3010400760409659101}
   - component: {fileID: 862567747635936652}
   m_Layer: 5
-  m_Name: SnapTurnBtn0
+  m_Name: SmoothTurnBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1798,16 +1797,16 @@ RectTransform:
   m_GameObject: {fileID: 2513602612031520020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.33, y: 0.33, z: 0.33}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5654605670207079867}
-  m_Father: {fileID: 2139418829450912243}
+  m_Father: {fileID: 4062860816407302611}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 117, y: -3.9}
-  m_SizeDelta: {x: 134.61995, y: -10}
+  m_AnchoredPosition: {x: 128.7, y: 19.71}
+  m_SizeDelta: {x: 234.61995, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9198853013402480559
 CanvasRenderer:
@@ -1915,18 +1914,58 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+--- !u!1 &2521164873273055608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4062860816407302611}
+  - component: {fileID: 3098978202806485539}
+  m_Layer: 0
+  m_Name: TurnSwitch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4062860816407302611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2521164873273055608}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -21.81818, z: 0}
+  m_LocalScale: {x: 0.9090909, y: 0.9090909, z: 0.9090909}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1894299306489999854}
+  - {fileID: 4929929875790318579}
+  m_Father: {fileID: 2139418829450912243}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3098978202806485539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2521164873273055608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b3119e51c1eae488de7fb1bcbfbc80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothTurnBtn: {fileID: 2513602612031520020}
+  snapTurnBtn: {fileID: 5484842215908047945}
+  lobby: {fileID: 0}
+  stageMap: {fileID: 0}
+  mito: {fileID: 0}
+  lys: {fileID: 0}
 --- !u!1 &2658076543189253830
 GameObject:
   m_ObjectHideFlags: 0
@@ -3904,7 +3943,7 @@ GameObject:
   - component: {fileID: 7823217484033631848}
   - component: {fileID: 9191252957546876000}
   m_Layer: 5
-  m_Name: SnapTurnBtn0_1
+  m_Name: SnapTurnBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3919,16 +3958,16 @@ RectTransform:
   m_GameObject: {fileID: 5484842215908047945}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.33, y: 0.33, z: 0.33}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4578862117684268363}
-  m_Father: {fileID: 2139418829450912243}
+  m_Father: {fileID: 4062860816407302611}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 117, y: -3.9}
-  m_SizeDelta: {x: 134.61995, y: -10}
+  m_AnchoredPosition: {x: 128.7, y: 19.71}
+  m_SizeDelta: {x: 234.61995, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1919849232364386845
 CanvasRenderer:
@@ -4012,7 +4051,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1900565978183442558}
+      - m_Target: {fileID: 5484842215908047945}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -4024,25 +4063,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1023333223621444776}
+      - m_Target: {fileID: 2513602612031520020}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
