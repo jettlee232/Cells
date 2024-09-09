@@ -26,6 +26,7 @@ public class ReturnTableSlot_Mito : MonoBehaviour
     void OnItemSnapped(Grabbable item)
     {
         if (isHandlingEvent) return;
+        if (item.GetComponent<Item_Mito>().isSlot) return;
 
         isHandlingEvent = true;
 
@@ -44,17 +45,20 @@ public class ReturnTableSlot_Mito : MonoBehaviour
         }
 
         isHandlingEvent = false;
+        item.GetComponent<Item_Mito>().isSlot = true;
     }
 
     // 아이템이 슬롯에서 떨어질때의 이벤트
     void OnItemDetached(Grabbable item)
     {
         if (isHandlingEvent) return;
+        if (!item.GetComponent<Item_Mito>().isSlot) return;
 
         isHandlingEvent = true;
 
         returnTable.UpdateSlotStatus(slotType, false);
 
         isHandlingEvent = false;
+        item.GetComponent<Item_Mito>().isSlot = false;
     }
 }

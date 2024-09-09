@@ -14,14 +14,20 @@ public class Teleport_Home : MonoBehaviour
     public Transform teleportGoal;
     public AudioClip teleportSoundEffect;
     
-    private bool triggerPressed;
+    //private bool triggerPressed;
     public bool canTeleport = true;
     public float teleportCooldown = 1.0f; // 텔레포트 딜레이
+
+    private Vector2 joystickInput;
+    private bool isTeleporting = false;
 
     void Start()
     {
         fader = GameObject.FindWithTag("MainCamera").GetComponent<ScreenFader>();
         teleportLine = GetComponentInChildren<LineRenderer>();
+
+        teleportLine.enabled = false;
+        teleportGoal.gameObject.SetActive(false);
     }
 
     void Update()
@@ -32,16 +38,39 @@ public class Teleport_Home : MonoBehaviour
             //Debug.Log("텔포라인겟포지션1" +teleportLine.GetPosition(1));
         }
 
-        InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.triggerButton, out triggerPressed);
+        //InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.triggerButton, out triggerPressed);
 
-        if (triggerPressed && canTeleport)
+        //if (triggerPressed && canTeleport)
+        //{
+        //    StartCoroutine(TeleportPlayer());
+        //}
+
+        InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.primary2DAxis, out joystickInput);
+
+        if (!isTeleporting && Mathf.Abs(joystickInput.x) > 0.9f || Mathf.Abs(joystickInput.y) > 0.9f && canTeleport)
+        {
+            StartTeleportPreview();
+        }
+
+        if (isTeleporting && Mathf.Abs(joystickInput.x) < 0.1f && Mathf.Abs(joystickInput.y) < 0.1f)
         {
             StartCoroutine(TeleportPlayer());
         }
     }
 
+    void StartTeleportPreview()
+    {
+        isTeleporting = true;
+        teleportLine.enabled = true;
+        teleportGoal.gameObject.SetActive(true);
+    }
+
     IEnumerator TeleportPlayer()
     {
+        isTeleporting = false;
+        teleportLine.enabled = false;
+        teleportGoal.gameObject.SetActive(false);
+
         if (teleportSoundEffect != null)
             AudioSource.PlayClipAtPoint(teleportSoundEffect, transform.root.GetChild(0).position);
 

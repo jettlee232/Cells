@@ -15,8 +15,8 @@ public class TeleportController_Home : MonoBehaviour
 
     void Start()
     {
-        offSwitch = transform.Find("Switch_Off").gameObject;
-        onSwitch = transform.Find("Switch_On").gameObject;
+        if (offSwitch == null) offSwitch = transform.Find("Switch_Off").gameObject;
+        if (onSwitch == null) onSwitch = transform.Find("Switch_On").gameObject;
 
         lobby = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMoving_Lobby>();
         stageMap = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMoving_StageMap>();
@@ -29,12 +29,14 @@ public class TeleportController_Home : MonoBehaviour
         if (onSwitch.activeSelf)
         {
             fixedTeleport.SetActive(true);
+            fixedTeleport.GetComponent<Teleport_Home>().canTeleport = true;
 
             SetMoving(true);
         }
         else
         {
             fixedTeleport.SetActive(false);
+            fixedTeleport.GetComponent<Teleport_Home>().canTeleport = false;
 
             SetMoving(false);
         }

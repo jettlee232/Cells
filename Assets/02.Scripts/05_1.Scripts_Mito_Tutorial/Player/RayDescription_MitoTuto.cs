@@ -23,6 +23,7 @@ public class RayDescription_MitoTuto : MonoBehaviour
     private bool wasButtonPressed;
 
     public bool canMakeRayDescription = true;
+    public GameObject playerStatus;
 
     UnityEngine.XR.InputDevice right;
 
@@ -101,6 +102,13 @@ public class RayDescription_MitoTuto : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit rayHit, length))
         {
+            if (rayHit.collider.CompareTag("Watch") && playerStatus != null)
+            {
+                playerStatus.SetActive(!playerStatus.activeSelf);
+                canMakeRayDescription = !canMakeRayDescription;
+                StartCoroutine(DelayToggleRayStateChange(1.5f));
+            }
+
             ItemExplain_MitoTuto descObj = rayHit.collider.gameObject.GetComponentInParent<ItemExplain_MitoTuto>();
 
             if (descObj != null)

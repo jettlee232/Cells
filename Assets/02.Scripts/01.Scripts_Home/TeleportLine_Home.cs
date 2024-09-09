@@ -17,6 +17,8 @@ public class TeleportLine_Home : MonoBehaviour
     public float lengthStep = 0.5f; // 라인 길이 증가/감소 스텝
     private bool canChangeLength = true;
     public float changeDelay = 0.1f; // 길이 변경 후 딜레이
+    private bool leftTriggerPressed;
+    private bool rightTriggerPressed;
 
     public LineRenderer teleportLine;
     public CapsuleCollider capsuleCollider;
@@ -35,7 +37,8 @@ public class TeleportLine_Home : MonoBehaviour
 
     void Update()
     {
-        // 조이스틱 입력 값을 가져옴
+        /*
+        // 왼쪽 조이스틱 입력 값을 가져옴
         InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.primary2DAxis, out joystickInput);
 
         // 조이스틱 좌우 이동으로 라인 길이 변경
@@ -48,6 +51,22 @@ public class TeleportLine_Home : MonoBehaviour
             else if (joystickInput.x < -0.1f)
             {
                 ChangeLineLength(-lengthStep);
+            }
+        }
+        */
+
+        InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.triggerButton, out leftTriggerPressed);
+        InputDevices.GetDeviceAtXRNode(XRNode.RightHand).TryGetFeatureValue(CommonUsages.triggerButton, out rightTriggerPressed);
+
+        if (canChangeLength)
+        {
+            if (leftTriggerPressed)
+            {
+                ChangeLineLength(-lengthStep);
+            }
+            else if (rightTriggerPressed)
+            {
+                ChangeLineLength(lengthStep);
             }
         }
 
