@@ -120,13 +120,7 @@ public class LaserPointer_Lobby : MonoBehaviour
                     {
                         // 두번째 대화 조건 만족                        
                         NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST2();
-                    }                    
-                    else if (GameManager_Lobby.instance.tutoStatus == 2)
-                    {
-                        // 세번째 대화 조건 만족 - 임시임, 나중에 지워야 함
-                        NPC.GetComponent<SelectDialogue_Lobby>().ActivateDST3();
-                    }
-                    
+                    }                                        
                 }
                 else
                 {

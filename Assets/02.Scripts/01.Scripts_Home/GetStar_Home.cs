@@ -11,6 +11,8 @@ public class GetStar_Home : MonoBehaviour
 
     public TextMeshProUGUI starsText;
 
+    public GameObject starEffect;
+
     void Start()
     {
         if (starsText == null)
@@ -29,6 +31,8 @@ public class GetStar_Home : MonoBehaviour
         }
 
         closeBtn.onClick.AddListener(GetStarScore);
+
+        starEffect = Resources.Load<GameObject>("MyGetStarEffect");
 
         UpdateScoreDisplay();
     }
@@ -51,7 +55,7 @@ public class GetStar_Home : MonoBehaviour
                 UpdateScoreDisplay();
 
                 // Star 오브젝트가 먹어지는 효과
-
+                StartCoroutine(PlayStarEffects());
             }
         }
     }
@@ -61,5 +65,15 @@ public class GetStar_Home : MonoBehaviour
         int currentScore = PlayerPrefs.GetInt("PlayerScore", 0);
         starsText.text = currentScore.ToString();
         Debug.Log("현재 점수 : " + currentScore);
+    }
+
+    public IEnumerator PlayStarEffects()
+    {
+        foreach (Transform star in starsParent)
+        {
+            GameObject effect = Instantiate(starEffect, star.position, Quaternion.identity);
+
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }

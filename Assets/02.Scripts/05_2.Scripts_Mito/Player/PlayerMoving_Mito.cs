@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,6 +50,13 @@ public class PlayerMoving_Mito : MonoBehaviour
     UnityEngine.XR.InputDevice right;
     UnityEngine.XR.InputDevice left;
 
+    public bool snapturn = false;
+
+    public float minInput = 0.6f; // 이건 역치입니다... 어느정도 조이스틱 움직임이 들어와야 회전할지
+
+    private bool rotateCoroutineY = false;
+    private bool rotateCoroutineX = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -60,10 +68,11 @@ public class PlayerMoving_Mito : MonoBehaviour
         right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
         left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
 
+        GetRotateY();
+        GetRotateX();
+
         if (isMoving)
         {
-            GetRotateY();
-            GetRotateX();
             //CheckFlyable();
             rb.velocity = flyable ? GetUp() + GetDown() + GetMove() : GetMove();
             //ResetRot();
@@ -203,32 +212,73 @@ public class PlayerMoving_Mito : MonoBehaviour
     #region 회전
     private void GetRotateY()
     {
+
         right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
 
-        nowTrans = transform.rotation * Quaternion.Euler(0f, XRotate.x * rotateSpeed * Time.deltaTime, 0f);
-        transform.rotation = nowTrans;
+        if (snapturn)
+        {
+            if (!rotateCoroutineY && (XRotate.x >= minInput || XRotate.x <= -minInput)) { rotateCoroutineY = true; StartCoroutine(rotateY(XRotate.x)); }
+            else { return; }
+        }
+        else
+        {
+            nowTrans = transform.rotation * Quaternion.Euler(0f, XRotate.x * rotateSpeed * Time.deltaTime, 0f);
+            transform.rotation = nowTrans;
+        }
     }
+    IEnumerator rotateY(float x)
+    {
+        if (x >= 0f) { transform.rotation = transform.rotation * Quaternion.Euler(0f, 30f, 0f); }
+        else { transform.rotation = transform.rotation * Quaternion.Euler(0f, -30f, 0f); }
+        yield return new WaitForSeconds(0.3f);
+        rotateCoroutineY = false;
+    }
+
 
     private void GetRotateX()
     {
+        right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
+
         if (isRotateX)
         {
-            right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
-
-            Vector3 currentEulerAngles = trackingSpace.rotation.eulerAngles;
-            float newXRotation = currentEulerAngles.x - XRotate.y * rotateSpeed * Time.deltaTime;
-            if (newXRotation > 180f) newXRotation -= 360f;
-            newXRotation = Mathf.Clamp(newXRotation, -updownLimit, updownLimit);
-            Quaternion newRotation = Quaternion.Euler(newXRotation, currentEulerAngles.y, currentEulerAngles.z);
-            trackingSpace.rotation = newRotation;
+            if (snapturn)
+            {
+                if (!rotateCoroutineX && (XRotate.y >= minInput || XRotate.y <= -minInput)) { rotateCoroutineX = true; StartCoroutine(rotateX(XRotate.y)); }
+                else { return; }
+            }
+            else
+            {
+                Vector3 currentEulerAngles = trackingSpace.rotation.eulerAngles;
+                float newXRotation = currentEulerAngles.x - XRotate.y * rotateSpeed * Time.deltaTime;
+                if (newXRotation > 180f) newXRotation -= 360f;
+                newXRotation = Mathf.Clamp(newXRotation, -updownLimit, updownLimit);
+                Quaternion newRotation = Quaternion.Euler(newXRotation, currentEulerAngles.y, currentEulerAngles.z);
+                trackingSpace.rotation = newRotation;
+            }
         }
     }
 
-    public void ResetRot()
+    IEnumerator rotateX(float x)
+    {
+        float tempX = (x >= 0f) ? 22.5f : -22.5f;
+
+        Vector3 currentEulerAngles = trackingSpace.rotation.eulerAngles;
+        float newXRotation = currentEulerAngles.x - tempX;
+        if (newXRotation > 180f) newXRotation -= 360f;
+        else if (newXRotation < -360f) newXRotation += 360f;
+        newXRotation = Mathf.Clamp(newXRotation, -updownLimit, updownLimit);
+        Quaternion newRotation = Quaternion.Euler(newXRotation, currentEulerAngles.y, currentEulerAngles.z);
+        trackingSpace.rotation = newRotation;
+
+        yield return new WaitForSeconds(0.3f);
+        rotateCoroutineX = false;
+    }
+
+    private void ResetRot()
     {
         oldReset = reset;
 
-        left.TryGetFeatureValue(CommonUsages.secondaryButton, out reset);
+        left.TryGetFeatureValue(CommonUsages.primaryButton, out reset);
 
         if (!oldReset && reset) { yPressedTime = Time.time; }
         else if (oldReset && !reset)
@@ -247,6 +297,13 @@ public class PlayerMoving_Mito : MonoBehaviour
             }
         }
     }
+
+    public void RotateUp() { rotateSpeed += 10f; }
+    public void RotateDown()
+    {
+        if (rotateSpeed > 10f) { rotateSpeed -= 10f; }
+    }
+    public float GetRotateSpeed() { return rotateSpeed; }
     #endregion
 
     #region 기타

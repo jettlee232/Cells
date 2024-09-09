@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.XR;
+using DG.Tweening;
 
 public class RayDescription_MitoTuto : MonoBehaviour
 {
@@ -23,8 +24,23 @@ public class RayDescription_MitoTuto : MonoBehaviour
     private bool wasButtonPressed;
 
     public bool canMakeRayDescription = true;
+    public GameObject playerStatus;
 
     UnityEngine.XR.InputDevice right;
+
+    // SYS Code
+    [Header("Particle")]
+    public ParticleSystem handPanelParticle;
+    public ParticleSystem watchParticle2;
+    private bool wasBButtonPressed;
+
+    private bool isSoundPlaying = false;
+
+    [Header("Explain Canvas Tween")]
+    public Transform explainCanvas;
+    public Transform firstPos;
+    public Transform lastPos;
+    private Tween moveTween;
 
     // 이거 중요!!!!!!!!!!!
     public Dictionary<string, string> objDesc = new Dictionary<string, string>
@@ -50,6 +66,10 @@ public class RayDescription_MitoTuto : MonoBehaviour
         line = gameObject.GetComponent<LineRenderer>();
         uiPointer = gameObject.GetComponent<BNG.UIPointer>();
         descrptionPanel = null;
+
+        // SYS Code        
+        //handPanelParticle.Stop();
+        watchParticle2.Stop();
     }
 
     void Update()
@@ -101,6 +121,13 @@ public class RayDescription_MitoTuto : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit rayHit, length))
         {
+            if (rayHit.collider.CompareTag("Watch") && playerStatus != null)
+            {
+                playerStatus.SetActive(!playerStatus.activeSelf);
+                canMakeRayDescription = !canMakeRayDescription;
+                StartCoroutine(DelayToggleRayStateChange(1.5f));
+            }
+
             ItemExplain_MitoTuto descObj = rayHit.collider.gameObject.GetComponentInParent<ItemExplain_MitoTuto>();
 
             if (descObj != null)
@@ -125,6 +152,10 @@ public class RayDescription_MitoTuto : MonoBehaviour
 
     public void InstantiatePanel_Tween(GameObject panel, GameObject rayhit)
     {
+        isSoundPlaying = true;
+        //handPanelParticle.Play();
+        watchParticle2.Play();
+
         if (descrptionPanel != null)
         {
             glowObj.GetComponent<HighLightColorchange_MitoTuto>().GlowEnd();
@@ -139,9 +170,18 @@ public class RayDescription_MitoTuto : MonoBehaviour
         descrptionPanel.GetComponent<DescriptionTween_Mito>().HLObjInit(rayhit);
 
         glowObj = rayhit;
+
+        // SYS Code - Explain Canvas Move Tween
+        explainCanvas.position = firstPos.position;
+        moveTween = explainCanvas.DOLocalMove(lastPos.position, 1f).OnComplete(KillMoveTween);
     }
+
+    // SYS Code
+    void KillMoveTween() { moveTween.Kill(); moveTween = null; }
+    
     public void DestroyDescription()
     {
+        KillMoveTween();
         Destroy(descrptionPanel);
         Destroy(instDescCanvas);
         currentPanel = null;

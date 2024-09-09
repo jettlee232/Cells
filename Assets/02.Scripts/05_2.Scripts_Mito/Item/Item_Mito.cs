@@ -13,7 +13,10 @@ public class Item_Mito : MonoBehaviour
     public GameObject itemText;
 
     public bool isGrabbed = false; // 플레이어 손에 잡혔는지 여부
-    public bool isInventory = false; // 인벤토리에 있는지 여부
+    public bool isSlot = false; // 슬롯에 있는지 여부
+                                // 기존 isInventory를 변경해서 MixTableSlot, ReturnSlot에 적용했음
+                                // 근데 과거의 내가 무슨 생각을 했는지 InventorySlot이 아니라 Inventory에 적용돼있음
+                                // 일단 사이즈 버그는 해결될것으로 생각됨
 
     public Vector3 OriginalScale; // 스케일 백업 변수
 
@@ -153,7 +156,7 @@ public class Item_Mito : MonoBehaviour
 
     public void ResetScale()
     {
-        if (!isInventory)
+        if (!isSlot)
         {
             Debug.Log("아이템 크기 원래대로");
             StartCoroutine(ScaleOverTime(OriginalScale, 2.5f));  // 2.5초 동안 원래 크기로 돌아옴

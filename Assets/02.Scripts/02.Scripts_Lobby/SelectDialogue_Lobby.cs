@@ -38,10 +38,24 @@ public class SelectDialogue_Lobby : MonoBehaviour
     public MMF_Player feedback_starWatchText;
     private int feedbackCnt = 0;
     public MMF_Player fb_speechBubble;
+    public GameObject dummyPanelCanvas;
 
     private void Start()
     {
         player = GameManager_Lobby.instance.GetPlayer();        
+    }
+
+    // SYS Code
+    public void InstDummyPanel_LB(bool flag)
+    {
+        if (flag == true)
+        {
+            dummyPanelCanvas.SetActive(true);            
+        }
+        else
+        {
+            dummyPanelCanvas.SetActive(false);
+        }
     }
 
     // SYS Code
@@ -257,6 +271,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
         Lua.RegisterFunction("DialogueCanvasSize_LB", this, SymbolExtensions.GetMethodInfo(() => DialogueCanvasSize_LB((bool)false)));
         Lua.RegisterFunction("TextFeel_LB", this, SymbolExtensions.GetMethodInfo(() => TextFeel_LB((bool)false)));
         Lua.RegisterFunction("SpeechBubble_LB", this, SymbolExtensions.GetMethodInfo(() => SpeechBubble_LB((bool)false)));
+        Lua.RegisterFunction("InstDummyPanel_LB", this, SymbolExtensions.GetMethodInfo(() => InstDummyPanel_LB((bool)false)));
     }
 
     private void OnDisable()
@@ -287,6 +302,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
         Lua.UnregisterFunction("DialogueCanvasSize_LB");
         Lua.UnregisterFunction("TextFeel_LB");
         Lua.UnregisterFunction("SpeechBubble_LB");
+        Lua.UnregisterFunction("InstDummyPanel_LB");
     }
 
     #endregion

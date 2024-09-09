@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.XR;
 using HighlightPlus;
+using DG.Tweening;
 
 public class LaserPointer_StageMap : MonoBehaviour
 {
@@ -33,8 +34,16 @@ public class LaserPointer_StageMap : MonoBehaviour
     UnityEngine.XR.InputDevice right; // 오른손 컨트롤러 상태를 받는 변수
 
     // SYS Code
+    [Header("Particle")]
     private bool isSoundPlaying = false;
     public ParticleSystem handPanelParticle;
+    public ParticleSystem watchHandPanelParticle;
+
+    [Header("Explain Canvas Tween")]
+    public Transform explainCanvas;
+    public Transform firstPos;
+    public Transform lastPos;
+    private Tween moveTween;
 
     void Start()
     {
@@ -53,6 +62,7 @@ public class LaserPointer_StageMap : MonoBehaviour
 
         // SYS Code
         handPanelParticle.Stop();
+        watchHandPanelParticle.Stop();
     }
 
     void Update()
@@ -135,13 +145,21 @@ public class LaserPointer_StageMap : MonoBehaviour
         isSoundPlaying = true;
         handPanelParticle.Play();
 
+        // SYS Code - Explain Canvas Move Tween
+        explainCanvas.position = firstPos.position;
+        moveTween = explainCanvas.DOLocalMove(lastPos.position, 1f).OnComplete(KillMoveTween);
+
         UIManager_StageMap.instance.OnDesc(go);
         glowObj = go;
         AudioMgr_CM.Instance.PlaySFXByInt(4); // SSS
     }
 
+    // SYS Code
+    void KillMoveTween() { moveTween.Kill(); moveTween = null; }
+
     public void DestroyDescription() // 패널 없애기
     {
+        KillMoveTween();
         UIManager_StageMap.instance.OffDesc();
         AudioMgr_CM.Instance.PlaySFXByInt(16); // SSS
     }

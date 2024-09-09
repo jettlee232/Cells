@@ -21,6 +21,7 @@ public class InventorySlot_Mito : MonoBehaviour
         snapZone.OnDetachEvent.AddListener(OnItemDetached);
     }
 
+    // Item_Mito의 isSlot 주석내용 나중에 확인
     // 아이템이 슬롯에 붙을때의 이벤트
     void OnItemSnapped(Grabbable item)
     {
@@ -28,7 +29,7 @@ public class InventorySlot_Mito : MonoBehaviour
 
         isHandlingEvent = true;
 
-        Debug.Log($"OnItemSnapped called for item: {item.name} in slot: {slotType}");
+        //Debug.Log($"OnItemSnapped called for item: {item.name} in slot: {slotType}");
 
         // 아이템을 일치하는 슬롯에 넣을때
         if (item.GetComponent<Item_Mito>().type == slotType)

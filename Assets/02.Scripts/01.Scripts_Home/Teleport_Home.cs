@@ -8,20 +8,34 @@ using UnityEngine.XR;
 public class Teleport_Home : MonoBehaviour
 {
     public ScreenFader fader;
+    // SYS Code
+    public MyFader_CM myFader;
+    private bool faderFlag = true; // true - SF, false - MF
+
     public float TeleportFadeSpeed = 10.0f;
 
     public LineRenderer teleportLine;
     public Transform teleportGoal;
     public AudioClip teleportSoundEffect;
-    
-    private bool triggerPressed;
+
+    //private bool triggerPressed;
     public bool canTeleport = true;
     public float teleportCooldown = 1.0f; // 텔레포트 딜레이
+
+    private Vector2 joystickInput;
+    private bool isTeleporting = false;
 
     void Start()
     {
         fader = GameObject.FindWithTag("MainCamera").GetComponent<ScreenFader>();
+        if (fader != null) faderFlag = true;
+        myFader = GameObject.FindWithTag("MainCamera").GetComponent<MyFader_CM>();
+        if (myFader != null) faderFlag = false;
+
         teleportLine = GetComponentInChildren<LineRenderer>();
+
+        teleportLine.enabled = false;
+        teleportGoal.gameObject.SetActive(false);
     }
 
     void Update()
@@ -32,20 +46,47 @@ public class Teleport_Home : MonoBehaviour
             //Debug.Log("텔포라인겟포지션1" +teleportLine.GetPosition(1));
         }
 
-        InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.triggerButton, out triggerPressed);
+        //InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.triggerButton, out triggerPressed);
 
-        if (triggerPressed && canTeleport)
+        //if (triggerPressed && canTeleport)
+        //{
+        //    StartCoroutine(TeleportPlayer());
+        //}
+
+        InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.primary2DAxis, out joystickInput);
+
+        if (!isTeleporting && Mathf.Abs(joystickInput.x) > 0.9f || Mathf.Abs(joystickInput.y) > 0.9f && canTeleport)
+        {
+            StartTeleportPreview();
+        }
+
+        if (isTeleporting && Mathf.Abs(joystickInput.x) < 0.1f && Mathf.Abs(joystickInput.y) < 0.1f)
         {
             StartCoroutine(TeleportPlayer());
         }
     }
 
+    void StartTeleportPreview()
+    {
+        isTeleporting = true;
+        teleportLine.enabled = true;
+        teleportGoal.gameObject.SetActive(true);
+    }
+
     IEnumerator TeleportPlayer()
     {
-        if (teleportSoundEffect != null)
-            AudioSource.PlayClipAtPoint(teleportSoundEffect, transform.root.GetChild(0).position);
+        isTeleporting = false;
+        teleportLine.enabled = false;
+        teleportGoal.gameObject.SetActive(false);
 
-        BeforeTeleport();
+        if (teleportSoundEffect != null)
+        {
+            //AudioSource.PlayClipAtPoint(teleportSoundEffect, transform.root.GetChild(0).position);
+            //AudioMgr_CM.Instance.PlaySFXByInt(19);
+        }
+
+        if (faderFlag == true) BeforeTeleport();
+        else BeforeTeleport_MF();
 
         yield return new WaitForSeconds(0.1f);
 
@@ -58,7 +99,8 @@ public class Teleport_Home : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
 
-        AfterTeleport();
+        if (faderFlag == true) AfterTeleport();
+        else AfterTeleport_MF();
     }
 
     IEnumerator TeleportCooldown()
@@ -79,4 +121,14 @@ public class Teleport_Home : MonoBehaviour
         fader.DoFadeOut();
     }
 
+    public void BeforeTeleport_MF()
+    {
+        myFader.FadeInSpeed = TeleportFadeSpeed;
+        myFader.DoFadeIn();
+    }
+
+    public void AfterTeleport_MF()
+    {
+        myFader.DoFadeOut();
+    }
 }
