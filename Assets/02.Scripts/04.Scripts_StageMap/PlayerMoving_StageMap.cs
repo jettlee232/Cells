@@ -51,6 +51,13 @@ public class PlayerMoving_StageMap: MonoBehaviour
     UnityEngine.XR.InputDevice right;
     UnityEngine.XR.InputDevice left;
 
+    public bool snapturn = false;
+
+    public float minInput = 0.6f; // 이건 역치입니다... 어느정도 조이스틱 움직임이 들어와야 회전할지
+
+    private bool rotateCoroutineY = false;
+    private bool rotateCoroutineX = false;
+
     // SYS Code
     public int tutorialStatus = 0;
     private bool isActiveLeftHand = true;
@@ -299,8 +306,16 @@ public class PlayerMoving_StageMap: MonoBehaviour
     {        
         right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
 
-        nowTrans = transform.rotation * Quaternion.Euler(0f, XRotate.x * rotateSpeed * Time.deltaTime, 0f);
-        transform.rotation = nowTrans;
+        if (snapturn)
+        {
+            if (!rotateCoroutineY && (XRotate.x >= minInput || XRotate.x <= -minInput)) { rotateCoroutineY = true; StartCoroutine(rotateY(XRotate.x)); }
+            else { return; }
+        }
+        else
+        {
+            nowTrans = transform.rotation * Quaternion.Euler(0f, XRotate.x * rotateSpeed * Time.deltaTime, 0f);
+            transform.rotation = nowTrans;
+        }
 
         // SYS Code - Tutorial
         if (tutorialStatus == 2)
@@ -322,16 +337,32 @@ public class PlayerMoving_StageMap: MonoBehaviour
         }
     }
 
+    IEnumerator rotateY(float x)
+    {
+        if (x >= 0f) { transform.rotation = transform.rotation * Quaternion.Euler(0f, 30f, 0f); }
+        else { transform.rotation = transform.rotation * Quaternion.Euler(0f, -30f, 0f); }
+        yield return new WaitForSeconds(0.3f);
+        rotateCoroutineY = false;
+    }
+
     private void GetRotateX()
     {
         right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
 
-        Vector3 currentEulerAngles = trackingSpace.rotation.eulerAngles;
-        float newXRotation = currentEulerAngles.x - XRotate.y * rotateSpeed * Time.deltaTime;
-        if (newXRotation > 180f) newXRotation -= 360f;
-        newXRotation = Mathf.Clamp(newXRotation, -updownLimit, updownLimit);
-        Quaternion newRotation = Quaternion.Euler(newXRotation, currentEulerAngles.y, currentEulerAngles.z);
-        trackingSpace.rotation = newRotation;
+        if (snapturn)
+        {
+            if (!rotateCoroutineX && (XRotate.y >= minInput || XRotate.y <= -minInput)) { rotateCoroutineX = true; StartCoroutine(rotateX(XRotate.y)); }
+            else { return; }
+        }
+        else
+        {
+            Vector3 currentEulerAngles = trackingSpace.rotation.eulerAngles;
+            float newXRotation = currentEulerAngles.x - XRotate.y * rotateSpeed * Time.deltaTime;
+            if (newXRotation > 180f) newXRotation -= 360f;
+            newXRotation = Mathf.Clamp(newXRotation, -updownLimit, updownLimit);
+            Quaternion newRotation = Quaternion.Euler(newXRotation, currentEulerAngles.y, currentEulerAngles.z);
+            trackingSpace.rotation = newRotation;
+        }
 
         // SYS Code - Tutorial
         if (tutorialStatus == 2)
@@ -351,6 +382,22 @@ public class PlayerMoving_StageMap: MonoBehaviour
                 tutorialStatus++;
             }
         }
+    }
+
+    IEnumerator rotateX(float x)
+    {
+        float tempX = (x >= 0f) ? 22.5f : -22.5f;
+
+        Vector3 currentEulerAngles = trackingSpace.rotation.eulerAngles;
+        float newXRotation = currentEulerAngles.x - tempX;
+        if (newXRotation > 180f) newXRotation -= 360f;
+        else if (newXRotation < -360f) newXRotation += 360f;
+        newXRotation = Mathf.Clamp(newXRotation, -updownLimit, updownLimit);
+        Quaternion newRotation = Quaternion.Euler(newXRotation, currentEulerAngles.y, currentEulerAngles.z);
+        trackingSpace.rotation = newRotation;
+
+        yield return new WaitForSeconds(0.3f);
+        rotateCoroutineX = false;
     }
 
     private void ResetRot()

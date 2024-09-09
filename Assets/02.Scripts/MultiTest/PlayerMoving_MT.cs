@@ -10,6 +10,8 @@ public class PlayerMoving_MT : MonoBehaviour
 {
     [Header("Bools")]
     public bool flyable = true;
+    public bool snapturn = false;
+    public bool isMoving = true;
 
     [Header("Speed")]
     public float startTimer = 0.4f; // 속도가 0일 때부터 최대 속도까지 빨라질 때 걸리는 시간 (정지 -> 이동 관성)
@@ -33,6 +35,7 @@ public class PlayerMoving_MT : MonoBehaviour
     private float maxSlopeAngle = 45f;
     public Transform dirStandard;   // 여기에 센터아이 앵커
     public Transform trackingSpace; // 여기에 TrackingSpace
+    public float minInput = 0.6f;
 
     private Rigidbody rb;
 
@@ -45,7 +48,8 @@ public class PlayerMoving_MT : MonoBehaviour
     private Vector2 XZMove = Vector2.zero;
     private Vector2 XRotate = Vector2.zero;
     private Vector2 oldXRotate = Vector2.zero;
-    private bool rotateCoroutine = false;
+    private bool rotateCoroutineY = false;
+    private bool rotateCoroutineX = false;
 
     private int groundLayer;
     private RaycastHit slopeHit;
@@ -53,31 +57,23 @@ public class PlayerMoving_MT : MonoBehaviour
     UnityEngine.XR.InputDevice right;
     UnityEngine.XR.InputDevice left;
 
-
-    // SYS Code
-    [Header("Visual Effect")]
-    //public VisualEffect speedVFX;
-    public ParticleSystem[] handParticles;
-    private bool vfxTrigger = true;
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         groundLayer = 1 << LayerMask.NameToLayer("Ground");
-
-        // SYS Code
-        //speedVFX.Stop();
-        for (int i = 0; i < handParticles.Length; i++) handParticles[i].Stop();
     }
 
     void Update()
     {
         right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
         left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-        //GetRotateY();
-        FixedGetRotateY();
+        GetRotateY();
         GetRotateX();
-        rb.velocity = GetUp() + GetDown() + GetMove();
+        if (isMoving)
+        {
+            if (flyable) { rb.velocity = GetUp() + GetDown() + GetMove(); }
+            else { rb.velocity = GetMove(); }
+        }
         ResetRot();
     }
 
@@ -188,20 +184,6 @@ public class PlayerMoving_MT : MonoBehaviour
         left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
         left.TryGetFeatureValue(CommonUsages.primary2DAxis, out XZMove);
 
-        // SYS Code - Speed VFX
-        if (XZMove != Vector2.zero && vfxTrigger == true)
-        {
-            //speedVFX.Play();
-            for (int i = 0; i < handParticles.Length; i++) handParticles[i].Play();
-            vfxTrigger = false;
-        }
-        else if (XZMove == Vector2.zero && vfxTrigger == false)
-        {
-            //speedVFX.Stop();
-            for (int i = 0; i < handParticles.Length; i++) handParticles[i].Stop();
-            vfxTrigger = true;
-        }
-
         Quaternion guideRot = Quaternion.Euler(0, dirStandard.eulerAngles.y, 0);
         Vector3 moveDir = new Vector3(XZMove.x, 0f, XZMove.y);
         moveDir = guideRot * moveDir;
@@ -214,25 +196,23 @@ public class PlayerMoving_MT : MonoBehaviour
     {
         right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
 
-        nowTrans = transform.rotation * Quaternion.Euler(0f, XRotate.x * rotateSpeed * Time.deltaTime, 0f);
-        transform.rotation = nowTrans;
+        if (snapturn)
+        {
+            if (!rotateCoroutineY && (XRotate.x >= minInput || XRotate.x <= -minInput)) { rotateCoroutineY = true; StartCoroutine(rotateY(XRotate.x)); }
+            else { return; }
+        }
+        else
+        {
+            nowTrans = transform.rotation * Quaternion.Euler(0f, XRotate.x * rotateSpeed * Time.deltaTime, 0f);
+            transform.rotation = nowTrans;
+        }
     }
-
-    private void FixedGetRotateY()
-    {
-        right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-        right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
-
-        if (!rotateCoroutine && (XRotate.x >= 0.2f || XRotate.x <= -0.2f)) { rotateCoroutine = true; StartCoroutine(rotateY(XRotate.x)); }
-        else { return; }
-    }
-
     IEnumerator rotateY(float x)
     {
         if (x >= 0f) { transform.rotation = transform.rotation * Quaternion.Euler(0f, 30f, 0f); }
         else { transform.rotation = transform.rotation * Quaternion.Euler(0f, -30f, 0f); }
         yield return new WaitForSeconds(0.3f);
-        rotateCoroutine = false;
+        rotateCoroutineY = false;
     }
 
 
@@ -240,12 +220,36 @@ public class PlayerMoving_MT : MonoBehaviour
     {
         right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
 
+        if (snapturn)
+        {
+            if (!rotateCoroutineX && (XRotate.y >= minInput || XRotate.y <= -minInput)) { rotateCoroutineX = true; StartCoroutine(rotateX(XRotate.y)); }
+            else { return; }
+        }
+        else
+        {
+            Vector3 currentEulerAngles = trackingSpace.rotation.eulerAngles;
+            float newXRotation = currentEulerAngles.x - XRotate.y * rotateSpeed * Time.deltaTime;
+            if (newXRotation > 180f) newXRotation -= 360f;
+            newXRotation = Mathf.Clamp(newXRotation, -updownLimit, updownLimit);
+            Quaternion newRotation = Quaternion.Euler(newXRotation, currentEulerAngles.y, currentEulerAngles.z);
+            trackingSpace.rotation = newRotation;
+        }
+    }
+
+    IEnumerator rotateX(float x)
+    {
+        float tempX = (x >= 0f) ? 22.5f : -22.5f;
+
         Vector3 currentEulerAngles = trackingSpace.rotation.eulerAngles;
-        float newXRotation = currentEulerAngles.x - XRotate.y * rotateSpeed * Time.deltaTime;
+        float newXRotation = currentEulerAngles.x - tempX;
         if (newXRotation > 180f) newXRotation -= 360f;
+        else if (newXRotation < -360f) newXRotation += 360f;
         newXRotation = Mathf.Clamp(newXRotation, -updownLimit, updownLimit);
         Quaternion newRotation = Quaternion.Euler(newXRotation, currentEulerAngles.y, currentEulerAngles.z);
         trackingSpace.rotation = newRotation;
+
+        yield return new WaitForSeconds(0.3f);
+        rotateCoroutineX = false;
     }
 
     private void ResetRot()

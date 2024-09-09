@@ -27,6 +27,13 @@ public class PlayerMoving_Lobby : MonoBehaviour
     UnityEngine.XR.InputDevice right;
     UnityEngine.XR.InputDevice left;
 
+    public bool snapturn = false;
+
+    public float minInput = 0.6f; // 이건 역치입니다... 어느정도 조이스틱 움직임이 들어와야 회전할지
+
+    private bool rotateCoroutineY = false;
+    private bool rotateCoroutineX = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -38,7 +45,7 @@ public class PlayerMoving_Lobby : MonoBehaviour
         left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
         right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
 
-        GetRotate();
+        GetRotateY();
         rb.velocity = GameManager_Lobby.instance.PlayerMove() ? GetDown() + GetMove() : Vector3.zero;
     }
 
@@ -59,12 +66,44 @@ public class PlayerMoving_Lobby : MonoBehaviour
         else { return moveDir * moveSpeed; }
     }
 
+    /*
     private void GetRotate()
     {
         right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
 
         nowTrans = transform.rotation * Quaternion.Euler(0f, XRotate.x * rotateSpeed * Time.deltaTime, 0f);
         transform.rotation = nowTrans;
+    }
+    */
+
+    private void GetRotateY()
+    {
+
+        right.TryGetFeatureValue(CommonUsages.primary2DAxis, out XRotate);
+
+        if (snapturn)
+        {
+            if (!rotateCoroutineY && (XRotate.x >= minInput || XRotate.x <= -minInput)) { rotateCoroutineY = true; StartCoroutine(rotateY(XRotate.x)); }
+            else { return; }
+        }
+        else
+        {
+            nowTrans = transform.rotation * Quaternion.Euler(0f, XRotate.x * rotateSpeed * Time.deltaTime, 0f);
+            transform.rotation = nowTrans;
+        }
+    }
+    IEnumerator rotateY(float x)
+    {
+        if (x >= 0f) { transform.rotation = transform.rotation * Quaternion.Euler(0f, 30f, 0f); }
+        else { transform.rotation = transform.rotation * Quaternion.Euler(0f, -30f, 0f); }
+        yield return new WaitForSeconds(0.3f);
+        rotateCoroutineY = false;
+    }
+
+    public void RotateUp() { rotateSpeed += 10f; }
+    public void RotateDown()
+    {
+        if (rotateSpeed > 10f) { rotateSpeed -= 10f; }
     }
 
     private bool CheckGround()
