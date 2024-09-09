@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.5
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5003164, g: 0.25350794, b: 0.0324347, a: 0.5}
+  m_IndirectSpecularColor: {r: 0.5002658, g: 0.25345746, b: 0.032384135, a: 0.5}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6062,6 +6062,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2101652783312529233, guid: 2af1d2045149fe743b81bc4d1a6f8406,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2434859844220075984, guid: 2af1d2045149fe743b81bc4d1a6f8406,
         type: 3}
       propertyPath: m_Layer
@@ -6242,6 +6247,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2652272226723133968, guid: 2af1d2045149fe743b81bc4d1a6f8406,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2818568713424293670, guid: 2af1d2045149fe743b81bc4d1a6f8406,
         type: 3}
       propertyPath: m_Layer
@@ -6356,6 +6366,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711852044370096620, guid: 2af1d2045149fe743b81bc4d1a6f8406,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711852044370096620, guid: 2af1d2045149fe743b81bc4d1a6f8406,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4722103429118971761, guid: 2af1d2045149fe743b81bc4d1a6f8406,
         type: 3}
@@ -7051,7 +7071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HideWeapon: 1
-  aiUI: {fileID: 1590316904}
+  aiUI: {fileID: 0}
   mapUI: {fileID: 1010731665}
 --- !u!136 &605252760
 CapsuleCollider:
@@ -18374,12 +18394,6 @@ PrefabInstance:
 --- !u!4 &1590316903 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3564086005987757063, guid: 03b9263998848714f8a3b83f2a55ec12,
-    type: 3}
-  m_PrefabInstance: {fileID: 1590316902}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1590316904 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1155598287862804582, guid: 03b9263998848714f8a3b83f2a55ec12,
     type: 3}
   m_PrefabInstance: {fileID: 1590316902}
   m_PrefabAsset: {fileID: 0}

@@ -32,7 +32,8 @@ public class MixTableSlot_Mito : MonoBehaviour
     void OnItemSnapped(Grabbable item)
     {
         if (isHandlingEvent) return;
-        
+        if (item.GetComponent<Item_Mito>().isSlot) return;
+
         isHandlingEvent = true;
 
         if (item.GetComponent<Item_Mito>().type == slotType)
@@ -52,6 +53,7 @@ public class MixTableSlot_Mito : MonoBehaviour
         }
 
         isHandlingEvent = false;
+        item.GetComponent<Item_Mito>().isSlot = true;
     }
 
     // 강의 끝나고 지금 생각해보니 조합 슬롯에서는 떼는 이벤트가 없어도 되지 않나?
@@ -59,6 +61,7 @@ public class MixTableSlot_Mito : MonoBehaviour
     void OnItemDetached(Grabbable item)
     {
         if (isHandlingEvent) return;
+        if (!item.GetComponent<Item_Mito>().isSlot) return;
 
         isHandlingEvent = true;
 
@@ -66,5 +69,6 @@ public class MixTableSlot_Mito : MonoBehaviour
         atpMixTableInside?.UpdateSlotStatus(slotType, false);
 
         isHandlingEvent = false;
+        item.GetComponent<Item_Mito>().isSlot = false;
     }
 }

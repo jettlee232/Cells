@@ -21,10 +21,11 @@ public class Inventory_Mito : MonoBehaviour
     public InventorySlot_Mito atpSlot; // ATP 슬롯 참조
     public InventorySlot_Mito hIonSlot; // 수소 이온 슬롯 참조
 
+    // Item_Mito의 isSlot 주석내용 나중에 확인
     public void AddItem(Grabbable item)
     {
         Debug.Log("애드아이템");
-        if (item.GetComponent<Item_Mito>().isInventory) return;
+        if (item.GetComponent<Item_Mito>().isSlot) return;
 
         // 우선 아이템이 들어오면 꺼놓음
         item.gameObject.SetActive(false);
@@ -84,12 +85,12 @@ public class Inventory_Mito : MonoBehaviour
                 break;
         }
 
-        item.GetComponent<Item_Mito>().isInventory = true;
+        item.GetComponent<Item_Mito>().isSlot = true;
     }
 
     public void RemoveItem(Grabbable item)
     {
-        if (!item.GetComponent<Item_Mito>().isInventory) return;
+        if (!item.GetComponent<Item_Mito>().isSlot) return;
 
         // 아이템 종류따라 구분
         switch (item.GetComponent<Item_Mito>().type)
@@ -119,7 +120,7 @@ public class Inventory_Mito : MonoBehaviour
     private IEnumerator RemoveAndSnapRemainingItems(List<Grabbable> items, InventorySlot_Mito slot, Grabbable itemToRemove)
     {
         items.Remove(itemToRemove);  // 아이템 제거
-        itemToRemove.GetComponent<Item_Mito>().isInventory = false;
+        itemToRemove.GetComponent<Item_Mito>().isSlot = false;
 
         yield return null;
 
