@@ -2644,8 +2644,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2678631119291354028, guid: c4915e3eea810a7408fe44ed142f8de2,
         type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 2678631119291354028, guid: c4915e3eea810a7408fe44ed142f8de2,
+        type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -32.899994
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3290470374247590311, guid: c4915e3eea810a7408fe44ed142f8de2,
         type: 3}
@@ -2726,6 +2731,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4062860816407302611, guid: c4915e3eea810a7408fe44ed142f8de2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 4509934114803329052, guid: c4915e3eea810a7408fe44ed142f8de2,
         type: 3}
@@ -10063,6 +10073,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioMgr
       objectReference: {fileID: 0}
+    - target: {fileID: 1008958823494542534, guid: 0d20b26341cbd2a40856c6bcbea68a6a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15522,6 +15537,8 @@ MonoBehaviour:
   resetTimer: 1
   dirStandard: {fileID: 605252755}
   trackingSpace: {fileID: 605252752}
+  snapturn: 0
+  minInput: 0.6
 --- !u!114 &605252765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24989,6 +25006,7 @@ MonoBehaviour:
   closeBtn: {fileID: 0}
   starsParent: {fileID: 0}
   starsText: {fileID: 0}
+  starEffect: {fileID: 0}
 --- !u!1 &1120742789
 GameObject:
   m_ObjectHideFlags: 0
@@ -29673,6 +29691,7 @@ MonoBehaviour:
   closeBtn: {fileID: 0}
   starsParent: {fileID: 0}
   starsText: {fileID: 0}
+  starEffect: {fileID: 0}
 --- !u!1 &1382377605
 GameObject:
   m_ObjectHideFlags: 0
@@ -41082,6 +41101,7 @@ MonoBehaviour:
   closeBtn: {fileID: 0}
   starsParent: {fileID: 0}
   starsText: {fileID: 0}
+  starEffect: {fileID: 0}
 --- !u!1 &2040518659
 GameObject:
   m_ObjectHideFlags: 0
@@ -44503,6 +44523,7 @@ MonoBehaviour:
   closeBtn: {fileID: 0}
   starsParent: {fileID: 0}
   starsText: {fileID: 0}
+  starEffect: {fileID: 0}
 --- !u!224 &1810687921409725504
 RectTransform:
   m_ObjectHideFlags: 0
@@ -47483,6 +47504,7 @@ MonoBehaviour:
   closeBtn: {fileID: 0}
   starsParent: {fileID: 0}
   starsText: {fileID: 0}
+  starEffect: {fileID: 0}
 --- !u!224 &6465532326984679019
 RectTransform:
   m_ObjectHideFlags: 0
@@ -48354,6 +48376,7 @@ MonoBehaviour:
   closeBtn: {fileID: 0}
   starsParent: {fileID: 0}
   starsText: {fileID: 0}
+  starEffect: {fileID: 0}
 --- !u!224 &7802529410507306762
 RectTransform:
   m_ObjectHideFlags: 0

@@ -27,7 +27,7 @@ public class ActivateCam_Homew : MonoBehaviour
     public void ShowUI()
     {
         tooltip.gameObject.SetActive(true);
-        tooltip.TooltipOn("메뉴에 레이저를 갖다대서\nA버튼으로 클릭해보세요!");
+        tooltip.TooltipOn("<color=#ff7373>메뉴</color>를 가리켜 <color=#ff7373>A 버튼</color>을 눌러봐!");
 
         //anim.enabled = false;
 

@@ -51,7 +51,7 @@ public class SelectDialogue_StageMap : MonoBehaviour
         //UIManager_StageMap.instance.SetQuest("비행을 하면서 3개의 타겟을 찾아보자!");       
         tutorial.GetComponent<TutorialManager_StageMap>().TooltipSpriteChange(0, 1);
 
-        tutorial.GetComponent<TutorialManager_StageMap>().NewTooltip(0, "비행을 하면서 3개의 타겟을 찾아보자!");
+        tutorial.GetComponent<TutorialManager_StageMap>().NewTooltip(0, "이제 <color=#ff7373>타겟</color>을 <color=#ff7373>3개</color> 찾아봐!");
         tutorial.GetComponent<TutorialManager_StageMap>().UnShowingTooltipAnims(0);
         tutorial.GetComponent<TutorialManager_StageMap>().UnShowingTooltipAnims(1);
         tutorial.GetComponent<TutorialManager_StageMap>().StartTutorial();

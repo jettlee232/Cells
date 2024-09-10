@@ -158,7 +158,7 @@ public class UIManager_StageMap : MonoBehaviour
         organelleUI.transform.localPosition = Vector3.zero;
         organelleUI.transform.localRotation = Quaternion.Euler(0, 0, 0);
         organelleUI.transform.localScale = Vector3.zero;
-        organelleUI.transform.DOScale(new Vector3(-.5f, .5f, -.5f), 1f);
+        organelleUI.transform.DOScale(new Vector3(-.25f, .25f, -.25f), 1f);
         organelleUI.transform.DOLocalRotate(new Vector3(0f, 180f, 0f), 1f, RotateMode.FastBeyond360);
 
         // Old MSY Code
@@ -236,14 +236,14 @@ public class UIManager_StageMap : MonoBehaviour
             if (nowTutorial == 1)
             {
                 tutoMgr.TooltipOver(0);
-                tutoMgr.NewTooltip(1, "오른쪽 조이스틱을 조작하여 카메라를 회전할 수 있어!");
+                tutoMgr.NewTooltip(1, "<color=#ff7373>'조이스틱'</color>으로 회전할 수도 있어!");
                 tutoMgr.UnShowingTooltipAnims(0);
                 tutoMgr.ShowingTooltipAnims(1, 3);
             }
             else if (nowTutorial == 2)
             {
-                tutoMgr.NewTooltip(0, "트리거 버튼을 눌러서 하강할 수 있어!");
-                tutoMgr.NewTooltip(1, "트리거 버튼을 눌러서 상승할 수 있어!");
+                tutoMgr.NewTooltip(0, "<color=#ff7373>'트리거 버튼'</color>으로 내려가봐!");
+                tutoMgr.NewTooltip(1, "<color=#ff7373>'트리거 버튼'</color>으로 올라가봐!");
                 tutoMgr.ShowingTooltipAnims(0, 4);
                 tutoMgr.ShowingTooltipAnims(1, 4);
             }

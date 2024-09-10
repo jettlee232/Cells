@@ -36,7 +36,7 @@ public class LocationPanel_CM : MonoBehaviour
     public void PanelOpen(string newLoc)
     {
         tmpText.text = "";
-        StartCoroutine(ChangeQuestTextAfterFewSec(newLoc));
+        //StartCoroutine(ChangeQuestTextAfterFewSec(newLoc));
         targetRectTransform1.DOSizeDelta(new Vector2(420, 100), duration);
         targetRectTransform2.DOSizeDelta(new Vector2(80, 80), duration);
         targetRectTransform3.DOSizeDelta(new Vector2(33, 40), duration);

@@ -629,8 +629,9 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "MovePlayer_LB();\nCheckTutorial_LB();\nMovePlayer_LB();\nShowNPCTalk_LB();\nGlowStartOnlySelected_LB(0,
-        4);\nNewTooltip_LB(1, \"\uD3EC\uD0C8\uC758 \uC774\uB984\uC5D0 A \uBC84\uD2BC\uC744
-        \uB20C\uB7EC\uBD10\uC694!\");\nShowingTooltipAnim_LB(1, 0);\nSpeechBubble_LB(false)"
+        4);\nNewTooltip_LB(1, \"<color=#ff7373>\uD3EC\uD0C8\uC758 \uC774\uB984</color>\uC5D0
+        <color=#ff7373>A \uBC84\uD2BC</color>\uC744 \uB20C\uB7EC\uBD10!\");\nShowingTooltipAnim_LB(1,
+        0);\nSpeechBubble_LB(false)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -692,7 +693,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 410.03192
+        x: 408.7162
         y: 121.303085
         width: 160
         height: 30
@@ -741,7 +742,8 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: "ShowingTooltipAnim_LB(1, 0);\nNewTooltip_LB(1, \"<bounce>A \uBC84\uD2BC</bounce>\")"
+      userScript: "ShowingTooltipAnim_LB(1, 0);\nNewTooltip_LB(1, \"<color=#ff7373><bounce>A
+        \uBC84\uD2BC</bounce></color>\")"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1035,7 +1037,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 5.263153, y: 0}
+    canvasScrollPosition: {x: 0, y: 199.99994}
     canvasZoom: 0.7600002
   - id: 2
     fields:
@@ -2377,7 +2379,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 45.56964, y: 5.0632935}
+    canvasScrollPosition: {x: 56.962006, y: 41.772156}
     canvasZoom: 0.7900001
   - id: 3
     fields:
@@ -2750,8 +2752,8 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: "InstDummyPanel_LB(false);\nNewTooltip_LB(0, \"<bounce>Y \uBC84\uD2BC</bounce>\");\nShowingTooltipAnim_LB(0,
-        1)"
+      userScript: "InstDummyPanel_LB(false);\nNewTooltip_LB(0, \"<color=#ff7373><bounce>Y
+        \uBC84\uD2BC</bounce></color>\");\nShowingTooltipAnim_LB(0, 1)"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3307,8 +3309,8 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "MovePlayer_LB();\nWarpable_LB();\nMovePlayer_LB();\nGlowStartOnlySelected_LB(4,
-        8);\nPortalShaderControllerEnable_LB(true);\nNewTooltip_LB(1, \"\uB808\uBC84\uB97C
-        \uC7A1\uACE0 \uC544\uB798\uB85C \uB2F9\uACA8\uBD10\uC694!\");\nShowingTooltipAnim_LB(1,
+        8);\nPortalShaderControllerEnable_LB(true);\nNewTooltip_LB(1, \"<color=#ff7373>\uB808\uBC84</color>\uB97C
+        \uC7A1\uACE0 \uC544\uB798\uB85C \uB2F9\uACA8\uBD10!\");\nShowingTooltipAnim_LB(1,
         2);\nDialogueCanvasSize_LB(false);\nSpeechBubble_LB(false)"
       onExecute:
         m_PersistentCalls:
@@ -3320,7 +3322,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 19.318176, y: 0}
+    canvasScrollPosition: {x: 0, y: 31.818176}
     canvasZoom: 0.8800001
   - id: 4
     fields:

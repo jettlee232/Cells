@@ -62,13 +62,13 @@ public class GameManager_Lobby : MonoBehaviour
         //warpVFX.SetActive(false);
         if (PlayerPrefs.GetInt("Lobby") == 0)
         {
-            NewTooltip(0, "좌측 컨트롤러 조이스틱을 이용하여 움직여보세요!");
+            NewTooltip(0, "<color=#ff7373>'조이스틱'</color>으로 움직이자!");
             ShowingTooltipAnim(0, 3);            
         }
         else if (PlayerPrefs.GetInt("Lobby") == 1)
         {
             buttonDoor.DoorOpen();
-            NewTooltip(1, "A 버튼을 눌러 NPC에게 말을 걸어보세요!");
+            NewTooltip(1, "<color=#ff7373>'A버튼'</color>을 눌러 말을 걸자!");
             ShowingTooltipAnim(1, 0);
             PortalShaderControllerEnable(false);
         }                       

@@ -235,17 +235,17 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
+  m_fontSize: 24
   m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 35
+  m_fontSizeMax: 24
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -6
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -453,7 +453,7 @@ Transform:
   m_GameObject: {fileID: 5764211256009456741}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 0.03, z: -0.01}
+  m_LocalPosition: {x: 0.025, y: 0.03, z: -0.01}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -487,16 +487,16 @@ RectTransform:
   m_GameObject: {fileID: 6961548250785663929}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.37500003, z: 0.6}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.74999994, y: 0.46875, z: 0.74999994}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9112665727527586160}
   m_Father: {fileID: 2923794298575281467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5, y: 0}
-  m_SizeDelta: {x: 30, y: 0}
+  m_AnchoredPosition: {x: 23.9, y: -16.6}
+  m_SizeDelta: {x: 36.000004, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &792389825472511804
 CanvasRenderer:
@@ -613,7 +613,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0.1, y: 0.03, z: -0.01}
+  - {x: 0.025, y: 0.03, z: -0.01}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.005
@@ -1330,7 +1330,7 @@ PrefabInstance:
     - target: {fileID: 537333126179217153, guid: d36c9d45420344e83a7099e404dae5e7,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1938903772001141950, guid: d36c9d45420344e83a7099e404dae5e7,
         type: 3}
