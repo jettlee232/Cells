@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 3886174260091911502}
   - component: {fileID: -6033104762260023716}
   - component: {fileID: 2233654793065027352}
+  - component: {fileID: 7774894351131330112}
   m_Layer: 6
   m_Name: Adenine
   m_TagString: Untagged
@@ -111,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemText: {fileID: 0}
   isGrabbed: 0
-  isInventory: 0
+  isSlot: 0
   OriginalScale: {x: 0, y: 0, z: 0}
   type: 0
 --- !u!135 &4430850288068614888
@@ -320,7 +321,7 @@ MonoBehaviour:
   overlayTextureScrolling: {x: 0, y: 0}
   overlayVisibility: 0
   outline: 1
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0, b: 0.7189846, a: 1}
   outlineColorStyle: 0
   outlineGradient:
     serializedVersion: 2
@@ -353,7 +354,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   outlineGradientInLocalSpace: 0
-  outlineWidth: 0.45
+  outlineWidth: 0.6
   outlineBlurPasses: 2
   outlineQuality: 3
   outlineEdgeMode: 0
@@ -509,6 +510,28 @@ MonoBehaviour:
     type: 3}
   isGrab: 0
   isDesc: 0
+--- !u!205 &7774894351131330112
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5732364050721865097}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.030690014, y: 0.3504802, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.005
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 8994073201068938886}
+    - renderer: {fileID: 5219458336776995130}
+    - renderer: {fileID: 150061667706888212}
+    - renderer: {fileID: 7536961577522131954}
+  m_Enabled: 1
 --- !u!1001 &593342032927673918
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -614,6 +637,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 593342032927673918}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &5219458336776995130 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4635546363453312772, guid: 1376606e3820ab24ca4f79aac29a9952,
+    type: 3}
+  m_PrefabInstance: {fileID: 593342032927673918}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1995995334016620033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -687,6 +716,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab9f884d0e040b2448c94840218adb7d, type: 3}
+--- !u!23 &150061667706888212 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1848186021451642389, guid: ab9f884d0e040b2448c94840218adb7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1995995334016620033}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7789805517644283725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8622636227204835660, guid: ab9f884d0e040b2448c94840218adb7d,
@@ -783,6 +818,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbd314aeecdd85843ad919c669601745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &7536961577522131954 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2748214256708399308, guid: dc37c16ed5803aa41922fffe0da9fd8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5673186227860128574}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8323445860858220874 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4411809339532874356, guid: dc37c16ed5803aa41922fffe0da9fd8d,

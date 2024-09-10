@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GetStar_Home : MonoBehaviour
 {
+    public GameObject starWatch;
+
     public Button closeBtn;
     public Transform starsParent;
 
@@ -17,7 +19,7 @@ public class GetStar_Home : MonoBehaviour
     {
         if (starsText == null)
         {
-            GameObject starWatch = GameObject.FindGameObjectWithTag("Watch");
+            starWatch = GameObject.FindGameObjectWithTag("Watch");
 
             starsText = starWatch.GetComponentInChildren<TextMeshProUGUI>();
         }
@@ -55,7 +57,7 @@ public class GetStar_Home : MonoBehaviour
                 UpdateScoreDisplay();
 
                 // Star 오브젝트가 먹어지는 효과
-                StartCoroutine(PlayStarEffects());
+                StartCoroutine(PlayStarEffects(starWatch.transform));
             }
         }
     }
@@ -67,11 +69,19 @@ public class GetStar_Home : MonoBehaviour
         Debug.Log("현재 점수 : " + currentScore);
     }
 
-    public IEnumerator PlayStarEffects()
+    public IEnumerator PlayStarEffects(Transform tr)
     {
-        foreach (Transform star in starsParent)
+        //List<Vector3> starPositions = new List<Vector3>();
+        //foreach (Transform star in starsParent)
+        //{
+        //    starPositions.Add(star.localPosition);
+        //}
+
+        foreach (Transform starPos in starsParent)
         {
-            GameObject effect = Instantiate(starEffect, star.position, Quaternion.identity);
+            GameObject effect = Instantiate(starEffect, starPos.position, starEffect.transform.rotation);
+
+            effect.transform.SetParent(tr);
 
             yield return new WaitForSeconds(0.5f);
         }
