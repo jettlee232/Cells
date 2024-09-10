@@ -204,6 +204,7 @@ public class UIManager_Lobby : MonoBehaviour
         // SYS Code
         //tuto.transform.DORotate(new Vector3(0, 0, 0), 1f, RotateMode.FastBeyond360);
         tuto.transform.DORotateQuaternion(Quaternion.Euler(0f, 0f, 0f), 1f);
+        AudioMgr_CM.Instance.PlaySFXByInt(16);
     }
     IEnumerator hideTuto(GameObject tuto) { yield return new WaitForSeconds(1f); tuto.gameObject.SetActive(false); }
 

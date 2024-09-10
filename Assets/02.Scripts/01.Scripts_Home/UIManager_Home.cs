@@ -12,6 +12,8 @@ public class UIManager_Home : MonoBehaviour
 
     IEnumerator MoveScene()
     {
+        PlayerPrefs.SetInt("PlayerScore", 0);
+
         float elapsedTime = 0f;
         Color startColor = black.color;
         Color targetColor = new Color(startColor.r, startColor.g, startColor.b, 1f);

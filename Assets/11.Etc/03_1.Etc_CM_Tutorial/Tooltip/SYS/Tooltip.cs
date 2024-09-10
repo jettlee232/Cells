@@ -77,12 +77,12 @@ public class Tooltip : MonoBehaviour
 
         if (leftOrRight == false)
         {
-            yAxisRotation = Quaternion.Euler(0f, -5f, 0f);
+            yAxisRotation = Quaternion.Euler(0f, 0f, 0f);
             newPos_X = -newPos_X;
         }
         else 
         { 
-            yAxisRotation = Quaternion.Euler(0f, 5f, 0f);            
+            yAxisRotation = Quaternion.Euler(0f, 0f, 0f);            
         }
     }
 
@@ -206,5 +206,10 @@ public class Tooltip : MonoBehaviour
             canvasSize.localScale = canvasSize_goal;
             fontPos.localPosition = fontPos_goal;
         }
+    }
+
+    public void IncreasingTooltipGap(float gap)
+    {
+        newPos_X = gap;
     }
 }

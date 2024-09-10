@@ -241,8 +241,15 @@ public class TutorialManager_MitoTuto : MonoBehaviour
 
     public void SetActiveATPMixComponents()
     {
+        StartCoroutine(ATPMixComponents(1.0f));
+    }
+
+    IEnumerator ATPMixComponents(float delay)
+    {
         adeinine.SetActive(true);
+        yield return new WaitForSeconds(delay);
         ribose.SetActive(true);
+        yield return new WaitForSeconds(delay);
         phosphate.SetActive(true);
     }
 

@@ -126,7 +126,7 @@ public class UIManager_Lys : MonoBehaviour
         enemyUI.transform.localPosition = Vector3.zero;
         enemyUI.transform.localRotation = Quaternion.Euler(0, 0, 0);
         enemyUI.transform.localScale = Vector3.zero;
-        enemyUI.transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
+        enemyUI.transform.DOScale(new Vector3(.55f, .55f, .55f), 1f);
         enemyUI.transform.DORotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360).SetRelative(true);
 
     }

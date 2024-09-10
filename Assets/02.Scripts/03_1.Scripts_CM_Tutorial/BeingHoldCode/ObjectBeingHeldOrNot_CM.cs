@@ -103,11 +103,13 @@ public class ObjectBeingHeldOrNot_CM : MonoBehaviour
             else if (isThisPhosStick_Philic == true && firstGrab == false)
             {
                 tutoMgr.tooltips[0].TooltipTextChange("반대쪽 손도 집어보자!");
+                tutoMgr.tooltips[0].IncreasingTooltipGap(.03f);
                 firstGrab = true;
             }
             else if (isThisPhosStick_Phos == true && firstGrab == false)
             {
                 tutoMgr.tooltips[1].TooltipTextChange("반대쪽 손도 집어보자!");
+                tutoMgr.tooltips[1].IncreasingTooltipGap(-.03f);
                 firstGrab = true;
             }
 

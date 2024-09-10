@@ -64,6 +64,10 @@ public class GameManager_CM : MonoBehaviour
     public GameObject cutScene;
     public CutSceneSkip_SM cutSceneSkip;
 
+    [Header("Particle")]
+    private bool endParticleSemaphore = false;
+    public ParticleSystem endParticle;
+
     void Start()
     {
         //GameStart();
@@ -297,6 +301,12 @@ public class GameManager_CM : MonoBehaviour
 
     public void DoLoadNewScene()
     {
+        if (endParticleSemaphore == false)
+        {
+            endParticleSemaphore = true;
+            endParticle.Play();
+        }
+
         StartCoroutine(EndGameAndStartCutScene());
     }
 
@@ -393,7 +403,9 @@ public class GameManager_CM : MonoBehaviour
     {
         bsMgr.BlockSpawnStop();
         bsMgr.DestroyAllBlocks();
-        AudioMgr_CM.Instance.audioSrc.PlayOneShot(clip1000);
+        //AudioMgr_CM.Instance.audioSrc.PlayOneShot(clip1000);
+        AudioMgr_CM.Instance.InCreaseSFXandDecreaseBGMfewSec(2f, 0.2f, 10.5f);
+        AudioMgr_CM.Instance.PlaySFXByInt(18);
 
         yield return new WaitForSeconds(7f);
 
