@@ -27,7 +27,7 @@ public class HandToolTip_MitoTuto : MonoBehaviour
     IEnumerator LeftHandStartToolTip()
     {
         yield return new WaitForSeconds(4.5f);
-        tooltip.TooltipOn("왼쪽 조이스틱으로 이동해보자!");
+        tooltip.TooltipOn("<color=#ff7373>조이스틱</color>으로 움직여봐!");
         yield return new WaitForSeconds(4.5f);
         tooltip.TooltipOff();
     }
@@ -35,7 +35,7 @@ public class HandToolTip_MitoTuto : MonoBehaviour
     IEnumerator RightHandStartToolTip()
     {
         yield return new WaitForSeconds(4.5f);
-        tooltip.TooltipOn("오른쪽 조이스틱으로 좌우회전도 가능해요!");
+        tooltip.TooltipOn("<color=#ff7373>좌우회전</color>도 가능해!");
         yield return new WaitForSeconds(4.5f);
         tooltip.TooltipOff();
     }

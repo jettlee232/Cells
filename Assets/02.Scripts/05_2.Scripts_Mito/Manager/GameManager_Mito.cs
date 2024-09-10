@@ -44,6 +44,10 @@ public class GameManager_Mito : MonoBehaviour
 
     IEnumerator StartGame(float delay)
     {
+        // SYS Code
+        Transform tr = questPanelMito.gameObject.transform;
+        if (tr.GetChild(0).gameObject.activeSelf == false) tr.GetChild(0).gameObject.SetActive(true);
+
         questPanelMito.PanelOpen("미토콘드리아 속을 탐험하며 ATP를 만들어보자!");
         yield return new WaitForSeconds(delay);
         questPanelMito.PanelClose();

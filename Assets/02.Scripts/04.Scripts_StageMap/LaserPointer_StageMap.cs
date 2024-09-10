@@ -79,10 +79,12 @@ public class LaserPointer_StageMap : MonoBehaviour
         }
         else { uiPointer.HidePointerIfNoObjectsFound = true; isSoundPlaying = false; }
 
+        /*
         if (UIManager_StageMap.instance.CheckDesc()) // 현재 설명창이 만들어진 상태라면
         {
             if (!CheckSight()) { DestroyDescription(); }
         }
+        */
     }
 
     public void CheckRay(Vector3 targetPos, Vector3 direction, float length)
@@ -144,6 +146,7 @@ public class LaserPointer_StageMap : MonoBehaviour
     {
         isSoundPlaying = true;
         handPanelParticle.Play();
+        watchHandPanelParticle.Play();
 
         // SYS Code - Explain Canvas Move Tween
         //explainCanvas.position = firstPos.position;
@@ -160,6 +163,7 @@ public class LaserPointer_StageMap : MonoBehaviour
     public void DestroyDescription() // 패널 없애기
     {
         //KillMoveTween();
+        watchHandPanelParticle.Stop();
         UIManager_StageMap.instance.OffDesc();
         AudioMgr_CM.Instance.PlaySFXByInt(16); // SSS
     }

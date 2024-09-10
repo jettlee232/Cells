@@ -5479,6 +5479,7 @@ MonoBehaviour:
   feedback_starWatchText: {fileID: 1951784374}
   fb_speechBubble: {fileID: 2026091980}
   fb_speechBubble_0: {fileID: 1565384207}
+  fb_particle: {fileID: 402948456}
   dummyPanelCanvas: {fileID: 1515498303}
   panelBubble: {fileID: 0}
 --- !u!114 &390357880
@@ -5646,6 +5647,219 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 394941737}
   m_CullTransparentMesh: 1
+--- !u!1 &402948454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 402948455}
+  - component: {fileID: 402948456}
+  m_Layer: 5
+  m_Name: FeedBack_Particle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &402948455
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402948454}
+  m_LocalRotation: {x: -0, y: 0.9848078, z: -0, w: 0.17364825}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1477955186}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &402948456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402948454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks: []
+  InitializationMode: 2
+  AutoInitialization: 1
+  SafeMode: 3
+  Direction: 0
+  AutoChangeDirectionOnEnd: 0
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  ForceTimescaleMode: 0
+  ForcedTimescaleMode: 1
+  DurationMultiplier: 1
+  RandomizeDuration: 0
+  RandomDurationMultiplier: {x: 0.5, y: 1.5}
+  DisplayFullDurationDetails: 0
+  PlayerTimescaleMode: 1
+  OnlyPlayIfWithinRange: 0
+  RangeCenter: {fileID: 0}
+  RangeDistance: 5
+  UseRangeFalloff: 0
+  RangeFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  RemapRangeFalloff: {x: 0, y: 1}
+  IgnoreRangeEvents: 0
+  CooldownDuration: 0
+  InitialDelay: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  ChanceToPlay: 100
+  FeedbacksIntensity: 1
+  Events:
+    TriggerMMFeedbacksEvents: 0
+    TriggerUnityEvents: 1
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPause:
+      m_PersistentCalls:
+        m_Calls: []
+    OnResume:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRevert:
+      m_PersistentCalls:
+        m_Calls: []
+    OnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRestoreInitialValues:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSkipToTheEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  DebugActive: 0
+  FeedbacksList:
+  - rid: 4596464615429242881
+  KeepPlayModeChanges: 0
+  PerformanceMode: 0
+  StopFeedbacksOnDisable: 0
+  PlayCount: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4596464615429242881
+      type: {class: MMF_Particles, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks}
+      data:
+        Active: 1
+        UniqueID: 1511047290
+        Label: Particles Play
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        Owner: {fileID: 402948456}
+        DebugActive: 0
+        Mode: 0
+        EmitCount: 100
+        BoundParticleSystem: {fileID: 770331777}
+        RandomParticleSystems: []
+        MoveToPosition: 0
+        ActivateOnPlay: 0
+        StopSystemOnInit: 1
+        StopSystemOnReset: 1
+        StopSystemOnStopFeedback: 1
+        DeclaredDuration: 0
+        ForceSimulationSpeed: 0
+        ForcedSimulationSpeed: {x: 0.1, y: 1}
 --- !u!1 &419683230
 GameObject:
   m_ObjectHideFlags: 0
@@ -10290,6 +10504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelRectTrns: {fileID: 689393079}
   playerTrns: {fileID: 5117709273145351011}
+  oppositeSide: 1
 --- !u!114 &689393084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11088,6 +11303,87 @@ Transform:
   - {fileID: 858560949}
   m_Father: {fileID: 973334749}
   m_LocalEulerAnglesHint: {x: 0, y: -22.246, z: 0}
+--- !u!1001 &770331776
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1477955186}
+    m_Modifications:
+    - target: {fileID: 157776, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_Name
+      value: StarBurst2D_Destroy_InAiChatDummy
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.12278786
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.12278786
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6963643
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.6963643
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 10451d4365ea5cb42beff9c110973319, type: 3}
+--- !u!198 &770331777 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 19864940, guid: 10451d4365ea5cb42beff9c110973319,
+    type: 3}
+  m_PrefabInstance: {fileID: 770331776}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &770331778 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 453802, guid: 10451d4365ea5cb42beff9c110973319,
+    type: 3}
+  m_PrefabInstance: {fileID: 770331776}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &783575352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12925,7 +13221,7 @@ RectTransform:
   m_GameObject: {fileID: 1081161794}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1991568308}
@@ -13465,16 +13761,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4608552202210674759, guid: c4915e3eea810a7408fe44ed142f8de2,
         type: 3}
-      propertyPath: onSwitch
-      value: 
-      objectReference: {fileID: 1150274559}
-    - target: {fileID: 4608552202210674759, guid: c4915e3eea810a7408fe44ed142f8de2,
-        type: 3}
-      propertyPath: offSwitch
-      value: 
-      objectReference: {fileID: 1150274560}
-    - target: {fileID: 4608552202210674759, guid: c4915e3eea810a7408fe44ed142f8de2,
-        type: 3}
       propertyPath: fixedTeleport
       value: 
       objectReference: {fileID: 1482186862}
@@ -13502,18 +13788,6 @@ Transform:
 --- !u!1 &1150274558 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4509934114803329052, guid: c4915e3eea810a7408fe44ed142f8de2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1150274556}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1150274559 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8067269755904708556, guid: c4915e3eea810a7408fe44ed142f8de2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1150274556}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1150274560 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8381239274968434765, guid: c4915e3eea810a7408fe44ed142f8de2,
     type: 3}
   m_PrefabInstance: {fileID: 1150274556}
   m_PrefabAsset: {fileID: 0}
@@ -16116,7 +16390,7 @@ PrefabInstance:
     - target: {fileID: 1008958823494542534, guid: 0d20b26341cbd2a40856c6bcbea68a6a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1008958823494542534, guid: 0d20b26341cbd2a40856c6bcbea68a6a,
         type: 3}
@@ -17249,6 +17523,8 @@ Transform:
   - {fileID: 1565384208}
   - {fileID: 63159438}
   - {fileID: 1590780407}
+  - {fileID: 402948455}
+  - {fileID: 770331778}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1482186860
@@ -20931,7 +21207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1.85, y: 0.25}
+  m_AnchoredPosition: {x: -1.85, y: 0.5}
   m_SizeDelta: {x: 400, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1813032688
@@ -49534,6 +49810,8 @@ MonoBehaviour:
   groundCheck: 0.02
   maxSlopeAngle: 45
   dirStandard: {fileID: 5117709273145351011}
+  snapturn: 0
+  minInput: 0.6
 --- !u!114 &9166498488846378404
 MonoBehaviour:
   m_ObjectHideFlags: 0

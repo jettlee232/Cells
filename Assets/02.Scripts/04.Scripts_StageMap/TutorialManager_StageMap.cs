@@ -126,13 +126,13 @@ public class TutorialManager_StageMap : MonoBehaviour
         for (int i = 0; i < goalAchieve.Length; i++)
         {
             if (goalAchieve[i] == true) cnt++;
-            tooltips[0].TooltipTextChange("남은 타겟 : " + (3 - cnt) + "개");
+            tooltips[0].TooltipTextChange("남은 타겟 : <color=#ff7373>" + (3 - cnt) + "개</color>");
         }
 
         if (cnt == 3)
         {
             tooltips[0].ChangeSprite(0);
-            tooltips[0].TooltipTextChange("NPC에게 돌아가자!");
+            tooltips[0].TooltipTextChange("나에게 돌아와봐!");
             GameManager_StageMap.instance.ClearTutorial();
             ShowGoals(false);
         }                       

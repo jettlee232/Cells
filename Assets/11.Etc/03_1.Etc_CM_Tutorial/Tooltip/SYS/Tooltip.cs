@@ -44,9 +44,11 @@ public class Tooltip : MonoBehaviour
     public Transform pointA;
     public Transform pointB;
     public Transform handTransform;
-    private float overHandPos = 0.175f;
+    private float overHandPos = 0.1085f;
     public bool leftOrRight = false;
     private Quaternion yAxisRotation;
+
+    public float newPos_X = 0.05f;    
 
     // Feel
     [Header("FEEL")]
@@ -73,8 +75,15 @@ public class Tooltip : MonoBehaviour
 
         AudioMgr_CM.Instance.PlaySFXByInt(4);
 
-        if (leftOrRight == false) yAxisRotation = Quaternion.Euler(0f, -5f, 0f);
-        else yAxisRotation = Quaternion.Euler(0f, 5f, 0f);    
+        if (leftOrRight == false)
+        {
+            yAxisRotation = Quaternion.Euler(0f, -5f, 0f);
+            newPos_X = -newPos_X;
+        }
+        else 
+        { 
+            yAxisRotation = Quaternion.Euler(0f, 5f, 0f);            
+        }
     }
 
     public void TooltipOn(string content)
@@ -155,7 +164,7 @@ public class Tooltip : MonoBehaviour
     {
         pointA.transform.position = handTransform.position;
 
-        pointB.transform.position = new Vector3(handTransform.position.x, handTransform.position.y + overHandPos,
+        pointB.transform.position = new Vector3(handTransform.position.x + newPos_X, handTransform.position.y + overHandPos,
             handTransform.position.z);
     }
 

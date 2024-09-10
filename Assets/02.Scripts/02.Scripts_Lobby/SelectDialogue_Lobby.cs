@@ -39,6 +39,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
     private int feedbackCnt = 0;
     public MMF_Player fb_speechBubble;
     public MMF_Player fb_speechBubble_0;
+    public MMF_Player fb_particle;
     public GameObject dummyPanelCanvas;
 
     [Header("Speech Bubble Tween")]
@@ -76,6 +77,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
                     feedback_aiDummyCanv1.PlayFeedbacks();
 
                     feedbackCnt = 2;
+                    AudioMgr_CM.Instance.PlaySFXByInt(10);
                 }
                 else if (feedbackCnt == 2)
                 {
@@ -87,12 +89,13 @@ public class SelectDialogue_Lobby : MonoBehaviour
                     feedback_aiDummyCanv2.PlayFeedbacks();
 
                     feedbackCnt = 3;
+                    AudioMgr_CM.Instance.PlaySFXByInt(10);
                 }
                 else if (feedbackCnt == 3)
                 {
                     feedback_aiDummyCanv2.StopFeedbacks(false);
                     feedback_aiDummyCanv2.SetDirection(MMFeedbacks.Directions.BottomToTop);
-                    feedback_aiDummyCanv2.PlayFeedbacks();
+                    feedback_aiDummyCanv2.PlayFeedbacks();                    
                 }
             }
             else
@@ -106,6 +109,9 @@ public class SelectDialogue_Lobby : MonoBehaviour
                 });
 
                 feedbackCnt = 1;
+
+                fb_particle.PlayFeedbacks();
+                AudioMgr_CM.Instance.PlaySFXByInt(4);
             }
         }
         else // false면 작아지기
@@ -116,6 +122,8 @@ public class SelectDialogue_Lobby : MonoBehaviour
                 sizeTween = null;
                 aiChatDummy.gameObject.SetActive(false);
             });
+
+            AudioMgr_CM.Instance.PlaySFXByInt(14);
         }
     }
 

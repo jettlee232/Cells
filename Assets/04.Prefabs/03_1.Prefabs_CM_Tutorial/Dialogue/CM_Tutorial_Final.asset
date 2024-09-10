@@ -700,8 +700,8 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "NewQuest(\"Quest_CM_2\", 3, true);\nMaketutorialObj_Tail();\nMakeTutorialObj_Head();\nNewTooltip(0,
-        \"\uC67C\uC190\uC73C\uB85C \uC778\uC9C0\uC9C8 \uAF2C\uB9AC\uB97C \uC7A1\uC544\uBCF4\uC138\uC694\");\nNewTooltip(1,
-        \"\uC624\uB978\uC190\uC73C\uB85C \uC778\uC9C0\uC9C8 \uBA38\uB9AC\uB97C \uC7A1\uC544\uBCF4\uC138\uC694\");\nShowingTooltipAnim(0,
+        \"<color=#ff7373>'\uC778\uC9C0\uC9C8 \uAF2C\uB9AC'</color>\uB97C \uC7A1\uC544\uBD10!\");\nNewTooltip(1,
+        \"<color=#ff7373>'\uC778\uC9C0\uC9C8 \uBA38\uB9AC'</color>\uB97C \uC7A1\uC544\uBD10!\");\nShowingTooltipAnim(0,
         2);\nShowingTooltipAnim(1, 2);\nSkipConv()"
       onExecute:
         m_PersistentCalls:
@@ -1317,7 +1317,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 176.13635}
+    canvasScrollPosition: {x: 0, y: 56.818176}
     canvasZoom: 0.8800001
   - id: 3
     fields:
@@ -2393,9 +2393,9 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "NewQuest(\"Quest_CM_5\", 3, true);\nMakePlayerMove(true);\nLPDAOnOff(true);\nNewFollow(3,
-        0);\nNewTooltip(0, \"\uC67C\uC190\uC73C\uB85C \uCE5C\uC218\uC131 \uB9C9\uB300\uAE30\uB97C
-        \uC7A1\uC544\uBCF4\uC790!\");\nNewTooltip(1, \"\uC624\uB978\uC190\uC73C\uB85C
-        \uC18C\uC218\uC131 \uB9C9\uB300\uAE30\uB97C \uC7A1\uC544\uBCF4\uC790!\");\nUnShowingTooltipAnim(0);\nUnShowingTooltipAnim(1);\nShowingTooltipAnim(0,
+        0);\nNewTooltip(0, \"<color=#ff7373>'\uCE5C\uC218\uC131 \uB9C9\uB300\uAE30'</color>\uB97C
+        \uC7A1\uC544\uBD10!\");\nNewTooltip(1, \"<color=#ff7373>'\uC18C\uC218\uC131
+        \uB9C9\uB300\uAE30'</color>\uB97C \uC7A1\uC544\uBD10!\");\nUnShowingTooltipAnim(0);\nUnShowingTooltipAnim(1);\nShowingTooltipAnim(0,
         2);\nShowingTooltipAnim(1, 2);\nSkipConv()"
       onExecute:
         m_PersistentCalls:
@@ -3034,9 +3034,8 @@ MonoBehaviour:
       outgoingLinks: []
       conditionsString: 
       userScript: "NewQuest(\"Quest_CM_6\", 3, true);\nNewFollow(2, 0);\nEnabledHLC();\nLPDAOnOff(true);\nNewTooltip(1,
-        \"A \uBC84\uD2BC\uC744 \uB20C\uB7EC \uB098\uC624\uB294 \uB808\uC774\uC800\uB97C
-        \uD14D\uC2A4\uD2B8\uC5D0\uB2E4 \uB9DE\uCDB0\uBD10!\");\nShowingTooltipAnim(1,
-        0);\nSkipConv()"
+        \"<color=#ff7373>'A \uBC84\uD2BC'</color>\uC73C\uB85C \uB808\uC774\uC800\uB97C
+        \uD14D\uC2A4\uD2B8\uC5D0 \uC3F4\uBD10!\");\nShowingTooltipAnim(1, 0);\nSkipConv()"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3217,7 +3216,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 162
-        y: 82
+        y: 80.86365
         width: 160
         height: 30
     - id: 2
