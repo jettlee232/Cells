@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: -7112752277664025258}
   - component: {fileID: 3146875128945594181}
   - component: {fileID: -2203736998599140899}
-  - component: {fileID: 9041203427141568120}
   m_Layer: 6
   m_Name: Ribose
   m_TagString: Untagged
@@ -112,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemText: {fileID: 0}
   isGrabbed: 0
-  isSlot: 0
+  isInventory: 0
   OriginalScale: {x: 0, y: 0, z: 0}
   type: 1
 --- !u!135 &7014798003995515344
@@ -321,7 +320,7 @@ MonoBehaviour:
   overlayTextureScrolling: {x: 0, y: 0}
   overlayVisibility: 0
   outline: 1
-  outlineColor: {r: 1, g: 0, b: 0.7189846, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineColorStyle: 0
   outlineGradient:
     serializedVersion: 2
@@ -354,7 +353,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   outlineGradientInLocalSpace: 0
-  outlineWidth: 0.6
+  outlineWidth: 0.45
   outlineBlurPasses: 2
   outlineQuality: 3
   outlineEdgeMode: 0
@@ -510,28 +509,6 @@ MonoBehaviour:
     type: 3}
   isGrab: 0
   isDesc: 0
---- !u!205 &9041203427141568120
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5171516718910961161}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.00000023841858, y: 0.3502077, z: 0}
-  m_Size: 1
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.005
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 7008066803782640787}
-    - renderer: {fileID: 4429335829319262338}
-    - renderer: {fileID: 5385463938118557005}
-    - renderer: {fileID: 8094118754225093171}
-  m_Enabled: 1
 --- !u!1001 &3590402341325125348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -608,12 +585,6 @@ PrefabInstance:
 --- !u!4 &1285234126978771559 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2307455207273749635, guid: 14549ef0b05d062498048f11e29968ee,
-    type: 3}
-  m_PrefabInstance: {fileID: 3590402341325125348}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &5385463938118557005 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 8894232144676760489, guid: 14549ef0b05d062498048f11e29968ee,
     type: 3}
   m_PrefabInstance: {fileID: 3590402341325125348}
   m_PrefabAsset: {fileID: 0}
@@ -922,12 +893,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8541593957262098957}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &8094118754225093171 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 494763111640922174, guid: 80453e2066372a240b9da2baf0566e04,
-    type: 3}
-  m_PrefabInstance: {fileID: 8541593957262098957}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9019845439729512326
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1022,12 +987,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1376606e3820ab24ca4f79aac29a9952, type: 3}
---- !u!23 &4429335829319262338 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 4635546363453312772, guid: 1376606e3820ab24ca4f79aac29a9952,
-    type: 3}
-  m_PrefabInstance: {fileID: 9019845439729512326}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4948882812584982548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4143622896199718802, guid: 1376606e3820ab24ca4f79aac29a9952,
