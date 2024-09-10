@@ -24,7 +24,7 @@ public class Tooltip_Mito : MonoBehaviour
     public Transform pointA;
     public Transform pointB;
     public Transform handTransform;
-    private float overHandPos = 0.175f;
+    private float overHandPos = 0.1f;
     public bool leftOrRight = false;
     private Quaternion yAxisRotation;
 

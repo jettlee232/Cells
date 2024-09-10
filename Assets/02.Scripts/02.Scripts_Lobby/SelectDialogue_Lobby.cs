@@ -35,6 +35,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
     private DG.Tweening.Tween sizeTween = null;
     public MMF_Player feedback_aiDummyCanv1;
     public MMF_Player feedback_aiDummyCanv2;
+    public MMF_Player feedback_aiDummyCanv3;
     public MMF_Player feedback_starWatchText;
     private int feedbackCnt = 0;
     public MMF_Player fb_speechBubble;
@@ -104,7 +105,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
                 if (sizeTween != null) sizeTween.Kill(); // 이미 다른 트윈이 실행 중이었다면 실행 중이었던 트윈을 중단하기
 
-                sizeTween = aiChatDummy.transform.DOScale(new Vector3(1f, 1f, 1f), 1f).OnComplete(() => {
+                sizeTween = aiChatDummy.transform.DOScale(new Vector3(.75f, .75f, .75f), 1f).OnComplete(() => {
                     sizeTween = null;
                 });
 
@@ -116,13 +117,17 @@ public class SelectDialogue_Lobby : MonoBehaviour
         }
         else // false면 작아지기
         {
+            /*
             if (sizeTween != null) sizeTween.Kill(); // 이미 다른 트윈이 실행 중이었다면 실행 중이었던 트윈을 중단하기
-
+            
             sizeTween = aiChatDummy.transform.DOScale(Vector3.zero, 1f).OnComplete(() => {
                 sizeTween = null;
                 aiChatDummy.gameObject.SetActive(false);
             });
+            */
 
+            //feedback_aiDummyCanv3?.PlayFeedbacks();
+            fb_particle?.PlayFeedbacks();
             AudioMgr_CM.Instance.PlaySFXByInt(14);
         }
     }

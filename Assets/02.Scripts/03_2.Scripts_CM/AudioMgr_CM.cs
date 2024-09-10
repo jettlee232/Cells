@@ -63,6 +63,10 @@ public class AudioMgr_CM : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        // New SYS Code - IMSI
+        //PlayerPrefs.SetFloat("SFXVolume", 0.5f);
+        //sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
     }
 
     void OnDisable()
@@ -78,7 +82,7 @@ public class AudioMgr_CM : MonoBehaviour
         audioSrc.volume = PlayerPrefs.GetFloat("Volume", 0.2f);
         audioSrc.pitch = PlayerPrefs.GetFloat("Pitch", 1f);
 
-        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.5f); // New Code - For SFX Volume        
+        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1f); // New Code - For SFX Volume        
 
         // 이전 씬 이름 업데이트
         previousSceneName = currentSceneName;        
@@ -301,5 +305,23 @@ public class AudioMgr_CM : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         audioSrc.volume = audioVol_origin;
+    }
+
+    // New SYS Code
+    public void InCreaseSFXandDecreaseBGMfewSec(float new_sfxVol, float new_bgmVol, float fewsec)
+    {
+        float prev_sfxVol = sfxVolume;
+        float prev_bgmVol = audioSrc.volume;
+
+        sfxVolume = new_sfxVol;
+        audioSrc.volume = new_bgmVol;
+        StartCoroutine(AudioVolControl(prev_sfxVol, prev_bgmVol, fewsec));
+    }
+    
+    private IEnumerator AudioVolControl(float prev_sfxVol, float prev_bgmVol, float fewsec)
+    {
+        yield return new WaitForSeconds(fewsec);
+        sfxVolume = prev_sfxVol;
+        audioSrc.volume = prev_bgmVol;
     }
 }

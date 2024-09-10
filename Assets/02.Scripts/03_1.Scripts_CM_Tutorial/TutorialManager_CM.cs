@@ -528,7 +528,7 @@ public class TutorialManager_CM : MonoBehaviour
                 worldTooltips[1].GetComponent<Tooltip>().TooltipOn("우리도 확인해줘!");
                 worldTooltips[2].SetActive(true);
                 worldTooltips[2].GetComponent<SpeechBubblePanel_CM>().PanelOpen("충분히 다 확인했으면 나한테 말을 걸어줘!");
-                tooltips[1].TooltipTextChange("A버튼을 NPC에게 쏘면 말을 걸 수 있어요!");
+                tooltips[1].TooltipTextChange("<color=#ff7373>A버튼</color>으로 나한테 말을 걸어줘!");
 
                 allComplete = true;
             }

@@ -12,7 +12,7 @@ public class TeleportController_Home : MonoBehaviour
     public PlayerMoving_StageMap stageMap;
     public PlayerMoving_Mito mito;
     public PlayerMoving_Lys lys;
-    public PlayerMoving_MT multi;
+    //public PlayerMoving_MT multi;
 
     void Start()
     {
@@ -23,7 +23,7 @@ public class TeleportController_Home : MonoBehaviour
         stageMap = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMoving_StageMap>();
         mito = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMoving_Mito>();
         lys = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMoving_Lys>();
-        multi = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMoving_MT>();
+        //multi = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMoving_MT>();
     }
 
     void Update()
@@ -60,8 +60,7 @@ public class TeleportController_Home : MonoBehaviour
             if (lys != null)
                 GameManager_Lys.instance.DisableMove();
 
-            if (multi != null)
-                multi.isMoving = false;
+            //if (multi != null) multi.isMoving = false;
         }
         else
         {
@@ -77,9 +76,7 @@ public class TeleportController_Home : MonoBehaviour
             if (lys != null)
                 GameManager_Lys.instance.EnableMove();
 
-            if (multi != null)
-                multi.isMoving = true;
+            //if (multi != null) multi.isMoving = true;
         }
-        
     }
 }

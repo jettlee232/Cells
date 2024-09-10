@@ -61,11 +61,13 @@ public class GameManager_StageMap : MonoBehaviour
     // SYS Code
     public void ClearTutorial() 
     {
-        //UIManager_StageMap.instance.SetQuest("NPC에게 돌아가자!");         
+        //UIManager_StageMap.instance.SetQuest("NPC에게 돌아가자!");
         secondCon = true;
 
         // SYS Code
-        AudioMgr_CM.Instance.audioSrc.PlayOneShot(alertClip);
+        //AudioMgr_CM.Instance.audioSrc.PlayOneShot(alertClip);
+        AudioMgr_CM.Instance.InCreaseSFXandDecreaseBGMfewSec(2f, 0.1f, 3.25f);
+        AudioMgr_CM.Instance.PlaySFXByInt(19);
         speechBubble.SetActive(true);
         speechBubble.GetComponent<SpeechBubblePanel_CM>().PanelOpen("여기로 돌아와 봐!");
         tutoEnd = true;

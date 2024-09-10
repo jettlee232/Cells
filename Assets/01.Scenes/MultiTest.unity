@@ -448,7 +448,13 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7428048668191634438, guid: e4819389334c4504290937beeb9cd43b, type: 3}
+    - {fileID: 7428048669899148295, guid: e4819389334c4504290937beeb9cd43b, type: 3}
+    - {fileID: 7428048669620515269, guid: e4819389334c4504290937beeb9cd43b, type: 3}
+    - {fileID: 7428048668788735286, guid: e4819389334c4504290937beeb9cd43b, type: 3}
+    - {fileID: 647301298, guid: e4819389334c4504290937beeb9cd43b, type: 3}
+    - {fileID: 893474989, guid: e4819389334c4504290937beeb9cd43b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4819389334c4504290937beeb9cd43b, type: 3}
@@ -6373,6 +6379,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 34c84e2614f214c10ab02f0d1655c2f8, type: 3}
   - {fileID: 21300000, guid: 796dacdd6ec084b65a06a993ba407a1d, type: 3}
   isThisHandTooltip: 1
+  isThisHandtoolTip: 0
+  pointA: {fileID: 0}
+  pointB: {fileID: 0}
+  handTransform: {fileID: 0}
+  leftOrRight: 0
+  feedback: {fileID: 0}
 --- !u!4 &2341325163649167551
 Transform:
   m_ObjectHideFlags: 0
@@ -61801,6 +61813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flyable: 1
+  snapturn: 1
   startTimer: 0.4
   finishTimer: 1
   moveSpeed: 7
@@ -61811,9 +61824,7 @@ MonoBehaviour:
   resetTimer: 1
   dirStandard: {fileID: 5225917447620445938}
   trackingSpace: {fileID: 3204963201525032233}
-  handParticles:
-  - {fileID: 7999673887650974855}
-  - {fileID: 3582506055004018703}
+  minInput: 0.6
 --- !u!4 &5472402947688659779
 Transform:
   m_ObjectHideFlags: 0
@@ -62814,6 +62825,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 34c84e2614f214c10ab02f0d1655c2f8, type: 3}
   - {fileID: 21300000, guid: 796dacdd6ec084b65a06a993ba407a1d, type: 3}
   isThisHandTooltip: 1
+  isThisHandtoolTip: 0
+  pointA: {fileID: 0}
+  pointB: {fileID: 0}
+  handTransform: {fileID: 0}
+  leftOrRight: 0
+  feedback: {fileID: 0}
 --- !u!224 &5953922120531754732
 RectTransform:
   m_ObjectHideFlags: 0
@@ -65940,6 +65957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flyable: 1
+  snapturn: 1
   startTimer: 0.4
   finishTimer: 1
   moveSpeed: 7
@@ -65950,9 +65968,7 @@ MonoBehaviour:
   resetTimer: 1
   dirStandard: {fileID: 5225917447620445938}
   trackingSpace: {fileID: 3204963201525032233}
-  handParticles:
-  - {fileID: 7999673887650974855}
-  - {fileID: 3582506055004018703}
+  minInput: 0.6
 --- !u!4 &7228622685745402980
 Transform:
   m_ObjectHideFlags: 0

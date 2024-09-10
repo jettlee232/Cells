@@ -55,6 +55,9 @@ public class LaserPointer_Lobby : MonoBehaviour
         // SYS Code        
         handPanelParticle.Stop();
         watchParticle2.Stop();
+
+        // SYS Code
+        lastPos.localPosition = new Vector3(firstPos.localPosition.x, firstPos.localPosition.y + 5f, firstPos.localPosition.z);
     }
 
     void Update()
@@ -157,7 +160,7 @@ public class LaserPointer_Lobby : MonoBehaviour
 
         // SYS Code - Explain Canvas Move Tween
         explainCanvas.position = firstPos.position;
-        moveTween = explainCanvas.DOLocalMove(lastPos.position, 1f).OnComplete(KillMoveTween);
+        moveTween = explainCanvas.DOLocalMove(lastPos.localPosition, 1f).OnComplete(KillMoveTween);
 
         // Latley Update - 240724
 
