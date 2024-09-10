@@ -172,8 +172,9 @@ public class RayDescription_MitoTuto : MonoBehaviour
         glowObj = rayhit;
 
         // SYS Code - Explain Canvas Move Tween
-        explainCanvas.position = firstPos.position;
-        moveTween = explainCanvas.DOLocalMove(lastPos.position, 1f).OnComplete(KillMoveTween);
+        //lastPos.position = explainCanvas.position;
+        //explainCanvas.position = firstPos.position;
+        //moveTween = explainCanvas.DOLocalMove(lastPos.position, 1f).OnComplete(KillMoveTween);
     }
 
     // SYS Code

@@ -82,7 +82,7 @@ public class Teleport_Home : MonoBehaviour
         if (teleportSoundEffect != null)
         {
             //AudioSource.PlayClipAtPoint(teleportSoundEffect, transform.root.GetChild(0).position);
-            //AudioMgr_CM.Instance.PlaySFXByInt(19);
+            AudioMgr_CM.Instance.PlaySFXByInt(17);
         }
 
         if (faderFlag == true) BeforeTeleport();

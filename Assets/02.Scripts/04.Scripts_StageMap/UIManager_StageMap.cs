@@ -158,8 +158,8 @@ public class UIManager_StageMap : MonoBehaviour
         organelleUI.transform.localPosition = Vector3.zero;
         organelleUI.transform.localRotation = Quaternion.Euler(0, 0, 0);
         organelleUI.transform.localScale = Vector3.zero;
-        organelleUI.transform.DOScale(new Vector3(1f, 1f, 1f), 1f);
-        organelleUI.transform.DOLocalRotate(new Vector3(0f, 360f, 0f), 1f, RotateMode.FastBeyond360);
+        organelleUI.transform.DOScale(new Vector3(-.5f, .5f, -.5f), 1f);
+        organelleUI.transform.DOLocalRotate(new Vector3(0f, 180f, 0f), 1f, RotateMode.FastBeyond360);
 
         // Old MSY Code
         /*

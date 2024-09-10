@@ -57,7 +57,7 @@ public class TutorialManager_MitoTuto : MonoBehaviour
             SetPlayerSpeed(3.0f, 15.0f, 15.0f);
         }
 
-        playerMoving_Mito.StartPlayer(5.0f);
+        playerMoving_Mito.StartPlayer(1.0f);
 
         DOTween.Init();
     }

@@ -73,8 +73,8 @@ public class Tooltip : MonoBehaviour
 
         AudioMgr_CM.Instance.PlaySFXByInt(4);
 
-        if (leftOrRight == false) yAxisRotation = Quaternion.Euler(0f, 0f, -2.5f);
-        else yAxisRotation = Quaternion.Euler(0f, 0f, 2.5f);    
+        if (leftOrRight == false) yAxisRotation = Quaternion.Euler(0f, -5f, 0f);
+        else yAxisRotation = Quaternion.Euler(0f, 5f, 0f);    
     }
 
     public void TooltipOn(string content)

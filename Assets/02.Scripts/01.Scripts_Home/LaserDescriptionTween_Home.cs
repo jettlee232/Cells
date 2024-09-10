@@ -9,7 +9,7 @@ using MoreMountains.Feedbacks;
 public class LaserDescriptionTween_Home : MonoBehaviour
 {
     // 원래는 뒤에가 _Lobby여야 하지만 실수로 _Home이라고 적어버림
-
+    public Vector3 goalSize = new Vector3(.5f, .5f, .5f);
     public Button closeBtn;
     public GameObject hlObj;
 
@@ -30,7 +30,7 @@ public class LaserDescriptionTween_Home : MonoBehaviour
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(first);
         transform.localScale = Vector3.zero;
-        transform.DOScale(new Vector3(.5f, .5f, .5f), 1f);
+        transform.DOScale(goalSize, 1f);
         transform.DOLocalRotate(later, 1f, RotateMode.FastBeyond360).OnComplete(ActivateFeedback1);
         //transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().eulerAngles.y, 0f), 1f, RotateMode.FastBeyond360);
         //transform.DORotate(new Vector3(0f, 360f + transform.parent.GetComponent<RectTransform>().localEulerAngles.y, 0f), 1f, RotateMode.FastBeyond360).OnComplete(() => StartCoroutine(LookPlayer()));
@@ -41,8 +41,7 @@ public class LaserDescriptionTween_Home : MonoBehaviour
             go.AddComponent<Button>();
             closeBtn = go.GetComponent<Button>();
         }
-        closeBtn.onClick.AddListener(ReverseTweenAndDestroy);
-        Debug.Log(closeBtn.onClick);
+        closeBtn.onClick.AddListener(ReverseTweenAndDestroy);        
 
         // Latley Update - 240726
         lpLobby = GameObject.FindGameObjectWithTag("Inventory").GetComponent<LaserPointer_Lobby>();

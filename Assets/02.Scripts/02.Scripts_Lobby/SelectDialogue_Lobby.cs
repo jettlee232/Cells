@@ -38,7 +38,12 @@ public class SelectDialogue_Lobby : MonoBehaviour
     public MMF_Player feedback_starWatchText;
     private int feedbackCnt = 0;
     public MMF_Player fb_speechBubble;
+    public MMF_Player fb_speechBubble_0;
     public GameObject dummyPanelCanvas;
+
+    [Header("Speech Bubble Tween")]
+    public GameObject panelBubble;
+
 
     private void Start()
     {
@@ -92,9 +97,11 @@ public class SelectDialogue_Lobby : MonoBehaviour
             }
             else
             {
+                aiChatDummy.gameObject.SetActive(true);
+
                 if (sizeTween != null) sizeTween.Kill(); // 이미 다른 트윈이 실행 중이었다면 실행 중이었던 트윈을 중단하기
 
-                sizeTween = aiChatDummy.transform.DOScale(new Vector3(2f, 2f, 2f), 1f).OnComplete(() => {
+                sizeTween = aiChatDummy.transform.DOScale(new Vector3(1f, 1f, 1f), 1f).OnComplete(() => {
                     sizeTween = null;
                 });
 
@@ -107,6 +114,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
 
             sizeTween = aiChatDummy.transform.DOScale(Vector3.zero, 1f).OnComplete(() => {
                 sizeTween = null;
+                aiChatDummy.gameObject.SetActive(false);
             });
         }
     }
@@ -117,6 +125,7 @@ public class SelectDialogue_Lobby : MonoBehaviour
         {
             fb_speechBubble.SetDirection(MMFeedbacks.Directions.TopToBottom);
             fb_speechBubble.PlayFeedbacks();
+            fb_speechBubble_0.PlayFeedbacks();
         }
         else
         {

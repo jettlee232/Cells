@@ -103,7 +103,7 @@ public class QuestManager_MitoTuto : MonoBehaviour
 
     IEnumerator StartQuest(float delay)
     {
-        locationPanelMito.PanelOpen("미토콘드리아");
+        //locationPanelMito.PanelOpen("미토콘드리아");
         questPanelMito.PanelClose();
         //questPanelMito.ChangeText("");
 

@@ -146,8 +146,8 @@ public class LaserPointer_StageMap : MonoBehaviour
         handPanelParticle.Play();
 
         // SYS Code - Explain Canvas Move Tween
-        explainCanvas.position = firstPos.position;
-        moveTween = explainCanvas.DOLocalMove(lastPos.position, 1f).OnComplete(KillMoveTween);
+        //explainCanvas.position = firstPos.position;
+        //moveTween = explainCanvas.DOLocalMove(lastPos.position, 1f).OnComplete(KillMoveTween);
 
         UIManager_StageMap.instance.OnDesc(go);
         glowObj = go;
@@ -159,7 +159,7 @@ public class LaserPointer_StageMap : MonoBehaviour
 
     public void DestroyDescription() // 패널 없애기
     {
-        KillMoveTween();
+        //KillMoveTween();
         UIManager_StageMap.instance.OffDesc();
         AudioMgr_CM.Instance.PlaySFXByInt(16); // SSS
     }

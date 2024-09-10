@@ -10,7 +10,7 @@ public class PanelLookPlayer_StageMap : MonoBehaviour
     Vector3 directionToPlayer;
     Vector3 oppositeDirection;
     Quaternion lookRotation;
-
+    public bool oppositeSide = true;
 
     private void Start()
     {
@@ -25,9 +25,19 @@ public class PanelLookPlayer_StageMap : MonoBehaviour
     void LookingPlayer()
     {
         directionToPlayer = playerTrns.position - transform.position;
-        oppositeDirection = -directionToPlayer;
-        lookRotation = Quaternion.LookRotation(oppositeDirection);
 
-        panelRectTrns.rotation = lookRotation;
+        if (oppositeSide == true) 
+        { 
+            oppositeDirection = -directionToPlayer;
+            lookRotation = Quaternion.LookRotation(oppositeDirection);
+
+            panelRectTrns.rotation = lookRotation;
+        }
+        else
+        {
+            lookRotation = Quaternion.LookRotation(directionToPlayer);
+
+            panelRectTrns.rotation = lookRotation;
+        }
     }
 }

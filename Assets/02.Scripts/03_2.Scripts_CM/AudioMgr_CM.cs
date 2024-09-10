@@ -145,6 +145,12 @@ public class AudioMgr_CM : MonoBehaviour
                 audioSrc.clip = bgmClips[5];
                 audioSrc.Play();
                 break;
+            case "MultiTest":
+            case "MultiTest2":
+                if (audioSrc.isPlaying) audioSrc.Stop();
+                audioSrc.clip = bgmClips[6];
+                audioSrc.Play();
+                break;  
             default:
                 Debug.Log("No Scene Name");
                 break;
@@ -165,7 +171,8 @@ public class AudioMgr_CM : MonoBehaviour
         else if (currentSceneName == "05_2_Mito" && previousSceneName == "05_1_Mito_Tutorial") return false;
         else if (currentSceneName == "06_Lys_Tutorial" && previousSceneName == "06_Lys_Cutscene") return false;
         else if (currentSceneName == "06_Lys" && previousSceneName == "06_Lys_Tutorial") return false;
-
+        else if (currentSceneName == "MultiTest" && previousSceneName == "MultiTest2") return false;
+        else if (currentSceneName == "MultiTest2" && previousSceneName == "MultiTest") return false;
         return true;
     }
 

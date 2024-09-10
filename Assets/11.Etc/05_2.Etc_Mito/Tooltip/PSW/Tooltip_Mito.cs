@@ -18,11 +18,25 @@ public class Tooltip_Mito : MonoBehaviour
     Vector3 oppositeDirection;
     Quaternion lookRotation;
 
+    // AlwaysOnTop
+    [Header("Always On Top")]
+    public bool isThisHandtoolTip = false;
+    public Transform pointA;
+    public Transform pointB;
+    public Transform handTransform;
+    private float overHandPos = 0.175f;
+    public bool leftOrRight = false;
+    private Quaternion yAxisRotation;
+
+
     void Start()
     {
         if (playerTrns == null) playerTrns = GameObject.FindGameObjectWithTag("MainCamera").transform;
 
         DOTween.Init();
+
+        if (leftOrRight == false) yAxisRotation = Quaternion.Euler(0f, 0f, -2.5f);
+        else yAxisRotation = Quaternion.Euler(0f, 0f, 2.5f);
     }
 
     public void TooltipOn(string content)
@@ -53,7 +67,12 @@ public class Tooltip_Mito : MonoBehaviour
 
     void Update()
     {
-        LookingPlayer();
+        if (isThisHandtoolTip)
+        {
+            AlwaysOnTop();
+            LookingPlayer2();
+        }
+        else LookingPlayer();
     }
 
     void LookingPlayer()
@@ -64,13 +83,29 @@ public class Tooltip_Mito : MonoBehaviour
 
         panelRectTrns.rotation = lookRotation;
         */
-
         
         directionToPlayer = playerTrns.position - transform.position;
         oppositeDirection = -directionToPlayer;
         lookRotation = Quaternion.LookRotation(oppositeDirection);
 
         panelRectTrns.rotation = lookRotation;        
+    }
+
+    void LookingPlayer2()
+    {
+        directionToPlayer = playerTrns.position - pointB.position;
+        oppositeDirection = -directionToPlayer;
+        lookRotation = Quaternion.LookRotation(oppositeDirection);
+
+        pointB.rotation = lookRotation * yAxisRotation;
+    }
+
+    void AlwaysOnTop()
+    {
+        pointA.transform.position = handTransform.position;
+
+        pointB.transform.position = new Vector3(handTransform.position.x, handTransform.position.y + overHandPos,
+            handTransform.position.z);
     }
 
     void SetActiveFalse()
