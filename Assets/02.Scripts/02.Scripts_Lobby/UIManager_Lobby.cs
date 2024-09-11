@@ -11,6 +11,7 @@ public class UIManager_Lobby : MonoBehaviour
     [Header("Settings")]
     public static UIManager_Lobby instance;
     public GameObject alert_UI;
+    public GameObject alert_UI_Multi;
     public GameObject BlackPanel;
     public GameObject QuestPanel;
     public GameObject[] TutorialPanels;
@@ -29,6 +30,7 @@ public class UIManager_Lobby : MonoBehaviour
 
     // SYS Code
     private Tween alertTween;
+    private Tween alertTween_Multi;
 
 
     void Awake()
@@ -78,6 +80,14 @@ public class UIManager_Lobby : MonoBehaviour
         alertTween = alert_UI.transform.DOScale(alertSize, 2f).OnComplete(() => { alertTween = null; });
     }
 
+    public void SetAlert_Multi(GameObject menu)
+    {
+        alert_UI_Multi.SetActive(true);
+        alert_UI_Multi.transform.localScale = Vector3.zero;
+        if (alertTween_Multi != null && alertTween_Multi.IsActive()) alertTween_Multi.Kill(); alertTween_Multi = null;
+        alertTween_Multi = alert_UI_Multi.transform.DOScale(alertSize, 2f).OnComplete(() => { alertTween_Multi = null; });
+    }
+
 
     // SYS Code
     public void HideAlert()
@@ -88,14 +98,34 @@ public class UIManager_Lobby : MonoBehaviour
     }
     IEnumerator hideAlert() { yield return new WaitForSeconds(1f); alert_UI.gameObject.SetActive(false); }
 
+    public void HideAlert_Multi()
+    {
+        if (alertTween_Multi != null && alertTween_Multi.IsActive()) alertTween_Multi.Kill(); alertTween_Multi = null; // alertTween.Complete();
+        alertTween_Multi = alert_UI_Multi.transform.DOScale(Vector3.zero, 1f).OnComplete(() => { alertTween_Multi = null; }); ;
+    }
+
     public void OnClickAnimal()
     {
         HideAlert();
         GameManager_Lobby.instance.MoveScene("04_StageMap");
     }
+
+    public void OnClickMulti()
+    {
+        HideAlert_Multi();
+
+        // 멀티 진입 코드
+
+    }
+
     public void OnClickNo()
     {
         HideAlert();
+    }
+
+    public void OnClickNo_Multi()
+    {
+        HideAlert_Multi();
     }
 
     #endregion

@@ -125,6 +125,23 @@ public class GameManager_Lobby : MonoBehaviour
         */
     }
 
+    public void MoveToMultiScnene()
+    {
+        StartCoroutine(ScreenFadeInAndWarp());
+        //for (int i = 0; i < disableThings.Length; i++) { disableThings[i].SetActive(false); }
+    }
+
+    IEnumerator ScreenFadeAndWarp_Multi()
+    {
+        scrFader.ChangeFadeImageColor(Color.black, 6f, 1f);
+        scrFader.DoFadeIn();
+        //RenderSettings.skybox = skyboxMat;
+
+        yield return new WaitForSeconds(1.5f);
+
+        AudioMgr_CM.Instance.AudioFade();
+        MoveScene("07_Multi");
+    }
 
     public float GetMoveSpeed() { return moveSpeed; }
     public GameObject GetPlayerCam() { return playerCam; }

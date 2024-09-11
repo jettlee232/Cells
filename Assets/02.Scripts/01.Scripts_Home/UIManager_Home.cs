@@ -8,6 +8,12 @@ public class UIManager_Home : MonoBehaviour
 {
     public Image black;
 
+    private void Start()
+    {
+        PlayerPrefs.SetInt("MultiCheck1", 0);
+        PlayerPrefs.SetInt("MultiCheck2", 0);
+    }
+
     public void OnClickStartBtn() { StartCoroutine(MoveScene()); }
 
     IEnumerator MoveScene()
