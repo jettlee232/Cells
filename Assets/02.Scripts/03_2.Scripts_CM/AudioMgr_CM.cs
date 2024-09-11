@@ -46,6 +46,7 @@ public class AudioMgr_CM : MonoBehaviour
         // 초기화
         previousSceneName = "None"; // 최초 실행시 이전 씬은 없음
         currentSceneName = SceneManager.GetActiveScene().name;
+        audioSrc.volume = 0.35f; // <= 이게 추가된 부분
     }
 
     public static AudioMgr_CM Instance
@@ -79,7 +80,8 @@ public class AudioMgr_CM : MonoBehaviour
         flag_audioFade = false;
 
         audioSrc = GetComponent<AudioSource>();
-        audioSrc.volume = PlayerPrefs.GetFloat("Volume", 0.2f);
+        //audioSrc.volume = PlayerPrefs.GetFloat("Volume", 0.2f);
+        audioSrc.volume = 0.35f;
         audioSrc.pitch = PlayerPrefs.GetFloat("Pitch", 1f);
 
         sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1f); // New Code - For SFX Volume        

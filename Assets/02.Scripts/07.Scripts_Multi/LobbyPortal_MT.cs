@@ -18,23 +18,7 @@ public class LobbyPortal_MT : MonoBehaviourPunCallbacks
 
     public void LeaveGame()
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-        {
-            PhotonNetwork.CurrentRoom.IsOpen = false; // 방을 열 수 없게 설정
-            PhotonNetwork.CurrentRoom.IsVisible = false; // 방을 목록에서 숨김
-            PhotonNetwork.LeaveRoom();
-        }
-        else { PhotonNetwork.LeaveRoom(); }
-        /*
-        if (PhotonNetwork.InRoom)
-        {
-            PhotonNetwork.LeaveRoom();
-        }
-        else
-        {
-            PhotonNetwork.Disconnect();
-        }
-        */
+        PhotonNetwork.Disconnect();
     }
 
     public override void OnLeftRoom()

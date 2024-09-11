@@ -8,6 +8,7 @@ public class RoomManager_MT : MonoBehaviourPunCallbacks
 {
     void Start()
     {
+        PlayerPrefs.SetInt("MultiCheck2", 1);
         PhotonNetwork.AutomaticallySyncScene = true;
 
         if (!PhotonNetwork.IsConnectedAndReady)
